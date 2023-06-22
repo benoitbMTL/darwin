@@ -28,7 +28,7 @@
 
         <form id="ping-form" class="mb-4 d-flex align-items-center" onsubmit="performPing(event)">
             <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control me-2" required style="max-width: 250px;">
-            <button type="submit" class="btn btn-info me-2">Ping</button>
+            <button type="submit" class="btn btn-primary me-2">Ping</button>
             <button type="button" class="btn btn-secondary" onclick="resetPingForm()">Reset</button>
         </form>
 
@@ -45,7 +45,7 @@
                     <option value="pablo">pablo</option>
                     <option value="smithy">smithy</option>
                 </select>
-                <button type="button" class="btn btn-danger me-2" onclick="performCommandInjection()">Command Injection</button>
+                <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command Injection</button>
                 <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
             </div>
         </div>
