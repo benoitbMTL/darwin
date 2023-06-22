@@ -13,6 +13,9 @@ ARG FWB_MGT_IP="192.168.4.2"
 ARG POLICY="DVWA_POLICY"
 ARG USER_AGENT="FortiWeb Demo Tool"
 
+# Install required packages; curl, jq
+RUN apk update && apk add --no-cache curl jq
+
 # Set the working directory inside the container
 WORKDIR /app
 
