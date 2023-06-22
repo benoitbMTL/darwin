@@ -12,7 +12,10 @@ func main() {
 	e := echo.New()
 
 	// Set the location of the templates directory
-	e.Static("/", "templates")
+	e.Static("/templates", "templates")
+
+	// Serve static files from the static directory
+	e.Static("/static", "static")
 
 	// Route to render the HTML page
 	e.GET("/", func(c echo.Context) error {
