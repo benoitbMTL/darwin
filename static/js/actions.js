@@ -67,9 +67,9 @@ function performCommandInjection() {
 function resetCommandInjection() {
     var iframe = document.getElementById('command-injection-result');
 
-    // Set the iframe source to about:blank after a short delay
+    // Set the iframe source to an empty HTML page after a short delay
     setTimeout(function () {
-        iframe.src = 'about:blank';
+        iframe.src = 'data:text/html;charset=utf-8,<html></html>';
 
         // Reset the iframe height after another short delay
         setTimeout(function () {
@@ -77,6 +77,7 @@ function resetCommandInjection() {
         }, 100);
     }, 100);
 }
+
 
 
 // Function to adjust the height of the iframe based on its content:
