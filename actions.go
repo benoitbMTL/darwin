@@ -3,7 +3,6 @@ package main
 import (
 	"net/http"
 	"os/exec"
-	"regexp"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -62,6 +61,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"-H", "referer: "+DVWA_URL+"/",
 		"-H", "user-agent: "+USER_AGENT,
 		"--insecure",
+		"--silent",
 		"--data-raw", "username="+username+"&password="+password+"&Login=Login",
 		"-c", "cookie.txt",
 	)
@@ -89,14 +89,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Extract the content between <h3> tags
-	re := regexp.MustCompile("(?s)<h3>(.*?)</h3>")
-	matches := re.FindStringSubmatch(string(output2))
-
 	// Return the output of the second curl command
-	if len(matches) > 1 {
-		return c.String(http.StatusOK, string(output)+"\n"+matches[1])
-	} else {
-		return c.String(http.StatusOK, string(output)+"\nNo result found")
-	}
+	return c.String(http.StatusOK, string(output)+"\n"+string(output2))
+
 }
