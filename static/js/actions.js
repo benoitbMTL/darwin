@@ -67,18 +67,22 @@ function performCommandInjection() {
 function resetCommandInjection() {
     var iframe = document.getElementById('command-injection-result');
 
-    // Set the iframe source to an empty HTML page after a short delay
-    setTimeout(function () {
-        iframe.src = 'data:text/html;charset=utf-8,<html></html>';
+    // Remove the iframe element
+    iframe.parentNode.removeChild(iframe);
 
-        // Reset the iframe height after another short delay
-        setTimeout(function () {
-            iframe.style.height = '35px'; // Set this to the initial height you want
-        }, 100);
-    }, 100);
+    // Create a new iframe element
+    var newIframe = document.createElement('iframe');
+    newIframe.id = 'command-injection-result';
+    newIframe.className = 'action-result border';
+    newIframe.style.width = '100%';
+    newIframe.onload = function () {
+        resizeIframe(this);
+    };
+
+    // Append the new iframe to its parent container
+    var parentContainer = document.getElementById('command-injection-container');
+    parentContainer.appendChild(newIframe);
 }
-
-
 
 // Function to adjust the height of the iframe based on its content:
 function resizeIframe(iframe) {

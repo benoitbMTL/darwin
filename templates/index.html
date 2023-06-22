@@ -45,13 +45,18 @@
                     <option value="pablo">pablo</option>
                     <option value="smithy">smithy</option>
                 </select>
-                <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command Injection</button>
+                <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command
+                    Injection</button>
                 <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
             </div>
         </div>
 
-<iframe id="command-injection-result" class="action-result border" style="width: 100%;"
-    onload="resizeIframe(this)"></iframe>
+        <div id="command-injection-container">
+            <iframe id="command-injection-result" class="action-result border" style="width: 100%;"
+                onload="resizeIframe(this)"></iframe>
+        </div>
+
+        onload="resizeIframe(this)"></iframe>
 
     </div>
 
