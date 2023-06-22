@@ -56,9 +56,10 @@ function performCommandInjection() {
     })
         .then(response => response.text())
         .then(htmlContent => {
-            document.getElementById('command-injection-result').innerHTML = htmlContent;
+            document.getElementById('command-injection-result').srcdoc = htmlContent;
         })
         .catch(error => console.error('Error:', error));
+        
 }
 
 // Function to reset the command injection result
