@@ -97,8 +97,8 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	// Return the output of the second curl command
 	if len(matches) > 1 {
-		return c.String(http.StatusOK, matches[1])
+		return c.String(http.StatusOK, string(output)+"\n"+matches[1])
 	} else {
-		return c.String(http.StatusOK, "No result found")
+		return c.String(http.StatusOK, string(output)+"\nNo result found")
 	}
 }
