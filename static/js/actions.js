@@ -55,8 +55,8 @@ function performCommandInjection() {
         body: 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password)
     })
         .then(response => response.text())
-        .then(result => {
-            document.getElementById('command-injection-result').innerText = result;
+        .then(htmlContent => {
+            document.getElementById('command-injection-result').innerHTML = htmlContent;
         })
         .catch(error => console.error('Error:', error));
 }
