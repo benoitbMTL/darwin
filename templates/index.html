@@ -16,23 +16,24 @@
             font-family: 'Courier New', monospace;
             white-space: pre;
             /* This preserves formatting of the text */
-            margin-bottom: 20px;
-            /* Adjust the value as needed */
         }
     </style>
 </head>
 
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">FortiWeb Demo Tool</h1>
+        <div class="d-flex align-items-center mb-4">
+            <img src="images/ficon-fortiweb-64.svg" alt="FortiWeb Icon" style="height: 40px; margin-right: 15px;">
+            <h1>FortiWeb Demo Tool</h1>
+        </div>
         <p class="mb-4">This tool will walk you through a FortiWeb demonstration in the Fabric Lab environment.</p>
 
-        <form id="ping-form" action="/ping" method="post" class="mb-4">
-            <div class="mb-3">
-                <label for="ip-fqdn" class="form-label">Enter IP Address or FQDN:</label>
-                <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control" required>
+        <form id="ping-form" action="/ping" method="post" class="mb-4 d-flex">
+            <div class="mb-3 me-2" style="flex-grow: 1;">
+                <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control" required style="width: auto;">
             </div>
-            <button type="submit" class="btn btn-primary">Ping</button>
+            <button type="submit" class="btn btn-primary me-2">Ping</button>
+            <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
         </form>
 
         <div id="ping-result" class="border p-3"></div>
@@ -55,6 +56,11 @@
                 })
                 .catch(error => console.error('Error:', error));
         });
+
+        function resetForm() {
+            document.getElementById('ip-fqdn').value = '';
+            document.getElementById('ping-result').innerText = '';
+        }
     </script>
 
     <!-- Bootstrap JS -->
@@ -64,6 +70,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+
 </body>
 
 </html>
