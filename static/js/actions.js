@@ -57,12 +57,19 @@ function performCommandInjection() {
         .then(response => response.text())
         .then(htmlContent => {
             document.getElementById('command-injection-result').srcdoc = htmlContent;
+            document.getElementById('command-injection-result').style.height = '0px';
         })
         .catch(error => console.error('Error:', error));
-        
+
 }
 
 // Function to reset the command injection result
 function resetCommandInjection() {
     document.getElementById('command-injection-result').innerText = '';
 }
+
+// Function to adjust the height of the iframe based on its content:
+function resizeIframe(iframe) {
+    iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+}
+
