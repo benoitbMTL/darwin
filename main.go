@@ -77,7 +77,7 @@ func main() {
 			"-H", "referer: https://192.168.4.10/",
 			"-H", "user-agent: FortiWeb Demo Script",
 			"--insecure",
-			"--silent",
+			"--verbose",
 			"--data-raw", "username="+username+"&password="+password+"&Login=Login",
 			"-c", "cookie.txt",
 		)
