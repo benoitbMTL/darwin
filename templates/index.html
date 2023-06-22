@@ -19,36 +19,46 @@
     <div class="container mt-5">
         <div class="d-flex align-items-center mb-4">
             <img src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon" class="fortiweb-icon">
+
             <h1>FortiWeb Demo Tool</h1>
+
         </div>
+
         <p class="mb-4">This tool will walk you through a FortiWeb demonstration in the Fabric Lab environment.</p>
 
-        <form id="ping-form" class="mb-4 d-flex align-items-center">
+        <form id="ping-form" class="mb-4 d-flex align-items-center" onsubmit="performPing(event)">
             <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control me-2" required style="max-width: 200px;">
             <button type="submit" class="btn btn-primary me-2">Ping</button>
-            <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+            <button type="button" class="btn btn-secondary" onclick="resetPingForm()">Reset</button>
         </form>
 
         <div id="ping-result" class="border p-3"></div>
+
     </div>
 
-    <div class="d-flex align-items-center mb-4">
-        <span>Choose a user and perform a Command Injection Attack: </span>
-        <select id="username" class="form-control me-2">
-            <option value="admin">admin</option>
-            <option value="gordonb">gordonb</option>
-            <option value="1337">1337</option>
-            <option value="pablo">pablo</option>
-            <option value="smithy">smithy</option>
-        </select>
-        <button type="button" class="btn btn-primary" onclick="performCommandInjection()">Command Injection</button>
+    <div class="mb-4">
+        <div class="mb-2">Choose a user and perform a Command Injection Attack:</div>
+        <div class="d-flex align-items-center">
+            <select id="username" class="form-control me-2" style="width: auto;">
+                <option value="admin">admin</option>
+                <option value="gordonb">gordonb</option>
+                <option value="1337">1337</option>
+                <option value="pablo">pablo</option>
+                <option value="smithy">smithy</option>
+            </select>
+            <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command
+                Injection</button>
+            <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
+        </div>
     </div>
-    
+
+    <div id="command-injection-result" class="border p-3"></div>
+
+
     <div id="command-injection-result" class="border p-3"></div>
 
     <!-- Custom JS -->
-    <script src="/static/js/scripts.js"></script>
-    <script src="/static/js/actions.js"></script>
+    <script src="/static/js/main.js"></script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
