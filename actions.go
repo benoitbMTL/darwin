@@ -1,6 +1,9 @@
 package main
 
 import (
+	"bufio"
+	"fmt"
+	"io"
 	"net/http"
 	"os/exec"
 	"strings"
@@ -17,23 +20,63 @@ func registerActions(e *echo.Echo) {
 }
 
 func handlePingAction(c echo.Context) error {
-	ipFqdn := c.FormValue("ip-fqdn")
+    ipFqdn := c.FormValue("ip-fqdn")
 
-	// Sanitize the input to avoid command injection
-	if strings.ContainsAny(ipFqdn, ";&|") {
-		return c.String(http.StatusBadRequest, "Invalid characters in input")
-	}
+    // Sanitize the input to avoid command injection
+    if strings.ContainsAny(ipFqdn, ";&|") {
+        return c.String(http.StatusBadRequest, "Invalid characters in input")
+    }
 
-	// Execute the ping command
-	cmd := exec.Command("ping", "-c", "4", ipFqdn)
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
-	}
+    // Create a new command for ping
+    cmd := exec.Command("ping", "-c", "4", ipFqdn)
 
-	// Return the output of the ping command
-	return c.String(http.StatusOK, string(output))
+    // Create a pipe to capture the command output
+    stdout, err := cmd.StdoutPipe()
+    if err != nil {
+        return c.String(http.StatusInternalServerError, err.Error())
+    }
+
+    // Create a reader for command output
+    reader := bufio.NewReader(stdout)
+
+    // Start the command
+    if err := cmd.Start(); err != nil {
+        return c.String(http.StatusInternalServerError, err.Error())
+    }
+
+    c.Response().Header().Set("Content-Type", "text/event-stream")
+
+    // Create a goroutine to read and send the command output
+    go func() {
+        defer stdout.Close()
+
+        // While command is running
+        for {
+            // Read line from the command's output
+            line, _, err := reader.ReadLine()
+            if err != nil {
+                if err == io.EOF {
+                    break
+                }
+                // log the error
+                return
+            }
+
+            // Write the output to SSE
+            c.Response().Write([]byte(fmt.Sprintf("data: %s\n\n", line)))
+
+            c.Response().Flush() // Send it immediately
+        }
+
+        // Wait for the command to complete
+        if err := cmd.Wait(); err != nil {
+            // log the error
+        }
+    }()
+
+    return c.NoContent(http.StatusOK)
 }
+
 
 func handleCommandInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")
