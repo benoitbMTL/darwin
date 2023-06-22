@@ -1,0 +1,10 @@
+#ping-result {
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    /* This preserves formatting of the text */
+}
+
+.fortiweb-icon {
+    height: 50px;
+    margin-right: 15px;
+}
