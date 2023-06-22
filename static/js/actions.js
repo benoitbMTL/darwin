@@ -70,6 +70,6 @@ function resetCommandInjection() {
 
 // Function to adjust the height of the iframe based on its content:
 function resizeIframe(iframe) {
-    iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+    iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 5) + 'px';
 }
 
