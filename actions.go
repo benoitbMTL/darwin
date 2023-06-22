@@ -80,6 +80,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"-H", "referer: "+DVWA_URL+"/index.php",
 		"-H", "user-agent: "+USER_AGENT,
 		"--insecure",
+		"--silent"
 		"--data-raw", "ip=;ls&Submit=Submit",
 		"-b", "cookie.txt",
 	)
