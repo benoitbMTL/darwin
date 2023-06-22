@@ -8,3 +8,8 @@
     height: 50px;
     margin-right: 15px;
 }
+
+iframe.action-result {
+    height: 45px;
+    /* or any other value that you find suitable */
+}
