@@ -4,4 +4,4 @@ git fetch
 git branch -v
 git merge origin/main
 
-go run main.go
+go run .
