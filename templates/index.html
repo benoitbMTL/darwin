@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darwin Project</title>
+    <title>FortiWeb Demo Tool</title>
 </head>
 
 <body>
-    <h1>Darwin Project</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
-        dapibus diam. Sed nisi.</p>
+    <h1>FortiWeb Demo Tool</h1>
+    <p>This tool will walk you through a FortiWeb demonstration in the Fabric Lab environment.</p>
 
     <form id="ping-form" action="/ping" method="post">
         <label for="ip-fqdn">Enter IP Address or FQDN:</label>
@@ -19,7 +18,12 @@
         <button type="submit">Ping</button>
     </form>
 
+    <br>
+
     <div id="ping-result"></div>
+
+    <p>Fin de la page.</p>
+
 
     <script>
         document.getElementById('ping-form').addEventListener('submit', function (event) {
