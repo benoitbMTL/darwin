@@ -1,4 +1,4 @@
-#ping-result {
+.action-result {
     font-family: 'Courier New', monospace;
     white-space: pre;
     /* This preserves formatting of the text */

@@ -10,4 +10,5 @@ const (
 	TOKEN          = "eyJ1c2VybmFtZSI6InVzZXJhcGkiLCJwYXNzd29yZCI6ImZhY2VMT0NLeWFybjY3ISJ9Cg=="
 	FWB_MGT_IP     = "192.168.4.2"
 	POLICY         = "DVWA_POLICY"
+	USER_AGENT     = "FortiWeb Demo Tool"
 )
