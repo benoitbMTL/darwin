@@ -90,7 +90,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Return the output of the second curl command
-	return c.String(http.StatusOK, string(output)+"\n"+string(output2))
+	// Return the HTML content of the two curl command
+	return c.HTML(http.StatusOK, string(output)+"\n"+string(output2))
 
 }
