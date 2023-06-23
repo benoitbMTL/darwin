@@ -14,14 +14,25 @@ iframe.action-result {
     /* or any other value that you find suitable */
 }
 
-/* Dark Mode */
+/* Light Mode (Eggshell) */
+body {
+    background-color: #F0EAD6;
+    color: #000000;
+}
+
+.action-result {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Dark Mode (Space Grey) */
 .dark-mode {
-    background-color: #121212;
+    background-color: #282C34;
     color: #ffffff;
 }
 
 .dark-mode .action-result {
-    background-color: #2e2e2ec3;
+    background-color: #3C3F4A;
     color: #ffffff;
 }
 
