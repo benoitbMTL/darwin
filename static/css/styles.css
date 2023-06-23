@@ -13,3 +13,14 @@ iframe.action-result {
     height: 35px;
     /* or any other value that you find suitable */
 }
+
+/* Dark Mode */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode .action-result {
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
