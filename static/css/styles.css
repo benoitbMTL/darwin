@@ -16,18 +16,18 @@ iframe.action-result {
 
 /* Light Mode (Eggshell) */
 body {
-    background-color: #F0EAD6;
+    background-color: #F3F3F3;
     color: #000000;
 }
 
 .action-result {
-    background-color: #ffffff;
+    background-color: #454545;
     color: #000000;
 }
 
 /* Dark Mode (Space Grey) */
 .dark-mode {
-    background-color: #282C34;
+    background-color: #454545;
     color: #ffffff;
 }
 
