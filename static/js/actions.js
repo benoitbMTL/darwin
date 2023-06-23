@@ -24,8 +24,10 @@ function performCommandInjection() {
     })
         .then(response => response.text())
         .then(htmlContent => {
-            document.getElementById('command-injection-result').srcdoc = htmlContent;
-            document.getElementById('command-injection-result').style.height = '0px';
+            var iframe = document.getElementById('command-injection-result');
+            iframe.srcdoc = htmlContent;
+            iframe.style.height = '0px';
+            iframe.style.display = 'block'; // Show the iframe
         })
         .catch(error => console.error('Error:', error));
 }
