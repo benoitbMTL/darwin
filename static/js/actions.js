@@ -96,8 +96,10 @@ function viewPageSource() {
         .then(response => response.text())
         .then(result => {
             document.getElementById('bot-deception-additional-text').innerText = "We can see a hidden link on the login page (display:none)";
-            document.getElementById('bot-deception-result').srcdoc = result;
-            document.getElementById('bot-deception-result').style.height = '0px';
+            document.getElementById('bot-deception-result').style.display = 'none';
+            var textResult = document.getElementById('bot-deception-text-result');
+            textResult.innerText = result;
+            textResult.style.display = 'block';
         })
         .catch(error => console.error('Error:', error));
 }
@@ -112,8 +114,10 @@ function performBotDeception() {
         .then(response => response.text())
         .then(htmlContent => {
             document.getElementById('bot-deception-additional-text').innerText = "We simulate a malicious bot by following the hidden link";
-            document.getElementById('bot-deception-result').srcdoc = htmlContent;
-            document.getElementById('bot-deception-result').style.height = '0px';
+            var iframeResult = document.getElementById('bot-deception-result');
+            iframeResult.srcdoc = htmlContent;
+            iframeResult.style.display = 'block';
+            document.getElementById('bot-deception-text-result').style.display = 'none';
         })
         .catch(error => console.error('Error:', error));
 }
