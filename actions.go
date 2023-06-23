@@ -197,7 +197,14 @@ func handlePingAction(c echo.Context) error {
 	cmd := exec.Command("ping", "-c", "2", ipFqdn)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
+		// Check the error message
+		if strings.Contains(err.Error(), "Name or service not known") {
+			return c.String(http.StatusInternalServerError, "The FQDN does not resolve")
+		} else if strings.Contains(err.Error(), "Destination Host Unreachable") {
+			return c.String(http.StatusInternalServerError, "The destination is not reachable")
+		} else {
+			return c.String(http.StatusInternalServerError, err.Error())
+		}
 	}
 
 	// Return the output of the ping command
