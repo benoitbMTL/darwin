@@ -1,13 +1,9 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"io"
 	"net/http"
 	"os/exec"
 	"strings"
-	"sync"
 
 	"github.com/labstack/echo/v4"
 )
