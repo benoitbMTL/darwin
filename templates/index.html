@@ -16,6 +16,9 @@
 </head>
 
 <body>
+
+
+
     <div class="container mt-5">
         <!-- Logo, Title, Dark Mode Switch -->
         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -33,68 +36,107 @@
         <!-- Subtitle -->
         <h4 class="mb-4">This tool will walk you through a FortiWeb demonstration in the Fabric Lab environment.</h4>
 
-        <!-- Username List -->
-        <div class="mb-5">
-            <p>Choose the user who will generate the traffic. You can change it at any time:</p>
-            <select id="username" class="form-control" style="width: 250px;"></select>
+
+
+        <div class="category-buttons">
+            <button onclick="showCategory('web-protection')">Web Protection</button>
+            <button onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
+            <button onclick="showCategory('api-protection')">API Protection</button>
+            <button onclick="showCategory('dos-protection')">DOS Protection</button>
+            <button onclick="showCategory('machine-learning')">Machine Learning</button>
+            <button onclick="showCategory('health-check')">Health Check</button>
         </div>
 
-        <!-- Command Injection -->
-        <div class="mb-5">
-            <p class="mb-4">Perform a Command Injection Attack:</p>
-            <div class="d-flex align-items-center mb-3">
-                <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command
-                    Injection</button>
-                <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
+
+
+
+        <div id="web-protection" class="category">
+
+            <!-- Username List -->
+            <div class="mb-5">
+                <p>Choose the user who will generate the traffic. You can change it at any time:</p>
+                <select id="username" class="form-control" style="width: 250px;"></select>
             </div>
-            <div id="command-injection-container">
-                <iframe id="command-injection-result" class="action-result border" style="width: 100%;"
-                    onload="resizeIframe(this)"></iframe>
+
+            <!-- Command Injection -->
+            <div class="mb-5">
+                <p class="mb-4">Perform a Command Injection Attack:</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command
+                        Injection</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
+                </div>
+                <div id="command-injection-container">
+                    <iframe id="command-injection-result" class="action-result border" style="width: 100%;"
+                        onload="resizeIframe(this)"></iframe>
+                </div>
+            </div>
+
+            <!-- SQL Injection -->
+            <div class="mb-5">
+                <p class="mb-4">Perform a SQL Injection Attack:</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary me-2" onclick="performSQLInjection()">SQL
+                        Injection</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetSQLInjection()">Reset</button>
+                </div>
+                <div id="sql-injection-container">
+                    <iframe id="sql-injection-result" class="action-result border" style="width: 100%;"
+                        onload="resizeIframe(this)"></iframe>
+                </div>
             </div>
         </div>
 
-        <!-- SQL Injection -->
-        <div class="mb-5">
-            <p class="mb-4">Perform a SQL Injection Attack:</p>
-            <div class="d-flex align-items-center mb-3">
-                <button type="button" class="btn btn-primary me-2" onclick="performSQLInjection()">SQL
-                    Injection</button>
-                <button type="button" class="btn btn-secondary" onclick="resetSQLInjection()">Reset</button>
-            </div>
-            <div id="sql-injection-container">
-                <iframe id="sql-injection-result" class="action-result border" style="width: 100%;"
-                    onload="resizeIframe(this)"></iframe>
+
+        <div id="bot-mitigation" class="category" style="display:none;">
+
+            <!-- Bot Deception -->
+            <div class="mb-5">
+                <p class="mb-4">Perform a Bot Deception:</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary me-2" onclick="viewPageSource()">View Page
+                        Source</button>
+                    <button type="button" class="btn btn-primary me-2" onclick="performBotDeception()">Bot
+                        Deception</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetBotDeception()">Reset</button>
+                </div>
+                <div id="bot-deception-additional-text" class="additional-text mt-4 mb-4"></div>
+                <div id="bot-deception-container">
+                    <iframe id="bot-deception-result" class="action-result border" style="width: 100%; display:none;"
+                        onload="resizeIframe(this)"></iframe>
+                    <pre id="bot-deception-text-result" class="action-result border"
+                        style="width: 100%; display:none;"></pre>
+                </div>
             </div>
         </div>
 
-        <!-- Bot Deception -->
-        <div class="mb-5">
-            <p class="mb-4">Perform a Bot Deception:</p>
-            <div class="d-flex align-items-center mb-3">
-                <button type="button" class="btn btn-primary me-2" onclick="viewPageSource()">View Page Source</button>
-                <button type="button" class="btn btn-primary me-2" onclick="performBotDeception()">Bot
-                    Deception</button>
-                <button type="button" class="btn btn-secondary" onclick="resetBotDeception()">Reset</button>
-            </div>
-            <div id="bot-deception-additional-text" class="additional-text mt-4 mb-4"></div>
-            <div id="bot-deception-container">
-                <iframe id="bot-deception-result" class="action-result border" style="width: 100%; display:none;"
-                    onload="resizeIframe(this)"></iframe>
-                <pre id="bot-deception-text-result" class="action-result border"
-                    style="width: 100%; display:none;"></pre>
-            </div>
+
+        <div id="api-protection" class="category" style="display:none;">
+            <!-- API Protection actions go here -->
         </div>
 
-        <!-- Ping -->
-        <div class="mb-5">
-            <p class="mb-4">Perform a Ping:</p>
-            <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
-                <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control me-2" required
-                    style="max-width: 250px;">
-                <button type="submit" class="btn btn-primary me-2">Ping</button>
-                <button type="button" class="btn btn-secondary" onclick="resetPingForm()">Reset</button>
-            </form>
-            <div id="ping-result" class="action-result border p-3"></div>
+        <div id="dos-protection" class="category" style="display:none;">
+            <!-- DOS Protection actions go here -->
+        </div>
+
+        <div id="machine-learning" class="category" style="display:none;">
+            <!-- Machine Learning actions go here -->
+        </div>
+
+
+        <div id="health-check" class="category" style="display:none;">
+
+            <!-- Ping -->
+            <div class="mb-5">
+                <p class="mb-4">Perform a Ping:</p>
+                <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
+                    <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control me-2" required
+                        style="max-width: 250px;">
+                    <button type="submit" class="btn btn-primary me-2">Ping</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetPingForm()">Reset</button>
+                </form>
+                <div id="ping-result" class="action-result border p-3"></div>
+            </div>
         </div>
 
         <!-- Space before the end of the page -->
@@ -104,6 +146,7 @@
     <!-- Custom JS -->
     <script src="/static/js/actions.js"></script>
     <script src="/static/js/dark-mode-toggle.js"></script>
+    <script src="categories.js"></script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
