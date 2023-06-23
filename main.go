@@ -23,6 +23,7 @@ func main() {
 	
 	// Register config handler
 	e.GET("/api/config", ConfigHandler)
+	e.GET("/api/config/default", ConfigHandler)
 
 	// Start the server
 	e.Start(":8080")
