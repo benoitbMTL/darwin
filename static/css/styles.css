@@ -16,12 +16,12 @@ iframe.action-result {
 
 /* Light Mode (Eggshell) */
 body {
-    background-color: #F3F3F3;
+    background-color: #EEE8D6;
     color: #000000;
 }
 
 .action-result {
-    background-color: #454545;
+    background-color: #DDD8C2;
     color: #000000;
 }
 
