@@ -35,12 +35,18 @@
         <p class="mb-4"><strong>This tool will walk you through a full FortiWeb demonstration.</strong></p>
 
         <div class="category-buttons">
-            <button onclick="showCategory('web-protection')">Web Protection</button>
-            <button onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
-            <button onclick="showCategory('api-protection')">API Protection</button>
-            <button onclick="showCategory('dos-protection')">DOS Protection</button>
-            <button onclick="showCategory('machine-learning')">Machine Learning</button>
-            <button onclick="showCategory('health-check')">Health Check</button>
+            <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
+                onclick="showCategory('web-protection')">Web Protection</button>
+            <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
+            <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                onclick="showCategory('api-protection')">API Protection</button>
+            <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                onclick="showCategory('dos-protection')">DOS Protection</button>
+            <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                onclick="showCategory('machine-learning')">Machine Learning</button>
+            <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                onclick="showCategory('health-check')">Health Check</button>
         </div>
 
         <div id="web-protection" class="category">
@@ -55,9 +61,11 @@
             <div class="mb-5">
                 <p class="mb-4">Perform a Command Injection Attack:</p>
                 <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command
+                    <button type="button" class="btn btn-primary btn-sm me-2"
+                        onclick="performCommandInjection()">Command
                         Injection</button>
-                    <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
+                    <button type="button" class="btn btn-secondary btn-sm"
+                        onclick="resetCommandInjection()">Reset</button>
                 </div>
                 <div id="command-injection-container">
                     <iframe id="command-injection-result" class="action-result border" style="width: 100%;"
@@ -69,9 +77,9 @@
             <div class="mb-5">
                 <p class="mb-4">Perform a SQL Injection Attack:</p>
                 <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary me-2" onclick="performSQLInjection()">SQL
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performSQLInjection()">SQL
                         Injection</button>
-                    <button type="button" class="btn btn-secondary" onclick="resetSQLInjection()">Reset</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetSQLInjection()">Reset</button>
                 </div>
                 <div id="sql-injection-container">
                     <iframe id="sql-injection-result" class="action-result border" style="width: 100%;"
@@ -87,11 +95,11 @@
             <div class="mb-5">
                 <p class="mb-4">Perform a Bot Deception:</p>
                 <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary me-2" onclick="viewPageSource()">View Page
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="viewPageSource()">View Page
                         Source</button>
-                    <button type="button" class="btn btn-primary me-2" onclick="performBotDeception()">Bot
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performBotDeception()">Bot
                         Deception</button>
-                    <button type="button" class="btn btn-secondary" onclick="resetBotDeception()">Reset</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetBotDeception()">Reset</button>
                 </div>
                 <div id="bot-deception-additional-text" class="additional-text mt-4 mb-4"></div>
                 <div id="bot-deception-container">
@@ -125,8 +133,8 @@
                 <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
                     <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control me-2" required
                         style="max-width: 250px;">
-                    <button type="submit" class="btn btn-primary me-2">Ping</button>
-                    <button type="button" class="btn btn-secondary" onclick="resetPingForm()">Reset</button>
+                    <button type="submit" class="btn btn-primary btn-sm me-2">Ping</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetPingForm()">Reset</button>
                 </form>
                 <div id="ping-result" class="action-result border p-3"></div>
             </div>
