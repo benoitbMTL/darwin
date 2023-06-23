@@ -56,6 +56,27 @@
                 onload="resizeIframe(this)"></iframe>
         </div>
 
+        <p class="mb-4">Choose a user and perform a SQL Injection Attack:</p>
+        
+        <div class="mb-4">
+            <div class="d-flex align-items-center">
+                <select id="username" class="form-control me-2" style="width: 250px;">
+                    <option value="admin">admin</option>
+                    <option value="gordonb">gordonb</option>
+                    <option value="1337">1337</option>
+                    <option value="pablo">pablo</option>
+                    <option value="smithy">smithy</option>
+                </select>
+                <button type="button" class="btn btn-primary me-2" onclick="performSQLInjection()">SQL Injection</button>
+                <button type="button" class="btn btn-secondary" onclick="resetSQLInjection()">Reset</button>
+            </div>
+        </div>
+        
+        <div id="sql-injection-container">
+            <iframe id="sql-injection-result" class="action-result border" style="width: 100%;"
+                onload="resizeIframe(this)"></iframe>
+        </div>
+
     </div>
 
     <!-- Custom JS -->
