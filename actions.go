@@ -31,11 +31,14 @@ func handlePingAction(c echo.Context) error {
 	// Create a new command for ping
 	cmd := exec.Command("ping", "-c", "4", ipFqdn)
 
-	// Create a pipe to capture the command output
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
-	}
+	// Merge stdout and stderr
+	cmd.Stderr = cmd.Stdout
+
+// Create a pipe to capture the command output
+stdout, err := cmd.StdoutPipe()
+if err != nil {
+    return c.String(http.StatusInternalServerError, err.Error())
+}
 
 	// Create a reader for command output
 	reader := bufio.NewReader(stdout)
