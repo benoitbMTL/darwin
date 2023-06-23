@@ -126,12 +126,10 @@ function resetBotDeception() {
     // Reset the iframe for bot deception
     var iframe = document.getElementById('bot-deception-result');
     iframe.srcdoc = '';
-    iframe.style.display = 'none';
 
     // Reset the <pre> element for view page source
     var preElement = document.getElementById('bot-deception-text-result');
     preElement.innerText = '';
-    preElement.style.display = 'none';
 
     // Clear the additional text
     document.getElementById('bot-deception-additional-text').innerText = '';
