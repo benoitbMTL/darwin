@@ -56,3 +56,10 @@ body {
     margin-bottom: 20px;
     /* space between tiles */
 }
+
+.tile.dark-mode {
+    background-color: #616161;
+    /* dark grey */
+    color: #ffffff;
+    /* white text */
+}
