@@ -14,19 +14,35 @@
     <!-- Custom CSS -->
     <link href="/static/css/styles.css" rel="stylesheet">
 
-    <!-- Temporary Grid Overlay -->
-    <style>
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(90deg, rgba(255, 0, 0, 0.2) 1px, transparent 1px) 0 0 / 8.3333333% 100% repeat-x;
-            pointer-events: none;
+    <!-- List of Users -->
+    <script>
+        // Define the list of options
+        var userList = [
+            { value: "admin", text: "admin" },
+            { value: "gordonb", text: "gordonb" },
+            { value: "1337", text: "1337" },
+            { value: "pablo", text: "pablo" },
+            { value: "smithy", text: "smithy" }
+        ];
+
+        // Function to populate a select element with the options
+        function populateSelect(selectId) {
+            var selectElement = document.getElementById(selectId);
+            userList.forEach(function (option) {
+                var opt = document.createElement("option");
+                opt.value = option.value;
+                opt.textContent = option.text;
+                selectElement.appendChild(opt);
+            });
         }
-    </style>
+
+        // Populate the select elements when the document is loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            populateSelect("usernameCommandInjection");
+            populateSelect("usernameSQLInjection");
+        });
+    </script>
+
 </head>
 
 <body>
@@ -52,13 +68,7 @@
 
         <div class="mb-4">
             <div class="d-flex align-items-center">
-                <select id="username" class="form-control me-2" style="width: 250px;">
-                    <option value="admin">admin</option>
-                    <option value="gordonb">gordonb</option>
-                    <option value="1337">1337</option>
-                    <option value="pablo">pablo</option>
-                    <option value="smithy">smithy</option>
-                </select>
+                <select id="usernameCommandInjection" class="form-control me-2" style="width: 250px;"></select>
                 <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command
                     Injection</button>
                 <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
@@ -71,21 +81,17 @@
         </div>
 
         <p class="mb-4">Choose a user and perform a SQL Injection Attack:</p>
-        
+
         <div class="mb-4">
             <div class="d-flex align-items-center">
-                <select id="username" class="form-control me-2" style="width: 250px;">
-                    <option value="admin">admin</option>
-                    <option value="gordonb">gordonb</option>
-                    <option value="1337">1337</option>
-                    <option value="pablo">pablo</option>
-                    <option value="smithy">smithy</option>
+                <select id="usernameSQLInjection" class="form-control me-2" style="width: 250px;"></select>
                 </select>
-                <button type="button" class="btn btn-primary me-2" onclick="performSQLInjection()">SQL Injection</button>
+                <button type="button" class="btn btn-primary me-2" onclick="performSQLInjection()">SQL
+                    Injection</button>
                 <button type="button" class="btn btn-secondary" onclick="resetSQLInjection()">Reset</button>
             </div>
         </div>
-        
+
         <div id="sql-injection-container">
             <iframe id="sql-injection-result" class="action-result border" style="width: 100%;"
                 onload="resizeIframe(this)"></iframe>
