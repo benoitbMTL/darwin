@@ -57,9 +57,17 @@ body {
     /* space between tiles */
 }
 
-.tile.dark-mode {
-    background-color: #616161;
+.dark-mode .dark-tile {
+    background-color: #949090;
     /* dark grey */
+    border-radius: 5px;
+    /* rounded corners */
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    /* white shadow effect */
+    padding: 20px;
+    /* space inside the tile */
+    margin-bottom: 20px;
+    /* space between tiles */
     color: #ffffff;
-    /* white text */
+    /* white text color */
 }
