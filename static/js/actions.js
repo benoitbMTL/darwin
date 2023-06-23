@@ -47,8 +47,6 @@ function resetCommandInjection() {
     parentContainer.appendChild(newIframe);
 }
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////
 // SQL INJECTION                                                                 //
 ///////////////////////////////////////////////////////////////////////////////////
@@ -66,24 +64,18 @@ function performSQLInjection() {
     })
         .then(response => response.text())
         .then(htmlContent => {
-            document.getElementById('sql-injection-result').srcdoc = htmlContent;
-            document.getElementById('sql-injection-result').style.height = '0px';
+            var iframe = document.getElementById('sql-injection-result');
+            iframe.srcdoc = htmlContent;
+            iframe.style.height = '0px';
+            iframe.style.display = 'block'; // Show the iframe
         })
         .catch(error => console.error('Error:', error));
 }
 
 function resetSQLInjection() {
     var iframe = document.getElementById('sql-injection-result');
-    iframe.parentNode.removeChild(iframe);
-    var newIframe = document.createElement('iframe');
-    newIframe.id = 'sql-injection-result';
-    newIframe.className = 'action-result border';
-    newIframe.style.width = '100%';
-    newIframe.onload = function () {
-        resizeIframe(this);
-    };
-    var parentContainer = document.getElementById('sql-injection-container');
-    parentContainer.appendChild(newIframe);
+    iframe.srcdoc = '';
+    iframe.style.display = 'none'; // Hide the iframe
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -138,10 +130,8 @@ function resetBotDeception() {
     // Reset the iframe for bot deception
     var iframe = document.getElementById('bot-deception-result');
     iframe.srcdoc = '';
-    iframe.style.display = 'block'; // Make the iframe visible
-    iframe.style.minHeight = '35px'; // Set the minimum height of the iframe
+    iframe.style.display = 'none'; // Make the iframe invisible
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
@@ -160,15 +150,20 @@ function performPing(event) {
     })
         .then(response => response.text())
         .then(result => {
-            document.getElementById('ping-result').innerText = result;
+            var pingResult = document.getElementById('ping-result');
+            pingResult.innerText = result;
+            pingResult.style.display = 'block';
         })
         .catch(error => console.error('Error:', error));
 }
 
 function resetPingForm() {
     document.getElementById('ip-fqdn').value = '';
-    document.getElementById('ping-result').innerText = '';
+    var pingResult = document.getElementById('ping-result');
+    pingResult.innerText = '';
+    pingResult.style.display = 'none';
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // Function to adjust the height of the iframe based on its content              //
