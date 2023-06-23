@@ -123,11 +123,6 @@ function performBotDeception() {
 }
 
 function resetBotDeception() {
-    // Reset the iframe for bot deception
-    var iframe = document.getElementById('bot-deception-result');
-    iframe.srcdoc = '';
-    iframe.style.minHeight = '40px'; // Set the minimum height of the iframe to 40px
-
     // Reset the <pre> element for view page source
     var preElement = document.getElementById('bot-deception-text-result');
     preElement.innerText = '';
@@ -135,7 +130,14 @@ function resetBotDeception() {
 
     // Clear the additional text
     document.getElementById('bot-deception-additional-text').innerText = '';
+
+    // Reset the iframe for bot deception
+    var iframe = document.getElementById('bot-deception-result');
+    iframe.srcdoc = '';
+    iframe.style.display = 'block'; // Make the iframe visible
+    iframe.style.minHeight = '35px'; // Set the minimum height of the iframe
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
