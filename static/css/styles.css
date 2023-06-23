@@ -45,7 +45,7 @@ body {
 }
 
 .tile {
-    background-color: #f5f5f5;
+    background-color: #e9eefc;
     /* light grey */
     border-radius: 5px;
     /* rounded corners */
@@ -58,7 +58,7 @@ body {
 }
 
 .dark-mode .dark-tile {
-    background-color: #949090;
+    background-color: #3e3e3e;
     /* dark grey */
     border-radius: 5px;
     /* rounded corners */
