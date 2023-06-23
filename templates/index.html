@@ -81,7 +81,7 @@
                     <button type="button" class="btn btn-secondary btn-sm" onclick="resetSQLInjection()">Reset</button>
                 </div>
                 <div id="sql-injection-container">
-                    <iframe id="sql-injection-result" class="action-result border" style="width: 100%;"
+                    <iframe id="sql-injection-result" class="action-result border" style="width: 100%; display: none;"
                         onload="resizeIframe(this)"></iframe>
                 </div>
             </div>
@@ -103,9 +103,10 @@
                 <div id="bot-deception-additional-text" class="additional-text mt-4 mb-4"></div>
                 <div id="bot-deception-container">
                     <iframe id="bot-deception-result" class="action-result border"
-                        style="width: 100%; min-height: 35px;" onload="resizeIframe(this)"></iframe>
+                        style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
                     <pre id="bot-deception-text-result" class="action-result border"
                         style="width: 100%; display: none;"></pre>
+
                 </div>
             </div>
         </div>
@@ -135,7 +136,7 @@
                     <button type="submit" class="btn btn-primary btn-sm me-2">Ping</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="resetPingForm()">Reset</button>
                 </form>
-                <div id="ping-result" class="action-result border p-3"></div>
+                <div id="ping-result" class="action-result border p-3" style="display: none;"></div>
             </div>
         </div>
 

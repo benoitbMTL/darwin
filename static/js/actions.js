@@ -164,14 +164,6 @@ function resetPingForm() {
     pingResult.style.display = 'none';
 }
 
-// On page load, hide the ping result
-window.onload = function () {
-    var pingResult = document.getElementById('ping-result');
-    pingResult.style.display = 'none';
-};
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////
 // Function to adjust the height of the iframe based on its content              //
 ///////////////////////////////////////////////////////////////////////////////////
