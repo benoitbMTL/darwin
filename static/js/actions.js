@@ -6,25 +6,20 @@ function performPing(event) {
     event.preventDefault();
     var ipFqdn = document.getElementById('ip-fqdn').value;
 
-    // Create a new EventSource instance for server-sent events
-    var eventSource = new EventSource('/ping?ip-fqdn=' + encodeURIComponent(ipFqdn));
-
-    // Define the onmessage handler to update the ping result with the new data
-    eventSource.onmessage = function (event) {
-        document.getElementById('ping-result').innerText = event.data;
-    };
-
-    // Define the onerror handler
-    eventSource.onerror = function (event) {
-        console.error('Error:', event);
-        eventSource.close();  // Close the connection in case of an error
-    };
+    fetch('/ping', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'ip-fqdn=' + encodeURIComponent(ipFqdn)
+    })
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById('ping-result').innerText = result;
+        })
+        .catch(error => console.error('Error:', error));
 }
 
-// Attach the performPing function to the submit event of the ping form
-document.getElementById('ping-form').addEventListener('submit', performPing);
-
-// Function to reset the ping form and clear the ping result
 function resetPingForm() {
     document.getElementById('ip-fqdn').value = '';
     document.getElementById('ping-result').innerText = '';
