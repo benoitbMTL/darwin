@@ -17,8 +17,8 @@ func registerActions(e *echo.Echo) {
 	e.POST("/sql-injection", handleSQLInjectionAction)
 
 	// BOT DECEPTION
-	e.GET("/viewPageSource", handleViewPageSourceAction)
-	e.GET("/botDeception", handleBotDeceptionAction)
+	e.GET("/view-page-source", handleViewPageSourceAction)
+	e.GET("/bot-deception", handleBotDeceptionAction)
 
 	// PING
 	e.POST("/ping", handlePingAction)
