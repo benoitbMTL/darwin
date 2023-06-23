@@ -14,7 +14,7 @@ import (
 
 func registerActions(e *echo.Echo) {
 	// ACTION #1 PING
-	e.GET("/ping", handlePingAction)
+	e.POST("/ping", handlePingAction)
 
 	// ACTION #2 COMMAND INJECTION
 	e.POST("/command-injection", handleCommandInjectionAction)
@@ -28,63 +28,15 @@ func handlePingAction(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid characters in input")
 	}
 
-	// Create a new command for ping
+	// Execute the ping command
 	cmd := exec.Command("ping", "-c", "4", ipFqdn)
-
-	// Merge stdout and stderr
-	cmd.Stderr = cmd.Stdout
-
-// Create a pipe to capture the command output
-stdout, err := cmd.StdoutPipe()
-if err != nil {
-    return c.String(http.StatusInternalServerError, err.Error())
-}
-
-	// Create a reader for command output
-	reader := bufio.NewReader(stdout)
-
-	// Start the command
-	if err := cmd.Start(); err != nil {
+	output, err := cmd.CombinedOutput()
+	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	c.Response().Header().Set(echo.HeaderContentType, "text/event-stream")
-
-	var wg sync.WaitGroup
-	wg.Add(1)
-
-	// Create a goroutine to read and send the command output
-	go func() {
-		defer wg.Done()
-		defer stdout.Close()
-
-		// While command is running
-		for {
-			// Read line from the command's output
-			line, _, err := reader.ReadLine()
-			if err != nil {
-				if err == io.EOF {
-					break
-				}
-				// log the error
-				return
-			}
-
-			// Write the output to SSE
-			c.Response().Write([]byte(fmt.Sprintf("data: %s\n\n", line)))
-
-			c.Response().Flush() // Send it immediately
-		}
-
-		// Wait for the command to complete
-		if err := cmd.Wait(); err != nil {
-			// log the error
-		}
-	}()
-
-	wg.Wait() // Wait for goroutine to finish
-
-	return c.NoContent(http.StatusOK)
+	// Return the output of the ping command
+	return c.String(http.StatusOK, string(output))
 }
 
 func handleCommandInjectionAction(c echo.Context) error {

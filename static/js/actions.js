@@ -11,7 +11,7 @@ function performPing(event) {
 
     // Define the onmessage handler to update the ping result with the new data
     eventSource.onmessage = function (event) {
-        document.getElementById('ping-result').innerText += event.data + '\n';
+        document.getElementById('ping-result').innerText = event.data;
     };
 
     // Define the onerror handler
@@ -29,7 +29,6 @@ function resetPingForm() {
     document.getElementById('ip-fqdn').value = '';
     document.getElementById('ping-result').innerText = '';
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////
