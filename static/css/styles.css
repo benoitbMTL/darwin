@@ -24,3 +24,11 @@ iframe.action-result {
     background-color: #2e2e2ec3;
     color: #ffffff;
 }
+
+.category-buttons {
+    margin-bottom: 20px;
+}
+
+.category-buttons button {
+    margin-right: 10px;
+}
