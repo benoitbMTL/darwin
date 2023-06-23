@@ -40,7 +40,11 @@
                     <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
                         onclick="showCategory('machine-learning')">Machine Learning</button>
                     <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('rest-api')">REST API</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
                         onclick="showCategory('health-check')">Health Check</button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('Configuration')">Configuration</button>
                 </div>
             </div>
             <div class="form-check form-switch">
@@ -131,14 +135,35 @@
             <div class="mb-5 tile">
                 <p class="mb-4">Perform a Ping.</p>
                 <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
-                    <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control form-control-sm me-2" placeholder="192.168.4.2" required
-                        style="max-width: 250px;">
+                    <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control form-control-sm me-2"
+                        placeholder="192.168.4.2" required style="max-width: 250px;">
                     <button type="submit" class="btn btn-primary btn-sm me-2">Ping</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="resetPingForm()">Reset</button>
                 </form>
                 <div id="ping-result" class="action-result border p-3" style="display: none;"></div>
             </div>
         </div>
+
+            <!-- Configuration -->
+        <div class="mb-5 tile" id="Configuration" style="display: none;">
+            <h2>Configuration</h2>
+            <div class="d-flex align-items-center mb-3">
+                <button type="button" class="btn btn-primary btn-sm me-2" onclick="saveConfiguration()">Save</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetConfiguration()">Reset to Default</button>
+            </div>
+            <form id="configuration-form">
+                <div class="mb-3">
+                    <label for="dvwa-url" class="form-label">DVWA_URL</label>
+                    <input type="text" class="form-control" id="dvwa-url" value="https://192.168.4.10">
+                </div>
+                <div class="mb-3">
+                    <label for="dvwa-host" class="form-label">DVWA_HOST</label>
+                    <input type="text" class="form-control" id="dvwa-host" value="192.168.4.10">
+                </div>
+                <!-- Add more input fields for each configuration variable in the same way -->
+            </form>
+        </div>
+
 
         <!-- Space before the end of the page -->
         <div style="height: 50px;"></div>
