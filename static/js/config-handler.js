@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(config => {
             // Populate the form fields with the configuration values
-            document.getElementById('dvwa-url').value = config.DVWA_URL;
-            document.getElementById('dvwa-host').value = config.DVWA_HOST;
+            document.getElementById('dvwa-url').value = config.dvwa_url;
+            document.getElementById('dvwa-host').value = config.dvwa_host;
             // Populate other fields in the same way
         })
         .catch(error => console.error('Error fetching configuration:', error));
