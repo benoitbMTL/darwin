@@ -88,7 +88,7 @@ function resetSQLInjection() {
 
 function viewPageSource() {
     fetch('/view-page-source', {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -104,7 +104,7 @@ function viewPageSource() {
 
 function performBotDeception() {
     fetch('/bot-deception', {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
