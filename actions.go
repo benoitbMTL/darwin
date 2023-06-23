@@ -13,7 +13,7 @@ import (
 
 func registerActions(e *echo.Echo) {
 	// ACTION #1 PING
-	e.POST("/ping", handlePingAction)
+	e.GET("/ping", handlePingAction)
 
 	// ACTION #2 COMMAND INJECTION
 	e.POST("/command-injection", handleCommandInjectionAction)
