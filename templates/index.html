@@ -70,14 +70,17 @@
         <!-- Bot Deception -->
         <div class="mb-5">
             <p class="mb-4">Perform a Bot Deception:</p>
-            <div class="action-buttons">
+            <div class="d-flex align-items-center mb-3">
                 <button type="button" class="btn btn-primary me-2" onclick="viewPageSource()">View Page Source</button>
                 <button type="button" class="btn btn-primary me-2" onclick="performBotDeception()">Bot
                     Deception</button>
                 <button type="button" class="btn btn-secondary" onclick="resetBotDeception()">Reset</button>
             </div>
             <div id="bot-deception-additional-text" class="additional-text mt-4 mb-4"></div>
-            <div id="bot-deception-result" class="action-result border p-3"></div>
+            <div id="bot-deception-container">
+                <iframe id="bot-deception-result" class="action-result border" style="width: 100%;"
+                    onload="resizeIframe(this)"></iframe>
+            </div>
         </div>
 
         <!-- Ping -->

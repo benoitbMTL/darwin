@@ -87,42 +87,50 @@ function resetSQLInjection() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function viewPageSource() {
-    // Clear previous results
-    document.getElementById('bot-deception-result').innerHTML = '';
-    document.getElementById('bot-deception-additional-text').innerHTML = '';
-
-    // Fetch the page source
-    fetch('/viewPageSource', {
-        method: 'GET'
+    fetch('/view-page-source', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
     })
         .then(response => response.text())
         .then(result => {
-            document.getElementById('bot-deception-result').innerText = result;
-            document.getElementById('bot-deception-additional-text').innerText = 'We can see a hidden link on the login page (display:none):';
+            document.getElementById('bot-deception-additional-text').innerText = "We can see a hidden link on the login page (display:none)";
+            document.getElementById('bot-deception-result').srcdoc = result;
+            document.getElementById('bot-deception-result').style.height = '0px';
         })
         .catch(error => console.error('Error:', error));
 }
 
 function performBotDeception() {
-    // Clear previous results
-    document.getElementById('bot-deception-result').innerHTML = '';
-    document.getElementById('bot-deception-additional-text').innerHTML = '';
-
-    // Fetch the fake URL
-    fetch('/botDeception', {
-        method: 'GET'
+    fetch('/bot-deception', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
     })
         .then(response => response.text())
         .then(htmlContent => {
-            document.getElementById('bot-deception-result').innerHTML = htmlContent;
-            document.getElementById('bot-deception-additional-text').innerText = 'We simulate a malicious bot by following the hidden link:';
+            document.getElementById('bot-deception-additional-text').innerText = "We simulate a malicious bot by following the hidden link";
+            document.getElementById('bot-deception-result').srcdoc = htmlContent;
+            document.getElementById('bot-deception-result').style.height = '0px';
         })
         .catch(error => console.error('Error:', error));
 }
 
 function resetBotDeception() {
-    document.getElementById('bot-deception-result').innerHTML = '';
-    document.getElementById('bot-deception-additional-text').innerHTML = '';
+    var iframe = document.getElementById('bot-deception-result');
+    iframe.parentNode.removeChild(iframe);
+    var newIframe = document.createElement('iframe');
+    newIframe.id = 'bot-deception-result';
+    newIframe.className = 'action-result border';
+    newIframe.style.width = '100%';
+    newIframe.onload = function () {
+        resizeIframe(this);
+    };
+    var parentContainer = document.getElementById('bot-deception-container');
+    parentContainer.appendChild(newIframe);
+    document.getElementById('bot-deception-additional-text').innerText = "";
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
