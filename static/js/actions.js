@@ -37,12 +37,14 @@ function resetCommandInjection() {
     newIframe.id = 'command-injection-result';
     newIframe.className = 'action-result border';
     newIframe.style.width = '100%';
+    newIframe.style.display = 'none'; // Hide the iframe
     newIframe.onload = function () {
         resizeIframe(this);
     };
     var parentContainer = document.getElementById('command-injection-container');
     parentContainer.appendChild(newIframe);
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////
