@@ -17,7 +17,7 @@
 
 <body>
     <div class="container mt-5">
-        <!-- Line 1: Logo, Title, Dark Mode Switch -->
+        <!-- Logo, Title, Dark Mode Switch -->
         <div class="d-flex align-items-center justify-content-between mb-4">
             <div class="d-flex align-items-center">
                 <img id="fortiweb-logo" src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon" class="fortiweb-icon">
@@ -29,16 +29,16 @@
             </div>
         </div>
 
-        <!-- Line 2: Subtitle -->
-        <p class="mb-4">This tool will walk you through a FortiWeb demonstration in the Fabric Lab environment.</p>
+        <!-- Subtitle -->
+        <h2 class="mb-4">This tool will walk you through a FortiWeb demonstration in the Fabric Lab environment.</h2>
 
-        <!-- Line 3: Choose Username -->
+        <!-- Username List -->
         <div class="mb-5">
-            <p>Choose a username:</p>
+            <p>Choose the user who will generate the traffic. You can change it at any time:</p>
             <select id="username" class="form-control" style="width: 250px;"></select>
         </div>
 
-        <!-- Line 4-6: Command Injection -->
+        <!-- Command Injection -->
         <div class="mb-5">
             <p class="mb-4">Perform a Command Injection Attack:</p>
             <div class="d-flex align-items-center mb-3">
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <!-- Line 7-9: SQL Injection -->
+        <!-- SQL Injection -->
         <div class="mb-5">
             <p class="mb-4">Perform a SQL Injection Attack:</p>
             <div class="d-flex align-items-center mb-3">
@@ -66,7 +66,19 @@
             </div>
         </div>
 
-        <!-- Line 10-12:Ping -->
+        <!-- Bot Deception -->
+        <div class="section">
+            <p>Perform a Bot Deception:</p>
+            <div class="action-buttons">
+                <button type="button" class="btn btn-primary me-2" onclick="viewPageSource()">View Page Source</button>
+                <button type="button" class="btn btn-primary me-2" onclick="performBotDeception()">Bot Deception</button>
+                <button type="button" class="btn btn-secondary" onclick="resetBotDeception()">Reset</button>
+            </div>
+            <div id="bot-deception-additional-text" class="additional-text"></div>
+            <div id="bot-deception-result" class="action-result border p-3"></div>
+        </div>
+
+        <!-- Ping -->
         <div class="mb-5">
             <p class="mb-4">Perform a Ping:</p>
             <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
@@ -78,7 +90,7 @@
             <div id="ping-result" class="action-result border p-3"></div>
         </div>
 
-        <!-- Line 13: Add space after the ping output -->
+        <!-- Space before the end of the page -->
         <div style="height: 50px;"></div>
     </div>
 

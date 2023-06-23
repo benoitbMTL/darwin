@@ -1,30 +1,11 @@
-///////////////////////////////////////////////////////////////////////////////////
-// PING                                                                          //
-///////////////////////////////////////////////////////////////////////////////////
-
-function performPing(event) {
-    event.preventDefault();
-    var ipFqdn = document.getElementById('ip-fqdn').value;
-
-    fetch('/ping', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'ip-fqdn=' + encodeURIComponent(ipFqdn)
-    })
-        .then(response => response.text())
-        .then(result => {
-            document.getElementById('ping-result').innerText = result;
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-function resetPingForm() {
-    document.getElementById('ip-fqdn').value = '';
-    document.getElementById('ping-result').innerText = '';
-}
-
+// Define the userPassMap globally
+var userPassMap = {
+    "admin": "password",
+    "gordonb": "abc123",
+    "1337": "charley",
+    "pablo": "letmein",
+    "smithy": "password"
+};
 
 ///////////////////////////////////////////////////////////////////////////////////
 // COMMAND INJECTION                                                             //
@@ -32,17 +13,7 @@ function resetPingForm() {
 
 function performCommandInjection() {
     var username = document.getElementById('username').value;
-
-    // Map usernames to passwords
-    var userPassMap = {
-        "admin": "password",
-        "gordonb": "abc123",
-        "1337": "charley",
-        "pablo": "letmein",
-        "smithy": "password"
-    };
-
-    var password = userPassMap[username];
+    var password = userPassMap[username]; // Use the global userPassMap
 
     fetch('/command-injection', {
         method: 'POST',
@@ -80,19 +51,9 @@ function resetCommandInjection() {
 
 function performSQLInjection() {
     var username = document.getElementById('username').value;
+    var password = userPassMap[username]; // Use the global userPassMap
 
-    // Map usernames to passwords
-    var userPassMap = {
-        "admin": "password",
-        "gordonb": "abc123",
-        "1337": "charley",
-        "pablo": "letmein",
-        "smithy": "password"
-    };
-
-    var password = userPassMap[username];
-
-    fetch('/sql-injection', { // Changed the endpoint here
+    fetch('/sql-injection', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -121,6 +82,75 @@ function resetSQLInjection() {
     parentContainer.appendChild(newIframe);
 }
 
+///////////////////////////////////////////////////////////////////////////////////
+// BOT DECEPTION                                                                 //
+///////////////////////////////////////////////////////////////////////////////////
+
+function viewPageSource() {
+    // Clear previous results
+    document.getElementById('bot-deception-result').innerHTML = '';
+    document.getElementById('bot-deception-additional-text').innerHTML = '';
+
+    // Fetch the page source
+    fetch('/viewPageSource', {
+        method: 'GET'
+    })
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById('bot-deception-result').innerText = result;
+            document.getElementById('bot-deception-additional-text').innerText = 'We can see a hidden link on the login page (display:none)';
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function performBotDeception() {
+    // Clear previous results
+    document.getElementById('bot-deception-result').innerHTML = '';
+    document.getElementById('bot-deception-additional-text').innerHTML = '';
+
+    // Fetch the fake URL
+    fetch('/botDeception', {
+        method: 'GET'
+    })
+        .then(response => response.text())
+        .then(htmlContent => {
+            document.getElementById('bot-deception-result').innerHTML = htmlContent;
+            document.getElementById('bot-deception-additional-text').innerText = 'We simulate a malicious bot by following the hidden link';
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function resetBotDeception() {
+    document.getElementById('bot-deception-result').innerHTML = '';
+    document.getElementById('bot-deception-additional-text').innerHTML = '';
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+// PING                                                                          //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performPing(event) {
+    event.preventDefault();
+    var ipFqdn = document.getElementById('ip-fqdn').value;
+
+    fetch('/ping', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'ip-fqdn=' + encodeURIComponent(ipFqdn)
+    })
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById('ping-result').innerText = result;
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function resetPingForm() {
+    document.getElementById('ip-fqdn').value = '';
+    document.getElementById('ping-result').innerText = '';
+}
 
 ///////////////////////////////////////////////////////////////////////////////////
 // Function to adjust the height of the iframe based on its content              //
