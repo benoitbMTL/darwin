@@ -17,8 +17,8 @@ func registerActions(e *echo.Echo) {
 	e.POST("/sql-injection", handleSQLInjectionAction)
 
 	// BOT DECEPTION
-    e.GET("/viewPageSource", handleViewPageSourceAction)
-    e.GET("/botDeception", handleBotDeceptionAction)
+	e.GET("/viewPageSource", handleViewPageSourceAction)
+	e.GET("/botDeception", handleBotDeceptionAction)
 
 	// PING
 	e.POST("/ping", handlePingAction)
@@ -138,15 +138,48 @@ func handleSQLInjectionAction(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handleViewPageSourceAction(c echo.Context) error {
-    // ... implement the logic for the "view page source" action
-	return nil
+	// Execute curl command to get the source code of login.php
+	cmd := exec.Command("curl", "-s", "-k", DVWA_URL+"/login.php",
+		"-H", "authority: "+DVWA_HOST,
+		"-H", "cache-control: max-age=0",
+		"-H", "content-type: application/x-www-form-urlencoded",
+		"-H", "origin: "+DVWA_URL,
+		"-H", "referer: "+DVWA_URL,
+		"-H", "user-agent: FortiWeb Demo Tool",
+	)
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Split the output into lines and get the last 15 lines
+	lines := strings.Split(string(output), "\n")
+	lastLines := lines[len(lines)-15:]
+
+	// Return the last 15 lines of the source code
+	return c.String(http.StatusOK, strings.Join(lastLines, "\n"))
 }
 
 func handleBotDeceptionAction(c echo.Context) error {
-    // ... implement the logic for the "bot deception" action
-	return nil
-}
+	// Execute curl command to get the fake_url.php page
+	cmd := exec.Command("curl", "-s", "-k", DVWA_URL+"/fake_url.php",
+		"-H", "authority: "+DVWA_HOST,
+		"-H", "cache-control: max-age=0",
+		"-H", "content-type: application/x-www-form-urlencoded",
+		"-H", "origin: "+DVWA_URL,
+		"-H", "referer: "+DVWA_URL+"/index.php",
+		"-H", "user-agent: FortiWeb Demo Tool",
+	)
 
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Return the HTML content of the fake_url.php page
+	return c.HTML(http.StatusOK, string(output))
+}
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //

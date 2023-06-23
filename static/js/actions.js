@@ -98,7 +98,7 @@ function viewPageSource() {
         .then(response => response.text())
         .then(result => {
             document.getElementById('bot-deception-result').innerText = result;
-            document.getElementById('bot-deception-additional-text').innerText = 'We can see a hidden link on the login page (display:none)';
+            document.getElementById('bot-deception-additional-text').innerText = 'We can see a hidden link on the login page (display:none):';
         })
         .catch(error => console.error('Error:', error));
 }
@@ -115,7 +115,7 @@ function performBotDeception() {
         .then(response => response.text())
         .then(htmlContent => {
             document.getElementById('bot-deception-result').innerHTML = htmlContent;
-            document.getElementById('bot-deception-additional-text').innerText = 'We simulate a malicious bot by following the hidden link';
+            document.getElementById('bot-deception-additional-text').innerText = 'We simulate a malicious bot by following the hidden link:';
         })
         .catch(error => console.error('Error:', error));
 }
