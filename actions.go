@@ -14,7 +14,7 @@ func registerActions(e *echo.Echo) {
 
 	// ACTION #2 COMMAND INJECTION
 	e.POST("/command-injection", handleCommandInjectionAction)
-	
+
 	// ACTION #3 SQL INJECTION
 	e.POST("/sql-injection", handleSQLInjectionAction)
 }
@@ -97,8 +97,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 	return c.HTML(http.StatusOK, string(output)+"\n"+string(output2))
 
 }
-
-
 
 func handleSQLInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")

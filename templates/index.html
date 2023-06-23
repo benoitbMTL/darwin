@@ -13,90 +13,73 @@
 
     <!-- Custom CSS -->
     <link href="/static/css/styles.css" rel="stylesheet">
-
-    <!-- List of Users -->
-    <script>
-        // Define the list of options
-        var userList = [
-            { value: "admin", text: "admin" },
-            { value: "gordonb", text: "gordonb" },
-            { value: "1337", text: "1337" },
-            { value: "pablo", text: "pablo" },
-            { value: "smithy", text: "smithy" }
-        ];
-
-        // Function to populate a select element with the options
-        function populateSelect(selectId) {
-            var selectElement = document.getElementById(selectId);
-            userList.forEach(function (option) {
-                var opt = document.createElement("option");
-                opt.value = option.value;
-                opt.textContent = option.text;
-                selectElement.appendChild(opt);
-            });
-        }
-
-        // Populate the select elements when the document is loaded
-        document.addEventListener("DOMContentLoaded", function () {
-            populateSelect("usernameCommandInjection");
-            populateSelect("usernameSQLInjection");
-        });
-    </script>
-
 </head>
 
 <body>
     <div class="container mt-5">
-        <div class="d-flex align-items-center mb-4">
-            <img src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon" class="fortiweb-icon">
-
-            <h1>FortiWeb Demo Tool</h1>
-
-        </div>
-
-        <p class="mb-4">This tool will walk you through a FortiWeb demonstration in the Fabric Lab environment.</p>
-
-        <form id="ping-form" class="mb-4 d-flex align-items-center" onsubmit="performPing(event)">
-            <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control me-2" required style="max-width: 250px;">
-            <button type="submit" class="btn btn-primary me-2">Ping</button>
-            <button type="button" class="btn btn-secondary" onclick="resetPingForm()">Reset</button>
-        </form>
-
-        <div id="ping-result" class="action-result border p-3 mb-5"></div>
-
-        <p class="mb-4">Choose a user and perform a Command Injection Attack:</p>
-
-        <div class="mb-4">
+        <!-- Line 1: Logo, Title, Dark Mode Switch -->
+        <div class="d-flex align-items-center justify-content-between mb-4">
             <div class="d-flex align-items-center">
-                <select id="usernameCommandInjection" class="form-control me-2" style="width: 250px;"></select>
-                <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command Injection</button>
-                <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
+                <img src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon" class="fortiweb-icon">
+                <h1 class="ms-3">FortiWeb Demo Tool</h1>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
             </div>
         </div>
 
-        <div id="command-injection-container">
-            <iframe id="command-injection-result" class="action-result border" style="width: 100%;"
-                onload="resizeIframe(this)"></iframe>
+        <!-- Line 2: Subtitle -->
+        <p class="mb-4">This tool will walk you through a FortiWeb demonstration in the Fabric Lab environment.</p>
+
+        <!-- Line 3: Choose Username -->
+        <div class="mb-5">
+            <p>Choose a username:</p>
+            <select id="username" class="form-control" style="width: 250px;"></select>
         </div>
 
-        <p class="mb-4">Choose a user and perform a SQL Injection Attack:</p>
+        <!-- Line 4-6: Command Injection -->
+        <div class="mb-5">
+            <p class="mb-4">Perform a Command Injection Attack:</p>
+            <div class="d-flex align-items-center mb-3">
+                <button type="button" class="btn btn-primary me-2" onclick="performCommandInjection()">Command
+                    Injection</button>
+                <button type="button" class="btn btn-secondary" onclick="resetCommandInjection()">Reset</button>
+            </div>
+            <div id="command-injection-container">
+                <iframe id="command-injection-result" class="action-result border" style="width: 100%;"
+                    onload="resizeIframe(this)"></iframe>
+            </div>
+        </div>
 
-        <div class="mb-4">
-            <div class="d-flex align-items-center">
-                <select id="usernameSQLInjection" class="form-control me-2" style="width: 250px;"></select>
+        <!-- Line 7-9: SQL Injection -->
+        <div class="mb-5">
+            <p class="mb-4">Perform a SQL Injection Attack:</p>
+            <div class="d-flex align-items-center mb-3">
                 <button type="button" class="btn btn-primary me-2" onclick="performSQLInjection()">SQL
                     Injection</button>
                 <button type="button" class="btn btn-secondary" onclick="resetSQLInjection()">Reset</button>
             </div>
+            <div id="sql-injection-container">
+                <iframe id="sql-injection-result" class="action-result border" style="width: 100%;"
+                    onload="resizeIframe(this)"></iframe>
+            </div>
         </div>
 
-        <div id="sql-injection-container">
-            <iframe id="sql-injection-result" class="action-result border" style="width: 100%;"
-                onload="resizeIframe(this)"></iframe>
+        <!-- Line 10-12:Ping -->
+        <div class="mb-5">
+            <p class="mb-4">Perform a Ping:</p>
+            <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
+                <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control me-2" required
+                    style="max-width: 250px;">
+                <button type="submit" class="btn btn-primary me-2">Ping</button>
+                <button type="button" class="btn btn-secondary" onclick="resetPingForm()">Reset</button>
+            </form>
+            <div id="ping-result" class="action-result border p-3"></div>
         </div>
 
-        <p></p>
-
+        <!-- Line 13: Add space after the ping output -->
+        <div style="height: 50px;"></div>
     </div>
 
     <!-- Custom JS -->
@@ -110,6 +93,26 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 
+    <!-- Populate the username list -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var userList = [
+                { value: "admin", text: "admin" },
+                { value: "gordonb", text: "gordonb" },
+                { value: "1337", text: "1337" },
+                { value: "pablo", text: "pablo" },
+                { value: "smithy", text: "smithy" }
+            ];
+
+            var selectElement = document.getElementById("username");
+            userList.forEach(function (option) {
+                var opt = document.createElement("option");
+                opt.value = option.value;
+                opt.textContent = option.text;
+                selectElement.appendChild(opt);
+            });
+        });
+    </script>
 </body>
 
 </html>

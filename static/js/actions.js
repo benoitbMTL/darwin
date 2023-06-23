@@ -57,17 +57,11 @@ function performCommandInjection() {
             document.getElementById('command-injection-result').style.height = '0px';
         })
         .catch(error => console.error('Error:', error));
-
 }
 
-// Function to reset the command injection result
 function resetCommandInjection() {
     var iframe = document.getElementById('command-injection-result');
-
-    // Remove the iframe element
     iframe.parentNode.removeChild(iframe);
-
-    // Create a new iframe element
     var newIframe = document.createElement('iframe');
     newIframe.id = 'command-injection-result';
     newIframe.className = 'action-result border';
@@ -75,8 +69,6 @@ function resetCommandInjection() {
     newIframe.onload = function () {
         resizeIframe(this);
     };
-
-    // Append the new iframe to its parent container
     var parentContainer = document.getElementById('command-injection-container');
     parentContainer.appendChild(newIframe);
 }
@@ -100,7 +92,7 @@ function performSQLInjection() {
 
     var password = userPassMap[username];
 
-    fetch('/command-injection', {
+    fetch('/sql-injection', { // Changed the endpoint here
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -113,17 +105,11 @@ function performSQLInjection() {
             document.getElementById('sql-injection-result').style.height = '0px';
         })
         .catch(error => console.error('Error:', error));
-
 }
 
-// Function to reset the SQL injection result
 function resetSQLInjection() {
     var iframe = document.getElementById('sql-injection-result');
-
-    // Remove the iframe element
     iframe.parentNode.removeChild(iframe);
-
-    // Create a new iframe element
     var newIframe = document.createElement('iframe');
     newIframe.id = 'sql-injection-result';
     newIframe.className = 'action-result border';
@@ -131,8 +117,6 @@ function resetSQLInjection() {
     newIframe.onload = function () {
         resizeIframe(this);
     };
-
-    // Append the new iframe to its parent container
     var parentContainer = document.getElementById('sql-injection-container');
     parentContainer.appendChild(newIframe);
 }
@@ -146,4 +130,3 @@ function resetSQLInjection() {
 function resizeIframe(iframe) {
     iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 1) + 'px';
 }
-
