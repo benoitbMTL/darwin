@@ -194,7 +194,7 @@ func handlePingAction(c echo.Context) error {
 	}
 
 	// Execute the ping command
-	cmd := exec.Command("ping", "-c", "1", "v", ipFqdn)
+	cmd := exec.Command("ping", "-c", "1", "-v", ipFqdn)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
