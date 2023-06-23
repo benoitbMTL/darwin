@@ -1,2 +1,4 @@
-This is my first GoLang Project
-It provides a FortiWeb Tool to simulate attacks during demonstrations
+# FortiWeb Tool
+- This is my first GoLang Project
+- Web App to simulate attacks during demonstrations
+- Coded with GoLang, Echo, Javascript, CSS, ChatGPT
