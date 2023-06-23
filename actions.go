@@ -31,7 +31,7 @@ func registerActions(e *echo.Echo) {
 func handleCommandInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")
 
-	password, ok := userPassMap[username]
+	password, ok := UserPassMap[username]
 	if !ok {
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
@@ -86,7 +86,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 func handleSQLInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")
 
-	password, ok := userPassMap[username]
+	password, ok := UserPassMap[username]
 	if !ok {
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
@@ -139,10 +139,12 @@ func handleSQLInjectionAction(c echo.Context) error {
 
 func handleViewPageSourceAction(c echo.Context) error {
     // ... implement the logic for the "view page source" action
+	return nil
 }
 
 func handleBotDeceptionAction(c echo.Context) error {
     // ... implement the logic for the "bot deception" action
+	return nil
 }
 
 
