@@ -44,14 +44,14 @@ func handlePingAction(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	c.Response().Header().Set(echo.HeaderContentType, echo.MIMETextEventStream)
+	c.Response().Header().Set("Content-Type", "text/event-stream")
 
 	// Create a goroutine to read and send the command output
 	go func() {
 		defer stdout.Close()
 
 		// Check if the connection is closed by the client
-		notify := c.Response().CloseNotify()
+		notify := c.Response().Writer.(http.CloseNotifier).CloseNotify()
 
 		// While command is running
 		for {
