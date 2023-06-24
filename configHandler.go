@@ -19,6 +19,17 @@ var (
 	POLICY        = "DVWA_POLICY"
 	USER_AGENT    = "FortiWeb Demo Tool"
 
+	DEFAULT_DVWA_URL		=      DVWA_URL,
+	DEFAULT_DVWA_HOST		=     DVWA_HOST,
+	DEFAULT_SHOP_URL		=      SHOP_URL,
+	DEFAULT_FWB_URL			=       FWB_URL,
+	DEFAULT_SPEEDTEST_URL	= SPEEDTEST_URL,
+	DEFAULT_KALI_URL		=      KALI_URL,
+	DEFAULT_TOKEN			=         TOKEN,
+	DEFAULT_FWB_MGT_IP		=    FWB_MGT_IP,
+	DEFAULT_POLICY			=        POLICY,
+	DEFAULT_USER_AGENT		=    USER_AGENT,
+
 	UserPassMap = map[string]string{
 		"admin":   "password",
 		"gordonb": "abc123",
@@ -42,16 +53,16 @@ type Config struct {
 }
 
 var defaultConfig = Config{
-	DVWA_URL:      DVWA_URL,
-	DVWA_HOST:     DVWA_HOST,
-	SHOP_URL:      SHOP_URL,
-	FWB_URL:       FWB_URL,
-	SPEEDTEST_URL: SPEEDTEST_URL,
-	KALI_URL:      KALI_URL,
-	TOKEN:         TOKEN,
-	FWB_MGT_IP:    FWB_MGT_IP,
-	POLICY:        POLICY,
-	USER_AGENT:    USER_AGENT,
+	DVWA_URL:      DEFAULT_DVWA_URL,
+	DVWA_HOST:     DEFAULT_DVWA_HOST,
+	SHOP_URL:      DEFAULT_SHOP_URL,
+	FWB_URL:       DEFAULT_FWB_URL,
+	SPEEDTEST_URL: DEFAULT_SPEEDTEST_URL,
+	KALI_URL:      DEFAULT_KALI_URL,
+	TOKEN:         DEFAULT_TOKEN,
+	FWB_MGT_IP:    DEFAULT_FWB_MGT_IP,
+	POLICY:        DEFAULT_POLICY,
+	USER_AGENT:    DEFAULT_USER_AGENT,
 }
 
 func ConfigHandler(c echo.Context) error {
