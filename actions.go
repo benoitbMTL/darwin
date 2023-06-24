@@ -31,8 +31,10 @@ func registerActions(e *echo.Echo) {
 
 func handleCommandInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")
-
 	password, ok := UserPassMap[username]
+
+	log.Println("Username: ", username, " Password: ", password) // Log the username and password
+
 	if !ok {
 		log.Println("Invalid username") // Log the error
 		return c.String(http.StatusBadRequest, "Invalid username")
