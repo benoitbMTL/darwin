@@ -48,3 +48,16 @@ func ConfigHandler(c echo.Context) error {
 func DefaultConfigHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, defaultConfig)
 }
+
+func SaveConfigHandler(c echo.Context) error {
+    // Parse the request body into a Config struct
+    var newConfig Config
+    if err := c.Bind(&newConfig); err != nil {
+        return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+    }
+
+    // TODO: Save the new configuration values
+
+    // Return a success response
+    return c.JSON(http.StatusOK, newConfig)
+}
