@@ -6,13 +6,29 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-var UserPassMap = map[string]string{
-	"admin":   "password",
-	"gordonb": "abc123",
-	"1337":    "charley",
-	"pablo":   "letmein",
-	"smithy":  "password",
-}
+var (
+
+	// Environment variables
+	DVWA_URL      string
+	DVWA_HOST     string
+	SHOP_URL      string
+	FWB_URL       string
+	SPEEDTEST_URL string
+	KALI_URL      string
+	TOKEN         string
+	FWB_MGT_IP    string
+	POLICY        string
+	USER_AGENT    string
+
+	// DVWA usernames passwords
+	UserPassMap = map[string]string{
+		"admin":   "password",
+		"gordonb": "abc123",
+		"1337":    "charley",
+		"pablo":   "letmein",
+		"smithy":  "password",
+	}
+)
 
 type Config struct {
 	DVWA_URL      string `json:"dvwa_url"`
