@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"os/exec"
 	"strings"
@@ -33,6 +34,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	password, ok := UserPassMap[username]
 	if !ok {
+		log.Println("Invalid username") // Log the error
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
 
@@ -52,6 +54,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		log.Println("Error performing authentication:", err) // Log the error
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
@@ -71,6 +74,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	output2, err := cmd2.CombinedOutput()
 	if err != nil {
+		log.Println("Error executing command injection:", err) // Log the error
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 

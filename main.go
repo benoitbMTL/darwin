@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"github.com/labstack/echo/v4"
 )
 
@@ -27,5 +28,6 @@ func main() {
 	e.POST("/api/config", SaveConfigHandler)
 
 	// Start the server
+	log.Println("Starting server on port 8080")
 	e.Start(":8080")
 }
