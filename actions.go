@@ -33,7 +33,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")
 	password, ok := UserPassMap[username]
 
-	log.Println("Username: ", username, " Password: ", password) // Log the username and password
+	# log.Println("Username: ", username, " Password: ", password) // Log the username and password
 
 	if !ok {
 		log.Println("Invalid username") // Log the error
@@ -53,6 +53,8 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"--data-raw", "username="+username+"&password="+password+"&Login=Login",
 		"-c", "cookie.txt",
 	)
+
+	log.Println("DVWA_URL: ", DVWA_URL, " USER_AGENT: ", USER_AGENT) // Debug
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
