@@ -6,21 +6,19 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Define all your variables here
 var (
+	DVWA_URL      = "https://192.168.4.10"
+	DVWA_HOST     = "192.168.4.10"
+	SHOP_URL      = "https://shop.corp.fabriclab.ca"
+	FWB_URL       = "https://192.168.4.10/fwb/"
+	SPEEDTEST_URL = "http://speedtest.corp.fabriclab.ca"
+	KALI_URL      = "https://flbr1kali01.fortiweb.fabriclab.ca"
+	TOKEN         = "eyJ1c2VybmFtZSI6InVzZXJhcGkiLCJwYXNzd29yZCI6ImZhY2VMT0NLeWFybjY3ISJ9Cg=="
+	FWB_MGT_IP    = "192.168.4.2"
+	POLICY        = "DVWA_POLICY"
+	USER_AGENT    = "FortiWeb Demo Tool"
 
-	// Environment variables
-	DVWA_URL      string
-	DVWA_HOST     string
-	SHOP_URL      string
-	FWB_URL       string
-	SPEEDTEST_URL string
-	KALI_URL      string
-	TOKEN         string
-	FWB_MGT_IP    string
-	POLICY        string
-	USER_AGENT    string
-
-	// DVWA usernames passwords
 	UserPassMap = map[string]string{
 		"admin":   "password",
 		"gordonb": "abc123",
@@ -44,16 +42,16 @@ type Config struct {
 }
 
 var defaultConfig = Config{
-	DVWA_URL:      "https://192.168.4.10",
-	DVWA_HOST:     "192.168.4.10",
-	SHOP_URL:      "https://shop.corp.fabriclab.ca",
-	FWB_URL:       "https://192.168.4.10/fwb/",
-	SPEEDTEST_URL: "http://speedtest.corp.fabriclab.ca",
-	KALI_URL:      "https://flbr1kali01.fortiweb.fabriclab.ca",
-	TOKEN:         "eyJ1c2VybmFtZSI6InVzZXJhcGkiLCJwYXNzd29yZCI6ImZhY2VMT0NLeWFybjY3ISJ9Cg==",
-	FWB_MGT_IP:    "192.168.4.2",
-	POLICY:        "DVWA_POLICY",
-	USER_AGENT:    "FortiWeb Demo Tool",
+	DVWA_URL:      DVWA_URL,
+	DVWA_HOST:     DVWA_HOST,
+	SHOP_URL:      SHOP_URL,
+	FWB_URL:       FWB_URL,
+	SPEEDTEST_URL: SPEEDTEST_URL,
+	KALI_URL:      KALI_URL,
+	TOKEN:         TOKEN,
+	FWB_MGT_IP:    FWB_MGT_IP,
+	POLICY:        POLICY,
+	USER_AGENT:    USER_AGENT,
 }
 
 func ConfigHandler(c echo.Context) error {
@@ -75,6 +73,10 @@ func SaveConfigHandler(c echo.Context) error {
 
 	// Save the new configuration values
 	defaultConfig = newConfig
+
+	// Update the global variables
+	DVWA_URL = newConfig.DVWA_URL
+	USER_AGENT = newConfig.USER_AGENT
 
 	// Return a success response
 	return c.JSON(http.StatusOK, newConfig)
