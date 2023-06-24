@@ -144,26 +144,57 @@
             </div>
         </div>
 
-        <!-- Configuration -->
-        <div class="mb-5 tile" id="Configuration" style="display: none;">
-            <h2>Configuration</h2>
-            <div class="d-flex align-items-center mb-3">
-                <button type="button" class="btn btn-primary btn-sm me-2" onclick="saveConfiguration()">Save</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="resetConfiguration()">Reset to
-                    Default</button>
-            </div>
-            <form id="configuration-form">
-                <div class="mb-3">
-                    <label for="dvwa-url" class="form-label">DVWA_URL</label>
-                    <input type="text" class="form-control" id="dvwa-url">
-                </div>
-                <div class="mb-3">
-                    <label for="dvwa-host" class="form-label">DVWA_HOST</label>
-                    <input type="text" class="form-control" id="dvwa-host">
-                </div>
-                <!-- Add more input fields for each configuration variable in the same way -->
-            </form>
+<!-- Configuration -->
+<div class="mb-5 tile" id="Configuration" style="display: none;">
+    <h2>Configuration</h2>
+    <div class="d-flex align-items-center mb-3">
+        <button type="button" class="btn btn-primary btn-sm me-2" onclick="saveConfiguration()">Save</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="resetConfiguration()">Reset to Default</button>
+    </div>
+    <form id="configuration-form">
+        <div class="mb-3">
+            <label for="dvwa-url" class="form-label">DVWA_URL</label>
+            <input type="text" class="form-control" id="dvwa-url">
         </div>
+        <div class="mb-3">
+            <label for="dvwa-host" class="form-label">DVWA_HOST</label>
+            <input type="text" class="form-control" id="dvwa-host">
+        </div>
+        <div class="mb-3">
+            <label for="shop-url" class="form-label">SHOP_URL</label>
+            <input type="text" class="form-control" id="shop-url">
+        </div>
+        <div class="mb-3">
+            <label for="fwb-url" class="form-label">FWB_URL</label>
+            <input type="text" class="form-control" id="fwb-url">
+        </div>
+        <div class="mb-3">
+            <label for="speedtest-url" class="form-label">SPEEDTEST_URL</label>
+            <input type="text" class="form-control" id="speedtest-url">
+        </div>
+        <div class="mb-3">
+            <label for="kali-url" class="form-label">KALI_URL</label>
+            <input type="text" class="form-control" id="kali-url">
+        </div>
+        <div class="mb-3">
+            <label for="token" class="form-label">TOKEN</label>
+            <input type="text" class="form-control" id="token">
+        </div>
+        <div class="mb-3">
+            <label for="fwb-mgt-ip" class="form-label">FWB_MGT_IP</label>
+            <input type="text" class="form-control" id="fwb-mgt-ip">
+        </div>
+        <div class="mb-3">
+            <label for="policy" class="form-label">POLICY</label>
+            <input type="text" class="form-control" id="policy">
+        </div>
+        <div class="mb-3">
+            <label for="user-agent" class="form-label">USER_AGENT</label>
+            <input type="text" class="form-control" id="user-agent">
+        </div>
+    </form>
+</div>
+
 
 
         <!-- Space before the end of the page -->
