@@ -1,22 +1,30 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
+var UserPassMap = map[string]string{
+	"admin":   "password",
+	"gordonb": "abc123",
+	"1337":    "charley",
+	"pablo":   "letmein",
+	"smithy":  "password",
+}
+
 type Config struct {
-	DVWA_URL      string            `json:"dvwa_url"`
-	DVWA_HOST     string            `json:"dvwa_host"`
-	SHOP_URL      string            `json:"shop_url"`
-	FWB_URL       string            `json:"fwb_url"`
-	SPEEDTEST_URL string            `json:"speedtest_url"`
-	KALI_URL      string            `json:"kali_url"`
-	TOKEN         string            `json:"token"`
-	FWB_MGT_IP    string            `json:"fwb_mgt_ip"`
-	POLICY        string            `json:"policy"`
-	USER_AGENT    string            `json:"user_agent"`
-	UserPassMap   map[string]string `json:"user_pass_map"`
+	DVWA_URL      string `json:"dvwa_url"`
+	DVWA_HOST     string `json:"dvwa_host"`
+	SHOP_URL      string `json:"shop_url"`
+	FWB_URL       string `json:"fwb_url"`
+	SPEEDTEST_URL string `json:"speedtest_url"`
+	KALI_URL      string `json:"kali_url"`
+	TOKEN         string `json:"token"`
+	FWB_MGT_IP    string `json:"fwb_mgt_ip"`
+	POLICY        string `json:"policy"`
+	USER_AGENT    string `json:"user_agent"`
 }
 
 var defaultConfig = Config{
@@ -30,13 +38,6 @@ var defaultConfig = Config{
 	FWB_MGT_IP:    "192.168.4.2",
 	POLICY:        "DVWA_POLICY",
 	USER_AGENT:    "FortiWeb Demo Tool",
-	UserPassMap: map[string]string{
-		"admin":   "password",
-		"gordonb": "abc123",
-		"1337":    "charley",
-		"pablo":   "letmein",
-		"smithy":  "password",
-	},
 }
 
 func ConfigHandler(c echo.Context) error {
@@ -50,14 +51,15 @@ func DefaultConfigHandler(c echo.Context) error {
 }
 
 func SaveConfigHandler(c echo.Context) error {
-    // Parse the request body into a Config struct
-    var newConfig Config
-    if err := c.Bind(&newConfig); err != nil {
-        return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-    }
+	// Parse the request body into a Config struct
+	var newConfig Config
+	if err := c.Bind(&newConfig); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
 
-    // TODO: Save the new configuration values
+	// Save the new configuration values
+	defaultConfig = newConfig
 
-    // Return a success response
-    return c.JSON(http.StatusOK, newConfig)
+	// Return a success response
+	return c.JSON(http.StatusOK, newConfig)
 }
