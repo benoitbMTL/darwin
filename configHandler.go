@@ -49,6 +49,7 @@ type Config struct {
 }
 
 func initialConfig() Config {
+
 	tokenData := fmt.Sprintf(`{"username":"%s","password":"%s","vdom":"%s"}`, USERNAME_API, PASSWORD_API, VDOM_API)
 	token := base64.StdEncoding.EncodeToString([]byte(tokenData))
 
@@ -59,6 +60,9 @@ func initialConfig() Config {
 		FWB_URL:       FWB_URL,
 		SPEEDTEST_URL: SPEEDTEST_URL,
 		KALI_URL:      KALI_URL,
+		USERNAME_API:  USERNAME_API,
+		PASSWORD_API:  PASSWORD_API,
+		VDOM_API:      VDOM_API,
 		TOKEN:         token,
 		FWB_MGT_IP:    FWB_MGT_IP,
 		POLICY:        POLICY,
