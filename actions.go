@@ -232,48 +232,82 @@ func handleSQLInjectionAction(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handleViewPageSourceAction(c echo.Context) error {
-	// Execute curl command to get the source code of login.php
-	cmd := exec.Command("curl", "-s", "-k", DVWA_URL+"/login.php",
-		"-H", "authority: "+DVWA_HOST,
-		"-H", "cache-control: max-age=0",
-		"-H", "content-type: application/x-www-form-urlencoded",
-		"-H", "origin: "+DVWA_URL,
-		"-H", "referer: "+DVWA_URL,
-		"-H", "user-agent: FortiWeb Demo Tool",
-	)
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
+	}
 
-	output, err := cmd.CombinedOutput()
+	client := &http.Client{
+		Transport: transport,
+	}
+
+	req, err := http.NewRequest("GET", DVWA_URL+"/login.php", nil)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Split the output into lines and get the last 15 lines
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL)
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+	defer resp.Body.Close()
+
+	output, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
 	lines := strings.Split(string(output), "\n")
 	lastLines := lines[len(lines)-15:]
 
-	// Return the last 15 lines of the source code
 	return c.String(http.StatusOK, strings.Join(lastLines, "\n"))
 }
 
 func handleBotDeceptionAction(c echo.Context) error {
-	// Execute curl command to get the fake_url.php page
-	cmd := exec.Command("curl", "-s", "-k", DVWA_URL+"/fake_url.php",
-		"-H", "authority: "+DVWA_HOST,
-		"-H", "cache-control: max-age=0",
-		"-H", "content-type: application/x-www-form-urlencoded",
-		"-H", "origin: "+DVWA_URL,
-		"-H", "referer: "+DVWA_URL+"/index.php",
-		"-H", "user-agent: FortiWeb Demo Tool",
-	)
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
+	}
 
-	output, err := cmd.CombinedOutput()
+	client := &http.Client{
+		Transport: transport,
+	}
+
+	req, err := http.NewRequest("GET", DVWA_URL+"/fake_url.php", nil)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Return the HTML content of the fake_url.php page
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL+"/index.php")
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+	defer resp.Body.Close()
+
+	output, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
 	return c.HTML(http.StatusOK, string(output))
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // HEALTH CHECK                                                                  //
@@ -281,7 +315,6 @@ func handleBotDeceptionAction(c echo.Context) error {
 
 func handleHealthCheckAction(c echo.Context) error {
 	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL, "https://www.fortinet.com"}
-	result := ""
 
 	// Define a custom HTTP client
 	tr := &http.Transport{
@@ -289,15 +322,32 @@ func handleHealthCheckAction(c echo.Context) error {
 	}
 	client := &http.Client{Transport: tr}
 
+	// Start HTML Table
+	result := `<table>
+		<tr>
+			<th>URL</th>
+			<th>Result</th>
+			<th>Code</th>
+			<th>Error</th>
+		</tr>`
+
 	// Loop over the URLs
 	for _, url := range urls {
 		res, err := client.Get(url)
 		if err != nil {
-			// log.Println(fmt.Sprintf("%s is not reachable. Error: %s", url, err.Error())) // Log debug
-			result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>", url, err.Error())
+			result += fmt.Sprintf(`<tr>
+				<td>%s</td>
+				<td>Failed</td>
+				<td>N/A</td>
+				<td>%s</td>
+			</tr>`, url, err.Error())
 		} else {
-			// log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", url, res.StatusCode)) // Log debug
-			result += fmt.Sprintf("<p>%s is reachable. HTTP Code: %d</p>", url, res.StatusCode)
+			result += fmt.Sprintf(`<tr>
+				<td>%s</td>
+				<td>Connected</td>
+				<td>%d</td>
+				<td>N/A</td>
+			</tr>`, url, res.StatusCode)
 		}
 	}
 
@@ -305,15 +355,27 @@ func handleHealthCheckAction(c echo.Context) error {
 	ip := "http://" + FWB_MGT_IP
 	res, err := client.Get(ip)
 	if err != nil {
-		// log.Println(fmt.Sprintf("%s is not reachable. Error: %s", ip, err.Error())) // Log debug
-		result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>", ip, err.Error())
+		result += fmt.Sprintf(`<tr>
+			<td>%s</td>
+			<td>Failed</td>
+			<td>N/A</td>
+			<td>%s</td>
+		</tr>`, ip, err.Error())
 	} else {
-		// log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", ip, res.StatusCode)) // Log debug
-		result += fmt.Sprintf("<p>%s is reachable. HTTP Code: %d</p>", ip, res.StatusCode)
+		result += fmt.Sprintf(`<tr>
+			<td>%s</td>
+			<td>Connected</td>
+			<td>%d</td>
+			<td>N/A</td>
+		</tr>`, ip, res.StatusCode)
 	}
+
+	// End HTML Table
+	result += `</table>`
 
 	return c.HTML(http.StatusOK, result)
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
