@@ -85,6 +85,8 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
+		log.Printf("URL: %s", req.URL.String())
+		log.Printf("Cookies: %v", jar.Cookies(req.URL))
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
