@@ -207,7 +207,7 @@ func handleBotDeceptionAction(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handleHealthCheckAction(c echo.Context) error {
-	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL}
+	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL, "https://www.google.com"}
 	result := ""
 
 	// Define a custom HTTP client
