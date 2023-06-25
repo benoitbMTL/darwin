@@ -52,8 +52,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"-c", "cookie.txt",
 	)
 
-	output, err := cmd.CombinedOutput()
-	if err != nil {
+	if err := cmd.Run(); err != nil {
 		log.Println("Error performing authentication:", err) // Log the error
 		if exitError, ok := err.(*exec.ExitError); ok && !exitError.Success() {
 			return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
