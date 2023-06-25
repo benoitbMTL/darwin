@@ -33,8 +33,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")
 	password, ok := UserPassMap[username]
 
-	// log.Println("Username: ", username, " Password: ", password) // Debug Log the username and password
-
 	if !ok {
 		log.Println("Invalid username") // Log the error
 		return c.String(http.StatusBadRequest, "Invalid username")
@@ -54,11 +52,12 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"-c", "cookie.txt",
 	)
 
-	log.Println("DVWA_URL: ", DVWA_URL, " USER_AGENT: ", USER_AGENT) // Debug Log variables
-
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Println("Error performing authentication:", err) // Log the error
+		if exitError, ok := err.(*exec.ExitError); ok && !exitError.Success() {
+			return c.String(http.StatusInternalServerError, "The Virtual Server is not reachable")
+		}
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
@@ -79,13 +78,16 @@ func handleCommandInjectionAction(c echo.Context) error {
 	output2, err := cmd2.CombinedOutput()
 	if err != nil {
 		log.Println("Error executing command injection:", err) // Log the error
+		if exitError, ok := err.(*exec.ExitError); ok && !exitError.Success() {
+			return c.String(http.StatusInternalServerError, "The Virtual Server is not reachable")
+		}
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	// Return the HTML content of the two curl command
 	return c.HTML(http.StatusOK, string(output)+"\n"+string(output2))
-
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // SQL INJECTION                                                                 //
