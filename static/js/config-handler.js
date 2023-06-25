@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('fwb-url').value = config.fwb_url;
             document.getElementById('speedtest-url').value = config.speedtest_url;
             document.getElementById('kali-url').value = config.kali_url;
+            document.getElementById('username-api').value = config.username_api;
+            document.getElementById('password-api').value = config.password_api;
+            document.getElementById('vdom-api').value = config.vdom_api;
+            document.getElementById('token').value = config.token;
             document.getElementById('token').value = config.token;
             document.getElementById('fwb-mgt-ip').value = config.fwb_mgt_ip;
             document.getElementById('policy').value = config.policy;
@@ -27,7 +31,9 @@ function saveConfiguration() {
         fwb_url: document.getElementById('fwb-url').value,
         speedtest_url: document.getElementById('speedtest-url').value,
         kali_url: document.getElementById('kali-url').value,
-        token: document.getElementById('token').value,
+        username_api: document.getElementById('username-api').value,
+        password_api: document.getElementById('password-api').value,
+        vdom_api: document.getElementById('vdom-api').value,
         fwb_mgt_ip: document.getElementById('fwb-mgt-ip').value,
         policy: document.getElementById('policy').value,
         user_agent: document.getElementById('user-agent').value
