@@ -1,25 +1,24 @@
 package main
 
 import (
-	"darwin/actions"
 	"github.com/labstack/echo/v4"
 )
 
 func registerActions(e *echo.Echo) {
 
 	// COMMAND INJECTION
-	e.POST("/command-injection", actions.handleCommandInjectionAction)
+	e.POST("/command-injection", handleCommandInjectionAction)
 
 	// SQL INJECTION
-	e.POST("/sql-injection", actions.handleSQLInjectionAction)
+	e.POST("/sql-injection", handleSQLInjectionAction)
 
 	// BOT DECEPTION
-	e.GET("/view-page-source", actions.handleViewPageSourceAction)
-	e.GET("/bot-deception", actions.handleBotDeceptionAction)
+	e.GET("/view-page-source", handleViewPageSourceAction)
+	e.GET("/bot-deception", handleBotDeceptionAction)
 
 	// HEALTH CHECK
-	e.GET("/health-check", actions.handleHealthCheckAction)
+	e.GET("/health-check", handleHealthCheckAction)
 
 	// PING
-	e.POST("/ping", actions.handlePingAction)
+	e.POST("/ping", handlePingAction)
 }
