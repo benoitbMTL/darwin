@@ -207,15 +207,16 @@ func handleBotDeceptionAction(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handleHealthCheckAction(c echo.Context) error {
-	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL, FWB_MGT_IP}
+	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL}
 	result := ""
-    
+
 	// Define a custom HTTP client
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := &http.Client{Transport: tr}
 
+	// Loop over the URLs
 	for _, url := range urls {
 		res, err := client.Get(url)
 		if err != nil {
@@ -225,8 +226,18 @@ func handleHealthCheckAction(c echo.Context) error {
 		}
 	}
 
+	// Handle FWB_MGT_IP separately because it's only an IP without a scheme
+	ip := "https://" + FWB_MGT_IP
+	res, err := client.Get(ip)
+	if err != nil {
+		result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>\n", ip, err.Error())
+	} else {
+		result += fmt.Sprintf("<p style=\"color:green\">%s is reachable. HTTP Code: %d</p>\n", ip, res.StatusCode)
+	}
+
 	return c.HTML(http.StatusOK, result)
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
