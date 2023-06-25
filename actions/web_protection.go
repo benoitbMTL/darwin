@@ -2,13 +2,11 @@ package actions
 
 import (
 	"crypto/tls"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
-	"os/exec"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -207,4 +205,3 @@ func handleSQLInjectionAction(c echo.Context) error {
 	// Return the HTML content
 	return c.HTML(http.StatusOK, string(output))
 }
-
