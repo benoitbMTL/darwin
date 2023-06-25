@@ -14,7 +14,7 @@ iframe.action-result {
     /* or any other value that you find suitable */
 }
 
-/* Light Mode (Eggshell) */
+/* Light Mode */
 body {
     background-color: #FFFFFF;
     color: #000000;
@@ -25,9 +25,9 @@ body {
     color: #000000;
 }
 
-/* Dark Mode (Space Grey) */
+/* Dark Mode */
 .dark-mode {
-    background-color: #424242;
+    background-color: #1D1D1F;
     color: #ffffff;
 }
 
@@ -58,7 +58,7 @@ body {
 }
 
 .dark-mode .dark-tile {
-    background-color: #3e3e3e;
+    background-color: #3E3D40;
     /* dark grey */
     border-radius: 5px;
     /* rounded corners */
