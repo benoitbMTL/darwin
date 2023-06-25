@@ -17,11 +17,15 @@ import (
 func handleHealthCheckAction(c echo.Context) error {
 	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL, "https://www.fortinet.com"}
 
-	// Define a custom HTTP client
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	// Define a custom HTTP client with a redirect policy that returns an error
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		},
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
 	}
-	client := &http.Client{Transport: tr}
 
 	// Start HTML Table with CSS
 	result := `<style>
