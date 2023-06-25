@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"net"
-	"net/http"
-	"strings"
-	"time"
 	"crypto/tls"
-	"log"
+	"fmt"
+	"net/http"
+	"os/exec"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 )
@@ -108,61 +106,22 @@ func handlePingAction(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid characters in input")
 	}
 
-	// Resolve the IP address
-	ipAddr, err := net.ResolveIPAddr("ip", ipFqdn)
+	// Execute the ping command
+	cmd := exec.Command("ping", "-c", "2", ipFqdn)
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Println("Failed to resolve the IP address:", err)
-		return c.String(http.StatusInternalServerError, "Failed to resolve the IP address")
+		// Check the error type
+		if exitError, ok := err.(*exec.ExitError); ok {
+			// Check the exit code
+			if exitError.ExitCode() == 1 {
+				return c.String(http.StatusInternalServerError, "The destination is not reachable")
+			} else if exitError.ExitCode() == 2 {
+				return c.String(http.StatusInternalServerError, "The FQDN does not resolve")
+			}
+		}
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
-	log.Println("Resolved IP address:", ipAddr.IP)
 
-	// Create an ICMP connection
-	conn, err := net.DialIP("ip4:icmp", nil, ipAddr)
-	if err != nil {
-		log.Println("Failed to create ICMP connection:", err)
-		return c.String(http.StatusInternalServerError, "Failed to create ICMP connection")
-	}
-	defer conn.Close()
-	log.Println("ICMP connection created")
-
-	// Set a deadline for receiving the ICMP reply
-	conn.SetDeadline(time.Now().Add(time.Second * 2))
-
-	// Send the ICMP echo request
-	echoRequest := make([]byte, 8)
-
-	// Set ICMP message type (8 bits)
-	echoRequest[0] = 8 // Echo Request
-
-	// Set ICMP message code (8 bits)
-	echoRequest[1] = 0 // Code 0
-
-	// Set ICMP message identifier (16 bits)
-	identifier := 1234                       // Example identifier
-	echoRequest[4] = byte(identifier >> 8)   // Higher order byte
-	echoRequest[5] = byte(identifier & 0xff) // Lower order byte
-
-	// Set ICMP message sequence number (16 bits)
-	sequenceNumber := 1                          // Example sequence number
-	echoRequest[6] = byte(sequenceNumber >> 8)   // Higher order byte
-	echoRequest[7] = byte(sequenceNumber & 0xff) // Lower order byte
-
-	_, err = conn.Write(echoRequest)
-	if err != nil {
-		log.Println("Failed to send ICMP echo request:", err)
-		return c.String(http.StatusInternalServerError, "Failed to send ICMP echo request")
-	}
-	log.Println("ICMP echo request sent")
-
-	// Receive the ICMP echo reply
-	echoReply := make([]byte, 1500)
-	_, err = conn.Read(echoReply)
-	if err != nil {
-		log.Println("Failed to receive ICMP echo reply:", err)
-		return c.String(http.StatusInternalServerError, "Failed to receive ICMP echo reply")
-	}
-	log.Println("ICMP echo reply received")
-
-	return c.String(http.StatusOK, "Ping successful")
+	// Return the output of the ping command
+	return c.String(http.StatusOK, string(output))
 }
-
