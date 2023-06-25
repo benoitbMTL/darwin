@@ -55,7 +55,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Println("Error performing authentication:", err) // Log the error
-		if exitError, ok := err.(*exec.ExitError); ok && !exitError.Success() {
+		if strings.Contains(string(output), "Failed to connect") {
 			return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 		}
 		return c.String(http.StatusInternalServerError, err.Error())
