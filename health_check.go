@@ -32,7 +32,7 @@ func handleHealthCheckAction(c echo.Context) error {
 	table {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 0.8em;
+		font-size: 0.9em;
 	}
 	td, th {
 		border: 1px solid #ddd;
