@@ -18,55 +18,57 @@
 <body>
 
     <div class="container mt-5">
-        <!-- Logo, Title, Dark Mode Switch -->
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <div>
-                <div class="d-flex align-items-center">
-                    <img id="fortiweb-logo" src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon"
-                        class="fortiweb-icon">
-                    <h1 class="ms-3">FortiWeb Demo Tool</h1>
-                </div>
-                <!-- Subtitle -->
-                <p><strong>This tool will walk you through a full FortiWeb demonstration.</strong></p>
-                <div class="category-buttons d-flex justify-content-between">
-                    <div>
-                        <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
-                            onclick="showCategory('web-protection')">Web Protection</button>
-                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                            onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
-                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                            onclick="showCategory('api-protection')">API Protection</button>
-                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                            onclick="showCategory('dos-protection')">DOS Protection</button>
-                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                            onclick="showCategory('machine-learning')">Machine Learning</button>
-                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                            onclick="showCategory('rest-api')">REST API</button>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-success btn-sm me-2" role="button"
-                            aria-pressed="false" onclick="showCategory('health-check')">Health Check</button>
-                        <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
-                            onclick="showCategory('Configuration')">Configuration</button>
-                    </div>
-                </div>
-            </div>
+    
+        <!-- Logo and Title -->
+        <div class="d-flex align-items-center mb-0">
+            <img id="fortiweb-logo" src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon" class="fortiweb-icon">
+            <h1 class="ms-3">FortiWeb Demo Tool</h1>
+        </div>
+    
+        <!-- Subtitle and Dark Mode Switch -->
+        <div class="d-flex align-items-center justify-content-between mb-0">
+            <p><strong>This tool will walk you through a full FortiWeb demonstration.</strong></p>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="darkModeSwitch">
                 <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
             </div>
         </div>
+    
+        <!-- Buttons -->
+        <div class="category-buttons d-flex justify-content-between mb-4">
+            <div class="d-flex">
+                <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
+                    onclick="showCategory('web-protection')">Web Protection</button>
+                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                    onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
+                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                    onclick="showCategory('api-protection')">API Protection</button>
+                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                    onclick="showCategory('dos-protection')">DOS Protection</button>
+                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                    onclick="showCategory('machine-learning')">Machine Learning</button>
+                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                    onclick="showCategory('rest-api')">REST API</button>
+            </div>
+            <div class="d-flex">
+                <button type="button" class="btn btn-outline-success btn-sm me-2" role="button" aria-pressed="false"
+                    onclick="showCategory('health-check')">Health Check</button>
+                <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
+                    onclick="showCategory('Configuration')">Configuration</button>
+            </div>
+        </div>
+    
         <div id="web-protection" class="category">
 
             <!-- Username List -->
-            <div class="mb-5 tile">
+            <div class="mb-4 tile">
                 <p>Choose the user who will generate the traffic. You can change it at any time.</p>
                 <select id="username" class="form-select form-select-sm" style="width: 250px;"></select>
             </div>
 
             <!-- Command Injection -->
-            <div class="mb-5 tile">
-                <p class="mb-4">Perform a Command Injection Attack.</p>
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform a Command Injection Attack.</p>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2"
                         onclick="performCommandInjection()">Command
@@ -81,8 +83,8 @@
             </div>
 
             <!-- SQL Injection -->
-            <div class="mb-5 tile">
-                <p class="mb-4">Perform a SQL Injection Attack.</p>
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform a SQL Injection Attack.</p>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2" onclick="performSQLInjection()">SQL
                         Injection</button>
@@ -99,8 +101,8 @@
         <div id="bot-mitigation" class="category" style="display:none;">
 
             <!-- Bot Deception -->
-            <div class="mb-5 tile">
-                <p class="mb-4">Perform a Bot Deception.</p>
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform a Bot Deception.</p>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2" onclick="viewPageSource()">View Page
                         Source</button>
@@ -136,8 +138,8 @@
         <div id="health-check" class="category" style="display:none;">
 
             <!-- Ping -->
-            <div class="mb-5 tile">
-                <p class="mb-4">Perform a Ping.</p>
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform a Ping.</p>
                 <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
                     <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control form-control-sm me-2"
                         placeholder="192.168.4.2" required style="max-width: 250px;">
@@ -151,7 +153,7 @@
         <div id="Configuration" class="category" style="display:none;">
 
             <!-- Configuration -->
-            <div class="mb-5 tile">
+            <div class="mb-4 tile">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2>Configuration</h2>
                     <div>
@@ -248,21 +250,22 @@
             <!-- Space before the end of the page -->
             <div style="height: 50px;"></div>
         </div>
+    </div>
 
-        <!-- Custom JS -->
-        <script src="/static/js/actions.js"></script>
-        <script src="/static/js/dark-mode-toggle.js"></script>
-        <script src="/static/js/categories.js"></script>
-        <script src="/static/js/dvwa-user-list.js"></script>
-        <script src="/static/js/config-handler.js"></script>
+    <!-- Custom JS -->
+    <script src="/static/js/actions.js"></script>
+    <script src="/static/js/dark-mode-toggle.js"></script>
+    <script src="/static/js/categories.js"></script>
+    <script src="/static/js/dvwa-user-list.js"></script>
+    <script src="/static/js/config-handler.js"></script>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
