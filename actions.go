@@ -21,6 +21,9 @@ func registerActions(e *echo.Echo) {
 	e.GET("/view-page-source", handleViewPageSourceAction)
 	e.GET("/bot-deception", handleBotDeceptionAction)
 
+	// HEALTH CHECK
+	e.GET("/health-check", handleHealthCheckAction)
+
 	// PING
 	e.POST("/ping", handlePingAction)
 }
@@ -195,6 +198,25 @@ func handleBotDeceptionAction(c echo.Context) error {
 
 	// Return the HTML content of the fake_url.php page
 	return c.HTML(http.StatusOK, string(output))
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+// HEALTH CHECK                                                                  //
+///////////////////////////////////////////////////////////////////////////////////
+
+func handleHealthCheckAction(c echo.Context) error {
+    urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL, FWB_MGT_IP}
+    result := ""
+    for _, url := range urls {
+        res, err := http.Get(url)
+        if err != nil {
+            result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>\n", url, err.Error())
+        } else {
+            result += fmt.Sprintf("<p style=\"color:green\">%s is reachable. HTTP Code: %d</p>\n", url, res.StatusCode)
+        }
+    }
+
+    return c.HTML(http.StatusOK, result)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

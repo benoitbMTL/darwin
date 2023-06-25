@@ -134,6 +134,27 @@ function resetBotDeception() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+// HEALTH CHECK                                                                  //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performHealthCheck() {
+    fetch('/health-check')
+        .then(response => response.text())
+        .then(result => {
+            var healthCheckResult = document.getElementById('health-check-result');
+            healthCheckResult.innerHTML = result;
+            healthCheckResult.style.display = 'block';
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function resetHealthCheck() {
+    var healthCheckResult = document.getElementById('health-check-result');
+    healthCheckResult.innerHTML = '';
+    healthCheckResult.style.display = 'none';
+}
+
+///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
 ///////////////////////////////////////////////////////////////////////////////////
 

@@ -137,6 +137,16 @@
 
         <div id="health-check" class="category" style="display:none;">
 
+            <!-- Health Check -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform a Health Check.</p>
+                <div class="mb-3 d-flex align-items-center">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performHealthCheck()">Health Check</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetHealthCheck()">Reset</button>
+                </div>
+                <div id="health-check-result" class="action-result border p-3" style="display: none;"></div>
+            </div>
+
             <!-- Ping -->
             <div class="mb-4 tile">
                 <p class="mb-2">Perform a Ping.</p>
