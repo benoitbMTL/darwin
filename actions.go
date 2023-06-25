@@ -52,19 +52,19 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"-c", "cookie.txt",
 	)
 
-output, err := cmd.CombinedOutput()
-if err != nil {
-	log.Println("Error performing authentication:", err) // Log the error
-	log.Println("log curl#1 : Curl output:", string(output)) // Log the curl output
-	if exitError, ok := err.(*exec.ExitError); ok && exitError.ExitCode() != 0 {
-		log.Println("Virtual Server is not reachable")
-		log.Println("log curl#2 : Curl output:", string(output)) // Log the curl output
-		return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Println("Error performing authentication:", err)     // Log the error
+		log.Println("log curl#1 : Curl output:", string(output)) // Log the curl output
+		if exitError, ok := err.(*exec.ExitError); ok && exitError.ExitCode() != 0 {
+			log.Println("Virtual Server is not reachable")
+			log.Println("log curl#2 : Curl output:", string(output)) // Log the curl output
+			return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+		}
+		log.Println("Command execution error:", err)
+		log.Println("log curl#3 : Curl output:", string(output)) // Log the curl output
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
-	log.Println("Command execution error:", err)
-	log.Println("log curl#3 : Curl output:", string(output)) // Log the curl output
-	return c.String(http.StatusInternalServerError, err.Error())
-}
 
 	// Execute Command Injection
 	cmd2 := exec.Command("curl", DVWA_URL+"/vulnerabilities/exec/",
@@ -88,7 +88,7 @@ if err != nil {
 
 	// Check the exit status of the commands
 	if cmd.ProcessState.ExitCode() != 0 || cmd2.ProcessState.ExitCode() != 0 {
-		return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
 	// Return the HTML content of the two curl commands
