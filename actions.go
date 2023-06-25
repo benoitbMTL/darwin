@@ -70,6 +70,10 @@ func handleCommandInjectionAction(c echo.Context) error {
 		"password": {"passwordsdcsdcsd"},
 		"Login":    {"Login"},
 	}
+
+	log.Printf(data.Get(username))
+	log.Printf(data.Get(password))
+
 	req, err := http.NewRequest("POST", DVWA_URL+"/login.php", strings.NewReader(data.Encode()))
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
