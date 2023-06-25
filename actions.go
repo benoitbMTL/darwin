@@ -96,6 +96,9 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
+	// Log the response body
+	log.Print(string(output))
+
 	// Execute Command Injection
 	data = url.Values{
 		"ip":     {";ls"},
