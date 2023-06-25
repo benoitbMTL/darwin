@@ -59,15 +59,9 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Println("Error performing authentication:", err)     // Log the error
-		log.Println("log curl#1 : Curl output:", string(output)) // Log the curl output
 		if exitError, ok := err.(*exec.ExitError); ok && exitError.ExitCode() != 0 {
-			log.Println("Virtual Server is not reachable")
-			log.Println("log curl#2 : Curl output:", string(output)) // Log the curl output
 			return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 		}
-		log.Println("Command execution error:", err)
-		log.Println("log curl#3 : Curl output:", string(output)) // Log the curl output
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
@@ -87,7 +81,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	output2, err := cmd2.CombinedOutput()
 	if err != nil {
-		log.Println("Error executing command injection:", err) // Log the error
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
@@ -207,7 +200,7 @@ func handleBotDeceptionAction(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handleHealthCheckAction(c echo.Context) error {
-	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL, "https://www.google.com"}
+	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL, "https://www.fortinet.com"}
 	result := ""
 
 	// Define a custom HTTP client
@@ -220,10 +213,10 @@ func handleHealthCheckAction(c echo.Context) error {
 	for _, url := range urls {
 		res, err := client.Get(url)
 		if err != nil {
-			log.Println(fmt.Sprintf("%s is not reachable. Error: %s", url, err.Error())) // Log debug
+			// log.Println(fmt.Sprintf("%s is not reachable. Error: %s", url, err.Error())) // Log debug
 			result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>", url, err.Error())
 		} else {
-			log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", url, res.StatusCode)) // Log debug
+			// log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", url, res.StatusCode)) // Log debug
 			result += fmt.Sprintf("<p>%s is reachable. HTTP Code: %d</p>", url, res.StatusCode)
 		}
 	}
@@ -232,10 +225,10 @@ func handleHealthCheckAction(c echo.Context) error {
 	ip := "http://" + FWB_MGT_IP
 	res, err := client.Get(ip)
 	if err != nil {
-		log.Println(fmt.Sprintf("%s is not reachable. Error: %s", ip, err.Error())) // Log debug
+		// log.Println(fmt.Sprintf("%s is not reachable. Error: %s", ip, err.Error())) // Log debug
 		result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>", ip, err.Error())
 	} else {
-		log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", ip, res.StatusCode)) // Log debug
+		// log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", ip, res.StatusCode)) // Log debug
 		result += fmt.Sprintf("<p>%s is reachable. HTTP Code: %d</p>", ip, res.StatusCode)
 	}
 
