@@ -308,7 +308,6 @@ func handleBotDeceptionAction(c echo.Context) error {
 	return c.HTML(http.StatusOK, string(output))
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////////
 // HEALTH CHECK                                                                  //
 ///////////////////////////////////////////////////////////////////////////////////
@@ -327,6 +326,7 @@ func handleHealthCheckAction(c echo.Context) error {
 	table {
 		width: 100%;
 		border-collapse: collapse;
+		font-size: 0.8em;
 	}
 	td, th {
 		border: 1px solid #ddd;
@@ -336,14 +336,7 @@ func handleHealthCheckAction(c echo.Context) error {
 		color: red;
 		font-weight: bold;
 	}
-	</style>
-	<table>
-		<tr>
-			<th>URL</th>
-			<th>Result</th>
-			<th>Code</th>
-			<th>Error</th>
-		</tr>`
+</style>`
 
 	// Loop over the URLs
 	for _, url := range urls {
@@ -391,7 +384,6 @@ func handleHealthCheckAction(c echo.Context) error {
 
 	return c.HTML(http.StatusOK, result)
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
