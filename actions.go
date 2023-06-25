@@ -334,6 +334,7 @@ func handleHealthCheckAction(c echo.Context) error {
 	}
 	.failed {
 		color: red;
+		font-weight: bold;
 	}
 	</style>
 	<table>
@@ -348,12 +349,13 @@ func handleHealthCheckAction(c echo.Context) error {
 	for _, url := range urls {
 		res, err := client.Get(url)
 		if err != nil {
+			shortErr := strings.TrimPrefix(err.Error(), fmt.Sprintf(`Get "%s": `, url))
 			result += fmt.Sprintf(`<tr>
 				<td>%s</td>
 				<td class="failed">Failed</td>
 				<td>N/A</td>
 				<td>%s</td>
-			</tr>`, url, err.Error())
+			</tr>`, url, shortErr)
 		} else {
 			result += fmt.Sprintf(`<tr>
 				<td>%s</td>
@@ -368,12 +370,13 @@ func handleHealthCheckAction(c echo.Context) error {
 	ip := "http://" + FWB_MGT_IP
 	res, err := client.Get(ip)
 	if err != nil {
+		shortErr := strings.TrimPrefix(err.Error(), fmt.Sprintf(`Get "%s": `, ip))
 		result += fmt.Sprintf(`<tr>
 			<td>%s</td>
 			<td class="failed">Failed</td>
 			<td>N/A</td>
 			<td>%s</td>
-		</tr>`, ip, err.Error())
+		</tr>`, ip, shortErr)
 	} else {
 		result += fmt.Sprintf(`<tr>
 			<td>%s</td>
@@ -388,6 +391,7 @@ func handleHealthCheckAction(c echo.Context) error {
 
 	return c.HTML(http.StatusOK, result)
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
