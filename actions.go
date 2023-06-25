@@ -55,16 +55,24 @@ func handleCommandInjectionAction(c echo.Context) error {
 output, err := cmd.CombinedOutput()
 if err != nil {
 	log.Println("Error performing authentication:", err) // Log the error
-			log.Println("log curl#1 : Curl output:", string(output)) // Log the curl output
+	log.Println("log curl#1 : Curl output:", string(output)) // Log the curl output
+
 	if exitError, ok := err.(*exec.ExitError); ok && exitError.ExitCode() != 0 {
 		log.Println("Virtual Server is not reachable")
 		log.Println("log curl#2 : Curl output:", string(output)) // Log the curl output
 		return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
-	log.Println("Command execution error:", err)
-	log.Println("log curl#3 : Curl output:", string(output)) // Log the curl output
+
+	if output != nil && len(output) == 0 {
+		log.Println("No curl output available")
+	} else {
+		log.Println("Command execution error:", err)
+		log.Println("log curl#3 : Curl output:", string(output)) // Log the curl output
+	}
+
 	return c.String(http.StatusInternalServerError, err.Error())
 }
+
 
 	// Execute Command Injection
 	cmd2 := exec.Command("curl", DVWA_URL+"/vulnerabilities/exec/",
