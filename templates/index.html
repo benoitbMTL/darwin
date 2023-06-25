@@ -28,23 +28,27 @@
                 </div>
                 <!-- Subtitle -->
                 <p><strong>This tool will walk you through a full FortiWeb demonstration.</strong></p>
-                <div class="category-buttons">
-                    <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
-                        onclick="showCategory('web-protection')">Web Protection</button>
-                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                        onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
-                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                        onclick="showCategory('api-protection')">API Protection</button>
-                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                        onclick="showCategory('dos-protection')">DOS Protection</button>
-                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                        onclick="showCategory('machine-learning')">Machine Learning</button>
-                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                        onclick="showCategory('rest-api')">REST API</button>
-                    <button type="button" class="btn btn-outline-success btn-sm" role="button" aria-pressed="false"
-                        onclick="showCategory('health-check')">Health Check</button>
-                    <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
-                        onclick="showCategory('Configuration')">Configuration</button>
+                <div class="category-buttons d-flex justify-content-between">
+                    <div>
+                        <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
+                            onclick="showCategory('web-protection')">Web Protection</button>
+                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                            onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
+                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                            onclick="showCategory('api-protection')">API Protection</button>
+                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                            onclick="showCategory('dos-protection')">DOS Protection</button>
+                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                            onclick="showCategory('machine-learning')">Machine Learning</button>
+                        <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                            onclick="showCategory('rest-api')">REST API</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-outline-success btn-sm me-2" role="button" aria-pressed="false"
+                            onclick="showCategory('health-check')">Health Check</button>
+                        <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
+                            onclick="showCategory('Configuration')">Configuration</button>
+                    </div>
                 </div>
             </div>
             <div class="form-check form-switch">
