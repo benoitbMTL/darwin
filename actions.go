@@ -322,8 +322,21 @@ func handleHealthCheckAction(c echo.Context) error {
 	}
 	client := &http.Client{Transport: tr}
 
-	// Start HTML Table
-	result := `<table>
+	// Start HTML Table with CSS
+	result := `<style>
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	td, th {
+		border: 1px solid #ddd;
+		padding: 8px;
+	}
+	.failed {
+		color: red;
+	}
+	</style>
+	<table>
 		<tr>
 			<th>URL</th>
 			<th>Result</th>
@@ -337,7 +350,7 @@ func handleHealthCheckAction(c echo.Context) error {
 		if err != nil {
 			result += fmt.Sprintf(`<tr>
 				<td>%s</td>
-				<td>Failed</td>
+				<td class="failed">Failed</td>
 				<td>N/A</td>
 				<td>%s</td>
 			</tr>`, url, err.Error())
@@ -357,7 +370,7 @@ func handleHealthCheckAction(c echo.Context) error {
 	if err != nil {
 		result += fmt.Sprintf(`<tr>
 			<td>%s</td>
-			<td>Failed</td>
+			<td class="failed">Failed</td>
 			<td>N/A</td>
 			<td>%s</td>
 		</tr>`, ip, err.Error())
@@ -375,7 +388,6 @@ func handleHealthCheckAction(c echo.Context) error {
 
 	return c.HTML(http.StatusOK, result)
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
