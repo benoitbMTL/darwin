@@ -68,6 +68,27 @@ function resetSQLInjection() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+// COOKIE SECURITY                                                                 //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performCookieAuthenticate() {
+    fetch('/cookie-security-authenticate', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(response => response.text())
+        .then(cookieText => {
+            var iframe = document.getElementById('cookie-authenticate-result');
+            iframe.srcdoc = cookieText;
+            iframe.style.height = '0px';
+            iframe.style.display = 'block'; // Show the iframe
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
 ///////////////////////////////////////////////////////////////////////////////////
 

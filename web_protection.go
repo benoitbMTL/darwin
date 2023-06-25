@@ -205,3 +205,157 @@ func handleSQLInjectionAction(c echo.Context) error {
 	// Return the HTML content
 	return c.HTML(http.StatusOK, string(output))
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+// COOKIE SECURITY                                                               //
+///////////////////////////////////////////////////////////////////////////////////
+
+func handleCookieSecurityAuthenticateAction(c echo.Context) error {
+	username := c.FormValue("username")
+	password, ok := UserPassMap[username]
+
+	if !ok {
+		log.Println("Invalid username") // Log the error
+		return c.String(http.StatusBadRequest, "Invalid username")
+	}
+
+	jar, err := cookiejar.New(nil)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
+	}
+
+	client := &http.Client{
+		Transport: transport,
+		Jar:       jar,
+	}
+
+	// Perform Authentication
+	data := url.Values{
+		"username": {username},
+		"password": {password},
+		"Login":    {"Login"},
+	}
+
+	req, err := http.NewRequest("POST", DVWA_URL+"/login.php", strings.NewReader(data.Encode()))
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL+"/")
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Upgrade-Insecure-Requests", "1")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("Received HTTP response code %d while trying to log in", resp.StatusCode)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+	}
+
+	// Display the Cookie
+	cookie := jar.Cookies(req.URL)
+	return c.String(http.StatusOK, cookie[0].String())
+}
+
+func handleCookieSecurityManipulateCookieAction(c echo.Context) error {
+	// Assuming the username and jar are from the previous authenticated session
+	jar, _ := cookiejar.New(nil)
+	req, _ := http.NewRequest("GET", DVWA_URL, nil)
+	cookies := jar.Cookies(req.URL)
+
+	// Changing the security cookie from low to medium
+	for _, cookie := range cookies {
+		if cookie.Name == "security" {
+			cookie.Value = "medium"
+		}
+	}
+
+	// Updating the jar with the new cookies
+	jar.SetCookies(req.URL, cookies)
+	// Displaying the manipulated cookie
+	securityCookie := jar.Cookies(req.URL)
+	return c.String(http.StatusOK, securityCookie[0].String())
+}
+
+func handleCookieSecurityManipulateAction(c echo.Context) error {
+	// Assuming the username and jar are from the previous authenticated session
+	jar, _ := cookiejar.New(nil)
+	req, _ := http.NewRequest("GET", DVWA_URL, nil)
+	cookies := jar.Cookies(req.URL)
+
+	// Changing the security cookie from low to medium
+	for _, cookie := range cookies {
+		if cookie.Name == "security" {
+			cookie.Value = "medium"
+		}
+	}
+
+	// Updating the jar with the new cookies
+	jar.SetCookies(req.URL, cookies)
+	// Displaying the manipulated cookie
+	securityCookie := jar.Cookies(req.URL)
+	return c.String(http.StatusOK, securityCookie[0].String())
+}
+
+func handleCookieSecurityBypassAction(c echo.Context) error {
+	// Username and Cookie are from the previous authenticated session with manipulated cookies
+	jar, _ := cookiejar.New(nil)
+	req, _ := http.NewRequest("GET", DVWA_URL+"/security.php", nil)
+
+	// Setting request headers
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL+"/")
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Upgrade-Insecure-Requests", "1")
+	req.Header.Set("Cookie", jar.Cookies(req.URL)[0].String())
+
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
+	}
+
+	client := &http.Client{
+		Transport: transport,
+		Jar:       jar,
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+	}
+
+	defer resp.Body.Close()
+
+	output, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Return the HTML content
+	return c.HTML(http.StatusOK, string(output))
+}
