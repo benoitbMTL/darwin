@@ -233,7 +233,7 @@ func handleHealthCheckAction(c echo.Context) error {
 	res, err := client.Get(ip)
 	if err != nil {
 		log.Println(fmt.Sprintf("%s is not reachable. Error: %s", ip, err.Error())) // Log debug
-		result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>", ip, err.Error())
+		result += fmt.Sprintf("<p>%s is not reachable. Error: %s</p>", ip, err.Error())
 	} else {
 		log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", ip, res.StatusCode)) // Log debug
 		result += fmt.Sprintf("<p style=\"color:green\">%s is reachable. HTTP Code: %d</p>", ip, res.StatusCode)
