@@ -54,12 +54,19 @@ function saveConfiguration() {
         })
         .then(data => {
             console.log('Configuration saved successfully:', data);
+            // Fetch the new configuration from the server
+            fetch('/api/config')
+                .then(response => response.json())
+                .then(config => {
+                    // Update the token field with the new token
+                    document.getElementById('token').value = config.token;
+                })
+                .catch(error => console.error('Error fetching new configuration:', error));
         })
         .catch(error => {
             console.error('Error saving configuration:', error);
         });
 }
-
 
 function resetConfiguration() {
     // Fetch the default configuration from the server
