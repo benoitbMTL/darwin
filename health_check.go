@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 	"crypto/tls"
+	"log"
 
 	"github.com/labstack/echo/v4"
 )
@@ -110,16 +111,19 @@ func handlePingAction(c echo.Context) error {
 	// Resolve the IP address
 	ipAddr, err := net.ResolveIPAddr("ip", ipFqdn)
 	if err != nil {
+		log.Println("Failed to resolve the IP address:", err)
 		return c.String(http.StatusInternalServerError, "Failed to resolve the IP address")
 	}
+	log.Println("Resolved IP address:", ipAddr.IP)
 
 	// Create an ICMP connection
 	conn, err := net.DialIP("ip4:icmp", nil, ipAddr)
 	if err != nil {
+		log.Println("Failed to create ICMP connection:", err)
 		return c.String(http.StatusInternalServerError, "Failed to create ICMP connection")
 	}
-	
 	defer conn.Close()
+	log.Println("ICMP connection created")
 
 	// Set a deadline for receiving the ICMP reply
 	conn.SetDeadline(time.Now().Add(time.Second * 2))
@@ -145,15 +149,20 @@ func handlePingAction(c echo.Context) error {
 
 	_, err = conn.Write(echoRequest)
 	if err != nil {
+		log.Println("Failed to send ICMP echo request:", err)
 		return c.String(http.StatusInternalServerError, "Failed to send ICMP echo request")
 	}
+	log.Println("ICMP echo request sent")
 
 	// Receive the ICMP echo reply
 	echoReply := make([]byte, 1500)
 	_, err = conn.Read(echoReply)
 	if err != nil {
+		log.Println("Failed to receive ICMP echo reply:", err)
 		return c.String(http.StatusInternalServerError, "Failed to receive ICMP echo reply")
 	}
+	log.Println("ICMP echo reply received")
 
 	return c.String(http.StatusOK, "Ping successful")
 }
+
