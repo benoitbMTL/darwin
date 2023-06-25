@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os/exec"
 	"strings"
+		"crypto/tls"
 
 	"github.com/labstack/echo/v4"
 )
@@ -208,8 +209,15 @@ func handleBotDeceptionAction(c echo.Context) error {
 func handleHealthCheckAction(c echo.Context) error {
 	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL, FWB_MGT_IP}
 	result := ""
+    
+	// Define a custom HTTP client
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+
 	for _, url := range urls {
-		res, err := http.Get(url)
+		res, err := client.Get(url)
 		if err != nil {
 			result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>\n", url, err.Error())
 		} else {
