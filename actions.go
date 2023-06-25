@@ -46,9 +46,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
 
-	log.Printf("Username: %s", username)
-	log.Printf("Password: %s", password)
-
 	jar, err := cookiejar.New(nil)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
@@ -73,12 +70,8 @@ func handleCommandInjectionAction(c echo.Context) error {
 	}
 	req, err := http.NewRequest("POST", DVWA_URL+"/login.php", strings.NewReader(data.Encode()))
 	if err != nil {
-		log.Println("Error1:", err) // This line prints the error to your console
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
-
-	log.Printf("URL: %s", req.URL.String())
-	log.Printf("Cookies: %v", jar.Cookies(req.URL))
 
 	req.Header.Set("authority", DVWA_HOST)
 	req.Header.Set("origin", DVWA_URL)
@@ -93,22 +86,15 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Println("Error2:", err) // This line prints the error to your console
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
 	defer resp.Body.Close()
 
-	log.Printf("HTTP response code: %d", resp.StatusCode)
-	log.Printf("HTTP response headers: %v", resp.Header)
-
 	output, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
-
-	// Log the response body
-	log.Print("Response body: ", string(output))
 
 	// Execute Command Injection
 	data = url.Values{
@@ -138,16 +124,15 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
-	log.Printf("HTTP response code: %d", resp.StatusCode)
-	log.Printf("HTTP response headers: %v", resp.Header)
-
 	output2, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Log the response body
-	log.Print("Response body: ", string(output2))
+	// Debug
+	log.Printf("HTTP response code: %d", resp.StatusCode)
+	log.Printf("HTTP response headers: %v", resp.Header)
+	log.Printf("Cookies: %v", jar.Cookies(req.URL))
 
 	// Return the HTML content
 	return c.HTML(http.StatusOK, string(output2))
