@@ -91,13 +91,10 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
-	output, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("Received HTTP response code %d while trying to log in", resp.StatusCode)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
-
-	// Log the response body
-	log.Print(string(output))
 
 	// Execute Command Injection
 	data = url.Values{
