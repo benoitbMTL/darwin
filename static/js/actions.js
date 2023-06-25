@@ -1,26 +1,16 @@
-// Define the userPassMap globally
-var userPassMap = {
-    "admin": "password",
-    "gordonb": "abc123",
-    "1337": "charley",
-    "pablo": "letmein",
-    "smithy": "password"
-};
-
 ///////////////////////////////////////////////////////////////////////////////////
 // COMMAND INJECTION                                                             //
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performCommandInjection() {
     var username = document.getElementById('username').value;
-    var password = userPassMap[username]; // Use the global userPassMap
 
     fetch('/command-injection', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password)
+        body: 'username=' + encodeURIComponent(username)
     })
         .then(response => response.text())
         .then(htmlContent => {
@@ -53,14 +43,13 @@ function resetCommandInjection() {
 
 function performSQLInjection() {
     var username = document.getElementById('username').value;
-    var password = userPassMap[username]; // Use the global userPassMap
 
     fetch('/sql-injection', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password)
+        body: 'username=' + encodeURIComponent(username)
     })
         .then(response => response.text())
         .then(htmlContent => {
