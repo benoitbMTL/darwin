@@ -65,7 +65,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 	// Perform Authentication
 	data := url.Values{
 		"username": {username},
-		"password": {password},
+		"password": {"passwordsdcsdcsd"},
 		"Login":    {"Login"},
 	}
 	req, err := http.NewRequest("POST", DVWA_URL+"/login.php", strings.NewReader(data.Encode()))
