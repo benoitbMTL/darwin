@@ -29,7 +29,7 @@ func handleViewPageSourceAction(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	req.Header.Set("authority", config.DVWA_HOST)
+	req.Header.Set("authority", DVWA_HOST)
 	req.Header.Set("origin", DVWA_URL)
 	req.Header.Set("referer", DVWA_URL)
 	req.Header.Set("user-agent", USER_AGENT)
