@@ -57,43 +57,44 @@ func initialConfig() Config {
 }
 
 var defaultConfig = initialConfig()
+var currentConfig = initialConfig()
 
 func ConfigHandler(c echo.Context) error {
-	// Here you would normally retrieve the current configuration from where you have it stored
-	// For this example, we'll just return the default configuration
-	return c.JSON(http.StatusOK, defaultConfig)
+	return c.JSON(http.StatusOK, currentConfig) // Use currentConfig
 }
 
 func DefaultConfigHandler(c echo.Context) error {
-	defaultConfig = initialConfig()
-	DVWA_URL = defaultConfig.DVWA_URL
-	DVWA_HOST = defaultConfig.DVWA_HOST
-	SHOP_URL = defaultConfig.SHOP_URL
-	FWB_URL = defaultConfig.FWB_URL
-	SPEEDTEST_URL = defaultConfig.SPEEDTEST_URL
-	KALI_URL = defaultConfig.KALI_URL
-	TOKEN = defaultConfig.TOKEN
-	FWB_MGT_IP = defaultConfig.FWB_MGT_IP
-	POLICY = defaultConfig.POLICY
-	USER_AGENT = defaultConfig.USER_AGENT
-	return c.JSON(http.StatusOK, defaultConfig)
+	currentConfig = defaultConfig // Reset currentConfig
+	DVWA_URL = currentConfig.DVWA_URL
+	DVWA_HOST = currentConfig.DVWA_HOST
+	SHOP_URL = currentConfig.SHOP_URL
+	FWB_URL = currentConfig.FWB_URL
+	SPEEDTEST_URL = currentConfig.SPEEDTEST_URL
+	KALI_URL = currentConfig.KALI_URL
+	TOKEN = currentConfig.TOKEN
+	FWB_MGT_IP = currentConfig.FWB_MGT_IP
+	POLICY = currentConfig.POLICY
+	USER_AGENT = currentConfig.USER_AGENT
+	return c.JSON(http.StatusOK, currentConfig) // Return currentConfig
 }
 
 func SaveConfigHandler(c echo.Context) error {
-	// Parse the request body into a Config struct
 	var newConfig Config
 	if err := c.Bind(&newConfig); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	// Save the new configuration values
-	defaultConfig = newConfig
-
-	// Update the global variables
+	currentConfig = newConfig // Save changes to currentConfig
 	DVWA_URL = newConfig.DVWA_URL
+	DVWA_HOST = newConfig.DVWA_HOST
+	SHOP_URL = newConfig.SHOP_URL
+	FWB_URL = newConfig.FWB_URL
+	SPEEDTEST_URL = newConfig.SPEEDTEST_URL
+	KALI_URL = newConfig.KALI_URL
+	TOKEN = newConfig.TOKEN
+	FWB_MGT_IP = newConfig.FWB_MGT_IP
+	POLICY = newConfig.POLICY
 	USER_AGENT = newConfig.USER_AGENT
-
-	// Return a success response
-	return c.JSON(http.StatusOK, newConfig)
+	return c.JSON(http.StatusOK, currentConfig) // Return currentConfig
 }
 
