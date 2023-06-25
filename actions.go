@@ -56,7 +56,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 	if err != nil {
 		log.Println("Error performing authentication:", err) // Log the error
 		if exitError, ok := err.(*exec.ExitError); ok && !exitError.Success() {
-			return c.String(http.StatusInternalServerError, "The Virtual Server is not reachable")
+			return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 		}
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
@@ -79,15 +79,14 @@ func handleCommandInjectionAction(c echo.Context) error {
 	if err != nil {
 		log.Println("Error executing command injection:", err) // Log the error
 		if exitError, ok := err.(*exec.ExitError); ok && !exitError.Success() {
-			return c.String(http.StatusInternalServerError, "The Virtual Server is not reachable")
+			return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 		}
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	// Return the HTML content of the two curl command
+	// Return the HTML content of the two curl commands
 	return c.HTML(http.StatusOK, string(output)+"\n"+string(output2))
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // SQL INJECTION                                                                 //
