@@ -46,8 +46,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
 
-	log.Printf(password)
-
 	jar, err := cookiejar.New(nil)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
@@ -67,12 +65,9 @@ func handleCommandInjectionAction(c echo.Context) error {
 	// Perform Authentication
 	data := url.Values{
 		"username": {username},
-		"password": {"passwordsdcsdcsd"},
+		"password": {password},
 		"Login":    {"Login"},
 	}
-
-	log.Printf(data.Get(username))
-	log.Printf(data.Get(password))
 
 	req, err := http.NewRequest("POST", DVWA_URL+"/login.php", strings.NewReader(data.Encode()))
 	if err != nil {
@@ -101,6 +96,11 @@ func handleCommandInjectionAction(c echo.Context) error {
 		log.Printf("Received HTTP response code %d while trying to log in", resp.StatusCode)
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
+
+	// Debug
+	log.Printf("HTTP response code: %d", resp.StatusCode)
+	log.Printf("HTTP response headers: %v", resp.Header)
+	log.Printf("Cookies: %v", jar.Cookies(req.URL))
 
 	// Execute Command Injection
 	data = url.Values{
