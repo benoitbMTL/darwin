@@ -1,12 +1,12 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"log"
 	"net/http"
 	"os/exec"
 	"strings"
-		"crypto/tls"
 
 	"github.com/labstack/echo/v4"
 )
@@ -206,6 +206,11 @@ func handleBotDeceptionAction(c echo.Context) error {
 // HEALTH CHECK                                                                  //
 ///////////////////////////////////////////////////////////////////////////////////
 
+import (
+	"log"
+	// other imports...
+)
+
 func handleHealthCheckAction(c echo.Context) error {
 	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL}
 	result := ""
@@ -220,19 +225,23 @@ func handleHealthCheckAction(c echo.Context) error {
 	for _, url := range urls {
 		res, err := client.Get(url)
 		if err != nil {
-			result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>\n", url, err.Error())
+			log.Println(fmt.Sprintf("%s is not reachable. Error: %s", url, err.Error()))  // Log debug
+			result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>", url, err.Error())
 		} else {
-			result += fmt.Sprintf("<p style=\"color:green\">%s is reachable. HTTP Code: %d</p>\n", url, res.StatusCode)
+			log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", url, res.StatusCode)) // Log debug
+			result += fmt.Sprintf("<p style=\"color:green\">%s is reachable. HTTP Code: %d</p>", url, res.StatusCode)
 		}
 	}
 
 	// Handle FWB_MGT_IP separately because it's only an IP without a scheme
-	ip := "https://" + FWB_MGT_IP
+	ip := "http://" + FWB_MGT_IP
 	res, err := client.Get(ip)
 	if err != nil {
-		result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>\n", ip, err.Error())
+		log.Println(fmt.Sprintf("%s is not reachable. Error: %s", ip, err.Error())) // Log debug
+		result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>", ip, err.Error())
 	} else {
-		result += fmt.Sprintf("<p style=\"color:green\">%s is reachable. HTTP Code: %d</p>\n", ip, res.StatusCode)
+		log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", ip, res.StatusCode)) // Log debug
+		result += fmt.Sprintf("<p style=\"color:green\">%s is reachable. HTTP Code: %d</p>", ip, res.StatusCode)
 	}
 
 	return c.HTML(http.StatusOK, result)
