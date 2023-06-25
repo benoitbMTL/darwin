@@ -55,8 +55,8 @@ func handleCommandInjectionAction(c echo.Context) error {
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Println("Error performing authentication:", err) // Log the error
-		if strings.Contains(string(output), "Failed to connect") {
-			return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+		if exitError, ok := err.(*exec.ExitError); ok && !exitError.Success() {
+			return c.HTML(http.StatusInternalServerError, `<pre style="color: green; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 		}
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
@@ -78,10 +78,12 @@ func handleCommandInjectionAction(c echo.Context) error {
 	output2, err := cmd2.CombinedOutput()
 	if err != nil {
 		log.Println("Error executing command injection:", err) // Log the error
-		if exitError, ok := err.(*exec.ExitError); ok && !exitError.Success() {
-			return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
-		}
 		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Check the exit status of the commands
+	if cmd.ProcessState.ExitCode() != 0 || cmd2.ProcessState.ExitCode() != 0 {
+		return c.HTML(http.StatusInternalServerError, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
 	// Return the HTML content of the two curl commands
