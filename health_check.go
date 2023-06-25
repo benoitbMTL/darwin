@@ -118,6 +118,7 @@ func handlePingAction(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Failed to create ICMP connection")
 	}
+	
 	defer conn.Close()
 
 	// Set a deadline for receiving the ICMP reply
@@ -154,18 +155,5 @@ func handlePingAction(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Failed to receive ICMP echo reply")
 	}
 
-	// Parse the ICMP echo reply to extract relevant information
-	replyType := echoReply[0]
-	replyCode := echoReply[1]
-	replyIdentifier := uint16(echoReply[4])<<8 | uint16(echoReply[5])
-	replySequenceNumber := uint16(echoReply[6])<<8 | uint16(echoReply[7])
-
-	// Return the result
-	result := "Ping successful\n"
-	result += "Reply Type: " + string(replyType) + "\n"
-	result += "Reply Code: " + string(replyCode) + "\n"
-	result += "Identifier: " + string(replyIdentifier) + "\n"
-	result += "Sequence Number: " + string(replySequenceNumber) + "\n"
-
-	return c.String(http.StatusOK, result)
+	return c.String(http.StatusOK, "Ping successful")
 }
