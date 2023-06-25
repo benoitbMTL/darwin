@@ -39,12 +39,14 @@ func registerActions(e *echo.Echo) {
 
 func handleCommandInjectionAction(c echo.Context) error {
 	username := c.FormValue("username")
-	// password, ok := UserPassMap[username]
+	password, ok := UserPassMap[username]
 
 	if !ok {
 		log.Println("Invalid username") // Log the error
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
+
+	log.Printf(password)
 
 	jar, err := cookiejar.New(nil)
 	if err != nil {
