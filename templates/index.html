@@ -151,8 +151,8 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2>Configuration</h2>
                     <div>
-                        <button type="button" class="btn btn-primary btn-sm me-2" onclick="saveConfiguration()">Save</button>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="resetConfiguration()">Reset to
+                        <button type="button" class="btn btn-success btn-sm me-2" onclick="saveConfiguration()">Save</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="resetConfiguration()">Reset to
                             Default</button>
                     </div>
                 </div>
@@ -175,74 +175,68 @@
                             <input type="text" class="form-control form-control-sm" id="shop-url">
                         </div>
                     </div>
-                    <!-- Add more rows following the structure above for each configuration field -->
-                </form>
-            </div>
-
-            <div class="mb-5 tile">
-                <h2>Configuration</h2>
-                <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary btn-sm me-2"
-                        onclick="saveConfiguration()">Save</button>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetConfiguration()">Reset to
-                        Default</button>
-                </div>
-                <form id="configuration-form">
-                    <div class="mb-3">
-                        <label for="dvwa-url" class="form-label">DVWA URL</label>
-                        <input type="text" class="form-control form-control-sm" id="dvwa-url">
+                    <div class="row mb-3">
+                        <label for="fwb-url" class="form-label col-2 text-start">FWB URL</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="fwb-url">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="dvwa-host" class="form-label">DVWA HOST</label>
-                        <input type="text" class="form-control form-control-sm" id="dvwa-host">
+                    <div class="row mb-3">
+                        <label for="speedtest-url" class="form-label col-2 text-start">SPEEDTEST URL</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="speedtest-url">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="shop-url" class="form-label">SHOP URL</label>
-                        <input type="text" class="form-control form-control-sm" id="shop-url">
+                    <div class="row mb-3">
+                        <label for="kali-url" class="form-label col-2 text-start">KALI URL</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="kali-url">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="fwb-url" class="form-label">FWB URL</label>
-                        <input type="text" class="form-control form-control-sm" id="fwb-url">
+                    <div class="row mb-3">
+                        <label for="username-api" class="form-label col-2 text-start">Username API</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="username-api">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="speedtest-url" class="form-label">SPEEDTEST URL</label>
-                        <input type="text" class="form-control form-control-sm" id="speedtest-url">
+                    <div class="row mb-3">
+                        <label for="password-api" class="form-label col-2 text-start">Password API</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="password-api">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="kali-url" class="form-label">KALI URL</label>
-                        <input type="text" class="form-control form-control-sm" id="kali-url">
+                    <div class="row mb-3">
+                        <label for="vdom-api" class="form-label col-2 text-start">VDOM API</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="vdom-api">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="username-api" class="form-label">Username API</label>
-                        <input type="text" class="form-control form-control-sm" id="username-api">
+                    <div class="row mb-3">
+                        <label for="token" class="form-label col-2 text-start">TOKEN API</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="token" disabled>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="password-api" class="form-label">Password API</label>
-                        <input type="text" class="form-control form-control-sm" id="password-api">
+                    <div class="row mb-3">
+                        <label for="fwb-mgt-ip" class="form-label col-2 text-start">FortiWeb Management IP</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="vdom-api" class="form-label">VDOM API</label>
-                        <input type="text" class="form-control form-control-sm" id="vdom-api">
+                    <div class="row mb-3">
+                        <label for="policy" class="form-label col-2 text-start">Policy Name</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="policy">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="token" class="form-label">TOKEN API (auto-calculated)</label>
-                        <input type="text" class="form-control form-control-sm" id="token" disabled>
-                    </div>
-                    <div class="mb-3">
-                        <label for="fwb-mgt-ip" class="form-label">FortiWeb Management IP</label>
-                        <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
-                    </div>
-                    <div class="mb-3">
-                        <label for="policy" class="form-label">Policy Name</label>
-                        <input type="text" class="form-control form-control-sm" id="policy">
-                    </div>
-                    <div class="mb-3">
-                        <label for="user-agent" class="form-label">User Agent</label>
-                        <input type="text" class="form-control form-control-sm" id="user-agent">
+                    <div class="row mb-3">
+                        <label for="user-agent" class="form-label col-2 text-start">User Agent</label>
+                        <div class="col-10">
+                            <input type="text" class="form-control form-control-sm" id="user-agent">
+                        </div>
                     </div>
                 </form>
             </div>
-        </div>
 
 
 
