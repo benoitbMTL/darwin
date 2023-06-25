@@ -46,6 +46,9 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Invalid username")
 	}
 
+	log.Printf("Username: %s", username)
+	log.Printf("Password: %s", password)
+
 	jar, err := cookiejar.New(nil)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
@@ -66,6 +69,9 @@ func handleCommandInjectionAction(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
+	log.Printf("URL: %s", req.URL.String())
+	log.Printf("Cookies: %v", jar.Cookies(req.URL))
+
 	req.Header.Set("authority", DVWA_HOST)
 	req.Header.Set("origin", DVWA_URL)
 	req.Header.Set("referer", DVWA_URL+"/")
@@ -84,13 +90,16 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
+	log.Printf("HTTP response code: %d", resp.StatusCode)
+	log.Printf("HTTP response headers: %v", resp.Header)
+
 	output, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	// Log the response body
-	log.Print(string(output))
+	log.Print("Response body: ", string(output))
 
 	// Execute Command Injection
 	data = url.Values{
@@ -120,13 +129,16 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
+	log.Printf("HTTP response code: %d", resp.StatusCode)
+	log.Printf("HTTP response headers: %v", resp.Header)
+
 	output2, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
 	// Log the response body
-	log.Print(string(output2))
+	log.Print("Response body: ", string(output2))
 
 	// Return the HTML content
 	return c.HTML(http.StatusOK, string(output2))
