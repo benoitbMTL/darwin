@@ -206,11 +206,6 @@ func handleBotDeceptionAction(c echo.Context) error {
 // HEALTH CHECK                                                                  //
 ///////////////////////////////////////////////////////////////////////////////////
 
-import (
-	"log"
-	// other imports...
-)
-
 func handleHealthCheckAction(c echo.Context) error {
 	urls := []string{DVWA_URL, SHOP_URL, FWB_URL, SPEEDTEST_URL, KALI_URL}
 	result := ""
@@ -225,7 +220,7 @@ func handleHealthCheckAction(c echo.Context) error {
 	for _, url := range urls {
 		res, err := client.Get(url)
 		if err != nil {
-			log.Println(fmt.Sprintf("%s is not reachable. Error: %s", url, err.Error()))  // Log debug
+			log.Println(fmt.Sprintf("%s is not reachable. Error: %s", url, err.Error())) // Log debug
 			result += fmt.Sprintf("<p style=\"color:red\">%s is not reachable. Error: %s</p>", url, err.Error())
 		} else {
 			log.Println(fmt.Sprintf("%s is reachable. HTTP Code: %d", url, res.StatusCode)) // Log debug
@@ -246,7 +241,6 @@ func handleHealthCheckAction(c echo.Context) error {
 
 	return c.HTML(http.StatusOK, result)
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // PING                                                                          //
