@@ -72,11 +72,13 @@ function resetSQLInjection() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performCookieAuthenticate() {
+    var username = document.getElementById('username').value;
     fetch('/cookie-security-authenticate', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        },
+        body: 'username=' + encodeURIComponent(username)
     })
         .then(response => response.text())
         .then(cookieText => {
