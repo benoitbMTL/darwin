@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"github.com/labstack/echo/v4"
+	"log"
 )
 
 func main() {
@@ -21,10 +21,10 @@ func main() {
 
 	// Register actions
 	registerActions(e)
-	
+
 	// Register config handler
 	e.GET("/api/config", ConfigHandler)
-	e.GET("/api/config/default", ConfigHandler)
+	e.GET("/api/config/default", DefaultConfigHandler)
 	e.POST("/api/config", SaveConfigHandler)
 
 	// Start the server
