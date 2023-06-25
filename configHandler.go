@@ -1,8 +1,9 @@
 package main
 
 import (
-	"net/http"
+	"encoding/base64"
 	"fmt"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -80,7 +81,9 @@ func DefaultConfigHandler(c echo.Context) error {
 	FWB_URL = currentConfig.FWB_URL
 	SPEEDTEST_URL = currentConfig.SPEEDTEST_URL
 	KALI_URL = currentConfig.KALI_URL
-	TOKEN = currentConfig.TOKEN
+	USERNAME_API = currentConfig.USERNAME_API
+	PASSWORD_API = currentConfig.PASSWORD_API
+	VDOM_API = currentConfig.VDOM_API
 	FWB_MGT_IP = currentConfig.FWB_MGT_IP
 	POLICY = currentConfig.POLICY
 	USER_AGENT = currentConfig.USER_AGENT
@@ -107,10 +110,9 @@ func SaveConfigHandler(c echo.Context) error {
 	POLICY = newConfig.POLICY
 	USER_AGENT = newConfig.USER_AGENT
 
-	// Recalculate the TOKEN
-	tokenData := fmt.Sprintf(`{"username":"%s","password":"%s","vdom":"%s"}`, UsernameAPI, PasswordAPI, VdomAPI)
-	TOKEN = base64.StdEncoding.EncodeToString([]byte(tokenData))
-	newConfig.TOKEN = TOKEN
+// Recalculate the TOKEN
+	tokenData := fmt.Sprintf(`{"username":"%s","password":"%s","vdom":"%s"}`, USERNAME_API, PASSWORD_API, VDOM_API)
+	currentConfig.TOKEN = base64.StdEncoding.EncodeToString([]byte(tokenData))
 
 	return c.JSON(http.StatusOK, currentConfig) // Return currentConfig
 }
