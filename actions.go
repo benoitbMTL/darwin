@@ -336,7 +336,14 @@ func handleHealthCheckAction(c echo.Context) error {
 		color: red;
 		font-weight: bold;
 	}
-</style>`
+	</style>
+	<table>
+		<tr>
+			<th>URL</th>
+			<th>Result</th>
+			<th>Code</th>
+			<th>Error</th>
+		</tr>`
 
 	// Loop over the URLs
 	for _, url := range urls {
