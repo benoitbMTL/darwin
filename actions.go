@@ -1,12 +1,14 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
+	"os/exec"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -66,7 +68,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	req.Header.Set("authority", DVWA_HOST)
 	req.Header.Set("origin", DVWA_URL)
-	req.Header.Set("referer", DVWA_URL"/")
+	req.Header.Set("referer", DVWA_URL+"/")
 	req.Header.Set("user-agent", USER_AGENT)
 	req.Header.Set("cache-control", "max-age=0")
 	req.Header.Set("content-type", "application/x-www-form-urlencoded")
@@ -74,7 +76,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
 	req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Upgrade-Insecure-Requests", "1")
-
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -130,7 +131,6 @@ func handleCommandInjectionAction(c echo.Context) error {
 	// Return the HTML content
 	return c.HTML(http.StatusOK, string(output2))
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // SQL INJECTION                                                                 //
