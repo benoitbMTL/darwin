@@ -66,6 +66,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 	}
 	req, err := http.NewRequest("POST", DVWA_URL+"/login.php", strings.NewReader(data.Encode()))
 	if err != nil {
+		    log.Println("Error1:", err) // This line prints the error to your console
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
@@ -85,8 +86,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Printf("URL: %s", req.URL.String())
-		log.Printf("Cookies: %v", jar.Cookies(req.URL))
+		    log.Println("Error2:", err) // This line prints the error to your console
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
