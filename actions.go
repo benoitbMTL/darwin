@@ -66,9 +66,6 @@ if err != nil {
 	return c.String(http.StatusInternalServerError, err.Error())
 }
 
-// If the curl command succeeded, you can return the HTML output
-return c.HTML(http.StatusOK, string(output))
-
 	// Execute Command Injection
 	cmd2 := exec.Command("curl", DVWA_URL+"/vulnerabilities/exec/",
 		"-H", "authority: "+DVWA_HOST,
