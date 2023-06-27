@@ -292,7 +292,6 @@ func handleCookieSecurityAction(c echo.Context) error {
 	for _, cookie := range jar.Cookies(req.URL) {
 		if cookie.Name == "security" {
 			cookies = append(cookies, &http.Cookie{Name: cookie.Name, Value: "medium"})
-			log.Printf("Changing cookie %s to medium", cookie.Name)
 		} else {
 			cookies = append(cookies, cookie)
 		}
