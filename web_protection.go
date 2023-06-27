@@ -311,7 +311,7 @@ func handleCookieSecurityAction(c echo.Context) error {
 		Jar:       newJar,
 	}
 
-	req, _ = http.NewRequest("GET", DVWA_URL+"/", nil)
+	req, _ = http.NewRequest("GET", DVWA_URL+"/security.php", nil)
 	resp, _ = client.Do(req)
 	defer resp.Body.Close()
 

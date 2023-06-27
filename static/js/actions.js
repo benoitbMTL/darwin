@@ -101,7 +101,7 @@ function resetSQLInjection() {
                 }
 
                 document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
-                let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
+                let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/medium/g, '<span style="color: red;">medium</span>') + '</pre></body></html>';
                 var iframe2 = document.getElementById('modified-cookie');
                 iframe2.srcdoc = modifiedCookieHtml;
                 iframe2.style.display = 'block';
