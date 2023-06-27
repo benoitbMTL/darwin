@@ -54,12 +54,12 @@ func handleViewPageSourceAction(c echo.Context) error {
 	lastLinesString := strings.Join(lastLines, "\n")
 
 	// Check if specific strings exist, if so wrap them with HTML tags for red color
-	if strings.Contains(lastLinesString, "/fake_url.php") {
-		lastLinesString = strings.ReplaceAll(lastLinesString, "/fake_url.php", `<span style="color:red;">/fake_url.php</span>`)
+	if strings.Contains(lastLinesString, `href="/fake_url.php"`) {
+		lastLinesString = strings.ReplaceAll(lastLinesString, `href="/fake_url.php"`, `<span style="color:red;">href="/fake_url.php"</span>`)
 	}
 
-	if strings.Contains(lastLinesString, "display:none") {
-		lastLinesString = strings.ReplaceAll(lastLinesString, "display:none", `<span style="color:red;">display:none</span>`)
+	if strings.Contains(lastLinesString, `style='display:none'`) {
+		lastLinesString = strings.ReplaceAll(lastLinesString, `style='display:none'`, `<span style="color:red;">style='display:none'</span>`)
 	}
 
 	// Wrap the result with pre tags for courier new and font size
