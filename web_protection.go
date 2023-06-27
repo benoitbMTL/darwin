@@ -272,20 +272,22 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 
 	cookie := jar.Cookies(req.URL)
 
-if len(cookie) > 0 {
-	var cookiesText strings.Builder
-	for _, cookie := range cookie {
-		// Check if the cookie value is "low", if so wrap it with HTML tags for bold and red color
-		if strings.Contains(cookie.String(), "low") {
-			cookiesText.WriteString(strings.ReplaceAll(cookie.String(), "low", `<b><span style="color:red;">low</span></b>`) + "<br>")
-		} else {
-			cookiesText.WriteString(cookie.String() + "<br>")
+	if len(cookie) > 0 {
+		var cookiesText strings.Builder
+		cookiesText.WriteString(`<pre style="font-family:'Courier New', monospace;">`) // Begin pre tag with desired font
+		for _, cookie := range cookie {
+			// Check if the cookie value is "low", if so wrap it with HTML tags for bold and red color
+			if strings.Contains(cookie.String(), "low") {
+				cookiesText.WriteString(strings.ReplaceAll(cookie.String(), "low", `<b><span style="color:red;">low</span></b>`) + "<br>")
+			} else {
+				cookiesText.WriteString(cookie.String() + "<br>")
+			}
 		}
+		cookiesText.WriteString(`</pre>`) // End pre tag
+		return c.HTML(http.StatusOK, cookiesText.String())
 	}
-	return c.HTML(http.StatusOK, cookiesText.String())
-}
 
-	return c.String(http.StatusNotFound, "No cookie found")
+	return c.HTML(http.StatusNotFound, `<pre style="font-family:'Courier New', monospace;">No cookie found</pre>`)
 }
 
 func handleCookieSecurityManipulateCookieAction(c echo.Context) error {
