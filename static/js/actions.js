@@ -89,43 +89,36 @@ function performCookieSecurity() {
         },
         body: 'username=' + encodeURIComponent(username)
     })
-        .then(response => {
-            console.log("Response: ", response);
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            console.log("Data: ", data);
-            if (data.initialCookie) {
-                let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
-                console.log("Initial cookie HTML: ", initialCookieHtml);
-                var iframe1 = document.getElementById('initial-cookie');
-                iframe1.srcdoc = initialCookieHtml;
-                iframe1.style.display = 'block';
-                iframe1.onload = function () {
-                    iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
-                    console.log("iframe1 height: ", iframe1.style.height);
-                }
-
-                document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
-                let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
-                console.log("Modified cookie HTML: ", modifiedCookieHtml);
-                document.getElementById('modified-cookie').srcdoc = modifiedCookieHtml;
-                document.getElementById('modified-cookie').style.display = 'block';
-
-                document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie";
-                document.getElementById('web-page-iframe').srcdoc = data.webPageHTML;
-                document.getElementById('web-page-iframe').style.display = 'block';
-            } else {
-                console.log("`initialCookie` is not a property of `data`.");
+            document.getElementById('initial-cookie-additional-text').innerText = "You are now authenticated. Your cookie security level is set to low.";
+            let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
+            var iframe1 = document.getElementById('initial-cookie');
+            iframe1.srcdoc = initialCookieHtml;
+            iframe1.style.display = 'block';
+            iframe1.onload = function () {
+                iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
             }
+
+            document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
+            let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
+            var iframe2 = document.getElementById('modified-cookie');
+            iframe2.srcdoc = modifiedCookieHtml;
+            iframe2.style.display = 'block';
+            iframe2.onload = function () {
+                iframe2.style.height = (iframe2.contentWindow.document.body.scrollHeight + 30) + 'px';
+            }
+
+            document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie";
+            var iframe3 = document.getElementById('web-page-iframe');
+            iframe3.srcdoc = data.webPageHTML;
+            iframe3.style.height = '0px';
+            iframe3.style.display = 'block';
         })
         .catch(error => {
             console.error('Error:', error);
-            console.log('Username when error occurred: ', username);
         });
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
