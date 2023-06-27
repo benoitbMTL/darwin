@@ -436,10 +436,10 @@ func handleCookieSecurityAction(c echo.Context) error {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
-// CREDENTIAL STUFFING DEFENSE                                                   //
+// CREDENTIAL STUFFING                                                           //
 ///////////////////////////////////////////////////////////////////////////////////
 
-func handleCredentialStuffingDefense(c echo.Context) error {
+func handleCrendentialStuffingAction(c echo.Context) error {
 	username := c.FormValue("stolen-credential")
 	password, ok := CredentialStuffingMap[username]
 
