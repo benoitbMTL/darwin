@@ -315,6 +315,19 @@ func handleCookieSecurityAction(c echo.Context) error {
 	}
 
 	req, _ = http.NewRequest("GET", DVWA_URL+"/security.php", nil)
+
+	// Setting the headers
+	req.Header.Set("authority", DVWA_HOST)
+	req.Header.Set("origin", DVWA_URL)
+	req.Header.Set("referer", DVWA_URL+"/")
+	req.Header.Set("user-agent", USER_AGENT)
+	req.Header.Set("cache-control", "max-age=0")
+	req.Header.Set("content-type", "application/x-www-form-urlencoded")
+	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Upgrade-Insecure-Requests", "1")
+
 	log.Println("Sending request to /security.php with manipulated cookies")
 
 	resp, _ = client.Do(req)
