@@ -84,23 +84,27 @@ function performCookieSecurity() {
         .then(data => {
             console.log(data); // This will log the received data to the console.
 
-            // Wrap cookies in an HTML document and assign to the iframe's srcdoc attribute
-            // Use replace to change 'low' into a styled span
+            document.getElementById('initial-cookie-additional-text').innerText = "You are now authenticated. Your cookie security level is set to low.";
             let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
             document.getElementById('initial-cookie').srcdoc = initialCookieHtml;
-            document.getElementById('initial-cookie').style.display = 'block'; // Show the iframes
+            document.getElementById('initial-cookie').style.display = 'block';
 
+            document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
             let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
             document.getElementById('modified-cookie').srcdoc = modifiedCookieHtml;
-            document.getElementById('modified-cookie').style.display = 'block'; // Show the iframes
+            document.getElementById('modified-cookie').style.display = 'block';
 
-            document.getElementById('web-page-iframe').srcdoc = data.webPageHTML; // iframe to display the web page
-            document.getElementById('web-page-iframe').style.display = 'block'; // Show the iframes
+            document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie";
+            document.getElementById('web-page-iframe').srcdoc = data.webPageHTML;
+            document.getElementById('web-page-iframe').style.display = 'block';
         })
         .catch(error => console.error('Error:', error));
 }
 
-
+var iframeResult = document.getElementById('bot-deception-result');
+iframeResult.srcdoc = htmlContent;
+iframeResult.style.display = 'block';
+document.getElementById('bot-deception-text-result').style.display = 'none';
 
 
 ///////////////////////////////////////////////////////////////////////////////////

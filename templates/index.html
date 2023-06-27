@@ -96,33 +96,34 @@
                 </div>
             </div>
 
-<!-- Cookie Security -->
-<div class="mb-4 tile">
-    <p class="mb-2">Perform Cookie Security.</p>
-    <div class="d-flex align-items-center mb-3">
-        <button type="button" class="btn btn-primary btn-sm me-2" onclick="performCookieSecurity()">Manipulate
-            Cookie</button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="resetContent()">Reset</button>
-    </div>
-    <div id="cookie-security-additional-text" class="additional-text mt-4 mb-4"></div>
-    <div id="cookie-security-container">
-        <div id="step1">
-            <p>You are now authenticated. Your cookie "security" level is set to low.</p>
-            <iframe id="initial-cookie" class="action-result border" style="width: 100%; display: none;"
-                onload="resizeIframe(this)"></iframe>
-        </div>
-        <div id="step2">
-            <p>Let's change the cookie "security" level to medium</p>
-            <iframe id="modified-cookie" class="action-result border" style="width: 100%; display: none;"
-                onload="resizeIframe(this)"></iframe>
-        </div>
-        <div id="step3">
-            <p>Let's connect again to the web app with the new crafted cookie</p>
-            <iframe id="web-page-iframe" class="action-result border" style="width: 100%; display: none;"
-                onload="resizeIframe(this)"></iframe>
-        </div>
-    </div>
-</div>
+            <!-- Cookie Security -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform Cookie Security.</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary btn-sm me-2"
+                        onclick="performCookieSecurity()">Manipulate
+                        Cookie</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetContent()">Reset</button>
+                </div>
+                <div id="cookie-security-additional-text" class="additional-text mt-4 mb-4"></div>
+                <div id="cookie-security-container">
+                    <div id="cookie-security-additional-text" class="additional-text mt-4 mb-4"></div>
+                    <div id="step1">
+                        <iframe id="initial-cookie" class="action-result border" style="width: 100%; display: none;"
+                            onload="resizeIframe(this)"></iframe>
+                    </div>
+                    <div id="step2">
+                        <div id="modified-cookie-additional-text" class="additional-text mt-4 mb-4"></div>
+                        <iframe id="modified-cookie" class="action-result border" style="width: 100%; display: none;"
+                            onload="resizeIframe(this)"></iframe>
+                    </div>
+                    <div id="step3">
+                        <div id="web-page-iframe-additional-text" class="additional-text mt-4 mb-4"></div>
+                        <iframe id="web-page-iframe" class="action-result border" style="width: 100%; display: none;"
+                            onload="resizeIframe(this)"></iframe>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
