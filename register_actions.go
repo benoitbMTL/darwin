@@ -12,6 +12,9 @@ func registerActions(e *echo.Echo) {
 	// SQL INJECTION
 	e.POST("/sql-injection", handleSQLInjectionAction)
 
+	// CROSS SITE SCRIPTING
+	e.POST("/cross-site-scripting", handleCrossSiteScriptingAction)
+
 	// COOKIE SECURITY
 	e.POST("/cookie-security", handleCookieSecurityAction)
 

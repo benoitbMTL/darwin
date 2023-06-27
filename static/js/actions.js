@@ -76,6 +76,36 @@ function resetSQLInjection() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+// CROSS SITE SCRIPTING (XSS)                                                    //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performCrossSiteScripting() {
+    var username = document.getElementById('username').value;
+
+    fetch('/cross-site-scripting', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'username=' + encodeURIComponent(username)
+    })
+        .then(response => response.text())
+        .then(htmlContent => {
+            var iframe = document.getElementById('cross-site-scripting-result');
+            iframe.srcdoc = htmlContent;
+            iframe.style.height = '0px';
+            iframe.style.display = 'block'; // Show the iframe
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function resetCrossSiteScripting() {
+    var iframe = document.getElementById('cross-site-scripting-result');
+    iframe.srcdoc = '';
+    iframe.style.display = 'none'; // Hide the iframe
+}
+
+///////////////////////////////////////////////////////////////////////////////////
 // COOKIE SECURITY                                                                 //
 ///////////////////////////////////////////////////////////////////////////////////
 

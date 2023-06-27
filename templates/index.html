@@ -23,11 +23,12 @@
     <script src="/static/js/categories.js"></script>
     <script src="/static/js/dvwa-user-list.js"></script>
     <script src="/static/js/config-handler.js"></script>
-    
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
 
 </head>
 
@@ -109,6 +110,21 @@
                 <div id="sql-injection-container">
                     <iframe id="sql-injection-result" class="action-result border" style="width: 100%; display: none;"
                         onload="resizeIframe(this)"></iframe>
+                </div>
+            </div>
+
+            <!-- Cross Site Scripting -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform a Cross Site Scripting Attack.</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performCrossSiteScripting()">SQL
+                        Injection</button>
+                    <button type="button" class="btn btn-secondary btn-sm"
+                        onclick="resetCrossSiteScripting()">Reset</button>
+                </div>
+                <div id="cross-site-scripting-container">
+                    <iframe id="cross-site-scripting-result" class="action-result border"
+                        style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
                 </div>
             </div>
 
