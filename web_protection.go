@@ -210,7 +210,13 @@ func handleSQLInjectionAction(c echo.Context) error {
 // COOKIE SECURITY                                                               //
 ///////////////////////////////////////////////////////////////////////////////////
 
-func handleCookieSecurityAuthenticateAction(c echo.Context) error {
+type CookieActionResponse struct {
+	InitialCookie string `json:"initialCookie"`
+	ModifiedCookie string `json:"modifiedCookie"`
+	WebPageHTML string `json:"webPageHTML"`
+}
+
+func handleCookieSecurityAction(c echo.Context) error {
 	username := c.FormValue("username")
 	password, ok := UserPassMap[username]
 
@@ -257,7 +263,7 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
 	req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Upgrade-Insecure-Requests", "1")
-
+	
 	resp, err := client.Do(req)
 	if err != nil {
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
@@ -270,107 +276,40 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
-	cookie := jar.Cookies(req.URL)
-
-	if len(cookie) > 0 {
-		var cookiesText strings.Builder
-		cookiesText.WriteString(`<pre style="font-family:'Courier New', monospace; font-size:14px;">`) // Begin pre tag with desired font and size
-		for _, cookie := range cookie {
-			// Check if the cookie value is "low", if so wrap it with HTML tags for bold and red color
-			if strings.Contains(cookie.String(), "low") {
-				cookiesText.WriteString(strings.ReplaceAll(cookie.String(), "low", `<b><span style="color:red;">low</span></b>`) + "<br>")
-			} else {
-				cookiesText.WriteString(cookie.String() + "<br>")
-			}
-		}
-		cookiesText.WriteString(`</pre>`) // End pre tag
-		return c.HTML(http.StatusOK, cookiesText.String())
+	// Get the initial cookie string
+	initialCookieText := ""
+	for _, cookie := range jar.Cookies(req.URL) {
+		initialCookieText += cookie.String() + "<br>"
 	}
 
-	return c.HTML(http.StatusNotFound, `<pre style="font-family:'Courier New', monospace; font-size:14px;">No cookie found</pre>`)
-}
-
-func handleCookieSecurityManipulateCookieAction(c echo.Context) error {
-	// Assuming the username and jar are from the previous authenticated session
-	jar, _ := cookiejar.New(nil)
-	req, _ := http.NewRequest("GET", DVWA_URL, nil)
-	cookies := jar.Cookies(req.URL)
-
-	// Changing the security cookie from low to medium
-	for _, cookie := range cookies {
+	// Now, manipulate the cookie
+	for _, cookie := range jar.Cookies(req.URL) {
 		if cookie.Name == "security" {
 			cookie.Value = "medium"
 		}
 	}
 
-	// Updating the jar with the new cookies
-	jar.SetCookies(req.URL, cookies)
-	// Displaying the manipulated cookie
-	securityCookie := jar.Cookies(req.URL)
-	return c.String(http.StatusOK, securityCookie[0].String())
-}
-
-func handleCookieSecurityManipulateAction(c echo.Context) error {
-	// Assuming the username and jar are from the previous authenticated session
-	jar, _ := cookiejar.New(nil)
-	req, _ := http.NewRequest("GET", DVWA_URL, nil)
-	cookies := jar.Cookies(req.URL)
-
-	// Changing the security cookie from low to medium
-	for _, cookie := range cookies {
-		if cookie.Name == "security" {
-			cookie.Value = "medium"
-		}
+	// Get the modified cookie string
+	modifiedCookieText := ""
+	for _, cookie := range jar.Cookies(req.URL) {
+		modifiedCookieText += cookie.String() + "<br>"
 	}
 
-	// Updating the jar with the new cookies
-	jar.SetCookies(req.URL, cookies)
-	// Displaying the manipulated cookie
-	securityCookie := jar.Cookies(req.URL)
-	return c.String(http.StatusOK, securityCookie[0].String())
-}
+	// Make a new request with the manipulated cookie
+	req, _ = http.NewRequest("GET", DVWA_URL+"/", nil)
+	req.AddCookie(&http.Cookie{Name: "security", Value: "medium"})
 
-func handleCookieSecurityBypassAction(c echo.Context) error {
-	// Username and Cookie are from the previous authenticated session with manipulated cookies
-	jar, _ := cookiejar.New(nil)
-	req, _ := http.NewRequest("GET", DVWA_URL+"/security.php", nil)
-
-	// Setting request headers
-	req.Header.Set("authority", DVWA_HOST)
-	req.Header.Set("origin", DVWA_URL)
-	req.Header.Set("referer", DVWA_URL+"/")
-	req.Header.Set("user-agent", USER_AGENT)
-	req.Header.Set("cache-control", "max-age=0")
-	req.Header.Set("content-type", "application/x-www-form-urlencoded")
-	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
-	req.Header.Set("Connection", "keep-alive")
-	req.Header.Set("Upgrade-Insecure-Requests", "1")
-	req.Header.Set("Cookie", jar.Cookies(req.URL)[0].String())
-
-	transport := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
-	client := &http.Client{
-		Transport: transport,
-		Jar:       jar,
-	}
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
-	}
-
+	resp, _ = client.Do(req)
 	defer resp.Body.Close()
 
-	output, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
-	}
+	body, _ := ioutil.ReadAll(resp.Body)
 
-	// Return the HTML content
-	return c.HTML(http.StatusOK, string(output))
+	return c.JSON(http.StatusOK, &CookieActionResponse{
+		InitialCookie: initialCookieText,
+		ModifiedCookie: modifiedCookieText,
+		WebPageHTML: string(body),
+	})
 }
+
+
+

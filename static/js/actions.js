@@ -71,27 +71,39 @@ function resetSQLInjection() {
 // COOKIE SECURITY                                                                 //
 ///////////////////////////////////////////////////////////////////////////////////
 
-function performCookieAuthenticate() {
+function performCookieSecurity() {
     var username = document.getElementById('username').value;
-    fetch('/cookie-security-authenticate', {
+    fetch('/cookie-security-action', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: 'username=' + encodeURIComponent(username)
     })
-        .then(response => response.text())
-        .then(cookieText => {
-            document.getElementById('cookie-security-additional-text').innerText = "You are now authenticated. Your Security level is low.";
-            var iframe = document.getElementById('cookie-security-result');
-            iframe.srcdoc = cookieText;
-            iframe.style.display = 'block'; // Show the iframe
-            iframe.onload = function () {
-                iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 30) + 'px';
-            }
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('cookie-security-additional-text').innerText = "You are now authenticated. Your cookie \"security\" level is set to low.";
+
+            var initialCookieIframe = document.createElement('iframe');
+            initialCookieIframe.srcdoc = data.initialCookie;
+            document.getElementById('cookie-security-container').appendChild(initialCookieIframe);
+
+            document.getElementById('cookie-security-additional-text').innerText += " Let's change the cookie \"security\" level to medium.";
+
+            var modifiedCookieIframe = document.createElement('iframe');
+            modifiedCookieIframe.srcdoc = data.modifiedCookie;
+            document.getElementById('cookie-security-container').appendChild(modifiedCookieIframe);
+
+            document.getElementById('cookie-security-additional-text').innerText += " Let's connect again to the web app with the new crafted cookie.";
+
+            var webPageIframe = document.createElement('iframe');
+            webPageIframe.srcdoc = data.webPageHTML;
+            document.getElementById('cookie-security-container').appendChild(webPageIframe);
         })
         .catch(error => console.error('Error:', error));
 }
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
