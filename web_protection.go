@@ -272,19 +272,18 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 
 	cookie := jar.Cookies(req.URL)
 
-	// Print the cookies using the log package
-	for i, cookie := range cookie {
-		log.Printf("Cookie %d: %s\n", i, cookie.String())
-	}
-
-	if len(cookie) > 0 {
-		var cookiesText strings.Builder
-		for _, cookie := range cookie {
-			// Each cookie string is appended and followed by a newline character
-			cookiesText.WriteString(cookie.String() + "\n")
+if len(cookie) > 0 {
+	var cookiesText strings.Builder
+	for _, cookie := range cookie {
+		// Check if the cookie value is "low", if so wrap it with HTML tags for bold and red color
+		if strings.Contains(cookie.String(), "low") {
+			cookiesText.WriteString(strings.ReplaceAll(cookie.String(), "low", `<b><span style="color:red;">low</span></b>`) + "<br>")
+		} else {
+			cookiesText.WriteString(cookie.String() + "<br>")
 		}
-		return c.String(http.StatusOK, cookiesText.String())
 	}
+	return c.HTML(http.StatusOK, cookiesText.String())
+}
 
 	return c.String(http.StatusNotFound, "No cookie found")
 }
