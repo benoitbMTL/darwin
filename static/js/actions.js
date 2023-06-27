@@ -102,9 +102,8 @@ function performCookieSecurity() {
                 }
             }
 
-            document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
-
             if (data.modifiedCookie) {
+                document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
                 let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
                 var iframe2 = document.getElementById('modified-cookie');
                 iframe2.srcdoc = modifiedCookieHtml;
@@ -114,8 +113,8 @@ function performCookieSecurity() {
                 }
             }
 
-            document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie";
             if (data.webPageHTML) {
+                document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie";
                 var iframe3 = document.getElementById('web-page-iframe');
                 iframe3.srcdoc = data.webPageHTML;
                 iframe3.style.height = '0px';
@@ -126,7 +125,6 @@ function performCookieSecurity() {
             console.error('Error:', error);
         });
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
