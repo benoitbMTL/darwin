@@ -82,13 +82,13 @@ function performCookieAuthenticate() {
     })
         .then(response => response.text())
         .then(cookieText => {
-            var iframe = document.getElementById('cookie-authenticate-result');
-            iframe.srcdoc = cookieText;
-            iframe.style.height = '0px';
-            iframe.style.display = 'block'; // Show the iframe
+            var pre = document.getElementById('cookie-security-text-result');
+            pre.innerText = cookieText;
+            pre.style.display = 'block'; // Show the pre
         })
         .catch(error => console.error('Error:', error));
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
