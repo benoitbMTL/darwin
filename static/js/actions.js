@@ -109,11 +109,12 @@ function viewPageSource() {
             document.getElementById('bot-deception-additional-text').innerText = "We can see a hidden link on the login page (display:none)";
             document.getElementById('bot-deception-result').style.display = 'none';
             var textResult = document.getElementById('bot-deception-text-result');
-            textResult.innerText = result;
+            textResult.innerHTML = result; // Changed from innerText to innerHTML
             textResult.style.display = 'block';
         })
         .catch(error => console.error('Error:', error));
 }
+
 
 function performBotDeception() {
     fetch('/bot-deception', {

@@ -49,8 +49,21 @@ func handleViewPageSourceAction(c echo.Context) error {
 
 	lines := strings.Split(string(output), "\n")
 	lastLines := lines[len(lines)-15:]
+	lastLinesString := strings.Join(lastLines, "\n")
 
-	return c.String(http.StatusOK, strings.Join(lastLines, "\n"))
+	// Check if specific strings exist, if so wrap them with HTML tags for red color
+	if strings.Contains(lastLinesString, "/fake_url.php") {
+		lastLinesString = strings.ReplaceAll(lastLinesString, "/fake_url.php", `<span style="color:red;">/fake_url.php</span>`)
+	}
+
+	if strings.Contains(lastLinesString, "display:none") {
+		lastLinesString = strings.ReplaceAll(lastLinesString, "display:none", `<span style="color:red;">display:none</span>`)
+	}
+
+	// Wrap the result with pre tags for courier new and font size
+	result := fmt.Sprintf(`<pre style="font-family:'Courier New', monospace; font-size:14px;">%s</pre>`, html.EscapeString(lastLinesString))
+
+	return c.HTML(http.StatusOK, result)
 }
 
 func handleBotDeceptionAction(c echo.Context) error {
