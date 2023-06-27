@@ -95,7 +95,7 @@ function resetSQLInjection() {
                 let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
                 var iframe1 = document.getElementById('initial-cookie');
                 //iframe1.srcdoc = initialCookieHtml;
-                iframe1.srcdoc = ''TOTO'';
+                iframe1.srcdoc = 'TOTO';
                 iframe1.style.display = 'block';
                 iframe1.onload = function () {
                     iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
