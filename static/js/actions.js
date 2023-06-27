@@ -82,8 +82,6 @@ function performCookieSecurity() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data); // This will log the received data to the console.
-
             document.getElementById('initial-cookie-additional-text').innerText = "You are now authenticated. Your cookie security level is set to low.";
             let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
             document.getElementById('initial-cookie').srcdoc = initialCookieHtml;
@@ -100,12 +98,6 @@ function performCookieSecurity() {
         })
         .catch(error => console.error('Error:', error));
 }
-
-var iframeResult = document.getElementById('bot-deception-result');
-iframeResult.srcdoc = htmlContent;
-iframeResult.style.display = 'block';
-document.getElementById('bot-deception-text-result').style.display = 'none';
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
