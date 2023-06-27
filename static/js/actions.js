@@ -84,10 +84,11 @@ function performCookieSecurity() {
         .then(data => {
             console.log(data); // This will log the received data to the console.
 
-            document.getElementById('initial-cookie').innerText = data.initialCookie;
+            // Wrap cookies in an HTML document and assign to the iframe's srcdoc attribute
+            document.getElementById('initial-cookie').srcdoc = '<html><body><pre>' + data.initialCookie + '</pre></body></html>';
             document.getElementById('initial-cookie').style.display = 'block'; // Show the iframes
 
-            document.getElementById('modified-cookie').innerText = data.modifiedCookie;
+            document.getElementById('modified-cookie').srcdoc = '<html><body><pre>' + data.modifiedCookie + '</pre></body></html>';
             document.getElementById('modified-cookie').style.display = 'block'; // Show the iframes
 
             document.getElementById('web-page-iframe').srcdoc = data.webPageHTML; // iframe to display the web page
@@ -95,6 +96,7 @@ function performCookieSecurity() {
         })
         .catch(error => console.error('Error:', error));
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////
