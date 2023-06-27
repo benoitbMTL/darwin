@@ -18,6 +18,9 @@ func registerActions(e *echo.Echo) {
 	// COOKIE SECURITY
 	e.POST("/cookie-security", handleCookieSecurityAction)
 
+	// COOKIE SECURITY
+	e.POST("/credential-stuffing", handleCookieSecurityAction)
+	
 	// BOT DECEPTION
 	e.GET("/view-page-source", handleViewPageSourceAction)
 	e.GET("/bot-deception", handleBotDeceptionAction)

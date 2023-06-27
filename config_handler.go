@@ -30,6 +30,19 @@ var (
 		"pablo":   "letmein",
 		"smithy":  "password",
 	}
+
+	CredentialStuffingMap = map[string]string{
+		"pklangdon4@msn.com":             "ppl11266",
+		"muldersstan@gmail.com":          "renzo1205",
+		"forsternp2@aol.com":             "freedom1",
+		"cragsy@msn.com":                 "Snatch01",
+		"bjrehdorf@hotmail.com":          "Apollo25504",
+		"baz2709@icloud.com":             "sophie12",
+		"amysiura@ymail.com":             "active95",
+		"jond714@gmail.com":              "jonloveslax",
+		"josefahorenstein87@hotmail.com": "qel737Xf3",
+		"bizotic6@gmail.com":             "snaker26",
+	}
 )
 
 type Config struct {
@@ -114,7 +127,7 @@ func SaveConfigHandler(c echo.Context) error {
 	POLICY = newConfig.POLICY
 	USER_AGENT = newConfig.USER_AGENT
 
-// Recalculate the TOKEN
+	// Recalculate the TOKEN
 	tokenData := fmt.Sprintf(`{"username":"%s","password":"%s","vdom":"%s"}`, USERNAME_API, PASSWORD_API, VDOM_API)
 	currentConfig.TOKEN = base64.StdEncoding.EncodeToString([]byte(tokenData))
 
