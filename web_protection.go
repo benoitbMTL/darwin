@@ -292,6 +292,7 @@ func handleCookieSecurityAction(c echo.Context) error {
 	for _, cookie := range jar.Cookies(req.URL) {
 		if cookie.Name == "security" {
 			cookies = append(cookies, &http.Cookie{Name: cookie.Name, Value: "medium"})
+			log.Printf("Changing cookie %s to medium", cookie.Name)
 		} else {
 			cookies = append(cookies, cookie)
 		}
@@ -305,6 +306,8 @@ func handleCookieSecurityAction(c echo.Context) error {
 		modifiedCookieText += cookie.String() + "<br>"
 	}
 
+	log.Println("Modified cookies: ", modifiedCookieText)
+
 	// Make a new request with the manipulated cookie
 	client = &http.Client{
 		Transport: transport,
@@ -312,10 +315,14 @@ func handleCookieSecurityAction(c echo.Context) error {
 	}
 
 	req, _ = http.NewRequest("GET", DVWA_URL+"/security.php", nil)
+	log.Println("Sending request to /security.php with manipulated cookies")
+
 	resp, _ = client.Do(req)
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
+
+	log.Println("Received response from /security.php")
 
 	return c.JSON(http.StatusOK, &CookieActionResponse{
 		InitialCookie:  initialCookieText,
