@@ -82,6 +82,7 @@ function performCookieAuthenticate() {
     })
         .then(response => response.text())
         .then(cookieText => {
+            document.getElementById('cookie-security-additional-text').innerText = "You are now authenticated. Your Security level is low.";
             var iframe = document.getElementById('cookie-security-result');
             iframe.srcdoc = cookieText;
             iframe.style.display = 'block'; // Show the iframe
