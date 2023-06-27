@@ -270,14 +270,15 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
-	// Display the Cookie
 	cookie := jar.Cookies(req.URL)
+
 	// Print the cookies using the log package
-	for i, cookie := range cookies {
+	for i, cookie := range cookie {
 		log.Printf("Cookie %d: %s\n", i, cookie.String())
 	}
-	if len(cookies) > 0 {
-		return c.String(http.StatusOK, cookies[0].String())
+
+	if len(cookie) > 0 {
+		return c.String(http.StatusOK, cookie[0].String())
 	}
 
 	return c.String(http.StatusNotFound, "No cookie found")
