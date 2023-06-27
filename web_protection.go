@@ -274,7 +274,7 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 
 	if len(cookie) > 0 {
 		var cookiesText strings.Builder
-		cookiesText.WriteString(`<pre style="font-family:'Courier New', monospace;">`) // Begin pre tag with desired font
+		cookiesText.WriteString(`<pre style="font-family:'Courier New', monospace; font-size:14px;">`) // Begin pre tag with desired font and size
 		for _, cookie := range cookie {
 			// Check if the cookie value is "low", if so wrap it with HTML tags for bold and red color
 			if strings.Contains(cookie.String(), "low") {
@@ -287,7 +287,7 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 		return c.HTML(http.StatusOK, cookiesText.String())
 	}
 
-	return c.HTML(http.StatusNotFound, `<pre style="font-family:'Courier New', monospace;">No cookie found</pre>`)
+	return c.HTML(http.StatusNotFound, `<pre style="font-family:'Courier New', monospace; font-size:14px;">No cookie found</pre>`)
 }
 
 func handleCookieSecurityManipulateCookieAction(c echo.Context) error {
