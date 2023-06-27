@@ -211,9 +211,9 @@ func handleSQLInjectionAction(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 type CookieActionResponse struct {
-	InitialCookie string `json:"initialCookie"`
+	InitialCookie  string `json:"initialCookie"`
 	ModifiedCookie string `json:"modifiedCookie"`
-	WebPageHTML string `json:"webPageHTML"`
+	WebPageHTML    string `json:"webPageHTML"`
 }
 
 func handleCookieSecurityAction(c echo.Context) error {
@@ -282,46 +282,44 @@ func handleCookieSecurityAction(c echo.Context) error {
 		initialCookieText += cookie.String() + "<br>"
 	}
 
-// Now, manipulate the cookie and create a new CookieJar
-newJar, err := cookiejar.New(nil)
-if err != nil {
-    return c.String(http.StatusInternalServerError, err.Error())
+	// Now, manipulate the cookie and create a new CookieJar
+	newJar, err := cookiejar.New(nil)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	var cookies []*http.Cookie
+	for _, cookie := range jar.Cookies(req.URL) {
+		if cookie.Name == "security" {
+			cookies = append(cookies, &http.Cookie{Name: cookie.Name, Value: "medium"})
+		} else {
+			cookies = append(cookies, cookie)
+		}
+	}
+
+	newJar.SetCookies(req.URL, cookies)
+
+	// Get the modified cookie string
+	modifiedCookieText := ""
+	for _, cookie := range newJar.Cookies(req.URL) {
+		modifiedCookieText += cookie.String() + "<br>"
+	}
+
+	// Make a new request with the manipulated cookie
+	client = &http.Client{
+		Transport: transport,
+		Jar:       newJar,
+	}
+
+	req, _ = http.NewRequest("GET", DVWA_URL+"/", nil)
+	resp, _ = client.Do(req)
+	defer resp.Body.Close()
+
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	return c.JSON(http.StatusOK, &CookieActionResponse{
+		InitialCookie:  initialCookieText,
+		ModifiedCookie: modifiedCookieText,
+		WebPageHTML:    string(body),
+	})
 }
-
-var cookies []*http.Cookie
-for _, cookie := range jar.Cookies(req.URL) {
-    if cookie.Name == "security" {
-        cookies = append(cookies, &http.Cookie{Name: cookie.Name, Value: "medium"})
-    } else {
-        cookies = append(cookies, cookie)
-    }
-}
-
-newJar.SetCookies(req.URL, cookies)
-
-// Get the modified cookie string
-modifiedCookieText := ""
-for _, cookie := range newJar.Cookies(req.URL) {
-    modifiedCookieText += cookie.String() + "<br>"
-}
-
-// Make a new request with the manipulated cookie
-client = &http.Client{
-    Transport: transport,
-    Jar: newJar,
-}
-
-req, _ = http.NewRequest("GET", DVWA_URL+"/", nil)
-resp, _ = client.Do(req)
-defer resp.Body.Close()
-
-body, _ := ioutil.ReadAll(resp.Body)
-
-return c.JSON(http.StatusOK, &CookieActionResponse{
-    InitialCookie: initialCookieText,
-    ModifiedCookie: modifiedCookieText,
-    WebPageHTML: string(body),
-})
-
-
-
