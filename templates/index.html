@@ -108,17 +108,17 @@
     <div id="cookie-security-container">
         <div id="step1">
             <p>You are now authenticated. Your cookie "security" level is set to low.</p>
-            <iframe id="cookie-security-result-1" class="action-result border" style="width: 100%; display: none;"
+            <iframe id="initial-cookie" class="action-result border" style="width: 100%; display: none;"
                 onload="resizeIframe(this)"></iframe>
         </div>
         <div id="step2">
             <p>Let's change the cookie "security" level to medium</p>
-            <iframe id="cookie-security-result-2" class="action-result border" style="width: 100%; display: none;"
+            <iframe id="modified-cookie" class="action-result border" style="width: 100%; display: none;"
                 onload="resizeIframe(this)"></iframe>
         </div>
         <div id="step3">
             <p>Let's connect again to the web app with the new crafted cookie</p>
-            <iframe id="cookie-security-result-3" class="action-result border" style="width: 100%; display: none;"
+            <iframe id="web-page-iframe" class="action-result border" style="width: 100%; display: none;"
                 onload="resizeIframe(this)"></iframe>
         </div>
     </div>
