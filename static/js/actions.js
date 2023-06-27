@@ -82,21 +82,19 @@ function performCookieSecurity() {
     })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('cookie-security-authentication-text').innerText = data.authenticationText;
-            document.getElementById('cookie-security-manipulation-text').innerText = data.manipulationText;
-            document.getElementById('cookie-security-bypass-text').innerText = data.bypassText;
+            // Assuming you have elements with these IDs to show the cookies
+            document.getElementById('initial-cookie').innerText = data.initialCookie;
+            document.getElementById('modified-cookie').innerText = data.modifiedCookie;
 
-            document.getElementById('cookie-security-authentication-iframe').srcdoc = data.authenticationIframe;
-            document.getElementById('cookie-security-manipulation-iframe').srcdoc = data.manipulationIframe;
-            document.getElementById('cookie-security-bypass-iframe').srcdoc = data.bypassIframe;
+            // Assuming you have an iframe to display the web page
+            document.getElementById('web-page-iframe').srcdoc = data.webPageHTML;
 
-            // show the iframes
-            document.getElementById('cookie-security-authentication-iframe').style.display = 'block';
-            document.getElementById('cookie-security-manipulation-iframe').style.display = 'block';
-            document.getElementById('cookie-security-bypass-iframe').style.display = 'block';
+            // Show the iframes
+            document.getElementById('web-page-iframe').style.display = 'block';
         })
         .catch(error => console.error('Error:', error));
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
