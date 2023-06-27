@@ -87,7 +87,7 @@ function performCookieAuthenticate() {
             iframe.srcdoc = cookieText;
             iframe.style.display = 'block'; // Show the iframe
             iframe.onload = function () {
-                resizeIframe(this);
+                iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 15) + 'px';
             }
         })
         .catch(error => console.error('Error:', error));
@@ -206,5 +206,5 @@ function resetPingForm() {
 
 // Function to adjust the height of the iframe based on its content:
 function resizeIframe(iframe) {
-    iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 10) + 'px';
+    iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 1) + 'px';
 }
