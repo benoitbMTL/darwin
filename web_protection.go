@@ -311,7 +311,7 @@ func handleCookieSecurityAction(c echo.Context) error {
 	// Make a new request with the manipulated cookie
 	client = &http.Client{
 		Transport: transport,
-		Jar:       newJar,
+		Jar:       jar,
 	}
 
 	req, _ = http.NewRequest("GET", DVWA_URL+"/security.php", nil)
