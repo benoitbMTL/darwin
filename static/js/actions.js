@@ -93,35 +93,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .then(response => response.json())
             .then(data => {
 
-                if (data.initialCookie) {
-                    document.getElementById('initial-cookie-additional-text').innerText = "You are now authenticated. Your cookie security level is set to low.";
-                    let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
-                    var iframe1 = document.getElementById('initial-cookie');
-                    iframe1.srcdoc = initialCookieHtml;
-                    iframe1.style.display = 'block';
-                    iframe1.onload = function () {
-                        iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
-                    }
+                document.getElementById('initial-cookie-additional-text').innerText = "You are now authenticated. Your cookie security level is set to low.";
+                let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
+                var iframe1 = document.getElementById('initial-cookie');
+                iframe1.srcdoc = initialCookieHtml;
+                iframe1.style.display = 'block';
+                iframe1.onload = function () {
+                    iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
                 }
 
-                if (data.modifiedCookie) {
-                    document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
-                    let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
-                    var iframe2 = document.getElementById('modified-cookie');
-                    iframe2.srcdoc = modifiedCookieHtml;
-                    iframe2.style.display = 'block';
-                    iframe2.onload = function () {
-                        iframe2.style.height = (iframe2.contentWindow.document.body.scrollHeight + 30) + 'px';
-                    }
+                document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
+                let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
+                var iframe2 = document.getElementById('modified-cookie');
+                iframe2.srcdoc = modifiedCookieHtml;
+                iframe2.style.display = 'block';
+                iframe2.onload = function () {
+                    iframe2.style.height = (iframe2.contentWindow.document.body.scrollHeight + 30) + 'px';
                 }
 
-                if (data.webPageHTML) {
-                    document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie";
-                    var iframe3 = document.getElementById('web-page-iframe');
-                    iframe3.srcdoc = data.webPageHTML;
-                    iframe3.style.height = '0px';
-                    iframe3.style.display = 'block';
-                }
+                document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie";
+                var iframe3 = document.getElementById('web-page-iframe');
+                iframe3.srcdoc = data.webPageHTML;
+                iframe3.style.height = '0px';
+                iframe3.style.display = 'block';
+
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -129,7 +124,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
+function resetCookieSecurity() {
+    document.getElementById('initial-cookie-additional-text').innerText = '';
+    document.getElementById('modified-cookie-additional-text').innerText = '';
+    document.getElementById('web-page-iframe-additional-text').innerText = '';
 
+
+    var iframe1 = document.getElementById('initial-cookie');
+    iframe1.srcdoc = '';
+    iframe1.style.display = 'none'; // Hide the iframe
+
+    var iframe2 = document.getElementById('modified-cookie');
+    iframe2.srcdoc = '';
+    iframe2.style.display = 'none'; // Hide the iframe
+
+    var iframe3 = document.getElementById('web-page-iframe');
+    iframe3.srcdoc = '';
+    iframe3.style.display = 'none'; // Hide the iframe
+}
 
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
