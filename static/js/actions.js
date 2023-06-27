@@ -206,5 +206,5 @@ function resetPingForm() {
 
 // Function to adjust the height of the iframe based on its content:
 function resizeIframe(iframe) {
-    iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 2) + 'px';
+    iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 30) + 'px';
 }
