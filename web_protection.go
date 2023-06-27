@@ -306,12 +306,10 @@ func handleCookieSecurityAction(c echo.Context) error {
 		modifiedCookieText += cookie.String() + "<br>"
 	}
 
-	log.Println("Modified cookies: ", modifiedCookieText)
-
 	// Make a new request with the manipulated cookie
 	client = &http.Client{
 		Transport: transport,
-		Jar:       jar,
+		Jar:       newJar,
 	}
 
 	req, _ = http.NewRequest("GET", DVWA_URL+"/security.php", nil)
@@ -328,14 +326,10 @@ func handleCookieSecurityAction(c echo.Context) error {
 	req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Upgrade-Insecure-Requests", "1")
 
-	log.Println("Sending request to /security.php with manipulated cookies")
-
 	resp, _ = client.Do(req)
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-
-	log.Println("Received response from /security.php")
 
 	return c.JSON(http.StatusOK, &CookieActionResponse{
 		InitialCookie:  initialCookieText,
