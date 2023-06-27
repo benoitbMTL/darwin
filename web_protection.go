@@ -278,7 +278,12 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 	}
 
 	if len(cookie) > 0 {
-		return c.String(http.StatusOK, cookie[0].String())
+		var cookiesText strings.Builder
+		for _, cookie := range cookie {
+			// Each cookie string is appended and followed by a newline character
+			cookiesText.WriteString(cookie.String() + "\n")
+		}
+		return c.String(http.StatusOK, cookiesText.String())
 	}
 
 	return c.String(http.StatusNotFound, "No cookie found")
