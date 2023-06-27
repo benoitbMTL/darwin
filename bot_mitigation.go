@@ -2,8 +2,6 @@ package main
 
 import (
 	"crypto/tls"
-	"fmt"
-	"html"
 	"io/ioutil"
 	"net/http"
 	"strings"
