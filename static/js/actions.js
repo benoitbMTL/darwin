@@ -32,17 +32,8 @@ function performCommandInjection() {
 
 function resetCommandInjection() {
     var iframe = document.getElementById('command-injection-result');
-    iframe.parentNode.removeChild(iframe);
-    var newIframe = document.createElement('iframe');
-    newIframe.id = 'command-injection-result';
-    newIframe.className = 'action-result border';
-    newIframe.style.width = '100%';
-    newIframe.style.display = 'none'; // Hide the iframe
-    newIframe.onload = function () {
-        resizeIframe(this);
-    };
-    var parentContainer = document.getElementById('command-injection-container');
-    parentContainer.appendChild(newIframe);
+    iframe.srcdoc = '';
+    iframe.style.display = 'none'; // Hide the iframe
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -168,6 +159,36 @@ function resetCookieSecurity() {
     var iframe3 = document.getElementById('web-page-iframe');
     iframe3.srcdoc = '';
     iframe3.style.display = 'none'; // Hide the iframe
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+// CREDENTIAL STUFFING                                                           //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performCredentialStuffing() {
+    var username = document.getElementById('stolen-credential').value;
+
+    fetch('/command-injection', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'username=' + encodeURIComponent(username)
+    })
+        .then(response => response.text())
+        .then(htmlContent => {
+            var iframe = document.getElementById('credential-stuffing-result');
+            iframe.srcdoc = htmlContent;
+            iframe.style.height = '0px';
+            iframe.style.display = 'block'; // Show the iframe
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function resetCredentialStuffing() {
+    var iframe = document.getElementById('credential-stuffing-result');
+    iframe.srcdoc = '';
+    iframe.style.display = 'none'; // Hide the iframe
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
