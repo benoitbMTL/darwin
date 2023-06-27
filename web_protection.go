@@ -213,7 +213,7 @@ func handleSQLInjectionAction(c echo.Context) error {
 func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 	username := c.FormValue("username")
 	password, ok := UserPassMap[username]
-	
+
 	if !ok {
 		log.Println("Invalid username") // Log the error
 		return c.String(http.StatusBadRequest, "Invalid username")
@@ -272,7 +272,15 @@ func handleCookieSecurityAuthenticateAction(c echo.Context) error {
 
 	// Display the Cookie
 	cookie := jar.Cookies(req.URL)
-	return c.String(http.StatusOK, cookie[0].String())
+	// Print the cookies using the log package
+	for i, cookie := range cookies {
+		log.Printf("Cookie %d: %s\n", i, cookie.String())
+	}
+	if len(cookies) > 0 {
+		return c.String(http.StatusOK, cookies[0].String())
+	}
+
+	return c.String(http.StatusNotFound, "No cookie found")
 }
 
 func handleCookieSecurityManipulateCookieAction(c echo.Context) error {
