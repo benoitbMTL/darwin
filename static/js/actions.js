@@ -85,10 +85,13 @@ function performCookieSecurity() {
             console.log(data); // This will log the received data to the console.
 
             // Wrap cookies in an HTML document and assign to the iframe's srcdoc attribute
-            document.getElementById('initial-cookie').srcdoc = '<html><body><pre>' + data.initialCookie + '</pre></body></html>';
+            // Use replace to change 'low' into a styled span
+            let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
+            document.getElementById('initial-cookie').srcdoc = initialCookieHtml;
             document.getElementById('initial-cookie').style.display = 'block'; // Show the iframes
 
-            document.getElementById('modified-cookie').srcdoc = '<html><body><pre>' + data.modifiedCookie + '</pre></body></html>';
+            let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
+            document.getElementById('modified-cookie').srcdoc = modifiedCookieHtml;
             document.getElementById('modified-cookie').style.display = 'block'; // Show the iframes
 
             document.getElementById('web-page-iframe').srcdoc = data.webPageHTML; // iframe to display the web page
@@ -96,6 +99,7 @@ function performCookieSecurity() {
         })
         .catch(error => console.error('Error:', error));
 }
+
 
 
 
