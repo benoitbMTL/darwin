@@ -84,9 +84,12 @@ function performCookieSecurity() {
         .then(data => {
             document.getElementById('initial-cookie-additional-text').innerText = "You are now authenticated. Your cookie security level is set to low.";
             let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
-            document.getElementById('initial-cookie').srcdoc = initialCookieHtml;
-            document.getElementById('initial-cookie').style.display = 'block';
-
+            var iframe1 = document.getElementById('initial-cookie');
+            iframe1.srcdoc = initialCookieHtml;
+            iframe1.style.display = 'block';
+            iframe1.onload = function () {
+                iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
+            }
             document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium";
             let modifiedCookieHtml = '<html><body><pre>' + data.modifiedCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
             document.getElementById('modified-cookie').srcdoc = modifiedCookieHtml;
