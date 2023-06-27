@@ -79,8 +79,6 @@ function resetSQLInjection() {
 // COOKIE SECURITY                                                                 //
 ///////////////////////////////////////////////////////////////////////////////////
 
-document.addEventListener('DOMContentLoaded', (event) => {
-
     function performCookieSecurity() {
         var username = document.getElementById('username').value;
         fetch('/cookie-security', {
@@ -96,7 +94,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 document.getElementById('initial-cookie-additional-text').innerText = "You are now authenticated. Your cookie security level is set to low.";
                 let initialCookieHtml = '<html><body><pre>' + data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>') + '</pre></body></html>';
                 var iframe1 = document.getElementById('initial-cookie');
-                iframe1.srcdoc = initialCookieHtml;
+                //iframe1.srcdoc = initialCookieHtml;
+                iframe1.srcdoc = ''TOTO'';
                 iframe1.style.display = 'block';
                 iframe1.onload = function () {
                     iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
@@ -122,7 +121,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 console.error('Error:', error);
             });
     }
-});
 
 function resetCookieSecurity() {
     document.getElementById('initial-cookie-additional-text').innerText = '';
