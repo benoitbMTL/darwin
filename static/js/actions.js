@@ -82,15 +82,16 @@ function performCookieSecurity() {
     })
         .then(response => response.json())
         .then(data => {
-            // Assuming you have elements with these IDs to show the cookies
+            console.log(data); // This will log the received data to the console.
+
             document.getElementById('initial-cookie').innerText = data.initialCookie;
+            document.getElementById('initial-cookie').style.display = 'block'; // Show the iframes
+
             document.getElementById('modified-cookie').innerText = data.modifiedCookie;
+            document.getElementById('modified-cookie').style.display = 'block'; // Show the iframes
 
-            // Assuming you have an iframe to display the web page
-            document.getElementById('web-page-iframe').srcdoc = data.webPageHTML;
-
-            // Show the iframes
-            document.getElementById('web-page-iframe').style.display = 'block';
+            document.getElementById('web-page-iframe').srcdoc = data.webPageHTML; // iframe to display the web page
+            document.getElementById('web-page-iframe').style.display = 'block'; // Show the iframes
         })
         .catch(error => console.error('Error:', error));
 }
