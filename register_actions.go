@@ -13,9 +13,7 @@ func registerActions(e *echo.Echo) {
 	e.POST("/sql-injection", handleSQLInjectionAction)
 
 	// COOKIE SECURITY
-	e.POST("/cookie-security-authenticate", handleCookieSecurityAuthenticateAction)
-	e.GET("/cookie-security-manipulate", handleCookieSecurityManipulateAction)
-	e.GET("/cookie-security-bypass", handleCookieSecurityBypassAction)
+	e.POST("/cookie-security", handleCookieSecurityAction)
 
 	// BOT DECEPTION
 	e.GET("/view-page-source", handleViewPageSourceAction)
