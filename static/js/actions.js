@@ -87,7 +87,7 @@ function performCookieAuthenticate() {
             iframe.srcdoc = cookieText;
             iframe.style.display = 'block'; // Show the iframe
             iframe.onload = function () {
-                iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 20) + 'px';
+                iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 30) + 'px';
             }
         })
         .catch(error => console.error('Error:', error));
