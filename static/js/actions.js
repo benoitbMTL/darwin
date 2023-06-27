@@ -1,4 +1,13 @@
 ///////////////////////////////////////////////////////////////////////////////////
+// Function to adjust the height of the iframe based on its content              //
+///////////////////////////////////////////////////////////////////////////////////
+
+// Function to adjust the height of the iframe based on its content:
+function resizeIframe(iframe) {
+    iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 1) + 'px';
+}
+
+///////////////////////////////////////////////////////////////////////////////////
 // COMMAND INJECTION                                                             //
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -209,11 +218,3 @@ function resetPingForm() {
     pingResult.style.display = 'none';
 }
 
-///////////////////////////////////////////////////////////////////////////////////
-// Function to adjust the height of the iframe based on its content              //
-///////////////////////////////////////////////////////////////////////////////////
-
-// Function to adjust the height of the iframe based on its content:
-function resizeIframe(iframe) {
-    iframe.style.height = (iframe.contentWindow.document.body.scrollHeight + 1) + 'px';
-}
