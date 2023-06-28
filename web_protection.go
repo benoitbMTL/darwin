@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/tls"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -558,4 +559,3 @@ func handleNiktoWebScanAction(c echo.Context) error {
 		return c.String(http.StatusOK, string(output))
 	}
 }
-
