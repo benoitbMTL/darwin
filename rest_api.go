@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -61,6 +62,7 @@ func createVirtualIP(host, token, vipName, vip, iface string) ([]byte, error) {
 		Interface: iface,
 	}
 
+	log.Printf("Creating Virtual IP: %s\n", vipName)
 	return sendRequest("POST", url, token, data)
 }
 
@@ -268,15 +270,20 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 
 	client := &http.Client{}
 	resp, _ := client.Do(req)
-	
+
 	defer resp.Body.Close()
+
+	log.Printf("Sending %s request to: %s\n", method, url)
 
 	time.Sleep(time.Duration(500) * time.Millisecond)
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
+		log.Printf("Error reading response body: %v\n", err)
 		return nil, err
 	}
+
+	log.Printf("Response received: %s\n", string(body))
 
 	return body, nil
 }
@@ -289,12 +296,15 @@ func calculateToken() string {
 func onboardNewApplicationPolicy(c echo.Context) error {
 	host := FWB_MGT_IP
 	token := calculateToken()
+	log.Printf("Token: %s\n", token)
 
 	result, err := createVirtualIP(host, token, "VIP1", "192.168.4.80/24", "port1")
 	if err != nil {
 		// Handle the error
+		log.Printf("Error creating virtual IP: %v\n", err)
 		return err
 	}
 
+	log.Printf("New Application Policy onboarded successfully\n")
 	return c.JSON(http.StatusOK, string(result))
 }
