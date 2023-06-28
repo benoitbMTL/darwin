@@ -287,6 +287,38 @@ function resetBotDeception() {
     iframe.style.display = 'none'; // Make the iframe invisible
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////////////
+// REST API CREATE POLICY                                                        //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performOnboardNewApplicationPolicy() {
+    fetch('/create-policy', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+    })
+        .then(response => response.text())
+        .then(htmlContent => {
+            var iframe = document.getElementById('rest-api-result');
+            iframe.srcdoc = htmlContent;
+            iframe.style.height = '0px';
+            iframe.style.display = 'block'; // Show the iframe
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function resetOnboardNewApplicationPolicy() {
+    var iframe = document.getElementById('rest-api-result');
+    iframe.srcdoc = '';
+    iframe.style.display = 'none'; // Hide the iframe
+}
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 // HEALTH CHECK                                                                  //
 ///////////////////////////////////////////////////////////////////////////////////
