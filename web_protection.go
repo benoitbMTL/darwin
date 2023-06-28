@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/tls"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -523,7 +522,7 @@ func handleNiktoWebScannerAction(c echo.Context) error {
 	// Execute the ping command
 	cmd := exec.Command("nikto", "-host", DVWA_URL, "-timeout 2", "-followredirects", "-until 25s", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+country)
 	output, err := cmd.CombinedOutput()
-	
+
 	// Return the output of the ping command
 	return c.String(http.StatusOK, string(output))
 }
