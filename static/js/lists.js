@@ -58,6 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var opt = document.createElement("option");
         opt.value = option.value;
         opt.textContent = option.text;
-        stolenSelectElement.appendChild(opt);
+        countrySelectElement.appendChild(opt);
     });
 });
