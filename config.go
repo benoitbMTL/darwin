@@ -69,7 +69,7 @@ var (
 	// REST API Demo
 	VipName        = "VIP1"
 	VipIp          = "192.168.4.80/24"
-	Interface      = "port0"
+	Interface      = "port1"
 	PoolName       = "SERVER_POOL1"
 	ServerBalance  = "enable"
 	HealthCheck    = "HLTHCK_HTTP"
