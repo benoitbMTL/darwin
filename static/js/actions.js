@@ -296,16 +296,16 @@ function performOnboardNewApplicationPolicy() {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
     })
-        .then(response => response.text())
-        .then(htmlContent => {
-            var iframe = document.getElementById('rest-api-result');
-            iframe.srcdoc = htmlContent;
-            iframe.style.height = '0px';
-            iframe.style.display = 'block'; // Show the iframe
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                updateTaskStatus(data.taskId, 'success');
+            } else {
+                updateTaskStatus(data.taskId, 'failure');
+            }
         })
-        .catch(error => console.error('Error:', error))
-        .finally(() => {
-            document.getElementById('create-spinner').style.display = 'none';
+        .catch(error => {
+            console.error('Error:', error);
         });
 }
 

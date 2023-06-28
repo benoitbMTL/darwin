@@ -137,6 +137,19 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	return body, nil
 }
 
+// checkOperationStatus checks if the operation was successful or not.
+// It returns true if the operation was successful, and false otherwise.
+func checkOperationStatus(result []byte) bool {
+	var res map[string]interface{}
+	json.Unmarshal(result, &res)
+	if _, ok := res["results"].(map[string]interface{})["errcode"]; ok {
+		// The result contains an error code, so the operation failed
+		return false
+	}
+	// The operation succeeded
+	return true
+}
+
 func calculateToken() string {
 	tokenData := fmt.Sprintf(`{"username":"%s","password":"%s","vdom":"%s"}`, USERNAME_API, PASSWORD_API, VDOM_API)
 	return base64.StdEncoding.EncodeToString([]byte(tokenData))
@@ -164,28 +177,59 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		poolMembers[i] = MemberPoolData{IP: ip, SSL: PoolMemberSSL, Port: PoolMemberPort}
 	}
 
-	result, err := createVirtualIP(host, token, vipData)
-	if err != nil {
-		log.Printf("Error creating virtual IP: %v\n", err)
-		return err
-	}
+    result, err := createVirtualIP(host, token, vipData)
+    if err != nil {
+        log.Printf("Error creating virtual IP: %v\n", err)
+        // Send a message to the frontend to update the task status to 'failure'
+        return c.JSON(http.StatusOK, map[string]string{
+            "taskId":  "createVirtualIP",
+            "status":  "failure",
+            "message": fmt.Sprintf("Error creating virtual IP: %v", err),
+        })
+    } else if !checkOperationStatus(result) {
+        log.Printf("Failed to create virtual IP\n")
+        // Send a message to the frontend to update the task status to 'failure'
+        return c.JSON(http.StatusOK, map[string]string{
+            "taskId":  "createVirtualIP",
+            "status":  "failure",
+            "message": "Failed to create virtual IP",
+        })
+    }
 
 	result, err = createNewServerPool(host, token, poolData)
 	if err != nil {
 		log.Printf("Error creating server pool: %v\n", err)
+		// Here you could send a message to the frontend to update the task status to 'failure'
 		return err
+	} else if !checkOperationStatus(result) {
+		log.Printf("Failed to create server pool\n")
+		// Here you could send a message to the frontend to update the task status to 'failure'
+		return fmt.Errorf("failed to create server pool")
 	}
 
 	for _, member := range poolMembers {
-		_, err := createNewMemberPool(host, token, poolData.Name, member)
+		result, err := createNewMemberPool(host, token, poolData.Name, member)
 		if err != nil {
-			log.Printf("Error creating member pool: %v\n", err)
-			return err
+			// If there's an error, return a JSON response with status "failure" and an error message
+			return c.JSON(http.StatusOK, map[string]string{
+				"status":  "failure",
+				"message": fmt.Sprintf("Error creating member pool: %v", err),
+			})
+		} else if !checkOperationStatus(result) {
+			// If the operation status check fails, return a JSON response with status "failure" and an error message
+			return c.JSON(http.StatusOK, map[string]string{
+				"status":  "failure",
+				"message": "Failed to create member pool",
+			})
 		}
 	}
 
 	log.Printf("End of onboardNewApplicationPolicy\n")
-	return c.JSON(http.StatusOK, string(result))
+	// If everything is successful, return a JSON response with status "success" and a success message
+	return c.JSON(http.StatusOK, map[string]string{
+		"status":  "success",
+		"message": "End of onboardNewApplicationPolicy",
+	})
 }
 
 func deleteApplicationPolicy(c echo.Context) error {
