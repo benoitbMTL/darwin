@@ -508,7 +508,7 @@ func handleCrendentialStuffingAction(c echo.Context) error {
 // NIKTO WEB SCANNER                                                                          //
 ///////////////////////////////////////////////////////////////////////////////////
 
-func handleNiktoWebScannerAction(c echo.Context) error {
+func handleNiktoWebScanAction(c echo.Context) error {
 
 	_, err := exec.LookPath("nikto")
 	if err != nil {

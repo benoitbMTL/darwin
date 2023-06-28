@@ -198,7 +198,7 @@ function resetCredentialStuffing() {
 function performWebScan(event) {
     var country = document.getElementById('country').value;
 
-    fetch('/web-scanner', {
+    fetch('/web-scan', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -214,7 +214,7 @@ function performWebScan(event) {
         .catch(error => console.error('Error:', error));
 }
 
-function resetWebScanner() {
+function resetWebScan() {
     document.getElementById('country').value = '';
     var scanResult = document.getElementById('web-scan-result');
     scanResult.innerText = '';

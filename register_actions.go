@@ -22,7 +22,7 @@ func registerActions(e *echo.Echo) {
 	e.POST("/credential-stuffing", handleCrendentialStuffingAction)
 
 	// WEB SCANNER
-	e.POST("/web-scanner", handleNiktoWebScannerAction)
+	e.POST("/web-scan", handleNiktoWebScanAction)
 	
 	// BOT DECEPTION
 	e.GET("/view-page-source", handleViewPageSourceAction)
