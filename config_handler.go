@@ -43,6 +43,23 @@ var (
 		"josefahorenstein87@hotmail.com": "qel737Xf3",
 		"bizotic6@gmail.com":             "snaker26",
 	}
+
+	ipCountryMap = map[string]string{
+		"United Kingdom": "2.24.0.1",
+		"France":         "2.0.0.1",
+		"Germany":        "2.160.0.1",
+		"Italy":          "2.224.0.1",
+		"Spain":          "2.136.0.1",
+		"Canada":         "24.0.0.1",
+		"United States":  "3.0.0.1",
+		"Russia":         "5.128.0.1",
+		"Brazil":         "131.0.0.1",
+		"Japan":          "1.0.16.1",
+		"Australia":      "1.0.0.1",
+		"Mexico":         "24.224.0.1",
+		"Ukraine":        "5.34.0.1",
+		"China":          "1.1.4.1",
+	}
 )
 
 type Config struct {

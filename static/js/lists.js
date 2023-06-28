@@ -21,20 +21,20 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     var countryList = [
-        { value: "United Kingdom", text: "2.24.0.1" },
-        { value: "France", text: "2.0.0.1" },
-        { value: "Germany", text: "2.160.0.1" },
-        { value: "Italy", text: "2.224.0.1" },
-        { value: "Spain", text: "2.136.0.1" },
-        { value: "Canada", text: "24.0.0.1" },
-        { value: "United States", text: "3.0.0.1" },
-        { value: "Russia", text: "5.128.0.1" },
-        { value: "Brazil", text: "131.0.0.1" },
-        { value: "Japan", text: "1.0.16.1" },
-        { value: "Australia", text: "1.0.0.1" },
-        { value: "Mexico", text: "24.224.0.1" },
-        { value: "Ukraine", text: "5.34.0.1" },
-        { value: "China", text: "1.1.4.1" },
+        { value: "United Kingdom", text: "United Kingdom" },
+        { value: "France", text: "France" },
+        { value: "Germany", text: "Germany" },
+        { value: "Italy", text: "Italy" },
+        { value: "Spain", text: "Spain" },
+        { value: "Canada", text: "Canada" },
+        { value: "United States", text: "United States" },
+        { value: "Russia", text: "Russia" },
+        { value: "Brazil", text: "Brazil" },
+        { value: "Japan", text: "Japan" },
+        { value: "Australia", text: "Australia" },
+        { value: "Mexico", text: "Mexico" },
+        { value: "Ukraine", text: "Ukraine" },
+        { value: "China", text: "China" },
     ];
 
     var userSelectElement = document.getElementById("username");
