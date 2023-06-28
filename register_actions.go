@@ -29,7 +29,7 @@ func registerActions(e *echo.Echo) {
 	e.GET("/bot-deception", handleBotDeceptionAction)
 
 	// REST API CREATE
-	e.POST("/create-policy", onboardNewApplicationPolicy)
+	e.GET("/create-policy", onboardNewApplicationPolicy)
 
 	// HEALTH CHECK
 	e.GET("/health-check", handleHealthCheckAction)
