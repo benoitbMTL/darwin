@@ -192,11 +192,10 @@ function resetCredentialStuffing() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
-// WEB SCANNER                                                                   //
+// WEB SCAN                                                                      //
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performWebScan(event) {
-    event.preventDefault();
     var country = document.getElementById('country').value;
 
     fetch('/web-scanner', {
