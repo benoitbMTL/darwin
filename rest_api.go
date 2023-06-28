@@ -180,71 +180,87 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		poolMembers[i] = MemberPoolData{IP: ip, SSL: PoolMemberSSL, Port: PoolMemberPort}
 	}
 
+	// Initialize a slice to store the statuses
+	statuses := []map[string]string{}
+
+	// Step 1: createVirtualIP
 	result, err := createVirtualIP(host, token, vipData)
 	if err != nil {
 		log.Printf("Error creating virtual IP: %v\n", err)
-		// Send a message to the frontend to update the task status to 'failure'
-		return c.JSON(http.StatusOK, map[string]string{
+		statuses = append(statuses, map[string]string{
 			"taskId":  "createVirtualIP",
 			"status":  "failure",
 			"message": fmt.Sprintf("Error creating virtual IP: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		log.Printf("Failed to create virtual IP\n")
-		// Send a message to the frontend to update the task status to 'failure'
-		return c.JSON(http.StatusOK, map[string]string{
+		statuses = append(statuses, map[string]string{
 			"taskId":  "createVirtualIP",
 			"status":  "failure",
 			"message": "Failed to create virtual IP",
 		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":  "createVirtualIP",
+			"status":  "success",
+			"message": "Successfully created virtual IP",
+		})
 	}
 
+	// Step 2: createNewServerPool
 	result, err = createNewServerPool(host, token, poolData)
 	if err != nil {
 		log.Printf("Error creating server pool: %v\n", err)
-		// Send a message to the frontend to update the task status to 'failure'
-		return c.JSON(http.StatusOK, map[string]string{
+		statuses = append(statuses, map[string]string{
 			"taskId":  "createNewServerPool",
 			"status":  "failure",
 			"message": fmt.Sprintf("Error creating Server Pool: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		log.Printf("Failed to create Server Pool\n")
-		// Send a message to the frontend to update the task status to 'failure'
-		return c.JSON(http.StatusOK, map[string]string{
+		statuses = append(statuses, map[string]string{
 			"taskId":  "createNewServerPool",
 			"status":  "failure",
 			"message": "Failed to create Server Pool",
 		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":  "createNewServerPool",
+			"status":  "success",
+			"message": "Successfully created Server Pool",
+		})
 	}
 
+	// Step 3: createNewMemberPool
 	for _, member := range poolMembers {
 		result, err := createNewMemberPool(host, token, poolData.Name, member)
 		if err != nil {
-			// If there's an error, return a JSON response with status "failure" and an error message
-			return c.JSON(http.StatusOK, map[string]string{
+			statuses = append(statuses, map[string]string{
 				"taskId":  "createNewMemberPool",
 				"status":  "failure",
 				"message": fmt.Sprintf("Error creating Member Pool: %v", err),
 			})
 		} else if !checkOperationStatus(result) {
 			log.Printf("Failed to create Member Pool\n")
-			// Send a message to the frontend to update the task status to 'failure'
-			return c.JSON(http.StatusOK, map[string]string{
+			statuses = append(statuses, map[string]string{
 				"taskId":  "createNewMemberPool",
 				"status":  "failure",
 				"message": "Failed to create Member Pool",
+			})
+		} else {
+			statuses = append(statuses, map[string]string{
+				"taskId":  "createNewMemberPool",
+				"status":  "success",
+				"message": "Successfully created Member Pool",
 			})
 		}
 	}
 
 	log.Printf("End of onboardNewApplicationPolicy\n")
-	// If everything is successful, return a JSON response with status "success" and a success message
-	return c.JSON(http.StatusOK, map[string]string{
-		"status":  "success",
-		"message": "End of onboardNewApplicationPolicy",
-	})
+	// Return a JSON response with the statuses of all steps
+	return c.JSON(http.StatusOK, statuses)
 }
+
 
 func deleteApplicationPolicy(c echo.Context) error {
 	host := FWB_MGT_IP

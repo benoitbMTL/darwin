@@ -298,12 +298,14 @@ function performOnboardNewApplicationPolicy() {
     })
         .then(response => response.json())
         .then(data => {
-            updateTaskStatus(data.taskId, data.status);
+            // Iterate over the array of statuses and update the task status for each one
+            data.forEach(status => {
+                updateTaskStatus(status.taskId, status.status);
+            });
         })
         .catch(error => {
             console.error('Error:', error);
         });
-
 }
 
 function performDeleteApplicationPolicy() {
