@@ -276,6 +276,9 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 
 	log.Printf("JSON data: %s\n", jsonData) // Add this line
 
+	jsonDataStr := string(jsonData)
+	log.Printf("JSON data (as string): %s\n", jsonDataStr) // This prints the JSON data as a string
+
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Error creating HTTP request: %v\n", err)
