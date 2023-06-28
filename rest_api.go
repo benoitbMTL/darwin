@@ -260,9 +260,9 @@ func addRewritingRuleToProtectionProfile(host, token, profileName, policyName st
 
 func sendRequest(method, url, token string, data Data) ([]byte, error) {
 	log.Printf("Method: %s\n", method)
-    log.Printf("URL: %s\n", url)
-    log.Printf("Token: %s\n", token)
-    log.Printf("Data: %+v\n", data)
+	log.Printf("URL: %s\n", url)
+	log.Printf("Token: %s\n", token)
+	log.Printf("Data: %+v\n", data)
 
 	reqData := Request{
 		Data: data,
@@ -273,6 +273,8 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 		log.Printf("Error marshalling request data: %v\n", err)
 		return nil, err
 	}
+
+	log.Printf("JSON data: %s\n", jsonData) // Add this line
 
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonData))
 	if err != nil {
@@ -329,7 +331,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		Vip:       "192.168.4.80/24",
 		Interface: "port1",
 	}
-	log.Printf("Data: %+v\n", data)  // Add this line
+	log.Printf("Data: %+v\n", data) // Add this line
 
 	result, err := createVirtualIP(host, token, data.Name, data.Vip, data.Interface)
 	if err != nil {
