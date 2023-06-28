@@ -331,7 +331,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	}
 	log.Printf("Data: %+v\n", data)  // Add this line
 
-	result, err := createVirtualIP(host, token, data)
+	result, err := createVirtualIP(host, token, data.Name, data.Vip, data.Interface)
 	if err != nil {
 		// Handle the error
 		log.Printf("Error creating virtual IP: %v\n", err)
