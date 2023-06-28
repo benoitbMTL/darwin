@@ -259,6 +259,11 @@ func addRewritingRuleToProtectionProfile(host, token, profileName, policyName st
 }
 
 func sendRequest(method, url, token string, data Data) ([]byte, error) {
+	log.Printf("Method: %s\n", method)
+    log.Printf("URL: %s\n", url)
+    log.Printf("Token: %s\n", token)
+    log.Printf("Data: %+v\n", data)
+
 	reqData := Request{
 		Data: data,
 	}
