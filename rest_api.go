@@ -52,7 +52,7 @@ type Request struct {
 	Data Data `json:"data"`
 }
 
-func createVirtualIP(host, token, vipName, vip, iface string) {
+func createVirtualIP(host, token, vipName, vip, iface string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/system/vip", host)
 
 	data := Data{
@@ -61,7 +61,7 @@ func createVirtualIP(host, token, vipName, vip, iface string) {
 		Interface: iface,
 	}
 
-	sendRequest("POST", url, token, data)
+	return sendRequest("POST", url, token, data)
 }
 
 func createNewServerPool(host, token, poolName string) {
@@ -112,7 +112,7 @@ func assignVIPtoVirtualServer(host, token, vServerName, iface, vipStatus, vipNam
 
 func cloneSignatureStandardProtection(host, token, mkey, cloneMkey string) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/signature?mkey=%s&clone_mkey=%s", host, mkey, cloneMkey)
-	sendRequest("POST", url, token, nil)
+	sendRequest("POST", url, token, Data{})
 }
 
 func createNewXForwardedForRule(host, token, ruleName string) {
@@ -129,7 +129,7 @@ func createNewXForwardedForRule(host, token, ruleName string) {
 func cloneInlineProtectionProfile(host, token, mkey, cloneMkey string) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s&clone_mkey=%s", host, url.QueryEscape(mkey), url.QueryEscape(cloneMkey))
 
-	sendRequest("POST", url, token, nil)
+	sendRequest("POST", url, token, Data{})
 }
 
 func configureProtectionProfile(host, token, signatureRule, xForwardedForRule string) {
@@ -268,6 +268,7 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 
 	client := &http.Client{}
 	resp, _ := client.Do(req)
+	
 	defer resp.Body.Close()
 
 	time.Sleep(time.Duration(500) * time.Millisecond)
