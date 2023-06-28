@@ -97,11 +97,9 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	defer resp.Body.Close()
 
 	log.Printf("-------------------------------------------------\n")
-	log.Printf("SEND REQUEST\n")
 	log.Printf("sendRequest Starting\n")
-	log.Printf("Method: %s\n", method)
 	log.Printf("URL: %s\n", url)
-	log.Printf("Token: %s\n", token)
+	log.Printf("Method: %s\n", method)
 	// Print headers
 	for name, values := range req.Header {
 		// Loop over all values for the name.
@@ -109,9 +107,7 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 			log.Printf("Header: %s: %s\n", name, value)
 		}
 	}
-	log.Printf("JSON data: %s\n", jsonData) // Print Data
-	log.Printf("Data: %+v\n", data)
-	log.Printf("Sending %s request to: %s\n", method, url)
+	log.Printf("JSON data: %s\n", jsonData)
 
 	time.Sleep(time.Duration(500) * time.Millisecond)
 
