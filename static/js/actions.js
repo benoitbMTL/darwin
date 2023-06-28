@@ -195,7 +195,10 @@ function resetCredentialStuffing() {
 // WEB SCAN                                                                      //
 ///////////////////////////////////////////////////////////////////////////////////
 
-function performWebScan(event) {
+function performWebScan() {
+    var webScanSpinner = document.getElementById('web-scan-spinner');
+    webScanSpinner.style.display = 'inline-block';
+
     var country = document.getElementById('country').value;
 
     fetch('/web-scan', {
@@ -210,8 +213,16 @@ function performWebScan(event) {
             var scanResult = document.getElementById('web-scan-result');
             scanResult.innerText = result;
             scanResult.style.display = 'block';
+
+            // Hide spinner once response is received
+            webScanSpinner.style.display = 'none';
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+
+            // Hide spinner in case of error
+            webScanSpinner.style.display = 'none';
+        });
 }
 
 function resetWebScan() {
@@ -220,7 +231,6 @@ function resetWebScan() {
     scanResult.innerText = '';
     scanResult.style.display = 'none';
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
@@ -282,14 +292,25 @@ function resetBotDeception() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performHealthCheck() {
+    var healthCheckSpinner = document.getElementById('health-check-spinner');
+    healthCheckSpinner.style.display = 'inline-block';
+
     fetch('/health-check')
         .then(response => response.text())
         .then(result => {
             var healthCheckResult = document.getElementById('health-check-result');
             healthCheckResult.innerHTML = result;
             healthCheckResult.style.display = 'block';
+
+            // Hide spinner once response is received
+            healthCheckSpinner.style.display = 'none';
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+
+            // Hide spinner in case of error
+            healthCheckSpinner.style.display = 'none';
+        });
 }
 
 function resetHealthCheck() {

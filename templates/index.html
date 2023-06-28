@@ -179,13 +179,14 @@
                 <p class="mb-2">Perform a Vulnerability Web Scan from the selected Country.</p>
                 <div class="d-flex align-items-center mb-3">
                     <select id="country" class="form-select form-select-sm me-2" style="width: 250px;"></select>
-                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performWebScan()">Web
-                        Scan</button>
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performWebScan()">
+                        <span id="web-scan-spinner" class="spinner-border spinner-border-sm" role="status"
+                            aria-hidden="true" style="display: none;"></span>
+                        Web Scan</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="resetWebScan()">Reset</button>
                 </div>
                 <div id="web-scan-container">
                     <div id="web-scan-result" class="action-result border p-3" style="display: none;"></div>
-
                 </div>
             </div>
 
@@ -234,8 +235,11 @@
             <div class="mb-4 tile">
                 <p class="mb-2">Perform HTTP Health Check on the Lab environment.</p>
                 <div class="mb-3 d-flex align-items-center">
-                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performHealthCheck()">Health
-                        Check</button>
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performHealthCheck()">
+                        <span class="spinner-border spinner-border-sm" id="health-check-spinner" role="status"
+                            aria-hidden="true" style="display: none;"></span>
+                        Health Check
+                    </button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="resetHealthCheck()">Reset</button>
                 </div>
                 <div id="health-check-result" class="action-result border p-3" style="display: none;"></div>

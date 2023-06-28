@@ -111,7 +111,7 @@ func handlePingAction(c echo.Context) error {
 	}
 
 	// Execute the ping command
-	cmd := exec.Command("ping", "-c", "4", ipFqdn)
+	cmd := exec.Command("ping", "-c", "4", "-W", "1", ipFqdn)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		// Check the error type
