@@ -45,20 +45,21 @@ var (
 	}
 
 	ipCountryMap = map[string]string{
-		"United Kingdom": "2.24.0.1",
-		"France":         "2.0.0.1",
-		"Germany":        "2.160.0.1",
-		"Italy":          "2.224.0.1",
-		"Spain":          "2.136.0.1",
-		"Canada":         "24.0.0.1",
-		"United States":  "3.0.0.1",
-		"Russia":         "5.128.0.1",
-		"Brazil":         "131.0.0.1",
-		"Japan":          "1.0.16.1",
-		"Australia":      "1.0.0.1",
-		"Mexico":         "24.224.0.1",
-		"Ukraine":        "5.34.0.1",
-		"China":          "1.1.4.1",
+"France": "89.40.183.21",
+"Ukraine": "37.19.218.159",
+"Brazil": "193.19.205.129",
+"Germany": "5.180.62.6",
+"Italy": "138.199.54.247",
+"Mexico": "185.153.177.108",
+"Argentina": "103.50.33.74",
+"Australia": "103.137.12.51",
+"Japan": "156.146.35.84",
+"Canada": "45.88.190.128",
+"Chile": "85.190.229.4",
+"United Kingdom": "5.101.138.227",
+"United States": "45.14.195.100",
+"Spain": "31.13.188.139",
+"Norway": "51.13.51.13",
 	}
 )
 

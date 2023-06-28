@@ -28,13 +28,14 @@ document.addEventListener("DOMContentLoaded", function () {
         { value: "Spain", text: "Spain" },
         { value: "Canada", text: "Canada" },
         { value: "United States", text: "United States" },
-        { value: "Russia", text: "Russia" },
+        { value: "Argentina", text: "Argentina" },
         { value: "Brazil", text: "Brazil" },
         { value: "Japan", text: "Japan" },
         { value: "Australia", text: "Australia" },
         { value: "Mexico", text: "Mexico" },
         { value: "Ukraine", text: "Ukraine" },
-        { value: "China", text: "China" },
+        { value: "Chile", text: "Chile" },
+        { value: "Norway", text: "Norway" },
     ];
 
     var userSelectElement = document.getElementById("username");
