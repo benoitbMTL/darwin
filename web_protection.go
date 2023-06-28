@@ -530,6 +530,7 @@ func handleNiktoWebScannerAction(c echo.Context) error {
 
 	// Execute the command
 	output, err := cmd.CombinedOutput()
+	log.Println(output)
 
 	if err != nil {
 		log.Println(err)
