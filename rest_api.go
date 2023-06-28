@@ -281,6 +281,7 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 	}
 	req.Header.Set("Authorization", token)
 	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Content-type", "application/json")
 
 	// Print headers
 	log.Printf("-------------------------------------------------\n")
