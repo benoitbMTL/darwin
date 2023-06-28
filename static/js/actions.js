@@ -196,8 +196,7 @@ function resetCredentialStuffing() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performWebScan() {
-    var webScanSpinner = document.getElementById('web-scan-spinner');
-    webScanSpinner.style.display = 'inline-block';
+    document.getElementById('web-scan-spinner').style.display = 'inline-block';
 
     var country = document.getElementById('country').value;
 
@@ -213,15 +212,12 @@ function performWebScan() {
             var scanResult = document.getElementById('web-scan-result');
             scanResult.innerText = result;
             scanResult.style.display = 'block';
-
-            // Hide spinner once response is received
-            webScanSpinner.style.display = 'none';
         })
         .catch(error => {
             console.error('Error:', error);
-
-            // Hide spinner in case of error
-            webScanSpinner.style.display = 'none';
+        })
+        .finally(() => {
+            document.getElementById('web-scan-spinner').style.display = 'none';
         });
 }
 
@@ -287,8 +283,6 @@ function resetBotDeception() {
     iframe.style.display = 'none'; // Make the iframe invisible
 }
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////
 // REST API CREATE POLICY                                                        //
 ///////////////////////////////////////////////////////////////////////////////////
@@ -309,7 +303,10 @@ function performOnboardNewApplicationPolicy() {
             iframe.style.height = '0px';
             iframe.style.display = 'block'; // Show the iframe
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+            document.getElementById('create-spinner').style.display = 'none';
+        });
 }
 
 function performDeleteApplicationPolicy() {
@@ -328,7 +325,10 @@ function performDeleteApplicationPolicy() {
             iframe.style.height = '0px';
             iframe.style.display = 'block'; // Show the iframe
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+            document.getElementById('delete-spinner').style.display = 'none';
+        });
 }
 
 function resetOnboardNewApplicationPolicy() {
@@ -342,8 +342,7 @@ function resetOnboardNewApplicationPolicy() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performHealthCheck() {
-    var healthCheckSpinner = document.getElementById('health-check-spinner');
-    healthCheckSpinner.style.display = 'inline-block';
+    document.getElementById('health-check-spinner').style.display = 'inline-block';
 
     fetch('/health-check')
         .then(response => response.text())
@@ -351,15 +350,12 @@ function performHealthCheck() {
             var healthCheckResult = document.getElementById('health-check-result');
             healthCheckResult.innerHTML = result;
             healthCheckResult.style.display = 'block';
-
-            // Hide spinner once response is received
-            healthCheckSpinner.style.display = 'none';
         })
         .catch(error => {
             console.error('Error:', error);
-
-            // Hide spinner in case of error
-            healthCheckSpinner.style.display = 'none';
+        })
+        .finally(() => {
+            document.getElementById('health-check-spinner').style.display = 'none';
         });
 }
 
@@ -376,9 +372,7 @@ function resetHealthCheck() {
 function performPing(event) {
     event.preventDefault();
 
-    // Get the spinner and start it
-    var spinner = document.getElementById('spinner');
-    spinner.style.display = 'inline-block';
+    document.getElementById('spinner').style.display = 'inline-block';
 
     var ipFqdn = document.getElementById('ip-fqdn').value;
 
@@ -391,18 +385,15 @@ function performPing(event) {
     })
         .then(response => response.text())
         .then(result => {
-            // Stop the spinner when the response is received
-            spinner.style.display = 'none';
-
             var pingResult = document.getElementById('ping-result');
             pingResult.innerText = result;
             pingResult.style.display = 'block';
         })
         .catch(error => {
-            // Stop the spinner if there is an error
-            spinner.style.display = 'none';
-
             console.error('Error:', error);
+        })
+        .finally(() => {
+            document.getElementById('spinner').style.display = 'none';
         });
 }
 
