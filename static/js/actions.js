@@ -345,12 +345,12 @@ function updateTaskStatus(taskId, status) {
         badgeElement.textContent = 'Complete';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-success');
-        descriptionElement.textContent = "green task badge: " + descriptionElement.textContent.split(':')[1] + " completed successfully.";
+        descriptionElement.textContent = descriptionElement.textContent.split(':')[1] + " Completed.";
     } else {
         badgeElement.textContent = 'Failed';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-danger');
-        descriptionElement.textContent = "red task badge: " + descriptionElement.textContent.split(':')[1] + " failed.";
+        descriptionElement.textContent = descriptionElement.textContent.split(':')[1] + " Failed.";
     }
 }
 
