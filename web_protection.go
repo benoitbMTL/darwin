@@ -515,27 +515,24 @@ func handleNiktoWebScannerAction(c echo.Context) error {
 		return c.String(http.StatusOK, "Nikto is not installed on your system")
 	}
 
-	//	country := c.FormValue("country")
-	//	ip, _ := ipCountryMap[country]
-	//	nl := "\n"
-	//	cr := "\r"
+	country := c.FormValue("country")
+	ip, _ := ipCountryMap[country]
+	nl := "\n"
+	cr := "\r"
 
 	// Prepare the command
-	// cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
-
-	cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto")
+	cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
 
 	// Print the command to the console
 	log.Println("Running command:", cmd.String())
 
 	// Execute the command
 	output, err := cmd.CombinedOutput()
-	log.Println(string(output))
 
-	if err != nil {
-		log.Println(err)
-		return c.String(http.StatusInternalServerError, err.Error())
-	}
+	//	if err != nil {
+	//		log.Println(err)
+	//		return c.String(http.StatusInternalServerError, err.Error())
+	//	}
 
 	// Return the output of the command
 	return c.String(http.StatusOK, string(output))
