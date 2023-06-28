@@ -331,6 +331,28 @@ function performDeleteApplicationPolicy() {
         });
 }
 
+function updateTaskStatus(taskId, status) {
+    var taskElement = document.getElementById(taskId);
+    var badgeElement = taskElement.querySelector('.badge');
+
+    if (status === 'success') {
+        badgeElement.textContent = 'Complete';
+        badgeElement.classList.remove('bg-primary');
+        badgeElement.classList.add('bg-success');
+        taskElement.innerText = "green task badge: " + taskElement.innerText.split(':')[1] + " completed successfully.";
+    } else {
+        badgeElement.textContent = 'Failed';
+        badgeElement.classList.remove('bg-primary');
+        badgeElement.classList.add('bg-danger');
+        taskElement.innerText = "red task badge: " + taskElement.innerText.split(':')[1] + " failed.";
+    }
+}
+
+// Usage:
+// updateTaskStatus('task1', 'success');
+// updateTaskStatus('task2', 'failure');
+
+
 function resetOnboardNewApplicationPolicy() {
     var iframe = document.getElementById('rest-api-result');
     iframe.srcdoc = '';
