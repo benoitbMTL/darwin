@@ -304,6 +304,11 @@ function resetHealthCheck() {
 
 function performPing(event) {
     event.preventDefault();
+
+    // Get the spinner and start it
+    var spinner = document.getElementById('spinner');
+    spinner.style.display = 'inline-block';
+
     var ipFqdn = document.getElementById('ip-fqdn').value;
 
     fetch('/ping', {
@@ -315,11 +320,19 @@ function performPing(event) {
     })
         .then(response => response.text())
         .then(result => {
+            // Stop the spinner when the response is received
+            spinner.style.display = 'none';
+
             var pingResult = document.getElementById('ping-result');
             pingResult.innerText = result;
             pingResult.style.display = 'block';
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            // Stop the spinner if there is an error
+            spinner.style.display = 'none';
+
+            console.error('Error:', error);
+        });
 }
 
 function resetPingForm() {
