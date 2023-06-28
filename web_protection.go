@@ -440,7 +440,7 @@ func handleCookieSecurityAction(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handleCrendentialStuffingAction(c echo.Context) error {
-	username := c.FormValue("stolen-credential")
+	username := c.FormValue("username")
 	password, ok := CredentialStuffingMap[username]
 	log.Println("Username:", username)
 	log.Println("Password:", password)
