@@ -228,142 +228,159 @@
             <!-- Machine Learning actions go here -->
         </div>
 
+        <div id="rest-api" class="category" style="display:none;">
 
-        <div id="health-check" class="category" style="display:none;">
-
-            <!-- Health Check -->
+            <!-- Onboard New Application Policy -->
             <div class="mb-4 tile">
-                <p class="mb-2">Perform HTTP Health Check on the Lab environment.</p>
-                <div class="mb-3 d-flex align-items-center">
-                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performHealthCheck()">
-                        <span class="spinner-border spinner-border-sm" id="health-check-spinner" role="status"
-                            aria-hidden="true" style="display: none;"></span>
-                        Health Check
+                <p class="mb-2">Onboard New Application Policy.</p>
+                <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="onboardNewApplicationPolicy()">
+                    <span class="spinner-border spinner-border-sm" id="health-check-spinner" role="status"
+                        aria-hidden="true" style="display: none;"></span>
+                    Create
                     </button>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetHealthCheck()">Reset</button>
-                </div>
-                <div id="health-check-result" class="action-result border p-3" style="display: none;"></div>
+                    <button type="button" class="btn btn-secondary btn-sm"
+                        onclick="resetNewApplicationPolicy()">Reset</button>
             </div>
-
-            <!-- Ping -->
-            <div class="mb-4 tile">
-                <p class="mb-2">Perform a Ping.</p>
-                <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
-                    <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control form-control-sm me-2"
-                        placeholder="192.168.4.2" required style="max-width: 250px;">
-                    <button type="submit" class="btn btn-primary btn-sm me-2">
-                        <div class="spinner-border spinner-border-sm text-light" id="spinner" role="status"
-                            style="display: none;">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        Ping
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetPingForm()">Reset</button>
-                </form>
-                <div id="ping-result" class="action-result border p-3" style="display: none;"></div>
-            </div>
+            <div id="new-policy-result" class="action-result border p-3" style="display: none;"></div>
         </div>
 
-        <div id="Configuration" class="category" style="display:none;">
+    </div>
 
-            <!-- Configuration -->
-            <div class="mb-4 tile">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2>Configuration</h2>
-                    <div>
-                        <button type="button" class="btn btn-success btn-sm me-2"
-                            onclick="saveConfiguration()">Save</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="resetConfiguration()">Reset to
-                            Default</button>
+    <div id="health-check" class="category" style="display:none;">
+
+        <!-- Health Check -->
+        <div class="mb-4 tile">
+            <p class="mb-2">Perform HTTP Health Check on the Lab environment.</p>
+            <div class="mb-3 d-flex align-items-center">
+                <button type="button" class="btn btn-primary btn-sm me-2" onclick="performHealthCheck()">
+                    <span class="spinner-border spinner-border-sm" id="health-check-spinner" role="status"
+                        aria-hidden="true" style="display: none;"></span>
+                    Health Check
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetHealthCheck()">Reset</button>
+            </div>
+            <div id="health-check-result" class="action-result border p-3" style="display: none;"></div>
+        </div>
+
+        <!-- Ping -->
+        <div class="mb-4 tile">
+            <p class="mb-2">Perform a Ping.</p>
+            <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
+                <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control form-control-sm me-2"
+                    placeholder="192.168.4.2" required style="max-width: 250px;">
+                <button type="submit" class="btn btn-primary btn-sm me-2">
+                    <div class="spinner-border spinner-border-sm text-light" id="spinner" role="status"
+                        style="display: none;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    Ping
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="resetPingForm()">Reset</button>
+            </form>
+            <div id="ping-result" class="action-result border p-3" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div id="Configuration" class="category" style="display:none;">
+
+        <!-- Configuration -->
+        <div class="mb-4 tile">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2>Configuration</h2>
+                <div>
+                    <button type="button" class="btn btn-success btn-sm me-2"
+                        onclick="saveConfiguration()">Save</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="resetConfiguration()">Reset to
+                        Default</button>
+                </div>
+            </div>
+            <form id="configuration-form">
+                <div class="row mb-3">
+                    <label for="dvwa-url" class="form-label col-2 text-start">DVWA URL</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="dvwa-url">
                     </div>
                 </div>
-                <form id="configuration-form">
-                    <div class="row mb-3">
-                        <label for="dvwa-url" class="form-label col-2 text-start">DVWA URL</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="dvwa-url">
-                        </div>
+                <div class="row mb-3">
+                    <label for="dvwa-host" class="form-label col-2 text-start">DVWA HOST</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="dvwa-host">
                     </div>
-                    <div class="row mb-3">
-                        <label for="dvwa-host" class="form-label col-2 text-start">DVWA HOST</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="dvwa-host">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="shop-url" class="form-label col-2 text-start">SHOP URL</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="shop-url">
                     </div>
-                    <div class="row mb-3">
-                        <label for="shop-url" class="form-label col-2 text-start">SHOP URL</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="shop-url">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="fwb-url" class="form-label col-2 text-start">FWB URL</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="fwb-url">
                     </div>
-                    <div class="row mb-3">
-                        <label for="fwb-url" class="form-label col-2 text-start">FWB URL</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="fwb-url">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="speedtest-url" class="form-label col-2 text-start">SPEEDTEST URL</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="speedtest-url">
                     </div>
-                    <div class="row mb-3">
-                        <label for="speedtest-url" class="form-label col-2 text-start">SPEEDTEST URL</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="speedtest-url">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="kali-url" class="form-label col-2 text-start">KALI URL</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="kali-url">
                     </div>
-                    <div class="row mb-3">
-                        <label for="kali-url" class="form-label col-2 text-start">KALI URL</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="kali-url">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="username-api" class="form-label col-2 text-start">Username API</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="username-api">
                     </div>
-                    <div class="row mb-3">
-                        <label for="username-api" class="form-label col-2 text-start">Username API</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="username-api">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="password-api" class="form-label col-2 text-start">Password API</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="password-api">
                     </div>
-                    <div class="row mb-3">
-                        <label for="password-api" class="form-label col-2 text-start">Password API</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="password-api">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="vdom-api" class="form-label col-2 text-start">VDOM API</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="vdom-api">
                     </div>
-                    <div class="row mb-3">
-                        <label for="vdom-api" class="form-label col-2 text-start">VDOM API</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="vdom-api">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="token" class="form-label col-2 text-start">TOKEN API</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="token" disabled>
                     </div>
-                    <div class="row mb-3">
-                        <label for="token" class="form-label col-2 text-start">TOKEN API</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="token" disabled>
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="fwb-mgt-ip" class="form-label col-2 text-start">FortiWeb Management IP</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
                     </div>
-                    <div class="row mb-3">
-                        <label for="fwb-mgt-ip" class="form-label col-2 text-start">FortiWeb Management IP</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="policy" class="form-label col-2 text-start">Policy Name</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="policy">
                     </div>
-                    <div class="row mb-3">
-                        <label for="policy" class="form-label col-2 text-start">Policy Name</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="policy">
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="user-agent" class="form-label col-2 text-start">User Agent</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control form-control-sm" id="user-agent">
                     </div>
-                    <div class="row mb-3">
-                        <label for="user-agent" class="form-label col-2 text-start">User Agent</label>
-                        <div class="col-10">
-                            <input type="text" class="form-control form-control-sm" id="user-agent">
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-
-
-            <!-- Space before the end of the page -->
-            <div style="height: 50px;"></div>
+                </div>
+            </form>
         </div>
+
+
+
+        <!-- Space before the end of the page -->
+        <div style="height: 50px;"></div>
+    </div>
     </div>
 
 </body>
