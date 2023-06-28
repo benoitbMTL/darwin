@@ -236,12 +236,13 @@
                 <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="onboardNewApplicationPolicy()">
                     <span class="spinner-border spinner-border-sm" id="health-check-spinner" role="status"
                         aria-hidden="true" style="display: none;"></span>
-                    Create
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm" id="create-policy-btn">Create</button>
                     <button type="button" class="btn btn-secondary btn-sm"
                         onclick="resetNewApplicationPolicy()">Reset</button>
+                </form>
             </div>
             <div id="new-policy-result" class="action-result border p-3" style="display: none;"></div>
+
         </div>
 
     </div>
