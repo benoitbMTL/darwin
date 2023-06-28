@@ -245,20 +245,19 @@
             <div class="mb-4 tile">
                 <p class="mb-2">Perform a Ping.</p>
                 <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
+                    <div class="spinner-border spinner-border-sm text-primary" id="spinner" role="status"
+                        style="display: none;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control form-control-sm me-2"
-                        placeholder="192.168.4.2" required style="max-width: 250px;">
-                    <button type="submit" class="btn btn-primary btn-sm me-2">
-                        Ping
-                        <div class="spinner-border spinner-border-sm text-light" id="spinner" style="display: none;"
-                            role="status">
-                            <span class="sr-only">Running...</span>
-                        </div>
-                    </button>
+                        placeholder="8.8.8.8" required style="max-width: 250px;">
+                    <button type="submit" class="btn btn-primary btn-sm me-2">Ping</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="resetPingForm()">Reset</button>
                 </form>
                 <div id="ping-result" class="action-result border p-3" style="display: none;"></div>
             </div>
         </div>
+
 
 
         <div id="Configuration" class="category" style="display:none;">
