@@ -9,6 +9,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -24,6 +25,12 @@ type ServerPoolData struct {
 	Name          string `json:"name,omitempty"`
 	ServerBalance string `json:"server-balance,omitempty"`
 	Health        string `json:"health,omitempty"`
+}
+
+type MemberPoolData struct {
+	IP   string `json:"ip,omitempty"`
+	SSL  string `json:"ssl,omitempty"`
+	Port int    `json:"port,omitempty"`
 }
 
 type Request struct {
@@ -43,6 +50,13 @@ func createNewServerPool(host, token string, data ServerPoolData) ([]byte, error
 	log.Printf("Creating new server pool: %s\n", data.Name)
 	return sendRequest("POST", url, token, data)
 
+}
+
+func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/server-pool/pserver-list?mkey=%s", host, url.QueryEscape(poolName))
+
+	log.Printf("Creating new member pool: %s\n", data.IP)
+	return sendRequest("POST", url, token, data)
 }
 
 func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
@@ -138,6 +152,12 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		Health:        "HLTHCK_HTTP",
 	}
 
+	poolMembers := []MemberPoolData{
+		{IP: "10.0.0.10", SSL: "enable", Port: 443},
+		{IP: "10.0.0.20", SSL: "enable", Port: 443},
+		{IP: "10.0.0.30", SSL: "enable", Port: 443},
+	}
+
 	result, err := createVirtualIP(host, token, vipData)
 	if err != nil {
 		log.Printf("Error creating virtual IP: %v\n", err)
@@ -150,7 +170,14 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		return err
 	}
 
+	for _, member := range poolMembers {
+		_, err := createNewMemberPool(host, token, poolData.Name, member)
+		if err != nil {
+			log.Printf("Error creating member pool: %v\n", err)
+			return err
+		}
+	}
+
 	log.Printf("End of onboardNewApplicationPolicy\n")
 	return c.JSON(http.StatusOK, string(result))
 }
-
