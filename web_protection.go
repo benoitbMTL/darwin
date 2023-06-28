@@ -2,11 +2,13 @@ package main
 
 import (
 	"crypto/tls"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
+	"os/exec"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -442,8 +444,6 @@ func handleCookieSecurityAction(c echo.Context) error {
 func handleCrendentialStuffingAction(c echo.Context) error {
 	username := c.FormValue("username")
 	password, ok := CredentialStuffingMap[username]
-	log.Println("Username:", username)
-	log.Println("Password:", password)
 
 	if !ok {
 		return c.String(http.StatusBadRequest, "Invalid Stolen Credential")
@@ -503,4 +503,27 @@ func handleCrendentialStuffingAction(c echo.Context) error {
 
 	// Return the HTML content
 	return c.HTML(http.StatusOK, string(output))
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+// NIKTO WEB SCANNER                                                                          //
+///////////////////////////////////////////////////////////////////////////////////
+
+func handleNiktoWebScannerAction(c echo.Context) error {
+
+	_, err := exec.LookPath("nikto")
+	if err != nil {
+		return c.String(http.StatusOK, "Nikto is not installed on your system")
+	}
+
+	country := c.FormValue("country")
+	nl := "\n"
+	cr := "\r"
+
+	// Execute the ping command
+	cmd := exec.Command("nikto", "-host", DVWA_URL, "-timeout 2", "-followredirects", "-until 25s", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+country)
+	output, err := cmd.CombinedOutput()
+	
+	// Return the output of the ping command
+	return c.String(http.StatusOK, string(output))
 }

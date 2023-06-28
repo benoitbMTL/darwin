@@ -192,6 +192,38 @@ function resetCredentialStuffing() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+// WEB SCANNER                                                                   //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performWebScanner(event) {
+    event.preventDefault();
+    var country = document.getElementById('country').value;
+
+    fetch('/web-scanner', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'country=' + encodeURIComponent(country)
+    })
+        .then(response => response.text())
+        .then(result => {
+            var scanResult = document.getElementById('web-scan-result');
+            scanResult.innerText = result;
+            scanResult.style.display = 'block';
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function resetWebScanner() {
+    document.getElementById('country').value = '';
+    var scanResult = document.getElementById('web-scan-result');
+    scanResult.innerText = '';
+    scanResult.style.display = 'none';
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
 ///////////////////////////////////////////////////////////////////////////////////
 

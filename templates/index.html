@@ -21,7 +21,7 @@
     <script src="/static/js/actions.js"></script>
     <script src="/static/js/dark-mode-toggle.js"></script>
     <script src="/static/js/categories.js"></script>
-    <script src="/static/js/user-list.js"></script>
+    <script src="/static/js/lists.js"></script>
     <script src="/static/js/config-handler.js"></script>
 
     <!-- Bootstrap JS -->
@@ -161,7 +161,8 @@
             <div class="mb-4 tile">
                 <p class="mb-2">Perform a Credential Stuffing Attack.</p>
                 <div class="d-flex align-items-center mb-3">
-                    <select id="stolen-credential" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                    <select id="stolen-credential" class="form-select form-select-sm me-2"
+                        style="width: 250px;"></select>
                     <button type="button" class="btn btn-primary btn-sm me-2"
                         onclick="performCredentialStuffing()">Credential Stuffing</button>
                     <button type="button" class="btn btn-secondary btn-sm"
@@ -170,6 +171,21 @@
                 <div id="credential-stuffing-container">
                     <iframe id="credential-stuffing-result" class="action-result border"
                         style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
+                </div>
+            </div>
+
+            <!-- Nikto Web Scanner -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform a Vulnerability Web Scan with Nikto.</p>
+                <div class="d-flex align-items-center mb-3">
+                    <select id="country" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performWebScan()">Web
+                        Scan</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetWebScan()">Reset</button>
+                </div>
+                <div id="web-scan-container">
+                    <div id="web-scan-result" class="action-result border p-3" style="display: none;"></div>
+
                 </div>
             </div>
 
