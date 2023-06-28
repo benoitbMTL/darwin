@@ -168,7 +168,7 @@ function resetCookieSecurity() {
 function performCredentialStuffing() {
     var username = document.getElementById('stolen-credential').value;
 
-    fetch('/command-injection', {
+    fetch('/credential-stuffing', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
