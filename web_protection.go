@@ -521,7 +521,9 @@ func handleNiktoWebScannerAction(c echo.Context) error {
 	cr := "\r"
 
 	// Prepare the command
-	cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
+	//cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
+
+	cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto")
 
 	// Print the command to the console
 	log.Println("Running command:", cmd.String())
