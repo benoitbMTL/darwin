@@ -287,6 +287,14 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 	req.Header.Set("Authorization", token)
 	req.Header.Set("Accept", "application/json")
 
+    // Print headers
+    for name, values := range req.Header {
+        // Loop over all values for the name.
+        for _, value := range values {
+            log.Printf("Header: %s: %s\n", name, value)
+        }
+    }
+
 	// Create a custom HTTP client with SSL/TLS certificate verification disabled
 	client := &http.Client{
 		Transport: &http.Transport{
