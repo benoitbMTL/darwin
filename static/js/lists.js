@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     var countryList = [
+        { value: "All", text: "All" },
         { value: "Argentina", text: "Argentina" },
         { value: "Australia", text: "Australia" },
         { value: "Brazil", text: "Brazil" },

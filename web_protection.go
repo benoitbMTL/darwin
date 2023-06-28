@@ -509,26 +509,53 @@ func handleCrendentialStuffingAction(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handleNiktoWebScanAction(c echo.Context) error {
-
 	_, err := exec.LookPath("nikto")
 	if err != nil {
 		return c.String(http.StatusOK, "Nikto is not installed on your system")
 	}
 
 	country := c.FormValue("country")
-	ip, _ := ipCountryMap[country]
 	nl := "\n"
 	cr := "\r"
 
-	// Prepare the command
-	cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
+	var outputLines []string
 
-	// Print the command to the console
-	// log.Println("Running command:", cmd.String())
+	if country == "All" {
+		// Loop over all IPs
+		for country, ip := range ipCountryMap {
+			cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
 
-	// Execute the command
-	output, err := cmd.CombinedOutput()
+			// Execute the command
+			_, err := cmd.CombinedOutput()
 
-	// Return the output of the command
-	return c.String(http.StatusOK, string(output))
+			// Check error
+			if err != nil {
+				log.Println("Error running command for country", country, ":", err)
+				continue
+			}
+
+			outputLines = append(outputLines, fmt.Sprintf("Scan executed from %s: Done!", country))
+		}
+
+		// Return the output of the command
+		return c.String(http.StatusOK, strings.Join(outputLines, "\n"))
+	} else {
+		ip, _ := ipCountryMap[country]
+
+		// Prepare the command
+		cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
+
+		// Execute the command
+		output, err := cmd.CombinedOutput()
+
+		// Check error
+		if err != nil {
+			log.Println("Error running command for country", country, ":", err)
+			return c.String(http.StatusOK, fmt.Sprintf("Error performing scan from %s", country))
+		}
+
+		// Return the output of the command
+		return c.String(http.StatusOK, string(output))
+	}
 }
+
