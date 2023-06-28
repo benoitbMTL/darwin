@@ -21,21 +21,21 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     var countryList = [
-        { value: "United Kingdom", text: "United Kingdom" },
+        { value: "Argentina", text: "Argentina" },
+        { value: "Australia", text: "Australia" },
+        { value: "Brazil", text: "Brazil" },
+        { value: "Canada", text: "Canada" },
+        { value: "Chile", text: "Chile" },
         { value: "France", text: "France" },
         { value: "Germany", text: "Germany" },
         { value: "Italy", text: "Italy" },
-        { value: "Spain", text: "Spain" },
-        { value: "Canada", text: "Canada" },
-        { value: "United States", text: "United States" },
-        { value: "Argentina", text: "Argentina" },
-        { value: "Brazil", text: "Brazil" },
         { value: "Japan", text: "Japan" },
-        { value: "Australia", text: "Australia" },
         { value: "Mexico", text: "Mexico" },
-        { value: "Ukraine", text: "Ukraine" },
-        { value: "Chile", text: "Chile" },
         { value: "Norway", text: "Norway" },
+        { value: "Spain", text: "Spain" },
+        { value: "Ukraine", text: "Ukraine" },
+        { value: "United Kingdom", text: "United Kingdom" },
+        { value: "United States", text: "United States" },
     ];
 
     var userSelectElement = document.getElementById("username");
