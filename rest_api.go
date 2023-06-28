@@ -262,14 +262,26 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 		Data: data,
 	}
 
-	jsonData, _ := json.Marshal(reqData)
+	jsonData, err := json.Marshal(reqData)
+	if err != nil {
+		log.Printf("Error marshalling request data: %v\n", err)
+		return nil, err
+	}
 
-	req, _ := http.NewRequest(method, url, bytes.NewBuffer(jsonData))
+	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonData))
+	if err != nil {
+		log.Printf("Error creating HTTP request: %v\n", err)
+		return nil, err
+	}
 	req.Header.Set("Authorization", token)
 	req.Header.Set("Accept", "application/json")
 
 	client := &http.Client{}
-	resp, _ := client.Do(req)
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Printf("Error sending HTTP request: %v\n", err)
+		return nil, err
+	}
 
 	defer resp.Body.Close()
 
