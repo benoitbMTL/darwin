@@ -324,7 +324,14 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	token := calculateToken()
 	log.Printf("Token: %s\n", token)
 
-	result, err := createVirtualIP(host, token, "VIP1", "192.168.4.80/24", "port1")
+	data := Data{
+		Name:      "VIP1",
+		Vip:       "192.168.4.80/24",
+		Interface: "port1",
+	}
+	log.Printf("Data: %+v\n", data)  // Add this line
+
+	result, err := createVirtualIP(host, token, data)
 	if err != nil {
 		// Handle the error
 		log.Printf("Error creating virtual IP: %v\n", err)
