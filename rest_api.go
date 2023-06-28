@@ -60,14 +60,6 @@ func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]b
 }
 
 func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
-	log.Printf("sendRequest Starting\n")
-	log.Printf("-------------------------------------------------\n")
-	log.Printf("Method: %s\n", method)
-	log.Printf("URL: %s\n", url)
-	log.Printf("Token: %s\n", token)
-	log.Printf("Data: %+v\n", data)
-	log.Printf("-------------------------------------------------\n")
-
 	reqData := Request{
 		Data: data,
 	}
@@ -87,17 +79,6 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-type", "application/json")
 
-	// Print headers
-	log.Printf("-------------------------------------------------\n")
-	for name, values := range req.Header {
-		// Loop over all values for the name.
-		for _, value := range values {
-			log.Printf("Header: %s: %s\n", name, value)
-		}
-	}
-	log.Printf("JSON data: %s\n", jsonData) // Print Data
-	log.Printf("-------------------------------------------------\n")
-
 	// Create a custom HTTP client with SSL/TLS certificate verification disabled
 	client := &http.Client{
 		Transport: &http.Transport{
@@ -115,6 +96,21 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 
 	defer resp.Body.Close()
 
+	log.Printf("-------------------------------------------------\n")
+	log.Printf("SEND REQUEST\n")
+	log.Printf("sendRequest Starting\n")
+	log.Printf("Method: %s\n", method)
+	log.Printf("URL: %s\n", url)
+	log.Printf("Token: %s\n", token)
+	// Print headers
+	for name, values := range req.Header {
+		// Loop over all values for the name.
+		for _, value := range values {
+			log.Printf("Header: %s: %s\n", name, value)
+		}
+	}
+	log.Printf("JSON data: %s\n", jsonData) // Print Data
+	log.Printf("Data: %+v\n", data)
 	log.Printf("Sending %s request to: %s\n", method, url)
 
 	time.Sleep(time.Duration(500) * time.Millisecond)
@@ -126,6 +122,7 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	}
 
 	log.Printf("Response received: %s\n", string(body))
+	log.Printf("-------------------------------------------------\n")
 
 	return body, nil
 }
