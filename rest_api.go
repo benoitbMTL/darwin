@@ -141,21 +141,20 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	log.Printf("Token: %s\n", token)
 
 	vipData := VirtualIPData{
-		Name:      "VIP1",
-		Vip:       "192.168.4.80/24",
-		Interface: "port1",
+		Name:      VipName,
+		Vip:       VipIp,
+		Interface: Interface,
 	}
 
 	poolData := ServerPoolData{
-		Name:          "SERVER_POOL1",
-		ServerBalance: "enable",
-		Health:        "HLTHCK_HTTP",
+		Name:          PoolName,
+		ServerBalance: ServerBalance,
+		Health:        HealthCheck,
 	}
 
-	poolMembers := []MemberPoolData{
-		{IP: "10.0.0.10", SSL: "enable", Port: 443},
-		{IP: "10.0.0.20", SSL: "enable", Port: 443},
-		{IP: "10.0.0.30", SSL: "enable", Port: 443},
+	poolMembers := make([]MemberPoolData, len(PoolMemberIPs))
+	for i, ip := range PoolMemberIPs {
+		poolMembers[i] = MemberPoolData{IP: ip, SSL: PoolMemberSSL, Port: PoolMemberPort}
 	}
 
 	result, err := createVirtualIP(host, token, vipData)

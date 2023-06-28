@@ -10,6 +10,7 @@ import (
 
 // Define all your variables here
 var (
+	// FortiWeb Tool Configuration
 	DVWA_URL      = "https://192.168.4.10"
 	DVWA_HOST     = "192.168.4.10"
 	SHOP_URL      = "https://shop.corp.fabriclab.ca"
@@ -23,6 +24,7 @@ var (
 	POLICY        = "DVWA_POLICY"
 	USER_AGENT    = "FortiWeb Demo Tool"
 
+	// DVWA Credentials
 	UserPassMap = map[string]string{
 		"admin":   "password",
 		"gordonb": "abc123",
@@ -31,6 +33,7 @@ var (
 		"smithy":  "password",
 	}
 
+	// Credentials for Credential Stuffing Demonstration
 	CredentialStuffingMap = map[string]string{
 		"pklangdon4@msn.com":             "ppl11266",
 		"muldersstan@gmail.com":          "renzo1205",
@@ -44,6 +47,7 @@ var (
 		"bizotic6@gmail.com":             "snaker26",
 	}
 
+	// Coutries for Web Scanning, FortiView Country and GeoLocation Demonstrations
 	ipCountryMap = map[string]string{
 		"Argentina":      "103.50.33.74",
 		"Australia":      "103.137.12.51",
@@ -61,6 +65,17 @@ var (
 		"United Kingdom": "5.101.138.227",
 		"United States":  "45.14.195.100",
 	}
+
+	// REST API Demo
+	VipName        = "VIP1"
+	VipIp          = "192.168.4.80/24"
+	Interface      = "port1"
+	PoolName       = "SERVER_POOL1"
+	ServerBalance  = "enable"
+	HealthCheck    = "HLTHCK_HTTP"
+	PoolMemberIPs  = []string{"10.0.0.10", "10.0.0.20", "10.0.0.30"}
+	PoolMemberSSL  = "enable"
+	PoolMemberPort = 443
 )
 
 type Config struct {
