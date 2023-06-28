@@ -527,13 +527,7 @@ func handleNiktoWebScanAction(c echo.Context) error {
 			cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
 
 			// Execute the command
-			_, err := cmd.CombinedOutput()
-
-			// Check error
-			if err != nil {
-				log.Println("Error running command for country", country, ":", err)
-				continue
-			}
+			cmd.CombinedOutput()
 
 			outputLines = append(outputLines, fmt.Sprintf("Scan executed from %s: Done!", country))
 		}
@@ -547,13 +541,7 @@ func handleNiktoWebScanAction(c echo.Context) error {
 		cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
 
 		// Execute the command
-		output, err := cmd.CombinedOutput()
-
-		// Check error
-		if err != nil {
-			log.Println("Error running command for country", country, ":", err)
-			return c.String(http.StatusOK, fmt.Sprintf("Error performing scan from %s", country))
-		}
+		output, _ := cmd.CombinedOutput()
 
 		// Return the output of the command
 		return c.String(http.StatusOK, string(output))

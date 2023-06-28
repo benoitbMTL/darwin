@@ -226,7 +226,7 @@ function performWebScan() {
 }
 
 function resetWebScan() {
-    document.getElementById('country').value = '';
+    document.getElementById('country').value = 'All';
     var scanResult = document.getElementById('web-scan-result');
     scanResult.innerText = '';
     scanResult.style.display = 'none';
