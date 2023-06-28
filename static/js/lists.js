@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         { value: "bizotic6@gmail.com", text: "bizotic6@gmail.com" }
     ];
 
-    var ipCountry = [
+    var countryList = [
         { value: "United Kingdom", text: "2.24.0.1" },
         { value: "France", text: "2.0.0.1" },
         { value: "Germany", text: "2.160.0.1" },
