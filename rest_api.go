@@ -142,11 +142,14 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 func checkOperationStatus(result []byte) bool {
 	var res map[string]interface{}
 	json.Unmarshal(result, &res)
+	log.Printf("Result JSON: %v\n", res) // Print the result JSON
 	if _, ok := res["results"].(map[string]interface{})["errcode"]; ok {
 		// The result contains an error code, so the operation failed
+		log.Printf("Operation failed\n") // Print a message indicating that the operation failed
 		return false
 	}
 	// The operation succeeded
+	log.Printf("Operation succeeded\n") // Print a message indicating that the operation succeeded
 	return true
 }
 
