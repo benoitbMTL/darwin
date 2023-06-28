@@ -28,8 +28,9 @@ func registerActions(e *echo.Echo) {
 	e.GET("/view-page-source", handleViewPageSourceAction)
 	e.GET("/bot-deception", handleBotDeceptionAction)
 
-	// REST API CREATE
+	// REST API
 	e.POST("/create-policy", onboardNewApplicationPolicy)
+	e.POST("/delete-policy", deleteApplicationPolicy)
 
 	// HEALTH CHECK
 	e.GET("/health-check", handleHealthCheckAction)

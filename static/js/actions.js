@@ -310,6 +310,23 @@ function performOnboardNewApplicationPolicy() {
         .catch(error => console.error('Error:', error));
 }
 
+function performDeleteApplicationPolicy() {
+    fetch('/delete-policy', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+    })
+        .then(response => response.text())
+        .then(htmlContent => {
+            var iframe = document.getElementById('rest-api-result');
+            iframe.srcdoc = htmlContent;
+            iframe.style.height = '0px';
+            iframe.style.display = 'block'; // Show the iframe
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 function resetOnboardNewApplicationPolicy() {
     var iframe = document.getElementById('rest-api-result');
     iframe.srcdoc = '';

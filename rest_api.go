@@ -44,12 +44,26 @@ func createVirtualIP(host, token string, data VirtualIPData) ([]byte, error) {
 	return sendRequest("POST", url, token, data)
 }
 
+func deleteVirtualIP(host, token, vipName string) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/system/vip?mkey=%s", host, url.QueryEscape(vipName))
+
+	log.Printf("Deleting Virtual IP: %s\n", vipName)
+	return sendRequest("DELETE", url, token, nil)
+}
+
 func createNewServerPool(host, token string, data ServerPoolData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/server-pool", host)
 
 	log.Printf("Creating new server pool: %s\n", data.Name)
 	return sendRequest("POST", url, token, data)
 
+}
+
+func deleteServerPool(host, token, poolName string) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/server-pool?mkey=%s", host, url.QueryEscape(poolName))
+
+	log.Printf("Deleting Server Pool: %s\n", poolName)
+	return sendRequest("DELETE", url, token, nil)
 }
 
 func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]byte, error) {
@@ -172,4 +186,39 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 
 	log.Printf("End of onboardNewApplicationPolicy\n")
 	return c.JSON(http.StatusOK, string(result))
+}
+
+func deleteApplicationPolicy(c echo.Context) error {
+	host := FWB_MGT_IP
+	token := calculateToken()
+	log.Printf("Token: %s\n", token)
+
+	vipData := VirtualIPData{
+		Name:      VipName,
+		Vip:       VipIp,
+		Interface: Interface,
+	}
+
+	poolData := ServerPoolData{
+		Name:          PoolName,
+		ServerBalance: ServerBalance,
+		Health:        HealthCheck,
+	}
+
+	// Delete server pool
+	_, err := deleteServerPool(host, token, poolData.Name)
+	if err != nil {
+		log.Printf("Error deleting server pool: %v\n", err)
+		return err
+	}
+
+	// Delete virtual IP
+	_, err = deleteVirtualIP(host, token, vipData.Name)
+	if err != nil {
+		log.Printf("Error deleting virtual IP: %v\n", err)
+		return err
+	}
+
+	log.Printf("End of deleteApplicationPolicy\n")
+	return c.NoContent(http.StatusOK)
 }

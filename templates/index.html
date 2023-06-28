@@ -234,16 +234,24 @@
             <div class="mb-4 tile">
                 <p class="mb-2">Onboard New Application Policy.</p>
                 <div class="mb-3 d-flex align-items-center">
-                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performOnboardNewApplicationPolicy()">
+                    <button type="button" class="btn btn-primary btn-sm me-2"
+                        onclick="performOnboardNewApplicationPolicy()">
                         <span class="spinner-border spinner-border-sm" id="health-check-spinner" role="status"
                             aria-hidden="true" style="display: none;"></span>
                         Create
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm me-2"
+                        onclick="performDeleteApplicationPolicy()">
+                        <span class="spinner-border spinner-border-sm" id="delete-spinner" role="status"
+                            aria-hidden="true" style="display: none;"></span>
+                        Delete
                     </button>
                     <button type="button" class="btn btn-secondary btn-sm"
                         onclick="resetOnboardNewApplicationPolicy()">Reset</button>
                 </div>
                 <div id="rest-api-result" class="action-result border p-3" style="display: none;"></div>
             </div>
+
 
         </div>
 
