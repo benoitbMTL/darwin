@@ -298,15 +298,12 @@ function performOnboardNewApplicationPolicy() {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'success') {
-                updateTaskStatus(data.taskId, 'success');
-            } else {
-                updateTaskStatus(data.taskId, 'failure');
-            }
+            updateTaskStatus(data.taskId, data.status);
         })
         .catch(error => {
             console.error('Error:', error);
         });
+
 }
 
 function performDeleteApplicationPolicy() {

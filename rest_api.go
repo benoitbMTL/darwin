@@ -199,30 +199,40 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	result, err = createNewServerPool(host, token, poolData)
 	if err != nil {
 		log.Printf("Error creating server pool: %v\n", err)
-		// Here you could send a message to the frontend to update the task status to 'failure'
-		return err
-	} else if !checkOperationStatus(result) {
-		log.Printf("Failed to create server pool\n")
-		// Here you could send a message to the frontend to update the task status to 'failure'
-		return fmt.Errorf("failed to create server pool")
-	}
+        // Send a message to the frontend to update the task status to 'failure'
+        return c.JSON(http.StatusOK, map[string]string{
+            "taskId":  "createNewServerPool",
+            "status":  "failure",
+            "message": fmt.Sprintf("Error creating Server Pool: %v", err),
+        })
+    } else if !checkOperationStatus(result) {
+        log.Printf("Failed to create Server Pool\n")
+        // Send a message to the frontend to update the task status to 'failure'
+        return c.JSON(http.StatusOK, map[string]string{
+            "taskId":  "createNewServerPool",
+            "status":  "failure",
+            "message": "Failed to create Server Pool",
+        })
+    }
 
 	for _, member := range poolMembers {
 		result, err := createNewMemberPool(host, token, poolData.Name, member)
 		if err != nil {
 			// If there's an error, return a JSON response with status "failure" and an error message
-			return c.JSON(http.StatusOK, map[string]string{
-				"status":  "failure",
-				"message": fmt.Sprintf("Error creating member pool: %v", err),
-			})
-		} else if !checkOperationStatus(result) {
-			// If the operation status check fails, return a JSON response with status "failure" and an error message
-			return c.JSON(http.StatusOK, map[string]string{
-				"status":  "failure",
-				"message": "Failed to create member pool",
-			})
-		}
-	}
+        	return c.JSON(http.StatusOK, map[string]string{
+            "taskId":  "createNewMemberPool",
+            "status":  "failure",
+            "message": fmt.Sprintf("Error creating Member Pool: %v", err),
+        })
+    } else if !checkOperationStatus(result) {
+        log.Printf("Failed to create Member Pool\n")
+        // Send a message to the frontend to update the task status to 'failure'
+        return c.JSON(http.StatusOK, map[string]string{
+            "taskId":  "createNewMemberPool",
+            "status":  "failure",
+            "message": "Failed to create Member Pool",
+        })
+    }
 
 	log.Printf("End of onboardNewApplicationPolicy\n")
 	// If everything is successful, return a JSON response with status "success" and a success message
