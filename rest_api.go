@@ -274,11 +274,6 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 		return nil, err
 	}
 
-	log.Printf("JSON data: %s\n", jsonData) // Add this line
-
-	jsonDataStr := string(jsonData)
-	log.Printf("JSON data (as string): %s\n", jsonDataStr) // This prints the JSON data as a string
-
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Error creating HTTP request: %v\n", err)
@@ -287,13 +282,16 @@ func sendRequest(method, url, token string, data Data) ([]byte, error) {
 	req.Header.Set("Authorization", token)
 	req.Header.Set("Accept", "application/json")
 
-    // Print headers
-    for name, values := range req.Header {
-        // Loop over all values for the name.
-        for _, value := range values {
-            log.Printf("Header: %s: %s\n", name, value)
-        }
-    }
+	// Print headers
+	log.Printf("-------------------------------------------------\n")
+	for name, values := range req.Header {
+		// Loop over all values for the name.
+		for _, value := range values {
+			log.Printf("Header: %s: %s\n", name, value)
+		}
+	}
+	log.Printf("JSON data: %s\n", jsonData) // Print Data
+	log.Printf("-------------------------------------------------\n")
 
 	// Create a custom HTTP client with SSL/TLS certificate verification disabled
 	client := &http.Client{
