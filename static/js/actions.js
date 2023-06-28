@@ -288,7 +288,8 @@ function resetBotDeception() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performOnboardNewApplicationPolicy() {
-    document.getElementById('create-spinner').style.display = 'inline-block';
+    var spinner = document.getElementById('create-spinner');
+    spinner.style.display = 'inline-block';
 
     fetch('/create-policy', {
         method: 'POST',
@@ -302,11 +303,16 @@ function performOnboardNewApplicationPolicy() {
             data.forEach(status => {
                 updateTaskStatus(status.taskId, status.status);
             });
+            // Hide the spinner when all tasks are done
+            spinner.style.display = 'none';
         })
         .catch(error => {
             console.error('Error:', error);
+            // Hide the spinner in case of an error
+            spinner.style.display = 'none';
         });
 }
+
 
 function performDeleteApplicationPolicy() {
     document.getElementById('delete-spinner').style.display = 'inline-block';
@@ -333,23 +339,20 @@ function performDeleteApplicationPolicy() {
 function updateTaskStatus(taskId, status) {
     var taskElement = document.getElementById(taskId);
     var badgeElement = taskElement.querySelector('.badge');
+    var descriptionElement = taskElement.querySelector('.task-description');
 
     if (status === 'success') {
         badgeElement.textContent = 'Complete';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-success');
-        taskElement.innerText = "green task badge: " + taskElement.innerText.split(':')[1] + " completed successfully.";
+        descriptionElement.textContent = "green task badge: " + descriptionElement.textContent.split(':')[1] + " completed successfully.";
     } else {
         badgeElement.textContent = 'Failed';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-danger');
-        taskElement.innerText = "red task badge: " + taskElement.innerText.split(':')[1] + " failed.";
+        descriptionElement.textContent = "red task badge: " + descriptionElement.textContent.split(':')[1] + " failed.";
     }
 }
-
-// Usage:
-// updateTaskStatus('task1', 'success');
-// updateTaskStatus('task2', 'failure');
 
 
 function resetOnboardNewApplicationPolicy() {
