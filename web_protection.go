@@ -519,10 +519,20 @@ func handleNiktoWebScannerAction(c echo.Context) error {
 	nl := "\n"
 	cr := "\r"
 
-	// Execute the ping command
+	// Prepare the command
 	cmd := exec.Command("nikto", "-host", DVWA_URL, "-timeout", "2", "-followredirects", "-until", "25s", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+country)
+
+	// Print the command to the console
+	log.Println("Running command:", cmd.String())
+
+	// Execute the command
 	output, err := cmd.CombinedOutput()
 
-	// Return the output of the ping command
+	if err != nil {
+		log.Println(err)
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Return the output of the command
 	return c.String(http.StatusOK, string(output))
 }
