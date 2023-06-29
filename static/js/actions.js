@@ -359,9 +359,15 @@ function updateTaskStatus(taskId, status, description) {
 
 function resetOnboardNewApplicationPolicy() {
     var tasks = [
-        { id: 'createNewVirtualIP', description: 'Create Virtual IP' },
-        { id: 'createNewServerPool', description: 'Create NewServer Pool' },
-        { id: 'createNewMemberPool', description: 'Create NewMember Pool' }
+        { id: 'createNewVirtualIP', description: 'Create New Virtual IP' },
+        { id: 'createNewServerPool', description: 'Create New Server Pool' },
+        { id: 'createNewMemberPool', description: 'Create New Member Pool' },
+        { id: 'createNewVirtualServer', description: 'Create New Virtual Server' },
+        { id: 'assignVirtualIP', description: 'Assign Virtual IP to Virtual Server' },
+        { id: 'cloneSignatureProtection', description: 'Cloning Signature Standard Protection' },
+        { id: 'cloneInlineProtection', description: 'Cloning Inline Standard Protection' },
+        { id: 'configureProtectionProfile', description: 'Configure Protection Profile' },
+        { id: 'createNewPolicy', description: 'Create New Policy' }
     ];
     tasks.forEach(task => {
         var taskElement = document.getElementById(task.id);
@@ -380,6 +386,10 @@ function resetOnboardNewApplicationPolicy() {
 
 function resetDeleteApplicationPolicy() {
     var tasks = [
+        { id: 'deletePolicy', description: 'Delete Policy' },
+        { id: 'deleteProtectionProfile', description: 'Delete Protection Profile' },
+        { id: 'deleteSignatureProtection', description: 'Delete Signature Protection' },
+        { id: 'deleteVirtualServer', description: 'Delete Virtual Server' },
         { id: 'deleteServerPool', description: 'Delete Server Pool' },
         { id: 'deleteVirtualIP', description: 'Delete Virtual IP' }
     ];

@@ -37,6 +37,12 @@ type VirtualServerData struct {
 	Name string `json:"name,omitempty"`
 }
 
+type AssignVIPData struct {
+	Interface string `json:"interface,omitempty"`
+	Status    string `json:"status,omitempty"`
+	Vip       string `json:"vip,omitempty"`
+}
+
 type Request struct {
 	Data interface{} `json:"data"`
 }
@@ -88,6 +94,15 @@ func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]b
 func createNewVirtualServer(host, token string, data VirtualServerData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver", host)
 
+	return sendRequest("POST", url, token, data)
+}
+
+// Assign VIP to Virtual Server
+
+func assignVIPToVirtualServer(host, token, virtualServerName string, data AssignVIPData) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver/vip-list?mkey=%s", host, virtualServerName)
+
+	log.Printf("Assigning VIP: %s to Virtual Server: %s\n", data.Vip, virtualServerName)
 	return sendRequest("POST", url, token, data)
 }
 
@@ -182,7 +197,7 @@ func calculateToken() string {
 func onboardNewApplicationPolicy(c echo.Context) error {
 	host := FWB_MGT_IP
 	token := calculateToken()
-	log.Printf("Token: %s\n", token)
+	// log.Printf("Token: %s\n", token)
 
 	vipData := VirtualIPData{
 		Name:      VipName,
@@ -203,6 +218,12 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 
 	vsData := VirtualServerData{
 		Name: VirtualServerName,
+	}
+
+	assignVIPData := AssignVIPData{
+		Interface: Interface,
+		Status:    VipStatus,
+		Name:      VipName,
 	}
 
 	// Initialize a slice to store the statuses
@@ -314,6 +335,33 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 			"status":      "success",
 			"description": "Create New Virtual Server",
 			"message":     "Successfully created Virtual Server",
+		})
+	}
+
+	// Step 5 Assign VIP To Virtual Server
+	result, err = assignVIPToVirtualServer(host, token, VirtualServerName, assignVIPData)
+	if err != nil {
+		// ...
+		statuses = append(statuses, map[string]string{
+			"taskId":      "assignVIPToVirtualServer",
+			"status":      "failure",
+			"description": "Assign VIP to Virtual Server",
+			"message":     fmt.Sprintf("Error assigning VIP to Virtual Server: %v", err),
+		})
+	} else if !checkOperationStatus(result) {
+		// ...
+		statuses = append(statuses, map[string]string{
+			"taskId":      "assignVIPToVirtualServer",
+			"status":      "failure",
+			"description": "Assign VIP to Virtual Server",
+			"message":     "Failed to assign VIP to Virtual Server",
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "assignVIPToVirtualServer",
+			"status":      "success",
+			"description": "Assign VIP to Virtual Server",
+			"message":     "Successfully assigned VIP to Virtual Server",
 		})
 	}
 

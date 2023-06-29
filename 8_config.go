@@ -77,7 +77,7 @@ var (
 	PoolMemberSSL       = "enable"
 	PoolMemberPort      = 443
 	VirtualServerName   = "VIRTUAL_SERVER1"
-	VirtualServerStatus = "enable"
+	VipStatus = "enable"
 )
 
 type Config struct {
