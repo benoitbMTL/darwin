@@ -345,7 +345,7 @@ function updateTaskStatus(taskId, status, description) {
     var descriptionElement = taskElement.querySelector('.task-description');
 
     if (status === 'success') {
-        badgeElement.textContent = 'Complete';
+        badgeElement.textContent = 'Done!';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-success');
         descriptionElement.textContent = description;
