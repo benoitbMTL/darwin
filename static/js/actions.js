@@ -314,7 +314,8 @@ function performOnboardNewApplicationPolicy() {
 }
 
 function performDeleteApplicationPolicy() {
-    document.getElementById('delete-spinner').style.display = 'inline-block';
+    var spinner = document.getElementById('delete-spinner');
+    spinner.style.display = 'inline-block';
 
     fetch('/delete-policy', {
         method: 'POST',
@@ -322,16 +323,19 @@ function performDeleteApplicationPolicy() {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
     })
-        .then(response => response.text())
-        .then(htmlContent => {
-            var iframe = document.getElementById('rest-api-result');
-            iframe.srcdoc = htmlContent;
-            iframe.style.height = '0px';
-            iframe.style.display = 'block'; // Show the iframe
+        .then(response => response.json())
+        .then(data => {
+            // Iterate over the array of statuses and update the task status for each one
+            data.forEach(status => {
+                updateTaskStatus(status.taskId, status.status);
+            });
+            // Hide the spinner when all tasks are done
+            spinner.style.display = 'none';
         })
-        .catch(error => console.error('Error:', error))
-        .finally(() => {
-            document.getElementById('delete-spinner').style.display = 'none';
+        .catch(error => {
+            console.error('Error:', error);
+            // Hide the spinner in case of an error
+            spinner.style.display = 'none';
         });
 }
 
@@ -372,9 +376,20 @@ function resetOnboardNewApplicationPolicy() {
 
 
 function resetdeleteApplicationPolicy() {
-    var iframe = document.getElementById('deleteTasks');
-    iframe.srcdoc = '';
-    iframe.style.display = 'none'; // Hide the iframe
+    var tasks = ['deleteServerPool', 'deleteVirtualIP'];
+    tasks.forEach(taskId => {
+        var taskElement = document.getElementById(taskId);
+        var badgeElement = taskElement.querySelector('.badge');
+        var descriptionElement = taskElement.querySelector('.task-description');
+
+        // Reset the badge to 'Incomplete'
+        badgeElement.textContent = 'Incomplete';
+        badgeElement.classList.remove('bg-success', 'bg-danger');
+        badgeElement.classList.add('bg-secondary');
+
+        // Reset the task description
+        descriptionElement.textContent = taskId;
+    });
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
