@@ -33,6 +33,10 @@ type MemberPoolData struct {
 	Port int    `json:"port,omitempty"`
 }
 
+type VirtualServerData struct {
+	Name          string `json:"name,omitempty"`
+}
+
 type Request struct {
 	Data interface{} `json:"data"`
 }
@@ -84,7 +88,7 @@ func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]b
 func createNewVirtualServer(host, token, data vsData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver", host)
 
-	sendRequest("POST", url, token, data)
+	return sendRequest("POST", url, token, data)
 }
 
 // Send Request
@@ -287,7 +291,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	}
 
 	// Step 4: createNewVirtualServer
-	result, err = createNewVirtualServer(host, token, VirtualServerData)
+	result, err = createNewVirtualServer(host, token, vsData)
 	if err != nil {
 		log.Printf("Error creating virtual server: %v\n", err)
 		statuses = append(statuses, map[string]string{
