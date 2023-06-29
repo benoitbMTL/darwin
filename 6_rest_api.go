@@ -40,7 +40,6 @@ type VirtualServerData struct {
 type AssignVIPData struct {
 	Interface string `json:"interface,omitempty"`
 	Status    string `json:"status,omitempty"`
-	Vip       string `json:"vip,omitempty"`
 	Name      string `json:"name,omitempty"`
 }
 
