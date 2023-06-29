@@ -34,7 +34,7 @@ type MemberPoolData struct {
 }
 
 type VirtualServerData struct {
-	Name          string `json:"name,omitempty"`
+	Name string `json:"name,omitempty"`
 }
 
 type Request struct {
@@ -85,7 +85,7 @@ func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]b
 
 // Virtual Server
 
-func createNewVirtualServer(host, token, data vsData) ([]byte, error) {
+func createNewVirtualServer(host, token string, data VirtualServerData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver", host)
 
 	return sendRequest("POST", url, token, data)
@@ -201,7 +201,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		poolMembers[i] = MemberPoolData{IP: ip, SSL: PoolMemberSSL, Port: PoolMemberPort}
 	}
 
-	vsData := virtualServerData{
+	vsData := VirtualServerData{
 		Name: VirtualServerName,
 	}
 
