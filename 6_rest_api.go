@@ -290,6 +290,13 @@ func deleteApplicationPolicy(c echo.Context) error {
 			"status":  "failure",
 			"message": fmt.Sprintf("Error deleting Server Pool: %v", err),
 		})
+	} else if !checkOperationStatus(result) {
+		log.Printf("Failed to delete Server Pool\n")
+		statuses = append(statuses, map[string]string{
+			"taskId":  "deleteServerPool",
+			"status":  "failure",
+			"message": "Failed to delete Server Pool",
+		})
 	} else {
 		statuses = append(statuses, map[string]string{
 			"taskId":  "deleteServerPool",
@@ -306,6 +313,13 @@ func deleteApplicationPolicy(c echo.Context) error {
 			"taskId":  "deleteVirtualIP",
 			"status":  "failure",
 			"message": fmt.Sprintf("Error deleting virtual IP: %v", err),
+		})
+	} else if !checkOperationStatus(result) {
+		log.Printf("Failed to delete virtual IP\n")
+		statuses = append(statuses, map[string]string{
+			"taskId":  "deleteVirtualIP",
+			"status":  "failure",
+			"message": "Failed to delete virtual IP",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
