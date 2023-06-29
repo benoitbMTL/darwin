@@ -81,7 +81,7 @@ func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]b
 
 // Virtual Server
 
-func createNewVirtualServer(host, token, data VirtualServerData) ([]byte, error) {
+func createNewVirtualServer(host, token, data vsData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver", host)
 
 	sendRequest("POST", url, token, data)
@@ -197,7 +197,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		poolMembers[i] = MemberPoolData{IP: ip, SSL: PoolMemberSSL, Port: PoolMemberPort}
 	}
 
-	virtualServer := virtualServerData{
+	vsData := virtualServerData{
 		Name: VirtualServerName,
 	}
 
