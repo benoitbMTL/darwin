@@ -54,6 +54,7 @@ body {
     padding: 20px;
     /* space inside the tile */
     margin-bottom: 20px;
+    margin-right: 20px;
     /* space between tiles */
 }
 
@@ -67,6 +68,7 @@ body {
     padding: 20px;
     /* space inside the tile */
     margin-bottom: 20px;
+    margin-right: 20px;
     /* space between tiles */
     color: #ffffff;
     /* white text color */
