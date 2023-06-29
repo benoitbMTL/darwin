@@ -261,7 +261,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	return c.JSON(http.StatusOK, statuses)
 }
 
-
 func deleteApplicationPolicy(c echo.Context) error {
 	host := FWB_MGT_IP
 	token := calculateToken()
@@ -279,20 +278,44 @@ func deleteApplicationPolicy(c echo.Context) error {
 		Health:        HealthCheck,
 	}
 
-	// Delete server pool
-	_, err := deleteServerPool(host, token, poolData.Name)
+	// Initialize a slice to store the statuses
+	statuses := []map[string]string{}
+
+	// Step 1: deleteServerPool
+	result, err := deleteServerPool(host, token, poolData.Name)
 	if err != nil {
 		log.Printf("Error deleting server pool: %v\n", err)
-		return err
+		statuses = append(statuses, map[string]string{
+			"taskId":  "deleteServerPool",
+			"status":  "failure",
+			"message": fmt.Sprintf("Error deleting Server Pool: %v", err),
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":  "deleteServerPool",
+			"status":  "success",
+			"message": "Successfully deleted Server Pool",
+		})
 	}
 
-	// Delete virtual IP
-	_, err = deleteVirtualIP(host, token, vipData.Name)
+	// Step 2: deleteVirtualIP
+	result, err = deleteVirtualIP(host, token, vipData.Name)
 	if err != nil {
 		log.Printf("Error deleting virtual IP: %v\n", err)
-		return err
+		statuses = append(statuses, map[string]string{
+			"taskId":  "deleteVirtualIP",
+			"status":  "failure",
+			"message": fmt.Sprintf("Error deleting virtual IP: %v", err),
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":  "deleteVirtualIP",
+			"status":  "success",
+			"message": "Successfully deleted virtual IP",
+		})
 	}
 
 	log.Printf("End of deleteApplicationPolicy\n")
-	return c.NoContent(http.StatusOK)
+	// Return a JSON response with the statuses of all steps
+	return c.JSON(http.StatusOK, statuses)
 }
