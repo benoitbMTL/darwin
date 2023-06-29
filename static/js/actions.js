@@ -374,11 +374,13 @@ function resetOnboardNewApplicationPolicy() {
     });
 }
 
-
-function resetdeleteApplicationPolicy() {
-    var tasks = ['deleteServerPool', 'deleteVirtualIP'];
-    tasks.forEach(taskId => {
-        var taskElement = document.getElementById(taskId);
+function resetDeleteApplicationPolicy() {
+    var tasks = [
+        { id: 'deleteServerPool', description: 'deleteServerPool' },
+        { id: 'deleteVirtualIP', description: 'deleteVirtualIP' }
+    ];
+    tasks.forEach(task => {
+        var taskElement = document.getElementById(task.id);
         var badgeElement = taskElement.querySelector('.badge');
         var descriptionElement = taskElement.querySelector('.task-description');
 
@@ -388,9 +390,10 @@ function resetdeleteApplicationPolicy() {
         badgeElement.classList.add('bg-secondary');
 
         // Reset the task description
-        descriptionElement.textContent = taskId;
+        descriptionElement.textContent = task.description;
     });
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // HEALTH CHECK                                                                  //
