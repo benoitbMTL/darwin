@@ -40,7 +40,7 @@ type VirtualServerData struct {
 type AssignVIPData struct {
 	Interface string `json:"interface,omitempty"`
 	Status    string `json:"status,omitempty"`
-	Name      string `json:"name,omitempty"`
+	VipName      string `json:"vip,omitempty"`
 }
 
 type Request struct {
@@ -223,7 +223,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	assignVIPData := AssignVIPData{
 		Interface: Interface,
 		Status:    VipStatus,
-		Name:      VipName,
+		VipName:      VipName,
 	}
 
 	// Initialize a slice to store the statuses
