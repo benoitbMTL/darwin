@@ -102,7 +102,7 @@ func createNewVirtualServer(host, token string, data VirtualServerData) ([]byte,
 func assignVIPToVirtualServer(host, token, virtualServerName string, data AssignVIPData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver/vip-list?mkey=%s", host, virtualServerName)
 
-	log.Printf("Assigning VIP: %s to Virtual Server: %s\n", data.Vip, virtualServerName)
+	log.Printf("Assigning VIP: %s to Virtual Server: %s\n", data.Name, virtualServerName)
 	return sendRequest("POST", url, token, data)
 }
 
