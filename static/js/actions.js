@@ -359,7 +359,7 @@ function updateTaskStatus(taskId, status, description) {
 
 function resetOnboardNewApplicationPolicy() {
     var tasks = [
-        { id: 'createVirtualIP', description: 'Create Virtual IP' },
+        { id: 'createNewVirtualIP', description: 'Create Virtual IP' },
         { id: 'createNewServerPool', description: 'Create NewServer Pool' },
         { id: 'createNewMemberPool', description: 'Create NewMember Pool' }
     ];

@@ -37,7 +37,9 @@ type Request struct {
 	Data interface{} `json:"data"`
 }
 
-func createVirtualIP(host, token string, data VirtualIPData) ([]byte, error) {
+// Virtual IP
+
+func createNewVirtualIP(host, token string, data VirtualIPData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/system/vip", host)
 
 	log.Printf("Creating Virtual IP: %s\n", data.Name)
@@ -50,6 +52,8 @@ func deleteVirtualIP(host, token, vipName string) ([]byte, error) {
 	log.Printf("Deleting Virtual IP: %s\n", vipName)
 	return sendRequest("DELETE", url, token, nil)
 }
+
+// Server Pool
 
 func createNewServerPool(host, token string, data ServerPoolData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/server-pool", host)
@@ -66,12 +70,24 @@ func deleteServerPool(host, token, poolName string) ([]byte, error) {
 	return sendRequest("DELETE", url, token, nil)
 }
 
+// Member Pool
+
 func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/server-pool/pserver-list?mkey=%s", host, url.QueryEscape(poolName))
 
 	log.Printf("Creating new member pool: %s\n", data.IP)
 	return sendRequest("POST", url, token, data)
 }
+
+// Virtual Server
+
+func createNewVirtualServer(host, token, data VirtualServerData) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver", host)
+
+	sendRequest("POST", url, token, data)
+}
+
+// Send Request
 
 func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	reqData := Request{
@@ -110,6 +126,7 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 
 	defer resp.Body.Close()
 
+	// DEBUG
 	log.Printf("-------------------------------------------------\n")
 	log.Printf("sendRequest Starting\n")
 	log.Printf("URL: %s\n", url)
@@ -180,32 +197,36 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		poolMembers[i] = MemberPoolData{IP: ip, SSL: PoolMemberSSL, Port: PoolMemberPort}
 	}
 
+	virtualServer := virtualServerData{
+		Name: VirtualServerName,
+	}
+
 	// Initialize a slice to store the statuses
 	statuses := []map[string]string{}
 
-	// Step 1: createVirtualIP
-	result, err := createVirtualIP(host, token, vipData)
+	// Step 1: createNewVirtualIP
+	result, err := createNewVirtualIP(host, token, vipData)
 	if err != nil {
 		// ...
 		statuses = append(statuses, map[string]string{
-			"taskId":      "createVirtualIP",
+			"taskId":      "createNewVirtualIP",
 			"status":      "failure",
-			"description": "Create Virtual IP",
+			"description": "Create New Virtual IP",
 			"message":     fmt.Sprintf("Error creating virtual IP: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		// ...
 		statuses = append(statuses, map[string]string{
-			"taskId":      "createVirtualIP",
+			"taskId":      "createNewVirtualIP",
 			"status":      "failure",
-			"description": "Create Virtual IP",
+			"description": "Create New Virtual IP",
 			"message":     "Failed to create virtual IP",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
-			"taskId":      "createVirtualIP",
+			"taskId":      "createNewVirtualIP",
 			"status":      "success",
-			"description": "Create Virtual IP",
+			"description": "Create New Virtual IP",
 			"message":     "Successfully created virtual IP",
 		})
 	}
@@ -263,6 +284,33 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 				"message":     "Successfully created Member Pool",
 			})
 		}
+	}
+
+	// Step 4: createNewVirtualServer
+	result, err = createNewVirtualServer(host, token, VirtualServerData)
+	if err != nil {
+		log.Printf("Error creating virtual server: %v\n", err)
+		statuses = append(statuses, map[string]string{
+			"taskId":      "createNewVirtualServer",
+			"status":      "failure",
+			"description": "Create New Virtual Server",
+			"message":     fmt.Sprintf("Error creating Virtual Server: %v", err),
+		})
+	} else if !checkOperationStatus(result) {
+		log.Printf("Failed to create Virtual Server\n")
+		statuses = append(statuses, map[string]string{
+			"taskId":      "createNewVirtualServer",
+			"status":      "failure",
+			"description": "Create New Virtual Server",
+			"message":     "Failed to create Virtual Server",
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "createNewVirtualServer",
+			"status":      "success",
+			"description": "Create New Virtual Server",
+			"message":     "Successfully created Virtual Server",
+		})
 	}
 
 	log.Printf("End of onboardNewApplicationPolicy\n")
