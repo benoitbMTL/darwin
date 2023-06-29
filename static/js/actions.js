@@ -363,7 +363,7 @@ function resetOnboardNewApplicationPolicy() {
         { id: 'createNewServerPool', description: 'createNewServerPool' },
         { id: 'createNewMemberPool', description: 'createNewMemberPool' }
     ];
-    tasks.forEach(taskId => {
+    tasks.forEach(task => {
         var taskElement = document.getElementById(taskId);
         var badgeElement = taskElement.querySelector('.badge');
         var descriptionElement = taskElement.querySelector('.task-description');
@@ -380,8 +380,8 @@ function resetOnboardNewApplicationPolicy() {
 
 function resetDeleteApplicationPolicy() {
     var tasks = [
-        { id: 'deleteServerPool', description: 'deleteServerPool' },
-        { id: 'deleteVirtualIP', description: 'deleteVirtualIP' }
+        { id: 'deleteServerPool', description: 'Delete Server Pool' },
+        { id: 'deleteVirtualIP', description: 'Delete Virtual IP' }
     ];
     tasks.forEach(task => {
         var taskElement = document.getElementById(task.id);
@@ -397,7 +397,6 @@ function resetDeleteApplicationPolicy() {
         descriptionElement.textContent = task.description;
     });
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // HEALTH CHECK                                                                  //
