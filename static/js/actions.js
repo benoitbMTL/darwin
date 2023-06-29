@@ -359,12 +359,12 @@ function updateTaskStatus(taskId, status) {
 
 function resetOnboardNewApplicationPolicy() {
     var tasks = [
-        { id: 'createVirtualIP', description: 'createVirtualIP' },
-        { id: 'createNewServerPool', description: 'createNewServerPool' },
-        { id: 'createNewMemberPool', description: 'createNewMemberPool' }
+        { id: 'createVirtualIP', description: 'Create Virtual IP' },
+        { id: 'createNewServerPool', description: 'Create NewServer Pool' },
+        { id: 'createNewMemberPool', description: 'Create NewMember Pool' }
     ];
     tasks.forEach(task => {
-        var taskElement = document.getElementById(taskId);
+        var taskElement = document.getElementById(task.id);
         var badgeElement = taskElement.querySelector('.badge');
         var descriptionElement = taskElement.querySelector('.task-description');
 
