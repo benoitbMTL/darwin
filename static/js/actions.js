@@ -354,10 +354,22 @@ function updateTaskStatus(taskId, status) {
 }
 
 function resetOnboardNewApplicationPolicy() {
-    var iframe = document.getElementById('createTasks');
-    iframe.srcdoc = '';
-    iframe.style.display = 'none'; // Hide the iframe
+    var tasks = ['createVirtualIP', 'createNewServerPool', 'createNewMemberPool'];
+    tasks.forEach(taskId => {
+        var taskElement = document.getElementById(taskId);
+        var badgeElement = taskElement.querySelector('.badge');
+        var descriptionElement = taskElement.querySelector('.task-description');
+
+        // Reset the badge to 'Incomplete'
+        badgeElement.textContent = 'Incomplete';
+        badgeElement.classList.remove('bg-success', 'bg-danger');
+        badgeElement.classList.add('bg-secondary');
+
+        // Reset the task description
+        descriptionElement.textContent = taskId;
+    });
 }
+
 
 function resetdeleteApplicationPolicy() {
     var iframe = document.getElementById('deleteTasks');
