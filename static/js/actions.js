@@ -348,12 +348,12 @@ function updateTaskStatus(taskId, status) {
         badgeElement.textContent = 'Complete';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-success');
-        descriptionElement.textContent = taskId + " Completed.";
+        descriptionElement.textContent = taskId;
     } else {
         badgeElement.textContent = 'Failed';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-danger');
-        descriptionElement.textContent = taskId + " Failed.";
+        descriptionElement.textContent = taskId;
     }
 }
 
