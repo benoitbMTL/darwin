@@ -364,8 +364,8 @@ function resetOnboardNewApplicationPolicy() {
         { id: 'createNewMemberPool', description: 'Create New Member Pool' },
         { id: 'createNewVirtualServer', description: 'Create New Virtual Server' },
         { id: 'assignVirtualIP', description: 'Assign Virtual IP to Virtual Server' },
-        { id: 'cloneSignatureProtection', description: 'Cloning Signature Standard Protection' },
-        { id: 'cloneInlineProtection', description: 'Cloning Inline Standard Protection' },
+        { id: 'cloneSignatureProtection', description: 'Clone Signature Standard Protection' },
+        { id: 'cloneInlineProtection', description: 'Clone Inline Standard Protection' },
         { id: 'configureProtectionProfile', description: 'Configure Protection Profile' },
         { id: 'createNewPolicy', description: 'Create New Policy' }
     ];
