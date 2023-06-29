@@ -313,7 +313,6 @@ function performOnboardNewApplicationPolicy() {
         });
 }
 
-
 function performDeleteApplicationPolicy() {
     document.getElementById('delete-spinner').style.display = 'inline-block';
 
@@ -354,9 +353,14 @@ function updateTaskStatus(taskId, status) {
     }
 }
 
-
 function resetOnboardNewApplicationPolicy() {
-    var iframe = document.getElementById('rest-api-result');
+    var iframe = document.getElementById('createTasks');
+    iframe.srcdoc = '';
+    iframe.style.display = 'none'; // Hide the iframe
+}
+
+function resetdeleteApplicationPolicy() {
+    var iframe = document.getElementById('deleteTasks');
     iframe.srcdoc = '';
     iframe.style.display = 'none'; // Hide the iframe
 }

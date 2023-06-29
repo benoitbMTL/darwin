@@ -230,40 +230,51 @@
 
         <div id="rest-api" class="category" style="display:none;">
 
-            <!-- Onboard New Application Policy -->
-            <div class="mb-4 tile">
-                <p class="mb-2">Onboard New Application Policy.</p>
-                <div class="mb-3 d-flex align-items-center">
-                    <button type="button" class="btn btn-primary btn-sm me-2"
-                        onclick="performOnboardNewApplicationPolicy()">
-                        <span class="spinner-border spinner-border-sm" id="create-spinner" role="status"
-                            aria-hidden="true" style="display: none;"></span>
-                        Create
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm me-2"
-                        onclick="performDeleteApplicationPolicy()">
-                        <span class="spinner-border spinner-border-sm" id="delete-spinner" role="status"
-                            aria-hidden="true" style="display: none;"></span>
-                        Delete
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm"
-                        onclick="resetOnboardNewApplicationPolicy()">Reset</button>
+            <!-- REST API -->
+            <div class="mb-4">
+                <!-- Create -->
+                <div class="tile">
+                    <p class="mb-2"><strong>Onboard New Application Policy</strong></p>
+                    <div class="mb-3 d-flex align-items-center">
+                        <button type="button" class="btn btn-primary btn-sm me-2"
+                            onclick="performOnboardNewApplicationPolicy()">
+                            <span class="spinner-border spinner-border-sm" id="create-spinner" role="status"
+                                aria-hidden="true" style="display: none;"></span>
+                            Create
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            onclick="resetOnboardNewApplicationPolicy()">Reset</button>
+                    </div>
+                    <div id="createTasks">
+                        <p id="createVirtualIP"><span class="task-description">createVirtualIP</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="createNewServerPool"><span class="task-description">createNewServerPool</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="createNewMemberPool"><span class="task-description">createNewMemberPool</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                    </div>
                 </div>
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action" id="createVirtualIP">
-                        <span class="task-description">createVirtualIP</span>
-                        <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action" id="createNewServerPool">
-                        <span class="task-description">createNewServerPool</span>
-                        <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action" id="createNewMemberPool">
-                        <span class="task-description">createNewMemberPool</span>
-                        <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                    </a>
+
+                <!-- Delete -->
+                <div class="tile">
+                    <p class="mb-2"><strong>Delete Application Policy</strong></p>
+                    <div class="mb-3 d-flex align-items-center">
+                        <button type="button" class="btn btn-primary btn-sm me-2"
+                            onclick="performDeleteApplicationPolicy()">
+                            <span class="spinner-border spinner-border-sm" id="delete-spinner" role="status"
+                                aria-hidden="true" style="display: none;"></span>
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            onclick="resetOnboardNewApplicationPolicy()">Reset</button>
+                    </div>
+                    <div id="deleteTasks">
+                        <p id="deleteNewServerPool"><span class="task-description">deleteServerPool</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="deleteVirtualIP"><span class="task-description">deleteVirtualIP</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                    </div>
                 </div>
-                <!-- <div id="rest-api-result" class="action-result border p-3" style="display: none;"></div> -->
             </div>
 
         </div>
