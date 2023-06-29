@@ -348,12 +348,12 @@ function updateTaskStatus(taskId, status) {
         badgeElement.textContent = 'Complete';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-success');
-        descriptionElement.textContent = descriptionElement.textContent.split(':')[1] + " Completed.";
+        descriptionElement.textContent = taskId + " Completed.";
     } else {
         badgeElement.textContent = 'Failed';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-danger');
-        descriptionElement.textContent = descriptionElement.textContent.split(':')[1] + " Failed.";
+        descriptionElement.textContent = taskId + " Failed.";
     }
 }
 
@@ -374,7 +374,7 @@ function resetOnboardNewApplicationPolicy() {
         badgeElement.classList.add('bg-secondary');
 
         // Reset the task description
-        descriptionElement.textContent = taskId;
+        descriptionElement.textContent = task.description;
     });
 }
 
