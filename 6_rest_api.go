@@ -186,24 +186,27 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	// Step 1: createVirtualIP
 	result, err := createVirtualIP(host, token, vipData)
 	if err != nil {
-		log.Printf("Error creating virtual IP: %v\n", err)
+		// ...
 		statuses = append(statuses, map[string]string{
-			"taskId":  "createVirtualIP",
-			"status":  "failure",
-			"message": fmt.Sprintf("Error creating virtual IP: %v", err),
+			"taskId":      "createVirtualIP",
+			"status":      "failure",
+			"description": "Create Virtual IP",
+			"message":     fmt.Sprintf("Error creating virtual IP: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
-		log.Printf("Failed to create virtual IP\n")
+		// ...
 		statuses = append(statuses, map[string]string{
-			"taskId":  "createVirtualIP",
-			"status":  "failure",
-			"message": "Failed to create virtual IP",
+			"taskId":      "createVirtualIP",
+			"status":      "failure",
+			"description": "Create Virtual IP",
+			"message":     "Failed to create virtual IP",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
-			"taskId":  "createVirtualIP",
-			"status":  "success",
-			"message": "Successfully created virtual IP",
+			"taskId":      "createVirtualIP",
+			"status":      "success",
+			"description": "Create Virtual IP",
+			"message":     "Successfully created virtual IP",
 		})
 	}
 
@@ -212,22 +215,25 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	if err != nil {
 		log.Printf("Error creating server pool: %v\n", err)
 		statuses = append(statuses, map[string]string{
-			"taskId":  "createNewServerPool",
-			"status":  "failure",
-			"message": fmt.Sprintf("Error creating Server Pool: %v", err),
+			"taskId":      "createNewServerPool",
+			"status":      "failure",
+			"description": "Create New Server Pool",
+			"message":     fmt.Sprintf("Error creating Server Pool: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		log.Printf("Failed to create Server Pool\n")
 		statuses = append(statuses, map[string]string{
-			"taskId":  "createNewServerPool",
-			"status":  "failure",
-			"message": "Failed to create Server Pool",
+			"taskId":      "createNewServerPool",
+			"status":      "failure",
+			"description": "Create New Server Pool",
+			"message":     "Failed to create Server Pool",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
-			"taskId":  "createNewServerPool",
-			"status":  "success",
-			"message": "Successfully created Server Pool",
+			"taskId":      "createNewServerPool",
+			"status":      "success",
+			"description": "Create New Server Pool",
+			"message":     "Successfully created Server Pool",
 		})
 	}
 
@@ -236,22 +242,25 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		result, err := createNewMemberPool(host, token, poolData.Name, member)
 		if err != nil {
 			statuses = append(statuses, map[string]string{
-				"taskId":  "createNewMemberPool",
-				"status":  "failure",
-				"message": fmt.Sprintf("Error creating Member Pool: %v", err),
+				"taskId":      "createNewMemberPool",
+				"status":      "failure",
+				"description": "Create New Member Pool",
+				"message":     fmt.Sprintf("Error creating Member Pool: %v", err),
 			})
 		} else if !checkOperationStatus(result) {
 			log.Printf("Failed to create Member Pool\n")
 			statuses = append(statuses, map[string]string{
-				"taskId":  "createNewMemberPool",
-				"status":  "failure",
-				"message": "Failed to create Member Pool",
+				"taskId":      "createNewMemberPool",
+				"status":      "failure",
+				"description": "Create New Member Pool",
+				"message":     "Failed to create Member Pool",
 			})
 		} else {
 			statuses = append(statuses, map[string]string{
-				"taskId":  "createNewMemberPool",
-				"status":  "success",
-				"message": "Successfully created Member Pool",
+				"taskId":      "createNewMemberPool",
+				"status":      "success",
+				"description": "Create New Member Pool",
+				"message":     "Successfully created Member Pool",
 			})
 		}
 	}

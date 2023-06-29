@@ -301,7 +301,7 @@ function performOnboardNewApplicationPolicy() {
         .then(data => {
             // Iterate over the array of statuses and update the task status for each one
             data.forEach(status => {
-                updateTaskStatus(status.taskId, status.status);
+                updateTaskStatus(status.taskId, status.status, status.description);
             });
             // Hide the spinner when all tasks are done
             spinner.style.display = 'none';
@@ -327,7 +327,7 @@ function performDeleteApplicationPolicy() {
         .then(data => {
             // Iterate over the array of statuses and update the task status for each one
             data.forEach(status => {
-                updateTaskStatus(status.taskId, status.status);
+                updateTaskStatus(status.taskId, status.status, status.description);
             });
             // Hide the spinner when all tasks are done
             spinner.style.display = 'none';
@@ -339,7 +339,7 @@ function performDeleteApplicationPolicy() {
         });
 }
 
-function updateTaskStatus(taskId, status) {
+function updateTaskStatus(taskId, status, description) {
     var taskElement = document.getElementById(taskId);
     var badgeElement = taskElement.querySelector('.badge');
     var descriptionElement = taskElement.querySelector('.task-description');
@@ -348,12 +348,12 @@ function updateTaskStatus(taskId, status) {
         badgeElement.textContent = 'Complete';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-success');
-        descriptionElement.textContent = taskId;
+        descriptionElement.textContent = description;
     } else {
         badgeElement.textContent = 'Failed';
         badgeElement.classList.remove('bg-primary');
         badgeElement.classList.add('bg-danger');
-        descriptionElement.textContent = taskId;
+        descriptionElement.textContent = description;
     }
 }
 
