@@ -273,12 +273,12 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	// log.Printf("URL: %s\n", url)
 	// log.Printf("Method: %s\n", method)
 	// Print headers
-	for name, values := range req.Header {
+	//for name, values := range req.Header {
 		// Loop over all values for the name.
-		for _, value := range values {
+		//for _, value := range values {
 			// log.Printf("Header: %s: %s\n", name, value)
-		}
-	}
+		//}
+	//}
 	// log.Printf("JSON data: %s\n", jsonData)
 
 	time.Sleep(time.Duration(1000) * time.Millisecond)
@@ -302,12 +302,12 @@ func checkOperationStatus(result []byte) bool {
 	json.Unmarshal(result, &res)
 
 	// Print JSON Result
-	jsonData, err := json.Marshal(res)
-	if err != nil {
-		log.Println(res)
-	} else {
+	//jsonData, err := json.Marshal(res)
+	//if err != nil {
+	//	log.Println(res)
+	//} else {
 		// log.Printf("Result JSON: %s\n", jsonData)
-	}
+	//}
 
 	// Check if the result map is empty
 	if len(res) == 0 {
