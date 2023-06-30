@@ -139,7 +139,7 @@ func assignVIPToVirtualServer(host, token, virtualServerName string, data Assign
 	return sendRequest("POST", url, token, data)
 }
 
-// Clone Signature Standard Protection
+// Signature Standard Protection
 
 func cloneSignatureStandardProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/signature?mkey=%s&clone_mkey=%s", host, url.QueryEscape(originalKey), url.QueryEscape(cloneKey))
@@ -148,7 +148,14 @@ func cloneSignatureStandardProtection(host, token, originalKey, cloneKey string)
 	return sendRequest("POST", url, token, nil)
 }
 
-// Clone Inline Standard Protection
+func deleteSignatureProtection(host, token, signatureName string) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/signature?mkey=%s", host, url.QueryEscape(signatureName))
+
+	log.Printf("Deleting Signature Protection: %s\n", signatureName)
+	return sendRequest("DELETE", url, token, nil)
+}
+
+// Inline Standard Protection
 
 func cloneInlineStandardProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s&clone_mkey=%s", host, url.QueryEscape(originalKey), url.QueryEscape(cloneKey))
@@ -157,7 +164,14 @@ func cloneInlineStandardProtection(host, token, originalKey, cloneKey string) ([
 	return sendRequest("POST", url, token, nil)
 }
 
-// New X-Forwarded-For Rule
+func deleteProtectionProfile(host, token, profileName string) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s", host, url.QueryEscape(profileName))
+
+	log.Printf("Deleting Protection Profile: %s\n", profileName)
+	return sendRequest("DELETE", url, token, nil)
+}
+
+// X-Forwarded-For Rule
 
 func createNewXForwardedForRule(host, token string, data XForwardedForData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/x-forwarded-for", host)
@@ -166,7 +180,14 @@ func createNewXForwardedForRule(host, token string, data XForwardedForData) ([]b
 	return sendRequest("POST", url, token, data)
 }
 
-// Configure Protection Profile
+func deleteXForwardedForRule(host, token, ruleName string) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/x-forwarded-for?mkey=%s", host, url.QueryEscape(ruleName))
+
+	log.Printf("Deleting X-Forwarded-For Rule: %s\n", ruleName)
+	return sendRequest("DELETE", url, token, nil)
+}
+
+// Protection Profile
 
 func configureProtectionProfile(host, token, mkey string, data ProtectionProfileData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s", host, url.QueryEscape(mkey))
@@ -175,13 +196,20 @@ func configureProtectionProfile(host, token, mkey string, data ProtectionProfile
 	return sendRequest("PUT", url, token, data)
 }
 
-// Create Policy
+// Policy
 
 func createNewPolicy(host, token string, data PolicyData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/policy", host)
 
 	log.Printf("Creating new Policy: %s\n", data.Name)
 	return sendRequest("POST", url, token, data)
+}
+
+func deletePolicy(host, token, policyName string) ([]byte, error) {
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/policy?mkey=%s", host, url.QueryEscape(policyName))
+
+	log.Printf("Deleting Policy: %s\n", policyName)
+	return sendRequest("DELETE", url, token, nil)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -608,12 +636,111 @@ func deleteApplicationPolicy(c echo.Context) error {
 	statuses := []map[string]string{}
 
 	// Step 1: Delete Policy
+	result, err := deletePolicy(host, token, "POLICY1")
+	if err != nil {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deletePolicy",
+			"status":      "failure",
+			"description": "Delete Policy",
+			"message":     fmt.Sprintf("Error deleting Policy: %v", err),
+		})
+	} else if !checkOperationStatus(result) {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deletePolicy",
+			"status":      "failure",
+			"description": "Delete Policy",
+			"message":     "Failed to delete Policy",
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deletePolicy",
+			"status":      "success",
+			"description": "Delete Policy",
+			"message":     "Successfully deleted Policy",
+		})
+	}
+
 	// Step 2: Delete Protection Profile
+	result, err = deleteProtectionProfile(host, token, "STANDARD_PROTECTION_CLONE")
+	if err != nil {
+		// ...
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteProtectionProfile",
+			"status":      "failure",
+			"description": "Delete Protection Profile",
+			"message":     fmt.Sprintf("Error deleting Protection Profile: %v", err),
+		})
+	} else if !checkOperationStatus(result) {
+		// ...
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteProtectionProfile",
+			"status":      "failure",
+			"description": "Delete Protection Profile",
+			"message":     "Failed to delete Protection Profile",
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteProtectionProfile",
+			"status":      "success",
+			"description": "Delete Protection Profile",
+			"message":     "Successfully deleted Protection Profile",
+		})
+	}
+
 	// Step 3: Delete X-Forwarded-For Rule
+	result, err = deleteXForwardedForRule(host, token, "XFF")
+	if err != nil {
+		// ...
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteXForwardedForRule",
+			"status":      "failure",
+			"description": "Delete X-Forwarded-For Rule",
+			"message":     fmt.Sprintf("Error deleting X-Forwarded-For Rule: %v", err),
+		})
+	} else if !checkOperationStatus(result) {
+		// ...
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteXForwardedForRule",
+			"status":      "failure",
+			"description": "Delete X-Forwarded-For Rule",
+			"message":     "Failed to delete X-Forwarded-For Rule",
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteXForwardedForRule",
+			"status":      "success",
+			"description": "Delete X-Forwarded-For Rule",
+			"message":     "Successfully deleted X-Forwarded-For Rule",
+		})
+	}
+
 	// Step 4: Delete Signature Protection
+	result, err = deleteSignatureProtection(host, token, "STANDARD_SIGNATURE_CLONE")
+	if err != nil {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteSignatureProtection",
+			"status":      "failure",
+			"description": "Delete Signature Protection",
+			"message":     fmt.Sprintf("Error deleting Signature Protection: %v", err),
+		})
+	} else if !checkOperationStatus(result) {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteSignatureProtection",
+			"status":      "failure",
+			"description": "Delete Signature Protection",
+			"message":     "Failed to delete Signature Protection",
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteSignatureProtection",
+			"status":      "success",
+			"description": "Delete Signature Protection",
+			"message":     "Successfully deleted Signature Protection",
+		})
+	}
 
 	// Step 5: DeleteVirtualServer
-	result, err := deleteVirtualServer(host, token, VirtualServerName)
+	result, err = deleteVirtualServer(host, token, VirtualServerName)
 	if err != nil {
 		log.Printf("Error creating virtual server: %v\n", err)
 		statuses = append(statuses, map[string]string{
@@ -667,7 +794,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 	}
 
 	// Step 7: deleteServerPool
-	result, err := deleteServerPool(host, token, PoolName)
+	result, err = deleteServerPool(host, token, PoolName)
 	if err != nil {
 		log.Printf("Error deleting server pool: %v\n", err)
 		statuses = append(statuses, map[string]string{
