@@ -281,7 +281,7 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	return body, nil
 }
 
-// checkOperationStatus checks if the operation was successful or not.
+// Checks JSON result to see if the operation was successful or not.
 // It returns true if the operation was successful, and false otherwise.
 func checkOperationStatus(result []byte) bool {
 	var res map[string]interface{}
@@ -291,6 +291,12 @@ func checkOperationStatus(result []byte) bool {
 	// Check if the result map is empty
 	if len(res) == 0 {
 		log.Printf("Operation failed: received empty result\n") // Print a message indicating that the operation failed
+		return false
+	}
+
+	// Check if the "data" field is null
+	if data, ok := res["data"]; ok && data == nil {
+		log.Printf("Operation failed: data field is null\n") // Print a message indicating that the operation failed
 		return false
 	}
 
