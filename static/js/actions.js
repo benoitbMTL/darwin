@@ -363,7 +363,7 @@ function resetOnboardNewApplicationPolicy() {
         { id: 'createNewServerPool', description: 'Create new Server Pool' },
         { id: 'createNewMemberPool', description: 'Create new Member Pool' },
         { id: 'createNewVirtualServer', description: 'Create new Virtual Server' },
-        { id: 'assignVirtualIP', description: 'Assign Virtual IP to Virtual Server' },
+        { id: 'assignVIPToVirtualServer', description: 'Assign Virtual IP to Virtual Server' },
         { id: 'cloneSignatureProtection', description: 'Clone Signature Standard Protection' },
         { id: 'cloneInlineProtection', description: 'Clone Inline Standard Protection' },
         { id: 'createNewXForwardedForRule', description: 'Create new X-Forwarded-For Rule' },
@@ -388,7 +388,7 @@ function resetOnboardNewApplicationPolicy() {
 function resetDeleteApplicationPolicy() {
     var tasks = [
         { id: 'deletePolicy', description: 'Delete Policy' },
-        { id: 'deleteProtectionProfile', description: 'Delete Protection Profile' },
+        { id: 'deleteInlineProtection', description: 'Delete Inline Protection Profile' },
         { id: 'deleteXForwardedForRule', description: 'Delete X-Forwarded-For Rule' },
         { id: 'deleteSignatureProtection', description: 'Delete Signature Protection' },
         { id: 'deleteVirtualServer', description: 'Delete Virtual Server' },

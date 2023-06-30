@@ -141,7 +141,7 @@ func assignVIPToVirtualServer(host, token, virtualServerName string, data Assign
 
 // Signature Standard Protection
 
-func cloneSignatureStandardProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
+func cloneSignatureProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/signature?mkey=%s&clone_mkey=%s", host, url.QueryEscape(originalKey), url.QueryEscape(cloneKey))
 
 	log.Printf("Cloning Signature Protection: %s to %s\n", originalKey, cloneKey)
@@ -155,16 +155,16 @@ func deleteSignatureProtection(host, token, signatureName string) ([]byte, error
 	return sendRequest("DELETE", url, token, nil)
 }
 
-// Inline Standard Protection
+// Inline Protection Profile
 
-func cloneInlineStandardProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
+func cloneInlineProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s&clone_mkey=%s", host, url.QueryEscape(originalKey), url.QueryEscape(cloneKey))
 
 	log.Printf("Cloning Inline Standard Protection: %s to %s\n", originalKey, cloneKey)
 	return sendRequest("POST", url, token, nil)
 }
 
-func deleteProtectionProfile(host, token, profileName string) ([]byte, error) {
+func deleteInlineProtection(host, token, profileName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s", host, url.QueryEscape(profileName))
 
 	log.Printf("Deleting Protection Profile: %s\n", profileName)
@@ -514,50 +514,50 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// Setp 6: Clone Signature Standard Protection
-	result, err = cloneSignatureStandardProtection(host, token, OriginalSignatureProtectionName, CloneSignatureProtectionName)
+	// Setp 6: Clone Signature Protection
+	result, err = cloneSignatureProtection(host, token, OriginalSignatureProtectionName, CloneSignatureProtectionName)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
-			"taskId":      "cloneSignatureStandardProtection",
+			"taskId":      "cloneSignatureProtection",
 			"status":      "failure",
-			"description": "Clone Signature Standard Protection",
-			"message":     fmt.Sprintf("Error cloning Signature Standard Protection: %v", err),
+			"description": "Clone Signature Protection",
+			"message":     fmt.Sprintf("Error cloning Signature Protection: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		statuses = append(statuses, map[string]string{
-			"taskId":      "cloneSignatureStandardProtection",
+			"taskId":      "cloneSignatureProtection",
 			"status":      "failure",
-			"description": "Clone Signature Standard Protection",
-			"message":     "Failed to clone Signature Standard Protection",
+			"description": "Clone Signature Protection",
+			"message":     "Failed to clone Signature Protection",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
-			"taskId":      "cloneSignatureStandardProtection",
+			"taskId":      "cloneSignatureProtection",
 			"status":      "success",
-			"description": "Clone Signature Standard Protection",
-			"message":     "Successfully cloned Signature Standard Protection",
+			"description": "Clone Signature Protection",
+			"message":     "Successfully cloned Signature Protection",
 		})
 	}
 
-	// Setp 7: Clone Inline Standard Protection
-	result, err = cloneInlineStandardProtection(host, token, OriginalInlineProtectionProfileName, CloneInlineProtectionProfileName)
+	// Setp 7: Clone Inline Protection
+	result, err = cloneInlineProtection(host, token, OriginalInlineProtectionProfileName, CloneInlineProtectionProfileName)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
-			"taskId":      "cloneInlineStandardProtection",
+			"taskId":      "cloneInlineProtection",
 			"status":      "failure",
 			"description": "Clone Inline Standard Protection",
 			"message":     fmt.Sprintf("Error cloning Inline Standard Protection: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		statuses = append(statuses, map[string]string{
-			"taskId":      "cloneInlineStandardProtection",
+			"taskId":      "cloneInlineProtection",
 			"status":      "failure",
 			"description": "Clone Inline Standard Protection",
 			"message":     "Failed to clone Inline Standard Protection",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
-			"taskId":      "cloneInlineStandardProtection",
+			"taskId":      "cloneInlineProtection",
 			"status":      "success",
 			"description": "Clone Inline Standard Protection",
 			"message":     "Successfully cloned Inline Standard Protection",
@@ -677,30 +677,30 @@ func deleteApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// Step 2: Delete Protection Profile
-	result, err = deleteProtectionProfile(host, token, CloneSignatureProtectionName)
+	// Step 2: Delete Inline Protection Profile
+	result, err = deleteInlineProtection(host, token, CloneSignatureProtectionName)
 	if err != nil {
 		// ...
 		statuses = append(statuses, map[string]string{
-			"taskId":      "deleteProtectionProfile",
+			"taskId":      "deleteInlineProtection",
 			"status":      "failure",
-			"description": "Delete Protection Profile",
-			"message":     fmt.Sprintf("Error deleting Protection Profile: %v", err),
+			"description": "Delete Inline Protection Profile",
+			"message":     fmt.Sprintf("Error deleting Inline Protection Profile: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		// ...
 		statuses = append(statuses, map[string]string{
-			"taskId":      "deleteProtectionProfile",
+			"taskId":      "deleteInlineProtection",
 			"status":      "failure",
-			"description": "Delete Protection Profile",
-			"message":     "Failed to delete Protection Profile",
+			"description": "Delete Inline Protection Profile",
+			"message":     "Failed to delete Inline Protection Profile",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
-			"taskId":      "deleteProtectionProfile",
+			"taskId":      "deleteInlineProtection",
 			"status":      "success",
-			"description": "Delete Protection Profile",
-			"message":     "Successfully deleted Protection Profile",
+			"description": "Delete Inline Protection Profile",
+			"message":     "Successfully deleted Inline Protection Profile",
 		})
 	}
 
