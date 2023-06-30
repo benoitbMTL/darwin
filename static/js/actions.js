@@ -389,7 +389,7 @@ function resetDeleteApplicationPolicy() {
     var tasks = [
         { id: 'deletePolicy', description: 'Delete Policy' },
         { id: 'deleteProtectionProfile', description: 'Delete Protection Profile' },
-        { id: 'deleteNewXForwardedForRule', description: 'Delete New X-Forwarded-For Rule' },
+        { id: 'deleteXForwardedForRule', description: 'Delete New X-Forwarded-For Rule' },
         { id: 'deleteSignatureProtection', description: 'Delete Signature Protection' },
         { id: 'deleteVirtualServer', description: 'Delete Virtual Server' },
         { id: 'deleteServerPool', description: 'Delete Server Pool' },
