@@ -602,7 +602,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 func deleteApplicationPolicy(c echo.Context) error {
 	host := FWB_MGT_IP
 	token := calculateToken()
-	log.Printf("Token: %s\n", token)
+	//log.Printf("Token: %s\n", token)
 
 	// Initialize a slice to store the statuses
 	statuses := []map[string]string{}
@@ -613,7 +613,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 	// Step 4: Delete Signature Protection
 
 	// Step 5: DeleteVirtualServer
-	result, err = deleteVirtualServer(host, token, VirtualServerName)
+	result, err := deleteVirtualServer(host, token, VirtualServerName)
 	if err != nil {
 		log.Printf("Error creating virtual server: %v\n", err)
 		statuses = append(statuses, map[string]string{
