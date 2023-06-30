@@ -786,22 +786,22 @@ func deleteApplicationPolicy(c echo.Context) error {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteVirtualIP",
 			"status":      "failure",
-			"description": "Delete virtual IP",
+			"description": "Delete Virtual IP",
 			"message":     fmt.Sprintf("Error deleting virtual IP: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
-		log.Printf("Failed to delete virtual IP\n")
+		log.Printf("Failed to delete Virtual IP\n")
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteVirtualIP",
 			"status":      "failure",
-			"description": "Delete virtual IP",
-			"message":     "Failed to delete virtual IP",
+			"description": "Delete Virtual IP",
+			"message":     "Failed to delete Virtual IP",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteVirtualIP",
 			"status":      "success",
-			"description": "Delete virtual IP",
+			"description": "Delete Virtual IP",
 			"message":     "Successfully deleted virtual IP",
 		})
 	}
