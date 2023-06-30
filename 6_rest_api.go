@@ -127,7 +127,7 @@ func createNewVirtualServer(host, token string, data VirtualServerData) ([]byte,
 func deleteVirtualServer(host, token, virtualServerName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver?mkey=%s", host, url.QueryEscape(virtualServerName))
 
-	return sendRequest("POST", url, token, nil)
+	return sendRequest("DELETE", url, token, nil)
 }
 
 // Assign VIP to Virtual Server
