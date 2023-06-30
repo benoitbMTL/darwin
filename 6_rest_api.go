@@ -274,10 +274,10 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	// log.Printf("Method: %s\n", method)
 	// Print headers
 	//for name, values := range req.Header {
-		// Loop over all values for the name.
-		//for _, value := range values {
-			// log.Printf("Header: %s: %s\n", name, value)
-		//}
+	// Loop over all values for the name.
+	//for _, value := range values {
+	// log.Printf("Header: %s: %s\n", name, value)
+	//}
 	//}
 	// log.Printf("JSON data: %s\n", jsonData)
 
@@ -306,7 +306,7 @@ func checkOperationStatus(result []byte) bool {
 	//if err != nil {
 	//	log.Println(res)
 	//} else {
-		// log.Printf("Result JSON: %s\n", jsonData)
+	// log.Printf("Result JSON: %s\n", jsonData)
 	//}
 
 	// Check if the result map is empty
@@ -424,7 +424,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	// Step 2: Create new Server Pool
 	result, err = createNewServerPool(host, token, poolData)
 	if err != nil {
-		// log.Printf("Error creating server pool: %v\n", err)
+		log.Printf("Error creating server pool: %v\n", err)
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewServerPool",
 			"status":      "failure",
