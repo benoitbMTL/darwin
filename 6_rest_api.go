@@ -60,18 +60,18 @@ type ProtectionProfileData struct {
 }
 
 type PolicyData struct {
-	Name                 string `json:"name,omitempty"`
-	DeploymentMode       string `json:"deployment-mode,omitempty"`
-	Protocol             string `json:"protocol,omitempty"`
-	Ssl                  string `json:"ssl,omitempty"`
-	ImplicitSsl          string `json:"implicit_ssl,omitempty"`
-	Vserver              string `json:"vserver,omitempty"`
-	Service              string `json:"service,omitempty"`
-	WebProtectionProfile string `json:"web-protection-profile,omitempty"`
-	ServerPool           string `json:"server-pool,omitempty"`
-	TrafficLog           string `json:"tlog,omitempty"`
-	HttpsService         string `json:"https-service,omitempty"`
-	Certificate          string `json:"certificate,omitempty"`
+	Name                    string `json:"name,omitempty"`
+	DeploymentMode          string `json:"deployment-mode,omitempty"`
+	Protocol                string `json:"protocol,omitempty"`
+	Ssl                     string `json:"ssl,omitempty"`
+	ImplicitSsl             string `json:"implicit_ssl,omitempty"`
+	Vserver                 string `json:"vserver,omitempty"`
+	Service                 string `json:"service,omitempty"`
+	InlineProtectionProfile string `json:"web-protection-profile,omitempty"`
+	ServerPool              string `json:"server-pool,omitempty"`
+	TrafficLog              string `json:"tlog,omitempty"`
+	HttpsService            string `json:"https-service,omitempty"`
+	Certificate             string `json:"certificate,omitempty"`
 }
 
 // Virtual IP
@@ -219,7 +219,7 @@ func deletePolicy(host, token, policyName string) ([]byte, error) {
 func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	var req *http.Request
 	var err error
-	
+
 	reqData := Request{
 		Data: data,
 	}
@@ -379,17 +379,17 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	}
 
 	policyData := PolicyData{
-		Name:                 PolicyName,
-		DeploymentMode:       PolicyDeploymentMode,
-		Protocol:             PolicyProtocol,
-		Ssl:                  PolicySSL,
-		ImplicitSsl:          PolicyImplicitSSL,
-		Vserver:              PolicyVirtualServer,
-		Service:              PolicyService,
-		WebProtectionProfile: PolicyWebProtectionProfile,
-		ServerPool:           PolicyServerPool,
-		TrafficLog:           PolicyTrafficLog,
-		HttpsService:         PolicyHTTPSService,
+		Name:                    PolicyName,
+		DeploymentMode:          PolicyDeploymentMode,
+		Protocol:                PolicyProtocol,
+		Ssl:                     PolicySSL,
+		ImplicitSsl:             PolicyImplicitSSL,
+		Vserver:                 PolicyVirtualServer,
+		Service:                 PolicyService,
+		InlineProtectionProfile: PolicyInlineProtectionProfile,
+		ServerPool:              PolicyServerPool,
+		TrafficLog:              PolicyTrafficLog,
+		HttpsService:            PolicyHTTPSService,
 		//Certificate:          PolicyCertificate,
 	}
 

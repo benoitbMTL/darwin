@@ -91,7 +91,7 @@ var (
 	PolicyImplicitSSL                   = "enable"
 	PolicyVirtualServer                 = VirtualServerName
 	PolicyService                       = "HTTP"
-	PolicyWebProtectionProfile          = CloneSignatureProtectionName
+	PolicyInlineProtectionProfile          = CloneInlineProtectionProfileName
 	PolicyServerPool                    = PoolName
 	PolicyTrafficLog                    = "enable"
 	PolicyHTTPSService                  = "HTTPS"
