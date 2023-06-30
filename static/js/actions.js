@@ -368,7 +368,7 @@ function resetOnboardNewApplicationPolicy() {
         { id: 'cloneInlineProtection', description: 'Clone Inline Standard Protection' },
         { id: 'createNewXForwardedForRule', description: 'Create new X-Forwarded-For Rule' },
         { id: 'configureProtectionProfile', description: 'Configure Protection Profile' },
-        { id: 'createNewPolicy', description: 'Create New Policy' }
+        { id: 'createNewPolicy', description: 'Create new Policy' }
     ];
     tasks.forEach(task => {
         var taskElement = document.getElementById(task.id);

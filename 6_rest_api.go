@@ -607,7 +607,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// Setp 10: Create New Policy
+	// Setp 10: Create new Policy
 	result, err = createNewPolicy(host, token, policyData)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
