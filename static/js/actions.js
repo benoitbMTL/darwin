@@ -359,16 +359,16 @@ function updateTaskStatus(taskId, status, description) {
 
 function resetOnboardNewApplicationPolicy() {
     var tasks = [
-        { id: 'createNewVirtualIP', description: 'Create New Virtual IP' },
-        { id: 'createNewServerPool', description: 'Create New Server Pool' },
-        { id: 'createNewMemberPool', description: 'Create New Member Pool' },
-        { id: 'createNewVirtualServer', description: 'Create New Virtual Server' },
+        { id: 'createNewVirtualIP', description: 'Create new Virtual IP' },
+        { id: 'createNewServerPool', description: 'Create new Server Pool' },
+        { id: 'createNewMemberPool', description: 'Create new Member Pool' },
+        { id: 'createNewVirtualServer', description: 'Create new Virtual Server' },
         { id: 'assignVirtualIP', description: 'Assign Virtual IP to Virtual Server' },
         { id: 'cloneSignatureProtection', description: 'Clone Signature Standard Protection' },
         { id: 'cloneInlineProtection', description: 'Clone Inline Standard Protection' },
-        { id: 'createNewXForwardedForRule', description: 'Create New X-Forwarded-For Rule' },
+        { id: 'createNewXForwardedForRule', description: 'Create new X-Forwarded-For Rule' },
         { id: 'configureProtectionProfile', description: 'Configure Protection Profile' },
-        { id: 'createNewPolicy', description: 'Create New Policy' }
+        { id: 'createNewPolicy', description: 'Create new Policy' }
     ];
     tasks.forEach(task => {
         var taskElement = document.getElementById(task.id);
