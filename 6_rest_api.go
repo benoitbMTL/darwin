@@ -643,7 +643,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 	statuses := []map[string]string{}
 
 	// Step 1: Delete Policy
-	result, err := deletePolicy(host, token, "POLICY1")
+	result, err := deletePolicy(host, token, PolicyName)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deletePolicy",
@@ -668,7 +668,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 	}
 
 	// Step 2: Delete Protection Profile
-	result, err = deleteProtectionProfile(host, token, "STANDARD_PROTECTION_CLONE")
+	result, err = deleteProtectionProfile(host, token, CloneSignatureProtectionName)
 	if err != nil {
 		// ...
 		statuses = append(statuses, map[string]string{
@@ -695,7 +695,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 	}
 
 	// Step 3: Delete X-Forwarded-For Rule
-	result, err = deleteXForwardedForRule(host, token, "XFF")
+	result, err = deleteXForwardedForRule(host, token, XForwardedForName)
 	if err != nil {
 		// ...
 		statuses = append(statuses, map[string]string{
@@ -722,7 +722,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 	}
 
 	// Step 4: Delete Signature Protection
-	result, err = deleteSignatureProtection(host, token, "STANDARD_SIGNATURE_CLONE")
+	result, err = deleteSignatureProtection(host, token, CloneSignatureProtectionName)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteSignatureProtection",
