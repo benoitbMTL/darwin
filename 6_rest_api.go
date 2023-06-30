@@ -779,34 +779,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// Step 6: deleteVirtualIP
-	result, err = deleteVirtualIP(host, token, VipName)
-	if err != nil {
-		log.Printf("Error deleting virtual IP: %v\n", err)
-		statuses = append(statuses, map[string]string{
-			"taskId":      "deleteVirtualIP",
-			"status":      "failure",
-			"description": "Delete Virtual IP",
-			"message":     fmt.Sprintf("Error deleting virtual IP: %v", err),
-		})
-	} else if !checkOperationStatus(result) {
-		log.Printf("Failed to delete Virtual IP\n")
-		statuses = append(statuses, map[string]string{
-			"taskId":      "deleteVirtualIP",
-			"status":      "failure",
-			"description": "Delete Virtual IP",
-			"message":     "Failed to delete Virtual IP",
-		})
-	} else {
-		statuses = append(statuses, map[string]string{
-			"taskId":      "deleteVirtualIP",
-			"status":      "success",
-			"description": "Delete Virtual IP",
-			"message":     "Successfully deleted virtual IP",
-		})
-	}
-
-	// Step 7: deleteServerPool
+	// Step : Delete Server Pool
 	result, err = deleteServerPool(host, token, PoolName)
 	if err != nil {
 		log.Printf("Error deleting server pool: %v\n", err)
@@ -830,6 +803,33 @@ func deleteApplicationPolicy(c echo.Context) error {
 			"status":      "success",
 			"description": "Delete Server Pool",
 			"message":     "Successfully deleted Server Pool",
+		})
+	}
+
+	// Step 7: Delete Virtual IP
+	result, err = deleteVirtualIP(host, token, VipName)
+	if err != nil {
+		log.Printf("Error deleting virtual IP: %v\n", err)
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteVirtualIP",
+			"status":      "failure",
+			"description": "Delete Virtual IP",
+			"message":     fmt.Sprintf("Error deleting virtual IP: %v", err),
+		})
+	} else if !checkOperationStatus(result) {
+		log.Printf("Failed to delete Virtual IP\n")
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteVirtualIP",
+			"status":      "failure",
+			"description": "Delete Virtual IP",
+			"message":     "Failed to delete Virtual IP",
+		})
+	} else {
+		statuses = append(statuses, map[string]string{
+			"taskId":      "deleteVirtualIP",
+			"status":      "success",
+			"description": "Delete Virtual IP",
+			"message":     "Successfully deleted virtual IP",
 		})
 	}
 
