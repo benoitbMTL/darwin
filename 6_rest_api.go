@@ -678,7 +678,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 	}
 
 	// Step 2: Delete Inline Protection Profile
-	result, err = deleteInlineProtection(host, token, CloneSignatureProtectionName)
+	result, err = deleteInlineProtection(host, token, CloneInlineProtectionProfileName)
 	if err != nil {
 		// ...
 		statuses = append(statuses, map[string]string{
