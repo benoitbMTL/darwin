@@ -596,6 +596,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	log.Printf("End of onboardNewApplicationPolicy\n")
 	// Return a JSON response with the statuses of all steps
 	return c.JSON(http.StatusOK, statuses)
+
 }
 
 func deleteApplicationPolicy(c echo.Context) error {
