@@ -368,7 +368,7 @@ function resetOnboardNewApplicationPolicy() {
         { id: 'cloneInlineProtection', description: 'Clone Inline Standard Protection' },
         { id: 'createNewXForwardedForRule', description: 'Create new X-Forwarded-For Rule' },
         { id: 'configureProtectionProfile', description: 'Configure Protection Profile' },
-        { id: 'createNewPolicy', description: 'Create new Policy' }
+        { id: 'createNewPolicy', description: 'Create New Policy' }
     ];
     tasks.forEach(task => {
         var taskElement = document.getElementById(task.id);
@@ -389,7 +389,7 @@ function resetDeleteApplicationPolicy() {
     var tasks = [
         { id: 'deletePolicy', description: 'Delete Policy' },
         { id: 'deleteProtectionProfile', description: 'Delete Protection Profile' },
-        { id: 'deleteXForwardedForRule', description: 'Delete New X-Forwarded-For Rule' },
+        { id: 'deleteXForwardedForRule', description: 'Delete X-Forwarded-For Rule' },
         { id: 'deleteSignatureProtection', description: 'Delete Signature Protection' },
         { id: 'deleteVirtualServer', description: 'Delete Virtual Server' },
         { id: 'deleteServerPool', description: 'Delete Server Pool' },

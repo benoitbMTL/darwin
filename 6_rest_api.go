@@ -375,39 +375,39 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	// Initialize a slice to store the statuses
 	statuses := []map[string]string{}
 
-	// Step 1: createNewVirtualIP
+	// Step 1: Create new Virtual IP
 	result, err := createNewVirtualIP(host, token, vipData)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualIP",
 			"status":      "failure",
-			"description": "Create New Virtual IP",
+			"description": "Create new Virtual IP",
 			"message":     fmt.Sprintf("Error creating virtual IP: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualIP",
 			"status":      "failure",
-			"description": "Create New Virtual IP",
+			"description": "Create new Virtual IP",
 			"message":     "Failed to create virtual IP",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualIP",
 			"status":      "success",
-			"description": "Create New Virtual IP",
+			"description": "Create new Virtual IP",
 			"message":     "Successfully created virtual IP",
 		})
 	}
 
-	// Step 2: createNewServerPool
+	// Step 2: Create new Server Pool
 	result, err = createNewServerPool(host, token, poolData)
 	if err != nil {
 		log.Printf("Error creating server pool: %v\n", err)
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewServerPool",
 			"status":      "failure",
-			"description": "Create New Server Pool",
+			"description": "Create new Server Pool",
 			"message":     fmt.Sprintf("Error creating Server Pool: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
@@ -415,26 +415,26 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewServerPool",
 			"status":      "failure",
-			"description": "Create New Server Pool",
+			"description": "Create new Server Pool",
 			"message":     "Failed to create Server Pool",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewServerPool",
 			"status":      "success",
-			"description": "Create New Server Pool",
+			"description": "Create new Server Pool",
 			"message":     "Successfully created Server Pool",
 		})
 	}
 
-	// Step 3: createNewMemberPool
+	// Step 3: Create new Member Pool
 	for _, member := range poolMembers {
 		result, err := createNewMemberPool(host, token, poolData.Name, member)
 		if err != nil {
 			statuses = append(statuses, map[string]string{
 				"taskId":      "createNewMemberPool",
 				"status":      "failure",
-				"description": "Create New Member Pool",
+				"description": "Create new Member Pool",
 				"message":     fmt.Sprintf("Error creating Member Pool: %v", err),
 			})
 		} else if !checkOperationStatus(result) {
@@ -442,27 +442,27 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 			statuses = append(statuses, map[string]string{
 				"taskId":      "createNewMemberPool",
 				"status":      "failure",
-				"description": "Create New Member Pool",
+				"description": "Create new Member Pool",
 				"message":     "Failed to create Member Pool",
 			})
 		} else {
 			statuses = append(statuses, map[string]string{
 				"taskId":      "createNewMemberPool",
 				"status":      "success",
-				"description": "Create New Member Pool",
+				"description": "Create new Member Pool",
 				"message":     "Successfully created Member Pool",
 			})
 		}
 	}
 
-	// Step 4: createNewVirtualServer
+	// Step 4: Create new Virtual Server
 	result, err = createNewVirtualServer(host, token, vsData)
 	if err != nil {
 		log.Printf("Error creating virtual server: %v\n", err)
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualServer",
 			"status":      "failure",
-			"description": "Create New Virtual Server",
+			"description": "Create new Virtual Server",
 			"message":     fmt.Sprintf("Error creating Virtual Server: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
@@ -470,45 +470,44 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualServer",
 			"status":      "failure",
-			"description": "Create New Virtual Server",
+			"description": "Create new Virtual Server",
 			"message":     "Failed to create Virtual Server",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualServer",
 			"status":      "success",
-			"description": "Create New Virtual Server",
+			"description": "Create new Virtual Server",
 			"message":     "Successfully created Virtual Server",
 		})
 	}
 
-	// Step 5 Assign VIP To Virtual Server
+	// Step 5: Assign Virtual IP to Virtual Server
 	result, err = assignVIPToVirtualServer(host, token, VirtualServerName, assignVIPData)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "assignVIPToVirtualServer",
 			"status":      "failure",
-			"description": "Assign VIP to Virtual Server",
+			"description": "Assign Virtual IP to Virtual Server",
 			"message":     fmt.Sprintf("Error assigning VIP to Virtual Server: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "assignVIPToVirtualServer",
 			"status":      "failure",
-			"description": "Assign VIP to Virtual Server",
+			"description": "Assign Virtual IP to Virtual Server",
 			"message":     "Failed to assign VIP to Virtual Server",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "assignVIPToVirtualServer",
 			"status":      "success",
-			"description": "Assign VIP to Virtual Server",
+			"description": "Assign Virtual IP to Virtual Server",
 			"message":     "Successfully assigned VIP to Virtual Server",
 		})
 	}
 
-	// Setp 6 Clone Signature Standard Protection
-
+	// Setp 6: Clone Signature Standard Protection
 	result, err = cloneSignatureStandardProtection(host, token, OriginalSignatureProtectionName, CloneSignatureProtectionName)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
@@ -533,7 +532,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// Setp 7 Clone Inline Standard Protection
+	// Setp 7: Clone Inline Standard Protection
 	result, err = cloneInlineStandardProtection(host, token, OriginalInlineProtectionProfileName, CloneInlineProtectionProfileName)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
@@ -558,8 +557,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// Setp 8 Create X-Forwarded-For Rule
-
+	// Setp 8: Create new X-Forwarded-For Rule
 	result, err = createNewXForwardedForRule(host, token, xffData)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
@@ -584,7 +582,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// Setp 9 Configure Protection Profile
+	// Setp 9: Configure Protection Profile
 	result, err = configureProtectionProfile(host, token, CloneInlineProtectionProfileName, protectionProfileData)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
@@ -609,7 +607,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// Setp 10 Create New Policy
+	// Setp 10: Create New Policy
 	result, err = createNewPolicy(host, token, policyData)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
