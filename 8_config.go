@@ -67,17 +67,35 @@ var (
 	}
 
 	// REST API Demo
-	VipName             = "VIP1"
-	VipIp               = "192.168.4.80/24"
-	Interface           = "port1"
-	PoolName            = "SERVER_POOL1"
-	ServerBalance       = "enable"
-	HealthCheck         = "HLTHCK_HTTP"
-	PoolMemberIPs       = []string{"10.0.0.10", "10.0.0.20", "10.0.0.30"}
-	PoolMemberSSL       = "enable"
-	PoolMemberPort      = 443
-	VirtualServerName   = "VIRTUAL_SERVER1"
-	VipStatus = "enable"
+	VipName                             = "VIRTUAL_IP"
+	VipIp                               = "192.168.4.80/24"
+	Interface                           = "port1"
+	PoolName                            = "SERVER_POOL"
+	ServerBalance                       = "enable"
+	HealthCheck                         = "HLTHCK_HTTP"
+	PoolMemberIPs                       = []string{"10.0.0.10", "10.0.0.20", "10.0.0.30"}
+	PoolMemberSSL                       = "enable"
+	PoolMemberPort                      = 443
+	VirtualServerName                   = "VIRTUAL_SERVER"
+	VipStatus                           = "enable"
+	XForwardedForName                   = "X_FORWARDED_FOR_RULE"
+	XForwardedForSupport                = "enable"
+	OriginalSignatureProtectionName     = "Standard Protection"
+	CloneSignatureProtectionName        = "STANDARD_PROTECTION_CLONE"
+	OriginalInlineProtectionProfileName = "Inline Standard Protection"
+	CloneInlineProtectionProfileName    = "INLINE_STANDARD_PROTECTION_CLONE"
+	PolicyName                          = "NEW_POLICY"
+	PolicyDeploymentMode                = "server-pool"
+	PolicyProtocol                      = "HTTP"
+	PolicySSL                           = "enable"
+	PolicyImplicitSSL                   = "enable"
+	PolicyVirtualServer                 = VirtualServerName
+	PolicyService                       = "HTTP"
+	PolicyWebProtectionProfile          = CloneSignatureProtectionName
+	PolicyServerPool                    = PoolName
+	PolicyTrafficLog                    = "enable"
+	PolicyHTTPSService                  = "HTTPS"
+	//PolicyCertificate                   = "newapp.fabriclab.ca"
 )
 
 type Config struct {
