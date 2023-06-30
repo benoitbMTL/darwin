@@ -232,10 +232,10 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 
 	if jsonDataStr != "" && jsonDataStr != `{"data":null}` {
 		// Create a new request with JSON data
-		req, err = http.NewRequest(method, url, bytes.NewBuffer(jsonData))
+		req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonData))
 	} else {
 		// Create a new request without data
-		req, err = http.NewRequest(method, url, nil)
+		req, err := http.NewRequest(method, url, nil)
 	}
 
 	if err != nil {
