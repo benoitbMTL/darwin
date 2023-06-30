@@ -139,7 +139,7 @@ func assignVIPToVirtualServer(host, token, virtualServerName string, data Assign
 	return sendRequest("POST", url, token, data)
 }
 
-// Signature Standard Protection
+// Signature Protection
 
 func cloneSignatureProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/signature?mkey=%s&clone_mkey=%s", host, url.QueryEscape(originalKey), url.QueryEscape(cloneKey))
@@ -160,7 +160,7 @@ func deleteSignatureProtection(host, token, signatureName string) ([]byte, error
 func cloneInlineProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s&clone_mkey=%s", host, url.QueryEscape(originalKey), url.QueryEscape(cloneKey))
 
-	log.Printf("Cloning Inline Standard Protection: %s to %s\n", originalKey, cloneKey)
+	log.Printf("Cloning Inline Protection: %s to %s\n", originalKey, cloneKey)
 	return sendRequest("POST", url, token, nil)
 }
 
@@ -545,22 +545,22 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "cloneInlineProtection",
 			"status":      "failure",
-			"description": "Clone Inline Standard Protection",
-			"message":     fmt.Sprintf("Error cloning Inline Standard Protection: %v", err),
+			"description": "Clone Inline Protection",
+			"message":     fmt.Sprintf("Error cloning Inline Protection: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "cloneInlineProtection",
 			"status":      "failure",
-			"description": "Clone Inline Standard Protection",
-			"message":     "Failed to clone Inline Standard Protection",
+			"description": "Clone Inline Protection",
+			"message":     "Failed to clone Inline Protection",
 		})
 	} else {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "cloneInlineProtection",
 			"status":      "success",
-			"description": "Clone Inline Standard Protection",
-			"message":     "Successfully cloned Inline Standard Protection",
+			"description": "Clone Inline Protection",
+			"message":     "Successfully cloned Inline Protection",
 		})
 	}
 

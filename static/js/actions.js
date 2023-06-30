@@ -364,8 +364,8 @@ function resetOnboardNewApplicationPolicy() {
         { id: 'createNewMemberPool', description: 'Create new Member Pool' },
         { id: 'createNewVirtualServer', description: 'Create new Virtual Server' },
         { id: 'assignVIPToVirtualServer', description: 'Assign Virtual IP to Virtual Server' },
-        { id: 'cloneSignatureProtection', description: 'Clone Signature Standard Protection' },
-        { id: 'cloneInlineProtection', description: 'Clone Inline Standard Protection' },
+        { id: 'cloneSignatureProtection', description: 'Clone Signature Protection' },
+        { id: 'cloneInlineProtection', description: 'Clone Inline Protection' },
         { id: 'createNewXForwardedForRule', description: 'Create new X-Forwarded-For Rule' },
         { id: 'configureProtectionProfile', description: 'Configure Protection Profile' },
         { id: 'createNewPolicy', description: 'Create new Policy' }
