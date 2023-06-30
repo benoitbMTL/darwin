@@ -286,7 +286,14 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 func checkOperationStatus(result []byte) bool {
 	var res map[string]interface{}
 	json.Unmarshal(result, &res)
-	log.Printf("Result JSON: %v\n", res) // Print the result JSON
+
+	// Print JSON Result
+	jsonData, err := json.Marshal(res)
+	if err != nil {
+		log.Println(res)
+	} else {
+		log.Printf("Result JSON: %s\n", jsonData)
+	}
 
 	// Check if the result map is empty
 	if len(res) == 0 {
@@ -635,7 +642,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	log.Printf("End of onboardNewApplicationPolicy\n")
 	// Return a JSON response with the statuses of all steps
 	return c.JSON(http.StatusOK, statuses)
-
 }
 
 func deleteApplicationPolicy(c echo.Context) error {
