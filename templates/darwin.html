@@ -27,52 +27,50 @@
 
 <body>
 
-    <div class="container mt-5">
+    <div class="container">
+        <header class="py-3 mb-4 border-bottom">
+            <div class="container d-flex flex-wrap justify-content-center align-items-center">
+                <div class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+                    <img id="fortiweb-logo" src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon"
+                        class="fortiweb-icon">
+                    <h1 class="ms-3">FortiWeb Demo Tool</h1>
+                </div>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                        <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+                    </div>
+                </form>
+            </div>
+        </header>
+</div>
+    <div class="container">
 
-        <!-- Logo and Title -->
-        <div class="d-flex align-items-center mb-0">
-            <img id="fortiweb-logo" src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon" class="fortiweb-icon">
-            <h1 class="ms-3">FortiWeb Demo Tool</h1>
-        </div>
+        <div class="d-flex  py-1 bg-light border-bottom align-items-center">
+            <div class="category-buttons d-flex justify-content-between mb-4 w-100 align-items-center">
 
-        <!-- Subtitle and Dark Mode Switch -->
-        <div class="d-flex align-items-center justify-content-between mb-0">
-            <p><strong>A demonstration is worth more than a million words.</strong></p>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="darkModeSwitch">
-                <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
+                        onclick="showCategory('web-protection')">Web Protection</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('api-protection')">API Protection</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('dos-protection')">DOS Protection</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('machine-learning')">Machine Learning</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('rest-api')">REST API</button>
+                </div>
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-outline-success btn-sm me-2" role="button" aria-pressed="false"
+                        onclick="showCategory('health-check')">Health Check</button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('Configuration')">Configuration</button>
+                </div>
             </div>
         </div>
-
-        <!-- Buttons -->
-        <div class="category-buttons d-flex justify-content-between mb-4">
-            <div class="d-flex">
-                <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
-                    onclick="showCategory('web-protection')">Web Protection</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('api-protection')">API Protection</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('dos-protection')">DOS Protection</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('machine-learning')">Machine Learning</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('rest-api')">REST API</button>
-            </div>
-            <div class="d-flex">
-                <button type="button" class="btn btn-outline-success btn-sm me-2" role="button" aria-pressed="false"
-                    onclick="showCategory('health-check')">Health Check</button>
-                <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('Configuration')">Configuration</button>
-            </div>
-        </div>
-
-        
-
-
-
-
     </div>
 
 </body>
