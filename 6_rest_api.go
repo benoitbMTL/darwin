@@ -69,7 +69,7 @@ type PolicyData struct {
 	Service              string `json:"service,omitempty"`
 	WebProtectionProfile string `json:"web-protection-profile,omitempty"`
 	ServerPool           string `json:"server-pool,omitempty"`
-	TrafficLog                 string `json:"tlog,omitempty"`
+	TrafficLog           string `json:"tlog,omitempty"`
 	HttpsService         string `json:"https-service,omitempty"`
 	Certificate          string `json:"certificate,omitempty"`
 }
@@ -127,7 +127,7 @@ func createNewVirtualServer(host, token string, data VirtualServerData) ([]byte,
 func deleteVirtualServer(host, token, virtualServerName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver?mkey=%s", host, virtualServerName)
 
-	return sendRequest("POST", url, token)
+	return sendRequest("POST", url, token, nil)
 }
 
 // Assign VIP to Virtual Server
@@ -326,7 +326,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		Service:              PolicyService,
 		WebProtectionProfile: PolicyWebProtectionProfile,
 		ServerPool:           PolicyServerPool,
-		TrafficLog:                 PolicyTrafficLog,
+		TrafficLog:           PolicyTrafficLog,
 		HttpsService:         PolicyHTTPSService,
 		//Certificate:          PolicyCertificate,
 	}
@@ -612,7 +612,7 @@ func deleteApplicationPolicy(c echo.Context) error {
 	// Step 4: Delete Signature Protection
 
 	// Step 5: DeleteVirtualServer
-	result, err = deleteVirtualServer(host, token, vsData.Name)
+	result, err = deleteVirtualServer(host, token, VirtualServerName)
 	if err != nil {
 		log.Printf("Error creating virtual server: %v\n", err)
 		statuses = append(statuses, map[string]string{
