@@ -13,7 +13,7 @@ var (
 	// FortiWeb Tool Configuration
 	DVWA_URL      = "https://192.168.4.10"
 	DVWA_HOST     = "192.168.4.10"
-	SHOP_URL      = "https://shop.corp.fabriclab.ca"
+	SHOP_URL      = "http://shop.corp.fabriclab.ca"
 	FWB_URL       = "https://192.168.4.10/fwb/"
 	SPEEDTEST_URL = "http://speedtest.corp.fabriclab.ca"
 	KALI_URL      = "https://flbr1kali01.fortiweb.fabriclab.ca"
@@ -91,7 +91,7 @@ var (
 	PolicyImplicitSSL                   = "enable"
 	PolicyVirtualServer                 = VirtualServerName
 	PolicyService                       = "HTTP"
-	PolicyInlineProtectionProfile          = CloneInlineProtectionProfileName
+	PolicyInlineProtectionProfile       = CloneInlineProtectionProfileName
 	PolicyServerPool                    = PoolName
 	PolicyTrafficLog                    = "enable"
 	PolicyHTTPSService                  = "HTTPS"
