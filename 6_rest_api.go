@@ -125,7 +125,7 @@ func createNewVirtualServer(host, token string, data VirtualServerData) ([]byte,
 }
 
 func deleteVirtualServer(host, token, virtualServerName string) ([]byte, error) {
-	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver?mkey=%s", host, virtualServerName)
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver?mkey=%s", host, url.QueryEscape(virtualServerName))
 
 	return sendRequest("POST", url, token, nil)
 }
@@ -133,7 +133,7 @@ func deleteVirtualServer(host, token, virtualServerName string) ([]byte, error) 
 // Assign VIP to Virtual Server
 
 func assignVIPToVirtualServer(host, token, virtualServerName string, data AssignVIPData) ([]byte, error) {
-	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver/vip-list?mkey=%s", host, virtualServerName)
+	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver/vip-list?mkey=%s", host, url.QueryEscape(virtualServerName))
 
 	log.Printf("Assigning VIP: %s to Virtual Server: %s\n", data.VipName, virtualServerName)
 	return sendRequest("POST", url, token, data)
@@ -287,9 +287,16 @@ func checkOperationStatus(result []byte) bool {
 	var res map[string]interface{}
 	json.Unmarshal(result, &res)
 	log.Printf("Result JSON: %v\n", res) // Print the result JSON
+
+	// Check if the result map is empty
+	if len(res) == 0 {
+		log.Printf("Operation failed: received empty result\n") // Print a message indicating that the operation failed
+		return false
+	}
+
 	if _, ok := res["results"].(map[string]interface{})["errcode"]; ok {
 		// The result contains an error code, so the operation failed
-		log.Printf("Operation failed\n") // Print a message indicating that the operation failed
+		log.Printf("Operation failed: received an error code\n") // Print a message indicating that the operation failed
 		return false
 	}
 	// The operation succeeded
