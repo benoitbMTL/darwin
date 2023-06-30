@@ -267,7 +267,7 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	}
 	log.Printf("JSON data: %s\n", jsonData)
 
-	time.Sleep(time.Duration(500) * time.Millisecond)
+	time.Sleep(time.Duration(1000) * time.Millisecond)
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
