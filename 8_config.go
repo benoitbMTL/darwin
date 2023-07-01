@@ -13,10 +13,10 @@ var (
 	// FortiWeb Tool Configuration
 	DVWA_URL      = "https://192.168.4.10"
 	DVWA_HOST     = "192.168.4.10"
-	SHOP_URL      = "http://shop.corp.fabriclab.ca"
+	JUICESHOP_URL = "http://shop.fortiweb.fabriclab.ca"
 	FWB_URL       = "https://192.168.4.10/fwb/"
-	SPEEDTEST_URL = "http://speedtest.corp.fabriclab.ca"
-	KALI_URL      = "https://flbr1kali01.fortiweb.fabriclab.ca"
+	SPEEDTEST_URL = "http://speedtest.fortiweb.fabriclab.ca"
+	PETSTORE_URL  = "https://192.168.4.20"
 	USERNAME_API  = "userapi"
 	PASSWORD_API  = "abc123"
 	VDOM_API      = "root"
@@ -101,10 +101,10 @@ var (
 type Config struct {
 	DVWA_URL      string `json:"dvwa_url"`
 	DVWA_HOST     string `json:"dvwa_host"`
-	SHOP_URL      string `json:"shop_url"`
+	JUICESHOP_URL string `json:"juiceshop_url"`
 	FWB_URL       string `json:"fwb_url"`
 	SPEEDTEST_URL string `json:"speedtest_url"`
-	KALI_URL      string `json:"kali_url"`
+	PETSTORE_URL  string `json:"petstore_url"`
 	USERNAME_API  string `json:"username_api"`
 	PASSWORD_API  string `json:"password_api"`
 	VDOM_API      string `json:"vdom_api"`
@@ -122,10 +122,10 @@ func initialConfig() Config {
 	return Config{
 		DVWA_URL:      DVWA_URL,
 		DVWA_HOST:     DVWA_HOST,
-		SHOP_URL:      SHOP_URL,
+		JUICESHOP_URL: JUICESHOP_URL,
 		FWB_URL:       FWB_URL,
 		SPEEDTEST_URL: SPEEDTEST_URL,
-		KALI_URL:      KALI_URL,
+		PETSTORE_URL:  PETSTORE_URL,
 		USERNAME_API:  USERNAME_API,
 		PASSWORD_API:  PASSWORD_API,
 		VDOM_API:      VDOM_API,
@@ -147,10 +147,10 @@ func DefaultConfigHandler(c echo.Context) error {
 	currentConfig = defaultConfig // Reset currentConfig
 	DVWA_URL = currentConfig.DVWA_URL
 	DVWA_HOST = currentConfig.DVWA_HOST
-	SHOP_URL = currentConfig.SHOP_URL
+	JUICESHOP_URL = currentConfig.JUICESHOP_URL
 	FWB_URL = currentConfig.FWB_URL
 	SPEEDTEST_URL = currentConfig.SPEEDTEST_URL
-	KALI_URL = currentConfig.KALI_URL
+	PETSTORE_URL = currentConfig.PETSTORE_URL
 	USERNAME_API = currentConfig.USERNAME_API
 	PASSWORD_API = currentConfig.PASSWORD_API
 	VDOM_API = currentConfig.VDOM_API
@@ -169,10 +169,10 @@ func SaveConfigHandler(c echo.Context) error {
 	currentConfig = newConfig // Save changes to currentConfig
 	DVWA_URL = newConfig.DVWA_URL
 	DVWA_HOST = newConfig.DVWA_HOST
-	SHOP_URL = newConfig.SHOP_URL
+	JUICESHOP_URL = newConfig.JUICESHOP_URL
 	FWB_URL = newConfig.FWB_URL
 	SPEEDTEST_URL = newConfig.SPEEDTEST_URL
-	KALI_URL = newConfig.KALI_URL
+	PETSTORE_URL = newConfig.PETSTORE_URL
 	USERNAME_API = newConfig.USERNAME_API
 	PASSWORD_API = newConfig.PASSWORD_API
 	VDOM_API = newConfig.VDOM_API

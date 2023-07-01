@@ -261,8 +261,11 @@
 
                         <p id="assignVIPToVirtualServer"><span class="task-description">Assign Virtual IP to Virtual
                                 Server</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="cloneSignatureProtection"><span class="task-description">Clone Signature Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="cloneInlineProtection"><span class="task-description">Clone Inline Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="cloneSignatureProtection"><span class="task-description">Clone Signature
+                                Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="cloneInlineProtection"><span class="task-description">Clone Inline Protection</span>
+                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
                         <p id="createNewXForwardedForRule"><span class="task-description">Create new X-Forwarded-For
                                 Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
                         <p id="configureProtectionProfile"><span class="task-description">Configure Protection
@@ -289,10 +292,14 @@
                     <div id="deleteTasks">
                         <p id="deletePolicy"><span class="task-description">Delete Policy</span> <span
                                 class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="deleteInlineProtection"><span class="task-description">Delete Inline Protection Profile</span>
-                            <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="deleteXForwardedForRule"><span class="task-description">Delete X-Forwarded-For Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="deleteSignatureProtection"><span class="task-description">Delete Signature Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="deleteInlineProtection"><span class="task-description">Delete Inline Protection
+                                Profile</span>
+                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+                        <p id="deleteXForwardedForRule"><span class="task-description">Delete X-Forwarded-For
+                                Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="deleteSignatureProtection"><span class="task-description">Delete Signature
+                                Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
                         <p id="deleteVirtualServer"><span class="task-description">Delete Virtual Server</span> <span
                                 class="badge bg-secondary rounded-pill">Incomplete</span></p>
                         <p id="deleteServerPool"><span class="task-description">Delete Server Pool</span> <span
@@ -357,92 +364,93 @@
                     </div>
                 </div>
                 <form id="configuration-form">
+
                     <div class="row mb-3">
-                        <label for="dvwa-url" class="form-label col-2 text-start">DVWA URL</label>
-                        <div class="col-10">
+                        <label for="dvwa-url" class="form-label col-3 text-start">DVWA URL</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="dvwa-url">
                         </div>
                     </div>
+
                     <div class="row mb-3">
-                        <label for="dvwa-host" class="form-label col-2 text-start">DVWA HOST</label>
-                        <div class="col-10">
+                        <label for="dvwa-host" class="form-label col-3 text-start">DVWA HOST</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="dvwa-host">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="shop-url" class="form-label col-2 text-start">SHOP URL</label>
-                        <div class="col-10">
+                        <label for="shop-url" class="form-label col-3 text-start">SHOP URL</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="shop-url">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="fwb-url" class="form-label col-2 text-start">FWB URL</label>
-                        <div class="col-10">
+                        <label for="fwb-url" class="form-label col-3 text-start">FWB URL</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="fwb-url">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="speedtest-url" class="form-label col-2 text-start">SPEEDTEST URL</label>
-                        <div class="col-10">
+                        <label for="speedtest-url" class="form-label col-3 text-start">SPEEDTEST URL</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="speedtest-url">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="kali-url" class="form-label col-2 text-start">KALI URL</label>
-                        <div class="col-10">
+                        <label for="kali-url" class="form-label col-3 text-start">KALI URL</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="kali-url">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="username-api" class="form-label col-2 text-start">Username API</label>
-                        <div class="col-10">
+                        <label for="username-api" class="form-label col-3 text-start">Username API</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="username-api">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="password-api" class="form-label col-2 text-start">Password API</label>
-                        <div class="col-10">
+                        <label for="password-api" class="form-label col-3 text-start">Password API</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="password-api">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="vdom-api" class="form-label col-2 text-start">VDOM API</label>
-                        <div class="col-10">
+                        <label for="vdom-api" class="form-label col-3 text-start">VDOM API</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="vdom-api">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="token" class="form-label col-2 text-start">TOKEN API</label>
-                        <div class="col-10">
+                        <label for="token" class="form-label col-3 text-start">TOKEN API</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="token" disabled>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="fwb-mgt-ip" class="form-label col-2 text-start">FortiWeb Management IP</label>
-                        <div class="col-10">
+                        <label for="fwb-mgt-ip" class="form-label col-3 text-start">FortiWeb Management IP</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="policy" class="form-label col-2 text-start">Policy Name</label>
-                        <div class="col-10">
+                        <label for="policy" class="form-label col-3 text-start">Policy Name</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="policy">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="user-agent" class="form-label col-2 text-start">User Agent</label>
-                        <div class="col-10">
+                        <label for="user-agent" class="form-label col-3 text-start">User Agent</label>
+                        <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="user-agent">
                         </div>
                     </div>
                 </form>
             </div>
 
-
-
-            <!-- Space before the end of the page -->
-            <div style="height: 50px;"></div>
         </div>
+
+        <!-- Space before the end of the page -->
+        <div style="height: 100px;"></div>
     </div>
 
 </body>
