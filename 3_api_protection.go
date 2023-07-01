@@ -1,31 +1,29 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
 	"os/exec"
+
+	"github.com/labstack/echo/v4"
 )
 
 type PetstoreRequest struct {
 	Status string `json:"status"`
 }
 
-func handlePetstoreAPIRequest(w http.ResponseWriter, r *http.Request) {
-	var req PetstoreRequest
+func handlePetstoreAPIRequest(c echo.Context) error {
+	req := new(PetstoreRequest)
 
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
+	if err := c.Bind(req); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
 	cmd := exec.Command("curl", "-s", "-k", "-X", "GET", "${PETSTORE_URL}/pet/findByStatus?status="+req.Status, "-H", "Accept: application/json", "-H", "Content-Type: application/json")
 	cmdOutput, err := cmd.Output()
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(cmdOutput)
+	return c.JSONBlob(http.StatusOK, cmdOutput)
 }
