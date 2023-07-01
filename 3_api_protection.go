@@ -22,8 +22,8 @@ func handlePetstoreAPIRequest(c echo.Context) error {
 
 	log.Println("Received status:", req.Status)
 
-	curlCommand := "curl -s -k -X GET '${PETSTORE_URL}/pet/findByStatus?status=" + req.Status + "' -H 'Accept: application/json' -H 'Content-Type: application/json'"
-	log.Println("Petstore URL", PETSTORE_URL)
+	curlCommand := "curl -s -k -X GET" + PETSTORE_URL + "/pet/findByStatus?status=" + req.Status + "' -H 'Accept: application/json' -H 'Content-Type: application/json'"
+	log.Println("Petstore URL:", PETSTORE_URL)
 	log.Println("CURL Command:", curlCommand)
 
 	cmd := exec.Command("sh", "-c", curlCommand)
