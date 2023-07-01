@@ -23,7 +23,7 @@ func handlePetstoreAPIRequest(c echo.Context) error {
 	log.Println("Received status:", req.Status)
 
 	curlCommand := "curl -s -k -X GET '${PETSTORE_URL}/pet/findByStatus?status=" + req.Status + "' -H 'Accept: application/json' -H 'Content-Type: application/json'"
-	log.Println("Curl Command:", curlCommand)
+	log.Println("CURL Command:", curlCommand)
 
 	cmd := exec.Command("sh", "-c", curlCommand)
 	cmdOutput, err := cmd.Output()
@@ -33,7 +33,7 @@ func handlePetstoreAPIRequest(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 
-	log.Println("Curl Result:", string(cmdOutput))
+	log.Println("CURL Result:", string(cmdOutput))
 
 	return c.JSONBlob(http.StatusOK, cmdOutput)
 }
