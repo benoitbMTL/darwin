@@ -284,6 +284,35 @@ function resetBotDeception() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+// PETSTORE API PROTECTION                                                        //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performPetstoreAPIRequest() {
+    var selectedOption = document.querySelector('input[name="petstore-request"]:checked').value;
+
+    fetch('/petstore-request', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: selectedOption })
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////
 // REST API CREATE POLICY                                                        //
 ///////////////////////////////////////////////////////////////////////////////////
 

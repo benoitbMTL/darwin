@@ -28,6 +28,9 @@ func registerActions(e *echo.Echo) {
 	e.GET("/view-page-source", handleViewPageSourceAction)
 	e.GET("/bot-deception", handleBotDeceptionAction)
 
+	// PETSTORE API PROTECTION
+	e.POST("/petstore-request", handlePetstoreAPIRequest)
+	
 	// REST API
 	e.POST("/create-policy", onboardNewApplicationPolicy)
 	e.POST("/delete-policy", deleteApplicationPolicy)
