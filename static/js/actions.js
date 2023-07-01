@@ -298,11 +298,20 @@ function performPetstoreAPIRequest() {
         body: JSON.stringify({ status: selectedOption })
     })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            // Display the data in the div
+            document.getElementById('response-div').innerHTML = JSON.stringify(data, null, 2);
+        })
         .catch((error) => {
             console.error('Error:', error);
         });
 }
+
+function resetPetstoreAPIRequest() {
+    // Clear the div
+    document.getElementById('response-div').innerHTML = '';
+}
+
 
 
 
