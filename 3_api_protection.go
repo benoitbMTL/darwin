@@ -10,7 +10,7 @@ type PetstoreRequest struct {
 	Status string `json:"status"`
 }
 
-func handlePetstoreRequest(w http.ResponseWriter, r *http.Request) {
+func handlePetstoreAPIRequest(w http.ResponseWriter, r *http.Request) {
 	var req PetstoreRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
