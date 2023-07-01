@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
             // Populate the form fields with the configuration values
             document.getElementById('dvwa-url').value = config.dvwa_url;
             document.getElementById('dvwa-host').value = config.dvwa_host;
-            document.getElementById('shop-url').value = config.shop_url;
+            document.getElementById('juiceshop-url').value = config.juiceshop_url;
             document.getElementById('fwb-url').value = config.fwb_url;
             document.getElementById('speedtest-url').value = config.speedtest_url;
-            document.getElementById('kali-url').value = config.kali_url;
+            document.getElementById('petstore-url').value = config.petstore_url;
             document.getElementById('username-api').value = config.username_api;
             document.getElementById('password-api').value = config.password_api;
             document.getElementById('vdom-api').value = config.vdom_api;
@@ -26,10 +26,10 @@ function saveConfiguration() {
     var config = {
         dvwa_url: document.getElementById('dvwa-url').value,
         dvwa_host: document.getElementById('dvwa-host').value,
-        shop_url: document.getElementById('shop-url').value,
+        juiceshop_url: document.getElementById('juiceshop-url').value,
         fwb_url: document.getElementById('fwb-url').value,
         speedtest_url: document.getElementById('speedtest-url').value,
-        kali_url: document.getElementById('kali-url').value,
+        petstore_url: document.getElementById('petstore-url').value,
         username_api: document.getElementById('username-api').value,
         password_api: document.getElementById('password-api').value,
         vdom_api: document.getElementById('vdom-api').value,
@@ -81,10 +81,10 @@ function resetConfiguration() {
             // Populate the form fields with the default configuration
             document.getElementById('dvwa-url').value = config.dvwa_url;
             document.getElementById('dvwa-host').value = config.dvwa_host;
-            document.getElementById('shop-url').value = config.shop_url;
+            document.getElementById('juiceshop-url').value = config.juiceshop_url;
             document.getElementById('fwb-url').value = config.fwb_url;
             document.getElementById('speedtest-url').value = config.speedtest_url;
-            document.getElementById('kali-url').value = config.kali_url;
+            document.getElementById('petstore-url').value = config.petstore_url;
             document.getElementById('username-api').value = config.username_api;
             document.getElementById('password-api').value = config.password_api;
             document.getElementById('vdom-api').value = config.vdom_api;
