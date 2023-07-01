@@ -245,246 +245,245 @@
                     </label>
                 </div>
             </div>
+        </div>
 
-            <div id="dos-protection" class="category" style="display:none;">
-                <!-- DOS Protection actions go here -->
-            </div>
+        <div id="dos-protection" class="category" style="display:none;">
+            <!-- DOS Protection actions go here -->
+        </div>
 
-            <div id="machine-learning" class="category" style="display:none;">
-                <!-- Machine Learning actions go here -->
-            </div>
+        <div id="machine-learning" class="category" style="display:none;">
+            <!-- Machine Learning actions go here -->
+        </div>
 
-            <div id="rest-api" class="category" style="display:none;">
+        <div id="rest-api" class="category" style="display:none;">
 
-                <!-- REST API -->
-                <div class="mb-4 row">
-
-
-                    <!-- Create -->
-                    <div class="tile col-4">
-                        <p class="mb-2"><strong>Create New Application Policy</strong></p>
-                        <div class="mb-3 d-flex align-items-center">
-                            <button type="button" class="btn btn-primary btn-sm me-2"
-                                onclick="performOnboardNewApplicationPolicy()">
-                                <span class="spinner-border spinner-border-sm" id="create-spinner" role="status"
-                                    aria-hidden="true" style="display: none;"></span>
-                                Create
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-sm"
-                                onclick="resetOnboardNewApplicationPolicy()">Reset</button>
-                        </div>
-                        <div id="createTasks">
-                            <p id="createNewVirtualIP"><span class="task-description">Create new Virtual IP</span> <span
-                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="createNewServerPool"><span class="task-description">Create new Server Pool</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                            </p>
-                            <p id="createNewMemberPool"><span class="task-description">Create new Member Pool</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                            </p>
-
-                            <p id="createNewVirtualServer"><span class="task-description">Create new Virtual
-                                    Server</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                            </p>
-
-                            <p id="assignVIPToVirtualServer"><span class="task-description">Assign Virtual IP to Virtual
-                                    Server</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="cloneSignatureProtection"><span class="task-description">Clone Signature
-                                    Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                            </p>
-                            <p id="cloneInlineProtection"><span class="task-description">Clone Inline Protection</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                            </p>
-                            <p id="createNewXForwardedForRule"><span class="task-description">Create new X-Forwarded-For
-                                    Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="configureProtectionProfile"><span class="task-description">Configure Protection
-                                    Profile</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="createNewPolicy"><span class="task-description">Create new Policy</span> <span
-                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        </div>
-                    </div>
+            <!-- REST API -->
+            <div class="mb-4 row">
 
 
-                    <!-- Delete -->
-                    <div class="tile col-4">
-                        <p class="mb-2"><strong>Delete Application Policy</strong></p>
-                        <div class="mb-3 d-flex align-items-center">
-                            <button type="button" class="btn btn-primary btn-sm me-2"
-                                onclick="performDeleteApplicationPolicy()">
-                                <span class="spinner-border spinner-border-sm" id="delete-spinner" role="status"
-                                    aria-hidden="true" style="display: none;"></span>
-                                Delete
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-sm"
-                                onclick="resetDeleteApplicationPolicy()">Reset</button>
-                        </div>
-                        <div id="deleteTasks">
-                            <p id="deletePolicy"><span class="task-description">Delete Policy</span> <span
-                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="deleteInlineProtection"><span class="task-description">Delete Inline Protection
-                                    Profile</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                            </p>
-                            <p id="deleteXForwardedForRule"><span class="task-description">Delete X-Forwarded-For
-                                    Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="deleteSignatureProtection"><span class="task-description">Delete Signature
-                                    Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                            </p>
-                            <p id="deleteVirtualServer"><span class="task-description">Delete Virtual Server</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                            </p>
-                            <p id="deleteServerPool"><span class="task-description">Delete Server Pool</span> <span
-                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="deleteVirtualIP"><span class="task-description">Delete Virtual IP</span> <span
-                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
-
-            <div id="health-check" class="category" style="display:none;">
-
-                <!-- Health Check -->
-                <div class="mb-4 tile">
-                    <p class="mb-2">Perform HTTP Health Check on the Lab environment.</p>
+                <!-- Create -->
+                <div class="tile col-4">
+                    <p class="mb-2"><strong>Create New Application Policy</strong></p>
                     <div class="mb-3 d-flex align-items-center">
-                        <button type="button" class="btn btn-primary btn-sm me-2" onclick="performHealthCheck()">
-                            <span class="spinner-border spinner-border-sm" id="health-check-spinner" role="status"
+                        <button type="button" class="btn btn-primary btn-sm me-2"
+                            onclick="performOnboardNewApplicationPolicy()">
+                            <span class="spinner-border spinner-border-sm" id="create-spinner" role="status"
                                 aria-hidden="true" style="display: none;"></span>
-                            Health Check
+                            Create
                         </button>
                         <button type="button" class="btn btn-secondary btn-sm"
-                            onclick="resetHealthCheck()">Reset</button>
+                            onclick="resetOnboardNewApplicationPolicy()">Reset</button>
                     </div>
-                    <div id="health-check-result" class="action-result border p-3" style="display: none;"></div>
+                    <div id="createTasks">
+                        <p id="createNewVirtualIP"><span class="task-description">Create new Virtual IP</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="createNewServerPool"><span class="task-description">Create new Server Pool</span>
+                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+                        <p id="createNewMemberPool"><span class="task-description">Create new Member Pool</span>
+                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+
+                        <p id="createNewVirtualServer"><span class="task-description">Create new Virtual
+                                Server</span>
+                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+
+                        <p id="assignVIPToVirtualServer"><span class="task-description">Assign Virtual IP to Virtual
+                                Server</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="cloneSignatureProtection"><span class="task-description">Clone Signature
+                                Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+                        <p id="cloneInlineProtection"><span class="task-description">Clone Inline Protection</span>
+                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+                        <p id="createNewXForwardedForRule"><span class="task-description">Create new X-Forwarded-For
+                                Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="configureProtectionProfile"><span class="task-description">Configure Protection
+                                Profile</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="createNewPolicy"><span class="task-description">Create new Policy</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                    </div>
                 </div>
 
-                <!-- Ping -->
-                <div class="mb-4 tile">
-                    <p class="mb-2">Perform a Ping.</p>
-                    <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
-                        <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control form-control-sm me-2"
-                            placeholder="192.168.4.2" required style="max-width: 250px;">
-                        <button type="submit" class="btn btn-primary btn-sm me-2">
-                            <div class="spinner-border spinner-border-sm text-light" id="spinner" role="status"
-                                style="display: none;">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            Ping
+
+                <!-- Delete -->
+                <div class="tile col-4">
+                    <p class="mb-2"><strong>Delete Application Policy</strong></p>
+                    <div class="mb-3 d-flex align-items-center">
+                        <button type="button" class="btn btn-primary btn-sm me-2"
+                            onclick="performDeleteApplicationPolicy()">
+                            <span class="spinner-border spinner-border-sm" id="delete-spinner" role="status"
+                                aria-hidden="true" style="display: none;"></span>
+                            Delete
                         </button>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="resetPingForm()">Reset</button>
-                    </form>
-                    <div id="ping-result" class="action-result border p-3" style="display: none;"></div>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            onclick="resetDeleteApplicationPolicy()">Reset</button>
+                    </div>
+                    <div id="deleteTasks">
+                        <p id="deletePolicy"><span class="task-description">Delete Policy</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="deleteInlineProtection"><span class="task-description">Delete Inline Protection
+                                Profile</span>
+                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+                        <p id="deleteXForwardedForRule"><span class="task-description">Delete X-Forwarded-For
+                                Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="deleteSignatureProtection"><span class="task-description">Delete Signature
+                                Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+                        <p id="deleteVirtualServer"><span class="task-description">Delete Virtual Server</span>
+                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                        </p>
+                        <p id="deleteServerPool"><span class="task-description">Delete Server Pool</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        <p id="deleteVirtualIP"><span class="task-description">Delete Virtual IP</span> <span
+                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                    </div>
                 </div>
+
 
             </div>
 
-            <div id="Configuration" class="category" style="display:none;">
+        </div>
 
-                <!-- Configuration -->
-                <div class="mb-4 tile">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2>Configuration</h2>
-                        <div>
-                            <button type="button" class="btn btn-success btn-sm me-2"
-                                onclick="saveConfiguration()">Save</button>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="resetConfiguration()">Reset to
-                                Default</button>
+        <div id="health-check" class="category" style="display:none;">
+
+            <!-- Health Check -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform HTTP Health Check on the Lab environment.</p>
+                <div class="mb-3 d-flex align-items-center">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performHealthCheck()">
+                        <span class="spinner-border spinner-border-sm" id="health-check-spinner" role="status"
+                            aria-hidden="true" style="display: none;"></span>
+                        Health Check
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetHealthCheck()">Reset</button>
+                </div>
+                <div id="health-check-result" class="action-result border p-3" style="display: none;"></div>
+            </div>
+
+            <!-- Ping -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Perform a Ping.</p>
+                <form id="ping-form" class="mb-3 d-flex align-items-center" onsubmit="performPing(event)">
+                    <input type="text" id="ip-fqdn" name="ip-fqdn" class="form-control form-control-sm me-2"
+                        placeholder="192.168.4.2" required style="max-width: 250px;">
+                    <button type="submit" class="btn btn-primary btn-sm me-2">
+                        <div class="spinner-border spinner-border-sm text-light" id="spinner" role="status"
+                            style="display: none;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        Ping
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetPingForm()">Reset</button>
+                </form>
+                <div id="ping-result" class="action-result border p-3" style="display: none;"></div>
+            </div>
+
+        </div>
+
+        <div id="Configuration" class="category" style="display:none;">
+
+            <!-- Configuration -->
+            <div class="mb-4 tile">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Configuration</h2>
+                    <div>
+                        <button type="button" class="btn btn-success btn-sm me-2"
+                            onclick="saveConfiguration()">Save</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="resetConfiguration()">Reset to
+                            Default</button>
+                    </div>
+                </div>
+                <form id="configuration-form">
+
+                    <div class="row mb-3">
+                        <label for="dvwa-url" class="form-label col-3 text-start">DVWA URL</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="dvwa-url">
                         </div>
                     </div>
-                    <form id="configuration-form">
 
-                        <div class="row mb-3">
-                            <label for="dvwa-url" class="form-label col-3 text-start">DVWA URL</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="dvwa-url">
-                            </div>
+                    <div class="row mb-3">
+                        <label for="dvwa-host" class="form-label col-3 text-start">DVWA HOST</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="dvwa-host">
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="dvwa-host" class="form-label col-3 text-start">DVWA HOST</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="dvwa-host">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="juiceshop-url" class="form-label col-3 text-start">JUICESHOP URL</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="juiceshop-url">
                         </div>
-                        <div class="row mb-3">
-                            <label for="juiceshop-url" class="form-label col-3 text-start">JUICESHOP URL</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="juiceshop-url">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="fwb-url" class="form-label col-3 text-start">FWB URL</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="fwb-url">
                         </div>
-                        <div class="row mb-3">
-                            <label for="fwb-url" class="form-label col-3 text-start">FWB URL</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="fwb-url">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="speedtest-url" class="form-label col-3 text-start">SPEEDTEST URL</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="speedtest-url">
                         </div>
-                        <div class="row mb-3">
-                            <label for="speedtest-url" class="form-label col-3 text-start">SPEEDTEST URL</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="speedtest-url">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="petstore-url" class="form-label col-3 text-start">PETSTORE URL</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="petstore-url">
                         </div>
-                        <div class="row mb-3">
-                            <label for="petstore-url" class="form-label col-3 text-start">PETSTORE URL</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="petstore-url">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="username-api" class="form-label col-3 text-start">Username API</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="username-api">
                         </div>
-                        <div class="row mb-3">
-                            <label for="username-api" class="form-label col-3 text-start">Username API</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="username-api">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="password-api" class="form-label col-3 text-start">Password API</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="password-api">
                         </div>
-                        <div class="row mb-3">
-                            <label for="password-api" class="form-label col-3 text-start">Password API</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="password-api">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="vdom-api" class="form-label col-3 text-start">VDOM API</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="vdom-api">
                         </div>
-                        <div class="row mb-3">
-                            <label for="vdom-api" class="form-label col-3 text-start">VDOM API</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="vdom-api">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="token" class="form-label col-3 text-start">TOKEN API</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="token" disabled>
                         </div>
-                        <div class="row mb-3">
-                            <label for="token" class="form-label col-3 text-start">TOKEN API</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="token" disabled>
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="fwb-mgt-ip" class="form-label col-3 text-start">FortiWeb Management IP</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
                         </div>
-                        <div class="row mb-3">
-                            <label for="fwb-mgt-ip" class="form-label col-3 text-start">FortiWeb Management IP</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="policy" class="form-label col-3 text-start">Policy Name</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="policy">
                         </div>
-                        <div class="row mb-3">
-                            <label for="policy" class="form-label col-3 text-start">Policy Name</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="policy">
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="user-agent" class="form-label col-3 text-start">User Agent</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control form-control-sm" id="user-agent">
                         </div>
-                        <div class="row mb-3">
-                            <label for="user-agent" class="form-label col-3 text-start">User Agent</label>
-                            <div class="col-9">
-                                <input type="text" class="form-control form-control-sm" id="user-agent">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
+                    </div>
+                </form>
             </div>
 
-            <!-- Space before the end of the page -->
-            <div style="height: 100px;"></div>
         </div>
+
+        <!-- Space before the end of the page -->
+        <div style="height: 100px;"></div>
     </div>
 
 </body>
