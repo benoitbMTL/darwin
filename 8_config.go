@@ -16,7 +16,7 @@ var (
 	JUICESHOP_URL = "http://shop.fortiweb.fabriclab.ca"
 	FWB_URL       = "https://192.168.4.10/fwb/"
 	SPEEDTEST_URL = "http://speedtest.fortiweb.fabriclab.ca"
-	PETSTORE_URL  = "https://192.168.4.20"
+	PETSTORE_URL  = "https://192.168.4.20/api/v3/"
 	USERNAME_API  = "userapi"
 	PASSWORD_API  = "abc123"
 	VDOM_API      = "root"
