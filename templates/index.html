@@ -217,11 +217,10 @@
 
 
         <div id="api-protection" class="category" style="display:none;">
-            <!-- API Protection actions go here -->
 
+            <!-- API Protection -->
             <div class="tile">
                 <p class="mb-2"><strong>Send API Request to Petstore</strong></p>
-
 
                 <div class="mb-3 d-flex align-items-center">
                     <button type="button" class="btn btn-primary btn-sm me-2" onclick="performPetstoreAPIRequest()">
@@ -232,7 +231,6 @@
                     <button type="button" class="btn btn-secondary btn-sm"
                         onclick="resetPetstoreAPIRequest()">Reset</button>
                 </div>
-
 
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="get-status-available" id="get-status-available">
@@ -246,10 +244,6 @@
                         GET findByStatus?status=sold - Normal Request
                     </label>
                 </div>
-
-
-
-
             </div>
 
             <div id="dos-protection" class="category" style="display:none;">
@@ -283,9 +277,11 @@
                             <p id="createNewVirtualIP"><span class="task-description">Create new Virtual IP</span> <span
                                     class="badge bg-secondary rounded-pill">Incomplete</span></p>
                             <p id="createNewServerPool"><span class="task-description">Create new Server Pool</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
                             <p id="createNewMemberPool"><span class="task-description">Create new Member Pool</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
 
                             <p id="createNewVirtualServer"><span class="task-description">Create new Virtual
                                     Server</span>
@@ -336,7 +332,8 @@
                                     Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
                             </p>
                             <p id="deleteVirtualServer"><span class="task-description">Delete Virtual Server</span>
-                                <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
                             <p id="deleteServerPool"><span class="task-description">Delete Server Pool</span> <span
                                     class="badge bg-secondary rounded-pill">Incomplete</span></p>
                             <p id="deleteVirtualIP"><span class="task-description">Delete Virtual IP</span> <span
@@ -488,6 +485,7 @@
             <!-- Space before the end of the page -->
             <div style="height: 100px;"></div>
         </div>
+    </div>
 
 </body>
 
