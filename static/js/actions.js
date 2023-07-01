@@ -297,10 +297,11 @@ function performPetstoreAPIRequest() {
         },
         body: JSON.stringify({ status: selectedOption })
     })
-        .then(response => response.json())
-        .then(data => {
-            // Display the data in the div
-            document.getElementById('response-div').innerHTML = JSON.stringify(data, null, 2);
+        .then(response => response.text())
+        .then(result => {
+            var petstoreResult = document.getElementById('petstore-result');
+            petstoreResult.innerText = JSON.stringify(JSON.parse(result), null, 2); // Formats the JSON string
+            petstoreResult.style.display = 'block';
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -308,9 +309,11 @@ function performPetstoreAPIRequest() {
 }
 
 function resetPetstoreAPIRequest() {
-    // Clear the div
-    document.getElementById('response-div').innerHTML = '';
+    var petstoreResult = document.getElementById('petstore-result');
+    petstoreResult.innerText = '';
+    petstoreResult.style.display = 'none';
 }
+
 
 
 
