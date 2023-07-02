@@ -115,17 +115,11 @@ function performCookieSecurity() {
             var iframe1 = document.getElementById('initial-cookie');
             iframe1.innerHTML = data.initialCookie;
             iframe1.style.display = 'block';
-            iframe1.onload = function () {
-                iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 3000) + 'px';
-            }
 
             document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium.";
             var iframe2 = document.getElementById('modified-cookie');
-            iframe2.srcdoc = data.modifiedCookie;
+            iframe2.innerHTML = data.modifiedCookie;
             iframe2.style.display = 'block';
-            iframe2.onload = function () {
-                iframe2.style.height = (iframe2.contentWindow.document.body.scrollHeight + 30) + 'px';
-            }
 
             document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie.";
             var iframe3 = document.getElementById('web-page-iframe');
