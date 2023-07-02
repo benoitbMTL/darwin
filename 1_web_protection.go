@@ -68,14 +68,14 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;"><p></p>The Virtual Server is not reachable<p></p></pre>`)
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("Received HTTP response code %d while trying to log in", resp.StatusCode)
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;"><p></p>The Virtual Server is not reachable</pre><p></p>`)
 	}
 
 	// Execute Command Injection
@@ -101,7 +101,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	resp, err = client.Do(req)
 	if err != nil {
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;"><p></p>The Virtual Server is not reachable<p></p></pre>`)
 	}
 
 	defer resp.Body.Close()
@@ -404,15 +404,14 @@ func handleCookieSecurityAction(c echo.Context) error {
 	newJar.SetCookies(req.URL, cookies)
 
 	// Get the modified cookie string
-modifiedCookieHTML := ""
-for _, cookie := range newJar.Cookies(req.URL) {
-    cookieStr := cookie.String()
-    if strings.Contains(cookieStr, "medium") {
-        cookieStr = strings.ReplaceAll(cookieStr, "medium", `<span style="color: red;">medium</span>`)
-    }
-    modifiedCookieHTML += fmt.Sprintf("<span style='font-size: 0.9em;'>%s</span><br>", cookieStr)
-}
-
+	modifiedCookieHTML := ""
+	for _, cookie := range newJar.Cookies(req.URL) {
+		cookieStr := cookie.String()
+		if strings.Contains(cookieStr, "medium") {
+			cookieStr = strings.ReplaceAll(cookieStr, "medium", `<span style="color: red;">medium</span>`)
+		}
+		modifiedCookieHTML += fmt.Sprintf("<span style='font-size: 0.9em;'>%s</span><br>", cookieStr)
+	}
 
 	// Make a new request with the manipulated cookie
 	client = &http.Client{

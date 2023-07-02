@@ -23,8 +23,7 @@ function performCommandInjection() {
         .then(response => response.text())
         .then(htmlContent => {
             var iframe = document.getElementById('command-injection-result');
-            iframe.innerHTML = htmlContent;
-            //iframe.srcdoc = htmlContent;
+            iframe.srcdoc = htmlContent;
             //iframe.style.height = '0px';
             iframe.style.display = 'block'; // Show the iframe
         })
