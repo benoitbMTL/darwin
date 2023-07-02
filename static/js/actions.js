@@ -116,7 +116,7 @@ function performCookieSecurity() {
             iframe1.innerHTML = data.initialCookie;
             iframe1.style.display = 'block';
             iframe1.onload = function () {
-                iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
+                iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 3000) + 'px';
             }
 
             document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium.";
@@ -130,10 +130,8 @@ function performCookieSecurity() {
             document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie.";
             var iframe3 = document.getElementById('web-page-iframe');
             iframe3.srcdoc = data.webPageHTML;
+            iframe3.style.height = '0px';
             iframe3.style.display = 'block';
-            iframe3.onload = function () {
-                iframe3.style.height = iframe3.contentWindow.document.body.scrollHeight + 'px';
-            }
         })
         .catch(error => {
             console.error('Error:', error);
