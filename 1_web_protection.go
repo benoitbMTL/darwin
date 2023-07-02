@@ -377,10 +377,14 @@ func handleCookieSecurityAction(c echo.Context) error {
 	}
 
 	// Get the initial cookie string
-	initialCookieText := ""
-	for _, cookie := range jar.Cookies(req.URL) {
-		initialCookieText += cookie.String() + "<br>"
-	}
+    initialCookieHTML := ""
+    for _, cookie := range jar.Cookies(req.URL) {
+        if strings.Contains(cookie.String(), "low") {
+            initialCookieHTML += strings.ReplaceAll(cookie.String(), "low", `<span style="color: red;">low</span>`) + "<br>"
+        } else {
+            initialCookieHTML += cookie.String() + "<br>"
+        }
+    }
 
 	// Now, manipulate the cookie and create a new CookieJar
 	newJar, err := cookiejar.New(nil)
@@ -400,10 +404,15 @@ func handleCookieSecurityAction(c echo.Context) error {
 	newJar.SetCookies(req.URL, cookies)
 
 	// Get the modified cookie string
-	modifiedCookieText := ""
-	for _, cookie := range newJar.Cookies(req.URL) {
-		modifiedCookieText += cookie.String() + "<br>"
-	}
+    modifiedCookieHTML := ""
+    for _, cookie := range newJar.Cookies(req.URL) {
+        if strings.Contains(cookie.String(), "medium") {
+            modifiedCookieHTML += strings.ReplaceAll(cookie.String(), "medium", `<span style="color: red;">medium</span>`) + "<br>"
+        } else {
+            modifiedCookieHTML += cookie.String() + "<br>"
+        }
+    }
+
 
 	// Make a new request with the manipulated cookie
 	client = &http.Client{
@@ -431,8 +440,8 @@ func handleCookieSecurityAction(c echo.Context) error {
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	return c.JSON(http.StatusOK, &CookieActionResponse{
-		InitialCookie:  initialCookieText,
-		ModifiedCookie: modifiedCookieText,
+		InitialCookie:  initialCookieHTML,
+		ModifiedCookie: modifiedCookieHTML,
 		WebPageHTML:    string(body),
 	})
 }

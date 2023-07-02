@@ -111,20 +111,17 @@ function performCookieSecurity() {
     })
         .then(response => response.json())
         .then(data => {
-
             document.getElementById('initial-cookie-additional-text').innerText = "You are now authenticated. Your cookie security level is set to low.";
-            let initialCookieHtml = data.initialCookie.replace(/low/g, '<span style="color: red;">low</span>');
             var iframe1 = document.getElementById('initial-cookie');
-            iframe1.srcdoc = initialCookieHtml;
+            iframe1.innerHTML = data.initialCookie;
             iframe1.style.display = 'block';
             iframe1.onload = function () {
                 iframe1.style.height = (iframe1.contentWindow.document.body.scrollHeight + 30) + 'px';
             }
 
             document.getElementById('modified-cookie-additional-text').innerText = "Let's change the cookie security level to medium.";
-            let modifiedCookieHtml = data.modifiedCookie.replace(/medium/g, '<span style="color: red;">medium</span>');
             var iframe2 = document.getElementById('modified-cookie');
-            iframe2.srcdoc = modifiedCookieHtml;
+            iframe2.srcdoc = data.modifiedCookie;
             iframe2.style.display = 'block';
             iframe2.onload = function () {
                 iframe2.style.height = (iframe2.contentWindow.document.body.scrollHeight + 30) + 'px';
@@ -133,9 +130,10 @@ function performCookieSecurity() {
             document.getElementById('web-page-iframe-additional-text').innerText = "Let's connect again to the web app with the new crafted cookie.";
             var iframe3 = document.getElementById('web-page-iframe');
             iframe3.srcdoc = data.webPageHTML;
-            iframe3.style.height = '0px';
             iframe3.style.display = 'block';
-
+            iframe3.onload = function () {
+                iframe3.style.height = iframe3.contentWindow.document.body.scrollHeight + 'px';
+            }
         })
         .catch(error => {
             console.error('Error:', error);
