@@ -404,14 +404,15 @@ func handleCookieSecurityAction(c echo.Context) error {
 	newJar.SetCookies(req.URL, cookies)
 
 	// Get the modified cookie string
-	modifiedCookieHTML := ""
-	for _, cookie := range newJar.Cookies(req.URL) {
-		if strings.Contains(cookie.String(), "medium") {
-			modifiedCookieHTML += strings.ReplaceAll(cookie.String(), "medium", `<span style="color: red;">medium</span>`) + "<br>"
-		} else {
-			modifiedCookieHTML += cookie.String() + "<br>"
-		}
-	}
+modifiedCookieHTML := ""
+for _, cookie := range newJar.Cookies(req.URL) {
+    cookieStr := cookie.String()
+    if strings.Contains(cookieStr, "medium") {
+        cookieStr = strings.ReplaceAll(cookieStr, "medium", `<span style="color: red;">medium</span>`)
+    }
+    modifiedCookieHTML += fmt.Sprintf("<span style='font-size: 0.9em;'>%s</span><br>", cookieStr)
+}
+
 
 	// Make a new request with the manipulated cookie
 	client = &http.Client{
