@@ -34,47 +34,53 @@
 
 <body>
 
+
+    <div class="mb-5 tile-header">
+        <div class="container mt-3">
+
+            <!-- Logo, Title, Dark Mode Switch -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex">
+                    <img id="fortiweb-logo" src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon"
+                        class="fortiweb-icon mr-2">
+                    <h1>FortiWeb Demo Tool</h1>
+                </div>
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                    <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="category-buttons d-flex justify-content-between">
+                <div class="d-flex">
+                    <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
+                        onclick="showCategory('web-protection')">Web Protection</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('api-protection')">API Protection</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('dos-protection')">DOS Protection</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('machine-learning')">Machine Learning</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('rest-api')">REST API</button>
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-outline-success btn-sm me-2" role="button" aria-pressed="false"
+                        onclick="showCategory('health-check')">Health Check</button>
+                    <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('Configuration')">Configuration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-5">
 
-        <!-- Logo and Title -->
-        <div class="d-flex align-items-center mb-0">
-            <img id="fortiweb-logo" src="/static/images/icon-fortiweb.svg" alt="FortiWeb Icon" class="fortiweb-icon">
-            <h1 class="ms-3">FortiWeb Demo Tool</h1>
-        </div>
-
-        <!-- Subtitle and Dark Mode Switch -->
-        <div class="d-flex align-items-center justify-content-between mb-0">
-            <p><strong>A demonstration is worth more than a million words.</strong></p>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="darkModeSwitch">
-                <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
-            </div>
-        </div>
-
-        <!-- Buttons -->
-        <div class="category-buttons d-flex justify-content-between mb-4">
-            <div class="d-flex">
-                <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
-                    onclick="showCategory('web-protection')">Web Protection</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('api-protection')">API Protection</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('dos-protection')">DOS Protection</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('machine-learning')">Machine Learning</button>
-                <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('rest-api')">REST API</button>
-            </div>
-            <div class="d-flex">
-                <button type="button" class="btn btn-outline-success btn-sm me-2" role="button" aria-pressed="false"
-                    onclick="showCategory('health-check')">Health Check</button>
-                <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
-                    onclick="showCategory('Configuration')">Configuration</button>
-            </div>
-        </div>
-
+        <!-- Web Protection Page -->
         <div id="web-protection" class="category">
 
             <!-- Username List -->
@@ -258,106 +264,110 @@
                 </div>
 
                 <!-- Div to display the server response -->
-    <div id="petstore-result" class="action-result border p-3 courier-text" style="display: none;"></div>
-
-
-
+                <div id="petstore-result" class="action-result border p-3 courier-text" style="display: none;"></div>
 
             </div>
         </div>
 
         <div id="dos-protection" class="category" style="display:none;">
-            <!-- DOS Protection actions go here -->
+            <div class="tile">
+                <p class="mb-2">DOS Protection</p>
+
+            </div>
         </div>
 
         <div id="machine-learning" class="category" style="display:none;">
-            <!-- Machine Learning actions go here -->
+            <div class="tile">
+                <p class="mb-2">Machine Learning</p>
+
+            </div>
         </div>
 
         <div id="rest-api" class="category" style="display:none;">
 
             <!-- REST API -->
-            <div class="mb-4 row">
+            <div class="container"> <!-- or container-fluid, depending on your needs -->
+                <div class="mb-4 row">
 
+                    <!-- Create -->
+                    <div class="tile col-4">
+                        <p class="mb-4"><strong>Create New Application Policy</strong></p>
+                        <div class="mb-3 d-flex align-items-center">
+                            <button type="button" class="btn btn-primary btn-sm me-2"
+                                onclick="performOnboardNewApplicationPolicy()">
+                                <span class="spinner-border spinner-border-sm" id="create-spinner" role="status"
+                                    aria-hidden="true" style="display: none;"></span>
+                                Create
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                onclick="resetOnboardNewApplicationPolicy()">Reset</button>
+                        </div>
+                        <div id="createTasks">
+                            <p id="createNewVirtualIP"><span class="task-description">Create new Virtual IP</span> <span
+                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="createNewServerPool"><span class="task-description">Create new Server Pool</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+                            <p id="createNewMemberPool"><span class="task-description">Create new Member Pool</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
 
-                <!-- Create -->
-                <div class="tile col-4">
-                    <p class="mb-2"><strong>Create New Application Policy</strong></p>
-                    <div class="mb-3 d-flex align-items-center">
-                        <button type="button" class="btn btn-primary btn-sm me-2"
-                            onclick="performOnboardNewApplicationPolicy()">
-                            <span class="spinner-border spinner-border-sm" id="create-spinner" role="status"
-                                aria-hidden="true" style="display: none;"></span>
-                            Create
-                        </button>
-                        <button type="button" class="btn btn-secondary btn-sm"
-                            onclick="resetOnboardNewApplicationPolicy()">Reset</button>
+                            <p id="createNewVirtualServer"><span class="task-description">Create new Virtual
+                                    Server</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+
+                            <p id="assignVIPToVirtualServer"><span class="task-description">Assign Virtual IP to Virtual
+                                    Server</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="cloneSignatureProtection"><span class="task-description">Clone Signature
+                                    Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+                            <p id="cloneInlineProtection"><span class="task-description">Clone Inline Protection</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+                            <p id="createNewXForwardedForRule"><span class="task-description">Create new X-Forwarded-For
+                                    Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="configureProtectionProfile"><span class="task-description">Configure Protection
+                                    Profile</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="createNewPolicy"><span class="task-description">Create new Policy</span> <span
+                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        </div>
                     </div>
-                    <div id="createTasks">
-                        <p id="createNewVirtualIP"><span class="task-description">Create new Virtual IP</span> <span
-                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="createNewServerPool"><span class="task-description">Create new Server Pool</span>
-                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                        </p>
-                        <p id="createNewMemberPool"><span class="task-description">Create new Member Pool</span>
-                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                        </p>
-
-                        <p id="createNewVirtualServer"><span class="task-description">Create new Virtual
-                                Server</span>
-                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                        </p>
-
-                        <p id="assignVIPToVirtualServer"><span class="task-description">Assign Virtual IP to Virtual
-                                Server</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="cloneSignatureProtection"><span class="task-description">Clone Signature
-                                Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                        </p>
-                        <p id="cloneInlineProtection"><span class="task-description">Clone Inline Protection</span>
-                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                        </p>
-                        <p id="createNewXForwardedForRule"><span class="task-description">Create new X-Forwarded-For
-                                Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="configureProtectionProfile"><span class="task-description">Configure Protection
-                                Profile</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="createNewPolicy"><span class="task-description">Create new Policy</span> <span
-                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                    </div>
-                </div>
 
 
-                <!-- Delete -->
-                <div class="tile col-4">
-                    <p class="mb-2"><strong>Delete Application Policy</strong></p>
-                    <div class="mb-3 d-flex align-items-center">
-                        <button type="button" class="btn btn-primary btn-sm me-2"
-                            onclick="performDeleteApplicationPolicy()">
-                            <span class="spinner-border spinner-border-sm" id="delete-spinner" role="status"
-                                aria-hidden="true" style="display: none;"></span>
-                            Delete
-                        </button>
-                        <button type="button" class="btn btn-secondary btn-sm"
-                            onclick="resetDeleteApplicationPolicy()">Reset</button>
-                    </div>
-                    <div id="deleteTasks">
-                        <p id="deletePolicy"><span class="task-description">Delete Policy</span> <span
-                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="deleteInlineProtection"><span class="task-description">Delete Inline Protection
-                                Profile</span>
-                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                        </p>
-                        <p id="deleteXForwardedForRule"><span class="task-description">Delete X-Forwarded-For
-                                Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="deleteSignatureProtection"><span class="task-description">Delete Signature
-                                Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                        </p>
-                        <p id="deleteVirtualServer"><span class="task-description">Delete Virtual Server</span>
-                            <span class="badge bg-secondary rounded-pill">Incomplete</span>
-                        </p>
-                        <p id="deleteServerPool"><span class="task-description">Delete Server Pool</span> <span
-                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                        <p id="deleteVirtualIP"><span class="task-description">Delete Virtual IP</span> <span
-                                class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                    <!-- Delete -->
+                    <div class="tile col-4">
+                        <p class="mb-4"><strong>Delete Application Policy</strong></p>
+                        <div class="mb-3 d-flex align-items-center">
+                            <button type="button" class="btn btn-primary btn-sm me-2"
+                                onclick="performDeleteApplicationPolicy()">
+                                <span class="spinner-border spinner-border-sm" id="delete-spinner" role="status"
+                                    aria-hidden="true" style="display: none;"></span>
+                                Delete
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                onclick="resetDeleteApplicationPolicy()">Reset</button>
+                        </div>
+                        <div id="deleteTasks">
+                            <p id="deletePolicy"><span class="task-description">Delete Policy</span> <span
+                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="deleteInlineProtection"><span class="task-description">Delete Inline Protection
+                                    Profile</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+                            <p id="deleteXForwardedForRule"><span class="task-description">Delete X-Forwarded-For
+                                    Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="deleteSignatureProtection"><span class="task-description">Delete Signature
+                                    Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+                            <p id="deleteVirtualServer"><span class="task-description">Delete Virtual Server</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+                            <p id="deleteServerPool"><span class="task-description">Delete Server Pool</span> <span
+                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="deleteVirtualIP"><span class="task-description">Delete Virtual IP</span> <span
+                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                        </div>
                     </div>
                 </div>
 

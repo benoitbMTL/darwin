@@ -11,12 +11,11 @@
 
 iframe.action-result {
     height: 35px;
-    /* or any other value that you find suitable */
 }
 
 /* Light Mode */
 body {
-    background-color: #FFFFFF;
+    background-color: #F4F3EF;
     color: #000000;
 }
 
@@ -27,13 +26,13 @@ body {
 
 /* Dark Mode */
 .dark-mode {
-    background-color: #1D1D1F;
-    color: #ffffff;
+    background-color: #303030;
+    color: #FFFFFF;
 }
 
 .dark-mode .action-result {
     background-color: #a9a9a9;
-    color: #ffffff;
+    color: #e0dddd;
 }
 
 .category-buttons {
@@ -45,33 +44,46 @@ body {
 }
 
 .tile {
-    background-color: #e9eefc;
+    background-color: #FFFFFF;
     /* light grey */
-    border-radius: 5px;
+    border-radius: 10px;
     /* rounded corners */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     /* shadow effect */
-    padding: 20px;
+    padding: 40px 30px;
     /* space inside the tile */
     margin-bottom: 20px;
+    /* space between tiles */
     margin-right: 20px;
     /* space between tiles */
 }
 
 .dark-mode .dark-tile {
-    background-color: #3E3D40;
+    background-color: #424242;
     /* dark grey */
-    border-radius: 5px;
+    border-radius: 10px;
     /* rounded corners */
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    /*box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.1);*/
     /* white shadow effect */
-    padding: 20px;
+    padding: 40px 30px;
     /* space inside the tile */
     margin-bottom: 20px;
     margin-right: 20px;
     /* space between tiles */
-    color: #ffffff;
+    color: #FFFFFF;
     /* white text color */
+}
+
+.tile-header {
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1px 10px;
+}
+
+.dark-mode .dark-tile-header {
+    background-color: #424242;
+    padding: 1px 10px;
+    color: #FFFFFF;
 }
 
 .courier-text {
