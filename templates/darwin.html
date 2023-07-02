@@ -84,49 +84,50 @@
         <div id="web-protection" class="category">
 
 
+
+
+            <div class="row"> <!-- A new row for Nikto Web Scan -->
+                <div class="col-12">
+
+                    <!-- Nikto Web Scan -->
+                    <div class="mb-4 tile">
+                        <p class="mb-2">Perform a Vulnerability Web Scan from the selected Country.</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <select id="country" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                            <button type="button" class="btn btn-primary btn-sm me-2" onclick="performWebScan()">
+                                <span id="web-scan-spinner" class="spinner-border spinner-border-sm" role="status"
+                                    aria-hidden="true" style="display: none;"></span>
+                                Web Scan</button>
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                onclick="resetWebScan()">Reset</button>
+                        </div>
+                        <div id="web-scan-container">
+                            <div id="web-scan-result" class="action-result border p-3" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
             <div class="row"> <!-- Creating a row -->
 
-
-<div class="row"> <!-- A new row for Nikto Web Scan -->
-    <div class="col-12">
-
-
-
-
-        <!-- Nikto Web Scan -->
-        <div class="mb-4 tile">
-            <p class="mb-2">Perform a Vulnerability Web Scan from the selected Country.</p>
-            <div class="d-flex align-items-center mb-3">
-                <select id="country" class="form-select form-select-sm me-2" style="width: 250px;"></select>
-                <button type="button" class="btn btn-primary btn-sm me-2" onclick="performWebScan()">
-                    <span id="web-scan-spinner" class="spinner-border spinner-border-sm" role="status"
-                        aria-hidden="true" style="display: none;"></span>
-                    Web Scan</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="resetWebScan()">Reset</button>
-            </div>
-            <div id="web-scan-container">
-                <div id="web-scan-result" class="action-result border p-3" style="display: none;"></div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-
-                            <div class="col-md-3 mb-1 d-flex flex-column"> <!-- Column for the username tile -->
-                <div class="tile flex-grow-1">
+                <div class="col-md-3 mb-1 d-flex flex-column"> <!-- Column for the username tile -->
+                    <div class="tile flex-grow-1">
 
 
                         <!-- Username List -->
                         <select id="username" class="form-select form-select-sm mb-4" style="width: 150px;"></select>
-                                                <p>Select a user from the list to generate the attack scenario. Once you have selected a user, you can 
-                                                run one of the attack on the right side of the screen.</p><p>Once the attack is over, check the Attack Logs and make sure to show the "username" column.</p>
+                        <p>Select a user from the list to generate the attack scenario. Once you have selected a user,
+                            you can
+                            run one of the attack on the right side of the screen.</p>
+                        <p>Once the attack is over, check the Attack Logs and make sure to show the "username" column.
+                        </p>
                     </div>
                 </div>
 
 
-            <div class="col-md-9 d-flex flex-column">
+                <div class="col-md-9 d-flex flex-column">
 
                     <!-- Command Injection -->
                     <div class="mb-4 tile">
