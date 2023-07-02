@@ -86,80 +86,85 @@
             <!-- Username List -->
             <div class="mb-4 tile">
                 <p class="mb-2">Choose the user who will generate the traffic. You can change it at any time.</p>
-                <select id="username" class="form-select form-select-sm" style="width: 250px;"></select>
+                <select id="username" class="form-select form-select-sm" style="width: 150px;"></select>
             </div>
 
-            <!-- Command Injection -->
-            <div class="mb-4 tile">
-                <p class="mb-2">Perform a Command Injection Attack.</p>
-                <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary btn-sm me-2"
-                        onclick="performCommandInjection()">Command
-                        Injection</button>
-                    <button type="button" class="btn btn-secondary btn-sm"
-                        onclick="resetCommandInjection()">Reset</button>
-                </div>
-                <div id="command-injection-container">
-                    <iframe id="command-injection-result" class="action-result border"
-                        style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
-                </div>
-            </div>
-
-            <!-- SQL Injection -->
-            <div class="mb-4 tile">
-                <p class="mb-2">Perform a SQL Injection Attack.</p>
-                <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performSQLInjection()">SQL
-                        Injection</button>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetSQLInjection()">Reset</button>
-                </div>
-                <div id="sql-injection-container">
-                    <iframe id="sql-injection-result" class="action-result border" style="width: 100%; display: none;"
-                        onload="resizeIframe(this)"></iframe>
-                </div>
-            </div>
-
-            <!-- Cross Site Scripting -->
-            <div class="mb-4 tile">
-                <p class="mb-2">Perform a Cross Site Scripting Attack.</p>
-                <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary btn-sm me-2"
-                        onclick="performCrossSiteScripting()">Cross Site Scripting</button>
-                    <button type="button" class="btn btn-secondary btn-sm"
-                        onclick="resetCrossSiteScripting()">Reset</button>
-                </div>
-                <div id="cross-site-scripting-container">
-                    <iframe id="cross-site-scripting-result" class="action-result border"
-                        style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
-                </div>
-            </div>
-
-            <!-- Cookie Security -->
-            <div class="mb-4 tile">
-                <p class="mb-2">Perform a Cookie Based Attack.</p>
-                <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary btn-sm me-2"
-                        onclick="performCookieSecurity()">Manipulate
-                        Cookie</button>
-                    <button type="button" class="btn btn-secondary btn-sm"
-                        onclick="resetCookieSecurity()">Reset</button>
-                </div>
-                <div id="cookie-security-container">
-                    <div id="initial-cookie-additional-text" class="additional-text mt-4 mb-4"></div>
-                    <div id="step1" class="additional-text mt-4 mb-4">
-                        <div id="initial-cookie" class="action-result border p-3" style="display: none;"></div>
+                <!-- Command Injection -->
+                <div class="mb-4 tile">
+                    <p class="mb-2">Perform a Command Injection Attack.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <button type="button" class="btn btn-primary btn-sm me-2"
+                            onclick="performCommandInjection()">Command
+                            Injection</button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            onclick="resetCommandInjection()">Reset</button>
                     </div>
-                    <div id="modified-cookie-additional-text" class="additional-text mt-4 mb-4"></div>
-                    <div id="step2" class="additional-text mt-4 mb-4">
-                        <div id="modified-cookie" class="action-result border p-3" style="display: none;"></div>
-                    </div>
-                    <div id="web-page-iframe-additional-text" class="additional-text mt-4 mb-4"></div>
-                    <div id="step3" class="additional-text mt-4 mb-4">
-                        <iframe id="web-page-iframe" class="action-result border" style="width: 100%; display: none;"
-                            onload="resizeIframe(this)"></iframe>
+                    <div id="command-injection-container">
+                        <iframe id="command-injection-result" class="action-result border"
+                            style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
                     </div>
                 </div>
-            </div>
+
+                <!-- SQL Injection -->
+                <div class="mb-4 tile">
+                    <p class="mb-2">Perform a SQL Injection Attack.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <button type="button" class="btn btn-primary btn-sm me-2" onclick="performSQLInjection()">SQL
+                            Injection</button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            onclick="resetSQLInjection()">Reset</button>
+                    </div>
+                    <div id="sql-injection-container">
+                        <iframe id="sql-injection-result" class="action-result border"
+                            style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
+                    </div>
+                </div>
+
+                <!-- Cross Site Scripting -->
+                <div class="mb-4 tile">
+                    <p class="mb-2">Perform a Cross Site Scripting Attack.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <button type="button" class="btn btn-primary btn-sm me-2"
+                            onclick="performCrossSiteScripting()">Cross Site Scripting</button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            onclick="resetCrossSiteScripting()">Reset</button>
+                    </div>
+                    <div id="cross-site-scripting-container">
+                        <iframe id="cross-site-scripting-result" class="action-result border"
+                            style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
+                    </div>
+                </div>
+
+                <!-- Cookie Security -->
+                <div class="mb-4 tile">
+                    <p class="mb-2">Perform a Cookie Based Attack.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <button type="button" class="btn btn-primary btn-sm me-2"
+                            onclick="performCookieSecurity()">Manipulate
+                            Cookie</button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                            onclick="resetCookieSecurity()">Reset</button>
+                    </div>
+                    <div id="cookie-security-container">
+                        <div id="initial-cookie-additional-text" class="additional-text mt-4 mb-4"></div>
+                        <div id="step1" class="additional-text mt-4 mb-4">
+                            <div id="initial-cookie" class="action-result border p-3" style="display: none;"></div>
+                        </div>
+                        <div id="modified-cookie-additional-text" class="additional-text mt-4 mb-4"></div>
+                        <div id="step2" class="additional-text mt-4 mb-4">
+                            <div id="modified-cookie" class="action-result border p-3" style="display: none;"></div>
+                        </div>
+                        <div id="web-page-iframe-additional-text" class="additional-text mt-4 mb-4"></div>
+                        <div id="step3" class="additional-text mt-4 mb-4">
+                            <iframe id="web-page-iframe" class="action-result border"
+                                style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
 
             <!-- Credential Stuffing Defense -->
             <div class="mb-4 tile">
