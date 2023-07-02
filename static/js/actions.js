@@ -23,12 +23,25 @@ function performCommandInjection() {
         .then(response => response.text())
         .then(htmlContent => {
             var iframe = document.getElementById('command-injection-result');
-            iframe.srcdoc = htmlContent;
-            iframe.style.height = '100px';
-            iframe.style.display = 'block'; // Show the iframe
+            var errorDiv = document.getElementById('command-injection-text-result');
+
+            // Checks if the HTML content contains an error message.
+            if (htmlContent.includes('The Virtual Server is not reachable')) {
+                // Insert the HTML content into the errorDiv and display it.
+                errorDiv.innerHTML = htmlContent;
+                errorDiv.style.display = 'block'; // Show the div
+                iframe.style.display = 'none'; // Hide the iframe
+            } else {
+                // Display the HTML content in the iframe as usual.
+                iframe.srcdoc = htmlContent;
+                iframe.style.height = '100px';
+                iframe.style.display = 'block'; // Show the iframe
+                errorDiv.style.display = 'none'; // Hide the div
+            }
         })
         .catch(error => console.error('Error:', error));
 }
+
 
 function resetCommandInjection() {
     var iframe = document.getElementById('command-injection-result');

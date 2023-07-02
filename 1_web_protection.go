@@ -68,14 +68,14 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;"><p></p>The Virtual Server is not reachable<p></p></pre>`)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("Received HTTP response code %d while trying to log in", resp.StatusCode)
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;"><p></p>The Virtual Server is not reachable</pre><p></p>`)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
 	// Execute Command Injection
@@ -101,7 +101,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	resp, err = client.Do(req)
 	if err != nil {
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;"><p></p>The Virtual Server is not reachable<p></p></pre>`)
+		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
 	}
 
 	defer resp.Body.Close()
