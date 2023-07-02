@@ -28,7 +28,7 @@ func handleHealthCheckAction(c echo.Context) error {
 	}
 
 	// Start HTML Table with CSS
-	result := `<table>
+	result := `<style>table {width: 100%; border-collapse: collapse; font-size: 0.9em;} td, th {border: 1px solid #ddd; padding: 8px;} .failed {color: red; font-weight: bold;}</style><table>
 		<tr>
 			<th>URL</th>
 			<th>Result</th>
