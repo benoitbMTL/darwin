@@ -58,7 +58,7 @@ func handleHealthCheckAction(c echo.Context) error {
 	}
 
 	// Handle FWB_MGT_IP separately because it's only an IP without a scheme
-	ip := "http://" + FWB_MGT_IP
+	ip := "https://" + FWB_MGT_IP
 	res, err := client.Get(ip)
 	if err != nil {
 		shortErr := strings.TrimPrefix(err.Error(), fmt.Sprintf(`Get "%s": `, ip))
