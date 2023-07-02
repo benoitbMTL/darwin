@@ -23,7 +23,7 @@ function performCommandInjection() {
         .then(response => response.text())
         .then(htmlContent => {
             var iframe = document.getElementById('command-injection-result');
-            var errorDiv = document.getElementById('command-injection-text-result');
+            var errorDiv = document.getElementById('command-injection-error-result');
 
             // Checks if the HTML content contains an error message.
             if (htmlContent.includes('The Virtual Server is not reachable')) {
@@ -34,7 +34,6 @@ function performCommandInjection() {
             } else {
                 // Display the HTML content in the iframe as usual.
                 iframe.srcdoc = htmlContent;
-                iframe.style.height = '100px';
                 iframe.style.display = 'block'; // Show the iframe
                 errorDiv.style.display = 'none'; // Hide the div
             }
@@ -42,11 +41,17 @@ function performCommandInjection() {
         .catch(error => console.error('Error:', error));
 }
 
-
 function resetCommandInjection() {
     var iframe = document.getElementById('command-injection-result');
+    var errorDiv = document.getElementById('command-injection-error-result');
+
+    // Reset the iframe
     iframe.srcdoc = '';
     iframe.style.display = 'none'; // Hide the iframe
+
+    // Reset the div
+    errorDiv.innerHTML = '';
+    errorDiv.style.display = 'none'; // Hide the div
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
