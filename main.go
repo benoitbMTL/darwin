@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4"
 	"log"
+
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -32,5 +33,8 @@ func main() {
 
 	// Start the server
 	log.Println("Starting server on port 8080")
-	e.Start(":8080")
+	err := e.Start(":8080")
+	if err != nil {
+		log.Fatalf("Server failed to start due to error: %v", err)
+	}
 }
