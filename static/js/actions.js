@@ -24,7 +24,7 @@ function performCommandInjection() {
         .then(htmlContent => {
             var iframe = document.getElementById('command-injection-result');
             iframe.srcdoc = htmlContent;
-            //iframe.style.height = '0px';
+            iframe.style.height = '100px';
             iframe.style.display = 'block'; // Show the iframe
         })
         .catch(error => console.error('Error:', error));
