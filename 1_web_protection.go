@@ -377,14 +377,14 @@ func handleCookieSecurityAction(c echo.Context) error {
 	}
 
 	// Get the initial cookie string
-    initialCookieHTML := ""
-    for _, cookie := range jar.Cookies(req.URL) {
-        if strings.Contains(cookie.String(), "low") {
-            initialCookieHTML += strings.ReplaceAll(cookie.String(), "low", `<span style="color: red;">low</span>`) + "<br>"
-        } else {
-            initialCookieHTML += cookie.String() + "<br>"
-        }
-    }
+	initialCookieHTML := ""
+	for _, cookie := range jar.Cookies(req.URL) {
+		cookieStr := cookie.String()
+		if strings.Contains(cookieStr, "low") {
+			cookieStr = strings.ReplaceAll(cookieStr, "low", `<span style="color: red;">low</span>`)
+		}
+		initialCookieHTML += fmt.Sprintf("<span style='font-size: 0.9em;'>%s</span><br>", cookieStr)
+	}
 
 	// Now, manipulate the cookie and create a new CookieJar
 	newJar, err := cookiejar.New(nil)
@@ -404,15 +404,14 @@ func handleCookieSecurityAction(c echo.Context) error {
 	newJar.SetCookies(req.URL, cookies)
 
 	// Get the modified cookie string
-    modifiedCookieHTML := ""
-    for _, cookie := range newJar.Cookies(req.URL) {
-        if strings.Contains(cookie.String(), "medium") {
-            modifiedCookieHTML += strings.ReplaceAll(cookie.String(), "medium", `<span style="color: red;">medium</span>`) + "<br>"
-        } else {
-            modifiedCookieHTML += cookie.String() + "<br>"
-        }
-    }
-
+	modifiedCookieHTML := ""
+	for _, cookie := range newJar.Cookies(req.URL) {
+		if strings.Contains(cookie.String(), "medium") {
+			modifiedCookieHTML += strings.ReplaceAll(cookie.String(), "medium", `<span style="color: red;">medium</span>`) + "<br>"
+		} else {
+			modifiedCookieHTML += cookie.String() + "<br>"
+		}
+	}
 
 	// Make a new request with the manipulated cookie
 	client = &http.Client{
