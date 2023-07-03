@@ -308,8 +308,26 @@ function resetBotDeception() {
 // PETSTORE API PROTECTION                                                        //
 ///////////////////////////////////////////////////////////////////////////////////
 
+function resetPetstoreAPIRequest() {
+    // Reset the result display area
+    var petstoreResult = document.getElementById('petstore-result');
+    petstoreResult.innerText = '';
+    petstoreResult.style.display = 'none';
+
+    // Reset the status dropdown list
+    var statusElement = document.getElementById('status');
+    statusElement.selectedIndex = 0;  // Set to the first option
+
+    // Reset the API get span
+    var apiGetSpan = document.getElementById('api-get');
+    apiGetSpan.innerText = '';
+}
+
 function performPetstoreGETfindByStatus() {
     var selectedOption = document.getElementById('status').value;
+
+    console.log("Selected option:", selectedOption);
+    console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
     // Fetch the config first
     fetch('/config')
@@ -317,6 +335,7 @@ function performPetstoreGETfindByStatus() {
         .then(config => {
             // Now you have the PETSTORE_URL in config.PETSTORE_URL
             var PETSTORE_URL = config.PETSTORE_URL;
+            console.log("PETSTORE_URL:", PETSTORE_URL);
 
             // Then perform the pet-get request
             fetch('/petstore-pet-get', {
@@ -339,22 +358,6 @@ function performPetstoreGETfindByStatus() {
                 });
         });
 }
-
-function resetPetstoreAPIRequest() {
-    // Reset the result display area
-    var petstoreResult = document.getElementById('petstore-result');
-    petstoreResult.innerText = '';
-    petstoreResult.style.display = 'none';
-
-    // Reset the status dropdown list
-    var statusElement = document.getElementById('status');
-    statusElement.selectedIndex = 0;  // Set to the first option
-
-    // Reset the API get span
-    var apiGetSpan = document.getElementById('api-get');
-    apiGetSpan.innerText = '';
-}
-
 
 function performPetstoreDELETEPet() {
 
