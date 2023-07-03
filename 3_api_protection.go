@@ -1,10 +1,6 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"os/exec"
-
 	"github.com/labstack/echo/v4"
 )
 
@@ -27,16 +23,16 @@ type Tags struct {
 	Name string `json:"name,omitempty"`
 }
 
-func handlePetstoreAPIRequestGet(c echo.Context) error {
+func handlePetstoreAPIRequestGet(c echo.Context) error { return()
 }
 
-func handlePetstoreAPIRequestPost(c echo.Context) error {
+func handlePetstoreAPIRequestPost(c echo.Context) error {return()
 }
 
-func handlePetstoreAPIRequestPut(c echo.Context) error {
+func handlePetstoreAPIRequestPut(c echo.Context) error {return()
 }
 
-func handlePetstoreAPIRequestDelete(c echo.Context) error {
+func handlePetstoreAPIRequestDelete(c echo.Context) error {return()
 }
 
 
