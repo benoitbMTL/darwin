@@ -70,14 +70,14 @@ func handleCommandInjectionAction(c echo.Context) error {
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Println(err) // Log the error
-		return c.HTML(http.StatusOK, `<p>The Virtual Server is not reachable</p>`)
+		return c.HTML(http.StatusOK, `<span style="color: red;">The Virtual Server is not reachable</span>`)
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("Received HTTP response code %d while trying to log in", resp.StatusCode)
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable</pre>`)
+		return c.HTML(http.StatusOK, `<span style="color: red;">The Virtual Server is not reachable</span>`)
 	}
 
 	// Execute Command Injection
@@ -105,7 +105,7 @@ func handleCommandInjectionAction(c echo.Context) error {
 	resp, err = client.Do(req)
 	if err != nil {
 		log.Println(err) // Log the error
-		return c.HTML(http.StatusOK, `<pre style="color: red; font-family: 'Courier New', monospace; white-space: pre-wrap;">The Virtual Server is not reachable - client.Do(req)</pre>`)
+		return c.HTML(http.StatusOK, `<span style="color: red;">The Virtual Server is not reachable</span>`)
 	}
 
 	defer resp.Body.Close()
