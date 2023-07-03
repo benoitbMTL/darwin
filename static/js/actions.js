@@ -341,10 +341,11 @@ function performPetstoreGETfindByStatus() {
             fetch('/petstore-pet-get', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    //'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'text/plain'
                 },
                 body: "/pet/findByStatus?status=available"
-//                body: encodeURIComponent(selectedOption)
+                //body: encodeURIComponent(selectedOption)
             })
                 .then(response => response.text())
                 .then(result => {
