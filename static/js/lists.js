@@ -74,22 +74,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // API GET findByStatus
     var findByStatusList = [
-        { value: "/findByStatus?status=available", text: "Status Available" },
-        { value: "/findByStatus?status=sold", text: "Status Sold" },
-        { value: "/findByStatus?status=pending", text: "Status Pending" },
-        { value: "/findByStatus?", text: "Empty Status" },
-        { value: "/findByStatus?status=ABCDEFGHIJKL", text: "Very Long Status" },
-        { value: "/findByStatus?status=A", text: "Very Short Status" },
-        { value: "/findByStatus?status=;cmd.exe", text: "Status with Command Injection" },
-        { value: "/findByStatus?status=sold&status=pending", text: "Duplicate Status" },
+        { value: "findByStatus?status=available", text: "Status Available" },
+        { value: "findByStatus?status=sold", text: "Status Sold" },
+        { value: "findByStatus?status=pending", text: "Status Pending" },
+        { value: "findByStatus?", text: "Empty Status" },
+        { value: "findByStatus?status=ABCDEFGHIJKL", text: "Very Long Status" },
+        { value: "findByStatus?status=A", text: "Very Short Status" },
+        { value: "findByStatus?status=;cmd.exe", text: "Status with Command Injection" },
+        { value: "findByStatus?status=sold&status=pending", text: "Duplicate Status" },
     ];
 
-    var userSelectElement = document.getElementById("status");
+    var statusSelectElement = document.getElementById("status");
     findByStatusList.forEach(function (option) {
         var opt = document.createElement("option");
         opt.value = option.value;
         opt.textContent = option.text;
-        userSelectElement.appendChild(opt);
+        statusSelectElement.appendChild(opt);
     });
 
 
