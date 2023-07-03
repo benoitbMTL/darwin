@@ -529,6 +529,8 @@ func handleNiktoWebScanAction(c echo.Context) error {
 	}
 
 	country := c.FormValue("country")
+	fmt.Println("Country:", country) // Debug Country
+
 	nl := "\n"
 	cr := "\r"
 
