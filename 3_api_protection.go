@@ -54,6 +54,9 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 
 	body, _ := ioutil.ReadAll(resp.Body)
 
+	// Debug Body Response
+	fmt.Println(string(body))
+
 	var pets PetstorePet
 	err = json.Unmarshal(body, &pets)
 	if err != nil {
