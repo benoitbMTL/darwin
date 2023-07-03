@@ -66,6 +66,10 @@ function saveConfiguration() {
         .catch(error => {
             console.error('Error saving configuration:', error);
         });
+
+    // Show success message
+    var messageDiv = document.getElementById('message');
+    messageDiv.innerHTML = 'Saved!';
 }
 
 function resetConfiguration() {
@@ -96,6 +100,10 @@ function resetConfiguration() {
         .catch(error => {
             console.error('Error resetting configuration:', error);
         });
+
+    // Show success message
+    var messageDiv = document.getElementById('message');
+    messageDiv.innerHTML = 'Configuration reset to default!';
 }
 
 
