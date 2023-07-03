@@ -74,14 +74,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // API GET findByStatus
     var findByStatusList = [
-        { value: "findByStatus?status=available", text: "Status Available" },
-        { value: "findByStatus?status=sold", text: "Status Sold" },
-        { value: "findByStatus?status=pending", text: "Status Pending" },
-        { value: "findByStatus?", text: "Empty Status" },
-        { value: "findByStatus?status=ABCDEFGHIJKL", text: "Very Long Status" },
-        { value: "findByStatus?status=A", text: "Very Short Status" },
-        { value: "findByStatus?status=;cmd.exe", text: "Status with Command Injection" },
-        { value: "findByStatus?status=sold&status=pending", text: "Duplicate Status" },
+        { value: "/findByStatus?status=available", text: "Status Available" },
+        { value: "/findByStatus?status=sold", text: "Status Sold" },
+        { value: "/findByStatus?status=pending", text: "Status Pending" },
+        { value: "/findByStatus?", text: "Empty Status" },
+        { value: "/findByStatus?status=ABCDEFGHIJKL", text: "Very Long Status" },
+        { value: "/findByStatus?status=A", text: "Very Short Status" },
+        { value: "/findByStatus?status=;cmd.exe", text: "Status with Command Injection" },
+        { value: "/findByStatus?status=sold&status=pending", text: "Duplicate Status" },
     ];
 
     var userSelectElement = document.getElementById("status");
@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // API POST newPet
     var postNewPetList = [
-        { value: "ls;;cmd.exe", text: "Command Injection" },
-        { value: "xx& var1=l var2=s;$var1$var2", text: "Zero-Day" },
-        { value: "<script>alert(123)</script>", text: "Cross-Site-Scripting" },
+        { value: "ls;;cmd.exe", text: "New Pet with Command Injection" },
+        { value: "xx& var1=l var2=s;$var1$var2", text: "New Pet with Zero-Day" },
+        { value: "<script>alert(123)</script>", text: "New Pet with Cross-Site-Scripting" },
     ];
 
     var userSelectElement = document.getElementById("new-pet");

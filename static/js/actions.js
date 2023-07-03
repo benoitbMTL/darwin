@@ -322,9 +322,9 @@ function performPetstoreGETfindByStatus() {
             fetch('/petstore-pet-get', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({ status: selectedOption })
+                body: encodeURIComponent(selectedOption)
             })
                 .then(response => response.text())
                 .then(result => {
