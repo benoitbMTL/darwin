@@ -311,23 +311,32 @@ function resetBotDeception() {
 function performPetstoreGETfindByStatus() {
     var selectedOption = document.getElementById('status').value;
 
-    fetch('/petstore-pet-get', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ status: selectedOption })
-    })
-        .then(response => response.text())
-        .then(result => {
-            var petstoreResult = document.getElementById('petstore-result');
-            petstoreResult.innerText = JSON.stringify(JSON.parse(result), null, 2); // Formats the JSON string
-            petstoreResult.style.display = 'block';
-            // Update the API get span
-            document.getElementById('api-get').innerText = `PETSTORE_URL/${selectedOption}`;
-        })
-        .catch((error) => {
-            console.error('Error:', error);
+    // Fetch the config first
+    fetch('/config')
+        .then(response => response.json())
+        .then(config => {
+            // Now you have the PETSTORE_URL in config.PETSTORE_URL
+            var PETSTORE_URL = config.PETSTORE_URL;
+
+            // Then perform the pet-get request
+            fetch('/petstore-pet-get', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status: selectedOption })
+            })
+                .then(response => response.text())
+                .then(result => {
+                    var petstoreResult = document.getElementById('petstore-result');
+                    petstoreResult.innerText = JSON.stringify(JSON.parse(result), null, 2); // Formats the JSON string
+                    petstoreResult.style.display = 'block';
+                    // Update the API get span with the fetched PETSTORE_URL
+                    document.getElementById('api-get').innerText = `${PETSTORE_URL}/${selectedOption}`;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         });
 }
 

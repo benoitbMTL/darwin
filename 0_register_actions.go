@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -23,7 +25,7 @@ func registerActions(e *echo.Echo) {
 
 	// WEB SCANNER
 	e.POST("/web-scan", handleNiktoWebScanAction)
-	
+
 	// BOT DECEPTION
 	e.GET("/view-page-source", handleViewPageSourceAction)
 	e.GET("/bot-deception", handleBotDeceptionAction)
@@ -33,7 +35,7 @@ func registerActions(e *echo.Echo) {
 	e.POST("/petstore-pet-post", handlePetstoreAPIRequestPost)
 	e.POST("/petstore-pet-put", handlePetstoreAPIRequestPut)
 	e.POST("/petstore-pet-delete", handlePetstoreAPIRequestDelete)
-	
+
 	// REST API
 	e.POST("/create-policy", onboardNewApplicationPolicy)
 	e.POST("/delete-policy", deleteApplicationPolicy)
@@ -43,4 +45,12 @@ func registerActions(e *echo.Echo) {
 
 	// PING
 	e.POST("/ping", handlePingAction)
+
+	// CONFIG
+	e.GET("/config", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]string{
+			"PETSTORE_URL": PETSTORE_URL,
+		})
+	})
+
 }
