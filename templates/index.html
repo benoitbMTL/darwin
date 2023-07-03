@@ -261,38 +261,58 @@
 
             <!-- API Requests -->
             <div class="tile">
-                <p class="mb-2"><strong>Send API Request to Petstore</strong></p>
-
+                <div class="d-flex mb-2 align-items-center justify-content-between">
+                    <div class="mb-2 d-flex">Send API Request to Petstore.</div>
+                    <div d-flex><button type="button" class="btn btn-secondary btn-sm me-2"
+                            onclick="resetPetstoreResult()">Reset</button></div>
+                </div>
+                <!-- API GET -->
                 <div class="mb-3 d-flex align-items-center">
-                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performPetstoreAPIRequest()">
-                        <span class="spinner-border spinner-border-sm" id="send-petstore-api-request" role="status"
-                            aria-hidden="true" style="display: none;"></span>
-                        Send
+                    <button type="button" class="btn btn-primary btn-sm me-3"
+                        style="width: 80px; background-color: #64b0fc; border-color: #64b0fc; font-weight: bold;"
+                        onclick="performPetstoreGETfindByStatus()">
+                        GET
                     </button>
-                    <button type="button" class="btn btn-secondary btn-sm"
-                        onclick="resetPetstoreAPIRequest()">Reset</button>
+                    <select id="status" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                    <!-- Display URL -->
+                    <span id="api-get" class="badge text-bg-info rounded-pill"></span>
                 </div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="petstore-request" value="available"
-                        id="get-status-available" checked>
-                    <label class="form-check-label courier-text" for="get-status-available">
-                        GET findByStatus?status=available - Normal Request
-                    </label>
+                <!-- API POST -->
+                <div class="mb-3 d-flex align-items-center">
+                    <button type="button" class="btn btn-success btn-sm me-3"
+                        style="width: 80px; background-color: #4ecc91; border-color: #4ecc91; font-weight: bold;"
+                        onclick="performPetstorePOSTNewPet()">
+                        POST
+                    </button>
+                    <select id="new-pet" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                    <!-- Display URL -->
+                    <span id="api-post" class="badge text-bg-info rounded-pill"></span>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="petstore-request" value="sold"
-                        id="get-status-sold">
-                    <label class="form-check-label courier-text" for="get-status-sold">
-                        GET findByStatus?status=sold - Normal Request
-                    </label>
+
+                <!-- API PUT -->
+                <div class="mb-3 d-flex align-items-center">
+                    <button type="button" class="btn btn-success btn-sm me-3"
+                        style="width: 80px; background-color: #faa03c; border-color: #faa03c; font-weight: bold;"
+                        onclick="performPetstorePUTPet()">
+                        PUT
+                    </button>
+                    <select id="modify-pet" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                    <!-- Display URL -->
+                    <span id="api-put" class="badge text-bg-info rounded-pill"></span>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="petstore-request" value="pending"
-                        id="get-status-pending">
-                    <label class="form-check-label courier-text" for="get-status-pending">
-                        GET findByStatus?status=pending - Normal Request
-                    </label>
+
+                <!-- API DELETE -->
+                <div class="mb-3 d-flex align-items-center">
+                    <button type="button" class="btn btn-success btn-sm me-3"
+                        style="width: 80px; background-color: #f73c43; border-color: #f73c43; font-weight: bold;"
+                        onclick="performPetstoreDELETEPet()">
+                        DELETE
+                    </button>
+                    <input type="text" id="pet-id" name="pet-id" class="form-control form-control-sm me-2"
+                        placeholder="pet id" required style="max-width: 250px;">
+                    <!-- Display URL -->
+                    <span id="api-delete" class="badge text-bg-info rounded-pill"></span>
                 </div>
 
                 <!-- Div to display the server response -->
@@ -305,7 +325,7 @@
         <!-- CATEGORY DOS PROTECTION -->
         <div id="dos-protection" class="category" style="display:none;">
             <div class="tile">
-                <p class="mb-2">DOS Protection</p>
+                <p class="mb-2">DOS Protection.</p>
 
             </div>
         </div>
@@ -313,7 +333,7 @@
         <!-- CATEGORY MACHINE LEARNING -->
         <div id="machine-learning" class="category" style="display:none;">
             <div class="tile">
-                <p class="mb-2">Machine Learning</p>
+                <p class="mb-2">Machine Learning.</p>
 
             </div>
         </div>

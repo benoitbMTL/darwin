@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    // USERNAME
     var userList = [
         { value: "admin", text: "admin" },
         { value: "gordonb", text: "gordonb" },
@@ -7,6 +9,17 @@ document.addEventListener("DOMContentLoaded", function () {
         { value: "smithy", text: "smithy" }
     ];
 
+    var userSelectElement = document.getElementById("username");
+    userList.forEach(function (option) {
+        var opt = document.createElement("option");
+        opt.value = option.value;
+        opt.textContent = option.text;
+        userSelectElement.appendChild(opt);
+    });
+
+
+
+    // CREDENTIAL STUFFING
     var stolenCredentials = [
         { value: "pklangdon4@msn.com", text: "pklangdon4@msn.com" },
         { value: "muldersstan@gmail.com", text: "muldersstan@gmail.com" },
@@ -20,6 +33,17 @@ document.addEventListener("DOMContentLoaded", function () {
         { value: "bizotic6@gmail.com", text: "bizotic6@gmail.com" }
     ];
 
+    var stolenSelectElement = document.getElementById("stolen-credential");
+    stolenCredentials.forEach(function (option) {
+        var opt = document.createElement("option");
+        opt.value = option.value;
+        opt.textContent = option.text;
+        stolenSelectElement.appendChild(opt);
+    });
+
+
+
+    // COUNTRY LIST
     var countryList = [
         { value: "All", text: "All" },
         { value: "Argentina", text: "Argentina" },
@@ -39,22 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
         { value: "United States", text: "United States" },
     ];
 
-    var userSelectElement = document.getElementById("username");
-    userList.forEach(function (option) {
-        var opt = document.createElement("option");
-        opt.value = option.value;
-        opt.textContent = option.text;
-        userSelectElement.appendChild(opt);
-    });
-
-    var stolenSelectElement = document.getElementById("stolen-credential");
-    stolenCredentials.forEach(function (option) {
-        var opt = document.createElement("option");
-        opt.value = option.value;
-        opt.textContent = option.text;
-        stolenSelectElement.appendChild(opt);
-    });
-
     var countrySelectElement = document.getElementById("country");
     countryList.forEach(function (option) {
         var opt = document.createElement("option");
@@ -62,4 +70,58 @@ document.addEventListener("DOMContentLoaded", function () {
         opt.textContent = option.text;
         countrySelectElement.appendChild(opt);
     });
+
+
+    // API GET findByStatus
+    var findByStatusList = [
+        { value: "findByStatus?status=available", text: "Status Available" },
+        { value: "findByStatus?status=sold", text: "Status Sold" },
+        { value: "findByStatus?status=pending", text: "Status Pending" },
+        { value: "findByStatus?", text: "Empty Status" },
+        { value: "findByStatus?status=ABCDEFGHIJKL", text: "Very Long Status" },
+        { value: "findByStatus?status=A", text: "Very Short Status" },
+        { value: "findByStatus?status=;cmd.exe", text: "Status with Command Injection" },
+        { value: "findByStatus?status=sold&status=pending", text: "Duplicate Status" },
+    ];
+
+    var userSelectElement = document.getElementById("status");
+    findByStatusList.forEach(function (option) {
+        var opt = document.createElement("option");
+        opt.value = option.value;
+        opt.textContent = option.text;
+        userSelectElement.appendChild(opt);
+    });
+
+
+    // API POST newPet
+    var postNewPetList = [
+        { value: "ls;;cmd.exe", text: "Command Injection" },
+        { value: "xx& var1=l var2=s;$var1$var2", text: "Zero-Day" },
+        { value: "<script>alert(123)</script>", text: "Cross-Site-Scripting" },
+    ];
+
+    var userSelectElement = document.getElementById("new-pet");
+    postNewPetList.forEach(function (option) {
+        var opt = document.createElement("option");
+        opt.value = option.value;
+        opt.textContent = option.text;
+        userSelectElement.appendChild(opt);
+    });
+
+
+    // API PUT Pet
+    var putPetList = [
+        { value: "aa", text: "aa" },
+        { value: "bb", text: "bb" },
+        { value: "aa", text: "cc" },
+    ];
+
+    var userSelectElement = document.getElementById("modify-pet");
+    putPetList.forEach(function (option) {
+        var opt = document.createElement("option");
+        opt.value = option.value;
+        opt.textContent = option.text;
+        userSelectElement.appendChild(opt);
+    });
+
 });

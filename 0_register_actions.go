@@ -29,7 +29,10 @@ func registerActions(e *echo.Echo) {
 	e.GET("/bot-deception", handleBotDeceptionAction)
 
 	// PETSTORE API PROTECTION
-	e.POST("/petstore-request", handlePetstoreAPIRequest)
+	e.POST("/petstore-pet-get", handlePetstoreAPIRequestGet)
+	e.POST("/petstore-pet-post", handlePetstoreAPIRequestPost)
+	e.POST("/petstore-pet-put", handlePetstoreAPIRequestPut)
+	e.POST("/petstore-pet-delete", handlePetstoreAPIRequestDelete)
 	
 	// REST API
 	e.POST("/create-policy", onboardNewApplicationPolicy)

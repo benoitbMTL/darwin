@@ -8,33 +8,36 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type PetstoreRequest struct {
-	Status string `json:"status"`
+type PetstorePet []struct {
+	ID        int      `json:"id,omitempty"`
+	Category  Category `json:"category,omitempty"`
+	Name      string   `json:"name,omitempty"`
+	PhotoUrls []string `json:"photoUrls,omitempty"`
+	Tags      []Tags   `json:"tags,omitempty"`
+	Status    string   `json:"status,omitempty"`
 }
 
-func handlePetstoreAPIRequest(c echo.Context) error {
-	req := new(PetstoreRequest)
-
-	if err := c.Bind(req); err != nil {
-		log.Println("Error binding request:", err)
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	}
-
-	log.Println("Received status:", req.Status)
-
-	curlCommand := "curl -s -k -X GET " + PETSTORE_URL + "/pet/findByStatus?status=" + req.Status + " -H 'Accept: application/json' -H 'Content-Type: application/json'"
-	log.Println("Petstore URL:", PETSTORE_URL)
-	log.Println("CURL Command:", curlCommand)
-
-	cmd := exec.Command("sh", "-c", curlCommand)
-	cmdOutput, err := cmd.Output()
-
-	if err != nil {
-		log.Println("Error executing curl command:", err)
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-	}
-
-	log.Println("CURL Result:", string(cmdOutput))
-
-	return c.JSONBlob(http.StatusOK, cmdOutput)
+type Category struct {
+	ID   int    `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
 }
+
+type Tags struct {
+	ID   int    `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
+}
+
+func handlePetstoreAPIRequestGet(c echo.Context) error {
+}
+
+func handlePetstoreAPIRequestPost(c echo.Context) error {
+}
+
+func handlePetstoreAPIRequestPut(c echo.Context) error {
+}
+
+func handlePetstoreAPIRequestDelete(c echo.Context) error {
+}
+
+
+

@@ -337,6 +337,20 @@ function resetPetstoreAPIRequest() {
 
 
 
+function performPetstoreDELETEPet() {
+
+    var petId = document.getElementById('pet-id').value;
+    petId = parseInt(petId, 10); // Try to convert the value to an integer.
+
+    if (Number.isInteger(petId) && Math.sign(petId) !== -1) {
+        // The value is an integer and greater than or equal to zero.
+        console.log('Valid value');
+    } else {
+        // The value is not an integer or is less than zero.
+        console.log('Invalid value');
+    }
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////
