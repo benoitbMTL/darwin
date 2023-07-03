@@ -12,6 +12,10 @@ function resizeIframe(iframe) {
 
 function performCommandInjection() {
     var username = document.getElementById('username').value;
+    var spinner = document.getElementById('spinner');
+
+    // Show the spinner
+    spinner.style.display = 'inline-block';
 
     fetch('/command-injection', {
         method: 'POST',
@@ -37,8 +41,16 @@ function performCommandInjection() {
                 iframe.style.display = 'block'; // Show the iframe
                 errorDiv.style.display = 'none'; // Hide the div
             }
+
+            // Hide the spinner
+            spinner.style.display = 'none';
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+
+            // Hide the spinner in case of an error
+            spinner.style.display = 'none';
+        });
 }
 
 function resetCommandInjection() {
