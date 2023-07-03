@@ -49,8 +49,17 @@ func registerActions(e *echo.Echo) {
 	// CONFIG
 	e.GET("/config", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string{
-			"PETSTORE_URL": PETSTORE_URL,
-		})
+			"DVWA_URL":      DVWA_URL,
+			"DVWA_HOST":     DVWA_HOST,
+			"JUICESHOP_URL": JUICESHOP_URL,
+			"FWB_URL":       FWB_URL,
+			"SPEEDTEST_URL": SPEEDTEST_URL,
+			"PETSTORE_URL":  PETSTORE_URL,
+			"USERNAME_API":  USERNAME_API,
+			"PASSWORD_API":  PASSWORD_API,
+			"VDOM_API":      VDOM_API,
+			"FWB_MGT_IP":    FWB_MGT_IP,
+			"POLICY":        POLICY,
+			"USER_AGENT":    USER_AGENT})
 	})
-
 }
