@@ -61,6 +61,12 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 	// Debug Body Response
 	fmt.Println("Response Body:", string(body))
 
+	var js json.RawMessage
+	if json.Unmarshal(body, &js) != nil {
+		// If it's not JSON, return the raw body
+		return c.JSON(http.StatusOK, map[string]string{"body": string(body)})
+	}
+
 	var pets PetstorePet
 	err = json.Unmarshal(body, &pets)
 	if err != nil {

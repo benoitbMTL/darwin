@@ -326,8 +326,8 @@ function resetPetstoreAPIRequest() {
 function performPetstoreGETfindByStatus() {
     var selectedOption = document.getElementById('status').value;
 
-    console.log("Selected option:", selectedOption);
-    console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
+    //console.log("Selected option:", selectedOption);
+    //console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
     // Fetch the config first
     fetch('/config')
@@ -335,7 +335,7 @@ function performPetstoreGETfindByStatus() {
         .then(config => {
             // Now you have the PETSTORE_URL in config.PETSTORE_URL
             var PETSTORE_URL = config.PETSTORE_URL;
-            console.log("PETSTORE_URL:", PETSTORE_URL);
+            //console.log("PETSTORE_URL:", PETSTORE_URL);
 
             // Then perform the pet-get request
             fetch('/petstore-pet-get', {

@@ -53,7 +53,7 @@ function saveConfiguration() {
             return response.json();
         })
         .then(data => {
-            console.log('Configuration saved successfully:', data);
+            //console.log('Configuration saved successfully:', data);
             // Fetch the new configuration from the server
             fetch('/api/config')
                 .then(response => response.json())
