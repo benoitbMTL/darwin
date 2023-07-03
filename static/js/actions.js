@@ -15,7 +15,7 @@ function performCommandInjection() {
     var spinner = document.getElementById('spinner');
 
     // Show the spinner
-    spinner.style.display = 'inline-block';
+    //spinner.style.display = 'inline-block';
 
     fetch('/command-injection', {
         method: 'POST',
