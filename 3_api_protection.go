@@ -23,17 +23,18 @@ type Tags struct {
 	Name string `json:"name,omitempty"`
 }
 
-func handlePetstoreAPIRequestGet(c echo.Context) error { return()
+func handlePetstoreAPIRequestGet(c echo.Context) error {
+	return nil
 }
 
-func handlePetstoreAPIRequestPost(c echo.Context) error {return()
+func handlePetstoreAPIRequestPost(c echo.Context) error {
+	return nil
 }
 
-func handlePetstoreAPIRequestPut(c echo.Context) error {return()
+func handlePetstoreAPIRequestPut(c echo.Context) error {
+	return nil
 }
 
-func handlePetstoreAPIRequestDelete(c echo.Context) error {return()
+func handlePetstoreAPIRequestDelete(c echo.Context) error {
+	return nil
 }
-
-
-
