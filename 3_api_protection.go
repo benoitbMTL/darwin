@@ -1,6 +1,11 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,7 +29,29 @@ type Tags struct {
 }
 
 func handlePetstoreAPIRequestGet(c echo.Context) error {
-	return nil
+	status := c.FormValue("status")
+	apiURL := fmt.Sprintf("%s/%s", PETSTORE_URL, status)
+
+	req, _ := http.NewRequest("GET", apiURL, nil)
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
+	defer resp.Body.Close()
+
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	var pets PetstorePet
+	err = json.Unmarshal(body, &pets)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
+
+	return c.JSON(http.StatusOK, pets)
 }
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {

@@ -309,9 +309,9 @@ function resetBotDeception() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performPetstoreAPIRequest() {
-    var selectedOption = document.querySelector('input[name="petstore-request"]:checked').value;
+    var selectedOption = document.getElementById('status').value;
 
-    fetch('/petstore-request', {
+    fetch('/petstore-pet-get', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -323,18 +323,29 @@ function performPetstoreAPIRequest() {
             var petstoreResult = document.getElementById('petstore-result');
             petstoreResult.innerText = JSON.stringify(JSON.parse(result), null, 2); // Formats the JSON string
             petstoreResult.style.display = 'block';
+            // Update the API get span
+            document.getElementById('api-get').innerText = `PETSTORE_URL/${selectedOption}`;
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 }
 
+
 function resetPetstoreAPIRequest() {
+    // Reset the result display area
     var petstoreResult = document.getElementById('petstore-result');
     petstoreResult.innerText = '';
     petstoreResult.style.display = 'none';
-}
 
+    // Reset the status dropdown list
+    var statusElement = document.getElementById('status');
+    statusElement.selectedIndex = 0;  // Set to the first option
+
+    // Reset the API get span
+    var apiGetSpan = document.getElementById('api-get');
+    apiGetSpan.innerText = '';
+}
 
 
 function performPetstoreDELETEPet() {
