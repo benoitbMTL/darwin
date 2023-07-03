@@ -343,7 +343,8 @@ function performPetstoreGETfindByStatus() {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: encodeURIComponent(selectedOption)
+                body: "/pet/findByStatus?status=available"
+//                body: encodeURIComponent(selectedOption)
             })
                 .then(response => response.text())
                 .then(result => {
