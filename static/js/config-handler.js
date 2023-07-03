@@ -68,8 +68,8 @@ function saveConfiguration() {
         });
 
     // Show success message
-    var messageDiv = document.getElementById('message');
-    messageDiv.innerHTML = 'Saved!';
+    var messageDiv = document.getElementById('confirmation-message');
+    messageDiv.innerHTML = 'Saved';
 }
 
 function resetConfiguration() {
@@ -102,8 +102,8 @@ function resetConfiguration() {
         });
 
     // Show success message
-    var messageDiv = document.getElementById('message');
-    messageDiv.innerHTML = 'Configuration reset to default!';
+    var messageDiv = document.getElementById('confirmation-message');
+    messageDiv.innerHTML = 'Configuration reset to default';
 }
 
 
