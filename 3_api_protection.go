@@ -31,7 +31,10 @@ type Tags struct {
 
 func handlePetstoreAPIRequestGet(c echo.Context) error {
 	status := c.FormValue("status")
+	fmt.Println("Status:", status) // Debug status
+
 	apiURL := fmt.Sprintf("%s/%s", PETSTORE_URL, status)
+	fmt.Println("API URL:", apiURL) // Debug API URL
 
 	req, _ := http.NewRequest("GET", apiURL, nil)
 	req.Header.Add("Accept", "application/json")
@@ -48,6 +51,7 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
+		fmt.Println("HTTP Request Error:", err) // Debug HTTP request error
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 	defer resp.Body.Close()
@@ -55,16 +59,20 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// Debug Body Response
-	fmt.Println(string(body))
+	fmt.Println("Response Body:", string(body))
 
 	var pets PetstorePet
 	err = json.Unmarshal(body, &pets)
 	if err != nil {
+		fmt.Println("Unmarshal Error:", err) // Debug unmarshal error
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
+	fmt.Println("Unmarshalled Pets:", pets) // Debug unmarshalled result
+
 	return c.JSON(http.StatusOK, pets)
 }
+
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
 	return nil
