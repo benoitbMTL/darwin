@@ -308,7 +308,7 @@ function resetBotDeception() {
 // PETSTORE API PROTECTION                                                        //
 ///////////////////////////////////////////////////////////////////////////////////
 
-function performPetstoreAPIRequest() {
+function performPetstoreGETfindByStatus() {
     var selectedOption = document.getElementById('status').value;
 
     fetch('/petstore-pet-get', {
