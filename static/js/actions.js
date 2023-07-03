@@ -331,7 +331,6 @@ function performPetstoreAPIRequest() {
         });
 }
 
-
 function resetPetstoreAPIRequest() {
     // Reset the result display area
     var petstoreResult = document.getElementById('petstore-result');
