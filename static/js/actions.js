@@ -308,20 +308,32 @@ function resetBotDeception() {
 // PETSTORE API PROTECTION                                                        //
 ///////////////////////////////////////////////////////////////////////////////////
 
-function resetPetstoreAPIRequest() {
+function resetPetstoreResult() {
     // Reset the result display area
-    var petstoreResult = document.getElementById('petstore-result');
-    petstoreResult.innerText = '';
-    petstoreResult.style.display = 'none';
+    var petstoreResultText = document.getElementById('petstore-result-text');
+    var petstoreResultHtml = document.getElementById('petstore-result-html');
+
+    petstoreResultText.innerText = '';
+    petstoreResultHtml.srcdoc = '';
+    petstoreResultText.style.display = 'none';
+    petstoreResultHtml.style.display = 'none';
 
     // Reset the status dropdown list
     var statusElement = document.getElementById('status');
     statusElement.selectedIndex = 0;  // Set to the first option
 
-    // Reset the API get span
+    // Reset the API spans
     var apiGetSpan = document.getElementById('api-get');
+    var apiPostSpan = document.getElementById('api-post');
+    var apiPutSpan = document.getElementById('api-put');
+    var apiDeleteSpan = document.getElementById('api-delete');
+
     apiGetSpan.innerText = '';
+    apiPostSpan.innerText = '';
+    apiPutSpan.innerText = '';
+    apiDeleteSpan.innerText = '';
 }
+
 
 function performPetstoreGETfindByStatus() {
     var selectedOption = document.getElementById('status').value;
