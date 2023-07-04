@@ -32,10 +32,10 @@ type Tags struct {
 
 func handlePetstoreAPIRequestGet(c echo.Context) error {
 	status := c.FormValue("status")
-	fmt.Println("Status:", status) // Debug status
+	//fmt.Println("Status:", status) // Debug status
 
 	apiURL := fmt.Sprintf("%s/%s", PETSTORE_URL, status)
-	fmt.Println("API URL:", apiURL) // Debug API URL
+	//fmt.Println("API URL:", apiURL) // Debug API URL
 
 	req, _ := http.NewRequest("GET", apiURL, nil)
 	req.Header.Add("Accept", "application/json")
@@ -60,7 +60,7 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// Debug Body Response
-	fmt.Println("Response Body:", string(body))
+	// fmt.Println("Response Body:", string(body))
 
 	contentType := resp.Header.Get("Content-Type")
 	if strings.Contains(contentType, "application/json") {
