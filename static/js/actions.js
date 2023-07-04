@@ -382,6 +382,10 @@ function performPetstoreGETfindByStatus() {
                         petstoreResultHtml.style.display = 'block';
                         petstoreResultHtml.srcdoc = result;  // treat both HTML and plain text as HTML
                     }
+                    
+                    // Display URL
+                    document.getElementById('api-get').innerText = `PETSTORE_URL/${selectedOption}`;
+
                 })
                 .catch((error) => {
                     console.error('Error:', error);
