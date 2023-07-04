@@ -316,8 +316,14 @@
                 </div>
 
                 <!-- Div to display the server response -->
-                <div id="petstore-result" class="action-result border p-3 courier-text" style="display: none;">
+
+                <div id="petstore-result-container">
+                    <iframe id="petstore-result-html" class="action-result border" style="width: 100%; min-height: 35px; display: none;"
+                        onload="resizeIframe(this)"></iframe>
+                    <pre id="petstore-result-text" class="action-result border" style="width: 100%; display: none;"></pre>
+                
                 </div>
+
 
             </div>
         </div>

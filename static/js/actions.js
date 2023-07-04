@@ -358,11 +358,17 @@ function performPetstoreGETfindByStatus() {
                     }
                 })
                 .then(result => {
-                    var petstoreResult = document.getElementById('petstore-result');
+                    var petstoreResultText = document.getElementById('petstore-result-text');
+                    var petstoreResultHtml = document.getElementById('petstore-result-html');
+
                     if (typeof result === 'object') {
-                        petstoreResult.innerText = JSON.stringify(result, null, 2);  // JSON
+                        petstoreResultHtml.style.display = 'none';
+                        petstoreResultText.style.display = 'block';
+                        petstoreResultText.innerText = JSON.stringify(result, null, 2);  // JSON
                     } else {
-                        petstoreResult.innerText = result;  // treat both HTML and plain text as plain text
+                        petstoreResultText.style.display = 'none';
+                        petstoreResultHtml.style.display = 'block';
+                        petstoreResultHtml.srcdoc = result;  // treat both HTML and plain text as HTML
                     }
                 })
                 .catch((error) => {
