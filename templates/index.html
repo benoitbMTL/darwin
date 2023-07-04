@@ -273,9 +273,9 @@
                         onclick="performPetstoreGETfindByStatus()">
                         GET
                     </button>
-                    <select id="status" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                    <select id="status" class="form-select form-select-sm me-3" style="width: 250px;"></select>
                     <!-- Display URL -->
-                    <span id="api-get" class="badge text-bg-info rounded-pill"></span>
+                    <span id="api-get" class="badge text-bg-warning rounded-pill"></span>
                 </div>
 
                 <!-- API POST -->
@@ -285,9 +285,9 @@
                         onclick="performPetstorePOSTNewPet()">
                         POST
                     </button>
-                    <select id="new-pet" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                    <select id="new-pet" class="form-select form-select-sm me-3" style="width: 250px;"></select>
                     <!-- Display URL -->
-                    <span id="api-post" class="badge text-bg-info rounded-pill"></span>
+                    <span id="api-post" class="badge text-bg-warning rounded-pill"></span>
                 </div>
 
                 <!-- API PUT -->
@@ -297,9 +297,9 @@
                         onclick="performPetstorePUTPet()">
                         PUT
                     </button>
-                    <select id="modify-pet" class="form-select form-select-sm me-2" style="width: 250px;"></select>
+                    <select id="modify-pet" class="form-select form-select-sm me-3" style="width: 250px;"></select>
                     <!-- Display URL -->
-                    <span id="api-put" class="badge text-bg-info rounded-pill"></span>
+                    <span id="api-put" class="badge text-bg-warning rounded-pill"></span>
                 </div>
 
                 <!-- API DELETE -->
@@ -309,19 +309,20 @@
                         onclick="performPetstoreDELETEPet()">
                         DELETE
                     </button>
-                    <input type="text" id="pet-id" name="pet-id" class="form-control form-control-sm me-2"
+                    <input type="text" id="pet-id" name="pet-id" class="form-control form-control-sm me-3"
                         placeholder="pet id" required style="max-width: 250px;">
                     <!-- Display URL -->
-                    <span id="api-delete" class="badge text-bg-info rounded-pill"></span>
+                    <span id="api-delete" class="badge text-bg-warning rounded-pill"></span>
                 </div>
 
                 <!-- Div to display the server response -->
 
                 <div id="petstore-result-container">
-                    <iframe id="petstore-result-html" class="action-result border" style="width: 100%; min-height: 35px; display: none;"
-                        onload="resizeIframe(this)"></iframe>
-                    <pre id="petstore-result-text" class="action-result border" style="width: 100%; display: none;"></pre>
-                
+                    <iframe id="petstore-result-html" class="action-result border"
+                        style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
+                    <pre id="petstore-result-text" class="action-result border"
+                        style="width: 100%; display: none;"></pre>
+
                 </div>
 
 
