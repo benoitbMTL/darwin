@@ -384,7 +384,7 @@ function performPetstoreGETfindByStatus() {
                     }
 
                     // Display URL
-                    document.getElementById('api-get').innerText = `${PETSTORE_URL}/${selectedOption}`;
+                    document.getElementById('api-get').srcdoc = `${PETSTORE_URL}/${selectedOption}`;
 
                 })
                 .catch((error) => {
