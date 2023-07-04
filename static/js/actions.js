@@ -345,13 +345,25 @@ function performPetstoreGETfindByStatus() {
                 },
                 body: 'status=' + encodeURIComponent(selectedOption)
             })
-                .then(response => response.text())
+                .then(response => {
+                    var contentType = response.headers.get("content-type");
+                    if (contentType.includes("application/json")) {
+                        return response.json();
+                    } else if (contentType.includes("text/plain")) {
+                        return response.text();
+                    } else if (contentType.includes("text/html")) {
+                        return response.text();  // treat HTML as text
+                    } else {
+                        throw new Error("Unsupported content type: " + contentType);
+                    }
+                })
                 .then(result => {
                     var petstoreResult = document.getElementById('petstore-result');
-                    petstoreResult.innerText = JSON.stringify(JSON.parse(result), null, 2); // Formats the JSON string
-                    petstoreResult.style.display = 'block';
-                    // Update the API get span with the fetched PETSTORE_URL
-                    document.getElementById('api-get').innerText = `${PETSTORE_URL}/${selectedOption}`;
+                    if (typeof result === 'object') {
+                        petstoreResult.innerText = JSON.stringify(result, null, 2);  // JSON
+                    } else {
+                        petstoreResult.innerText = result;  // treat both HTML and plain text as plain text
+                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);

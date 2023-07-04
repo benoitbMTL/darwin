@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 )
@@ -61,24 +62,26 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 	// Debug Body Response
 	fmt.Println("Response Body:", string(body))
 
-	var js json.RawMessage
-	if json.Unmarshal(body, &js) != nil {
-		// If it's not JSON, return the raw body
-		return c.JSON(http.StatusOK, map[string]string{"body": string(body)})
+	contentType := resp.Header.Get("Content-Type")
+	if strings.Contains(contentType, "application/json") {
+		var pets PetstorePet
+		err = json.Unmarshal(body, &pets)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+		}
+		// Return a JSON
+		return c.JSON(http.StatusOK, pets)
+	} else if strings.Contains(contentType, "text/plain") {
+		// Return a TEXT
+		return c.String(http.StatusOK, string(body))
+	} else if strings.Contains(contentType, "text/html") {
+		// Return HTML
+		return c.HTML(http.StatusOK, string(body))
+	} else {
+		// Return an Error
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "unsupported content type"})
 	}
-
-	var pets PetstorePet
-	err = json.Unmarshal(body, &pets)
-	if err != nil {
-		fmt.Println("Unmarshal Error:", err) // Debug unmarshal error
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	}
-
-	fmt.Println("Unmarshalled Pets:", pets) // Debug unmarshalled result
-
-	return c.JSON(http.StatusOK, pets)
 }
-
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
 	return nil
