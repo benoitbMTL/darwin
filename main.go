@@ -19,6 +19,7 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.File("templates/index.html")
 	})
+	
 	e.GET("/darwin.html", func(c echo.Context) error {
 		return c.File("templates/darwin.html")
 	})

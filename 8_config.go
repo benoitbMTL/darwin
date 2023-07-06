@@ -11,12 +11,12 @@ import (
 // Define all your variables here
 var (
 	// FortiWeb Tool Configuration
-	DVWA_URL      = "https://192.168.4.10"
-	DVWA_HOST     = "192.168.4.10"
-	JUICESHOP_URL = "http://shop.fortiweb.fabriclab.ca"
-	FWB_URL       = "https://192.168.4.10/fwb/"
-	SPEEDTEST_URL = "http://speedtest.fortiweb.fabriclab.ca"
-	PETSTORE_URL  = "https://192.168.4.20/api/v3/pet"
+	DVWA_URL      = "https://dvwa.corp.fabriclab.ca"
+	DVWA_HOST     = "dvwa.corp.fabriclab.ca"
+	JUICESHOP_URL = "https://juiceshop.corp.fabriclab.ca"
+	FWB_URL       = "https://fwb.corp.fabriclab.ca/fwb/"
+	SPEEDTEST_URL = "https://speedtest.corp.fabriclab.ca"
+	PETSTORE_URL  = "https://petstore.corp.fabriclab.ca/api/v3/pet"
 	USERNAME_API  = "userapi"
 	PASSWORD_API  = "abc123"
 	VDOM_API      = "root"
