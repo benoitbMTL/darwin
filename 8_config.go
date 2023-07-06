@@ -74,8 +74,8 @@ var (
 	ServerBalance                       = "enable"
 	HealthCheck                         = "HLTHCK_HTTP"
 	PoolMemberIPs                       = []string{"10.0.0.10", "10.0.0.20", "10.0.0.30"}
-	PoolMemberSSL                       = "enable"
-	PoolMemberPort                      = 443
+	PoolMemberSSL                       = "disable"
+	PoolMemberPort                      = 4000
 	VirtualServerName                   = "VIRTUAL_SERVER"
 	VipStatus                           = "enable"
 	XForwardedForName                   = "X_FORWARDED_FOR_RULE"
