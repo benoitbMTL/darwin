@@ -118,6 +118,7 @@ func initialConfig() Config {
 
 	tokenData := fmt.Sprintf(`{"username":"%s","password":"%s","vdom":"%s"}`, USERNAME_API, PASSWORD_API, VDOM_API)
 	token := base64.StdEncoding.EncodeToString([]byte(tokenData))
+	fmt.Println(token) // Print the token to the console
 
 	return Config{
 		DVWA_URL:      DVWA_URL,
@@ -183,6 +184,7 @@ func SaveConfigHandler(c echo.Context) error {
 	// Recalculate the TOKEN
 	tokenData := fmt.Sprintf(`{"username":"%s","password":"%s","vdom":"%s"}`, USERNAME_API, PASSWORD_API, VDOM_API)
 	currentConfig.TOKEN = base64.StdEncoding.EncodeToString([]byte(tokenData))
+    fmt.Println(currentConfig.TOKEN) // Print the encoded token to the console
 
 	return c.JSON(http.StatusOK, currentConfig) // Return currentConfig
 }

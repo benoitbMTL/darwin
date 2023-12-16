@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // API POST newPet
     var postNewPetList = [
+        { value: "available", text: "New FortiPet" },
         { value: "ls;;cmd.exe", text: "New Pet with Command Injection" },
         { value: "xx& var1=l var2=s;$var1$var2", text: "New Pet with Zero-Day" },
         { value: "<script>alert(123)</script>", text: "New Pet with Cross-Site-Scripting" },

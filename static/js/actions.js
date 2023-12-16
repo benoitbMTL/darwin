@@ -393,6 +393,50 @@ function performPetstoreGETfindByStatus() {
         });
 }
 
+function performPetstorePOSTNewPet() {
+    // get the selected value from the dropdown
+    var select = document.getElementById("new-pet");
+    var selectedStatus = select.options[select.selectedIndex].value;
+
+    // create the data to be sent
+    var data = {
+        id: 10,
+        name: "FortiPet",
+        category: {
+            id: 1,
+            name: "FortiDog"
+        },
+        photoUrls: ["fortipet.png"],
+        tags: [
+            {
+                id: 0,
+                name: "fast"
+            }
+        ],
+        status: selectedStatus // use the selected value from the dropdown
+    };
+
+    // send the POST request
+    fetch('https://petstore.fortiweb.fabriclab.ca/api/v3/pet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+
+
+
+
 function performPetstoreDELETEPet() {
 
     var petId = document.getElementById('pet-id').value;
