@@ -68,7 +68,7 @@ var (
 
 	// REST API Demo
 	VipName                             = "VIRTUAL_IP"
-	VipIp                               = "192.168.4.80/24"
+	VipIp                               = "10.163.7.60/24"
 	Interface                           = "port1"
 	PoolName                            = "SERVER_POOL"
 	ServerBalance                       = "enable"
@@ -118,7 +118,7 @@ func initialConfig() Config {
 
 	tokenData := fmt.Sprintf(`{"username":"%s","password":"%s","vdom":"%s"}`, USERNAME_API, PASSWORD_API, VDOM_API)
 	token := base64.StdEncoding.EncodeToString([]byte(tokenData))
-	fmt.Println(token) // Print the token to the console
+	// fmt.Println(token) // Print the token to the console
 
 	return Config{
 		DVWA_URL:      DVWA_URL,
