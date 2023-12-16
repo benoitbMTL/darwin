@@ -79,7 +79,7 @@ type PolicyData struct {
 func createNewVirtualIP(host, token string, data VirtualIPData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/system/vip", host)
 
-	// log.Printf("Creating Virtual IP: %s\n", data.Name)
+	log.Printf("Creating Virtual IP: %s\n", data.Name)
 	return sendRequest("POST", url, token, data)
 }
 
@@ -339,7 +339,7 @@ func calculateToken() string {
 func onboardNewApplicationPolicy(c echo.Context) error {
 	host := FWB_MGT_IP
 	token := calculateToken()
-	// // log.Printf("Token: %s\n", token)
+	// log.Printf("Token: %s\n", token)
 
 	vipData := VirtualIPData{
 		Name:      VipName,
@@ -398,6 +398,7 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 
 	// Step 1: Create new Virtual IP
 	result, err := createNewVirtualIP(host, token, vipData)
+	log.Printf("Create new Virtual IP: %s\n", result)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualIP",
