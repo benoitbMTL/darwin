@@ -38,7 +38,7 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 	//fmt.Println("API URL:", apiURL) // Debug API URL
 
 	req, _ := http.NewRequest("GET", apiURL, nil)
-	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Accept", "application/xml")
 	req.Header.Add("Content-Type", "application/json")
 
 	// Create a custom http.Client
@@ -90,8 +90,8 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	apiURL := fmt.Sprintf("%s", PETSTORE_URL)
 	fmt.Println("API URL:", apiURL) // Debug API URL
 
-	req, _ := http.NewRequest("POST", apiURL, nil)
-	req.Header.Add("Accept", "application/json")
+	req, _ := http.NewRequest("POST", apiURL, "{"id":999,"name":"FortiPet","category":{"id":1,"name":"Dogs"},"photoUrls":["fortipet.png"],"tags":[{"id":0,"name":"so cute"}],"status":"available"}")
+	req.Header.Add("Accept", "application/xml")
 	req.Header.Add("Content-Type", "application/json")
 
 	// Create a custom http.Client
