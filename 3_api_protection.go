@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"bytes"
 
 	"github.com/labstack/echo/v4"
 )
@@ -90,7 +91,10 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	apiURL := fmt.Sprintf("%s", PETSTORE_URL)
 	fmt.Println("API URL:", apiURL) // Debug API URL
 
-	req, _ := http.NewRequest("POST", apiURL, "{"id":999,"name":"FortiPet","category":{"id":1,"name":"Dogs"},"photoUrls":["fortipet.png"],"tags":[{"id":0,"name":"so cute"}],"status":"available"}")
+    // Raw JSON string for testing purpose
+    jsonData := `{"id":999,"name":"FortiPet","category":{"id":1,"name":"Dogs"},"photoUrls":["fortipet.png"],"tags":[{"id":0,"name":"so cute"}],"status":"available"}`
+
+    req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer([]byte(jsonData)))
 	req.Header.Add("Accept", "application/xml")
 	req.Header.Add("Content-Type", "application/json")
 
