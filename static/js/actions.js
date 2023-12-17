@@ -407,31 +407,13 @@ function performPetstorePOSTNewPet() {
             var PETSTORE_URL = config.PETSTORE_URL;
             //console.log("PETSTORE_URL:", PETSTORE_URL);
 
-            // Create the data object for the new pet
-            var data = {
-                id: 10,
-                name: "FortiPet",
-                category: {
-                    id: 1,
-                    name: "FortiDog"
-                },
-                photoUrls: ["fortipet.png"],
-                tags: [
-                    {
-                        id: 0,
-                        name: "cute"
-                    }
-                ],
-                status: selectedOption // Use the selected status
-            };
-
             // Send the POST request to the specified endpoint
             fetch('/petstore-pet-post', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(selectedOption),
             })
                 .then(response => {
                     console.log('Response received:', response); // Debug: Log the response object

@@ -91,7 +91,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	fmt.Println("API URL:", apiURL) // Debug API URL
 
 	req, _ := http.NewRequest("POST", apiURL, nil)
-	req.Header.Add("Accept", "application/xml")
+	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 
 	// Create a custom http.Client
