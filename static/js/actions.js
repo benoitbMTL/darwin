@@ -394,10 +394,10 @@ function performPetstoreGETfindByStatus() {
 }
 
 function performPetstorePOSTNewPet() {
-    var selectedOption = document.getElementById('status').value;
+    var selectedOption = document.getElementById('new-pet').value;
 
-    //console.log("Selected option:", selectedOption);
-    //console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
+    console.log("Selected option:", selectedOption);
+    console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
     // Fetch the config
     fetch('/config')
@@ -422,7 +422,7 @@ function performPetstorePOSTNewPet() {
                         name: "cute"
                     }
                 ],
-                status: selectedStatus // Use the selected status
+                status: selectedOption // Use the selected status
             };
 
             // Send the POST request to the specified endpoint

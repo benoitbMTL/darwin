@@ -88,7 +88,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	fmt.Println("newPet:", newPet) // Debug status
 
 	apiURL := fmt.Sprintf("%s/pet", PETSTORE_URL)
-	//fmt.Println("API URL:", apiURL) // Debug API URL
+	fmt.Println("API URL:", apiURL) // Debug API URL
 
 	req, _ := http.NewRequest("GET", apiURL, nil)
 	req.Header.Add("Accept", "application/json")
@@ -113,7 +113,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	body, _ := io.ReadAll(resp.Body)
 
 	// Debug Body Response
-	// fmt.Println("Response Body:", string(body))
+	fmt.Println("Response Body:", string(body))
 
 	contentType := resp.Header.Get("Content-Type")
 	if strings.Contains(contentType, "application/json") {
