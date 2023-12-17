@@ -87,11 +87,11 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	newPet := c.FormValue("new-pet")
 	fmt.Println("newPet:", newPet) // Debug status
 
-	apiURL := fmt.Sprintf("%s/pet", PETSTORE_URL)
+	apiURL := fmt.Sprintf("%s", PETSTORE_URL)
 	fmt.Println("API URL:", apiURL) // Debug API URL
 
-	req, _ := http.NewRequest("GET", apiURL, nil)
-	req.Header.Add("Accept", "application/json")
+	req, _ := http.NewRequest("POST", apiURL, nil)
+	req.Header.Add("Accept", "application/xml")
 	req.Header.Add("Content-Type", "application/json")
 
 	// Create a custom http.Client

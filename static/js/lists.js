@@ -95,10 +95,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // API POST newPet
     var postNewPetList = [
-        { value: "available", text: "New FortiPet" },
-        { value: "ls;;cmd.exe", text: "New Pet with Command Injection" },
-        { value: "xx& var1=l var2=s;$var1$var2", text: "New Pet with Zero-Day" },
-        { value: "<script>alert(123)</script>", text: "New Pet with Cross-Site-Scripting" },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "available" },
+            text: "Add new pet FortiPet"
+        },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
+            text: "New Pet with Command Injection"
+        },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "<script>alert(123)</script>" },
+            text: "New Pet with Cross-Site-Scripting"
+        },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
+            text: "New Pet with Zero-Day"
+        },
     ];
 
     var userSelectElement = document.getElementById("new-pet");
