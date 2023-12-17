@@ -85,27 +85,15 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 }
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
-	// Read the request body
-	body, err := io.ReadAll(c.Request().Body)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	}
-
-	// Assuming PetstorePet is the struct that represents your JSON data
-	var newPet PetstorePet
-	err = json.Unmarshal(body, &newPet)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	}
-
 	apiURL := PETSTORE_URL
 
-	fmt.Println("API URL:", apiURL)      // Debug API URL
-	fmt.Println("New Pet Data:", newPet) // Debug new JSON Pet Data
+    req, err := http.NewRequest("POST", apiURL, c.Request().Body)
+    if err != nil {
+        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
 
-	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer([]byte(jsonData)))
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
+    req.Header.Add("Accept", "application/json")
+    req.Header.Add("Content-Type", "application/json")
 
 	// Create a custom http.Client
 	client := &http.Client{
