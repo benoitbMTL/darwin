@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -79,14 +78,12 @@ type PolicyData struct {
 func createNewVirtualIP(host, token string, data VirtualIPData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/system/vip", host)
 
-	log.Printf("Creating Virtual IP: %s\n", data.Name)
 	return sendRequest("POST", url, token, data)
 }
 
 func deleteVirtualIP(host, token, vipName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/system/vip?mkey=%s", host, url.QueryEscape(vipName))
 
-	// log.Printf("Deleting Virtual IP: %s\n", vipName)
 	return sendRequest("DELETE", url, token, nil)
 }
 
@@ -95,7 +92,6 @@ func deleteVirtualIP(host, token, vipName string) ([]byte, error) {
 func createNewServerPool(host, token string, data ServerPoolData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/server-pool", host)
 
-	// log.Printf("Creating new server pool: %s\n", data.Name)
 	return sendRequest("POST", url, token, data)
 
 }
@@ -103,7 +99,6 @@ func createNewServerPool(host, token string, data ServerPoolData) ([]byte, error
 func deleteServerPool(host, token, poolName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/server-pool?mkey=%s", host, url.QueryEscape(poolName))
 
-	// log.Printf("Deleting Server Pool: %s\n", poolName)
 	return sendRequest("DELETE", url, token, nil)
 }
 
@@ -112,7 +107,6 @@ func deleteServerPool(host, token, poolName string) ([]byte, error) {
 func createNewMemberPool(host, token, poolName string, data MemberPoolData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/server-pool/pserver-list?mkey=%s", host, url.QueryEscape(poolName))
 
-	// log.Printf("Creating new member pool: %s\n", data.IP)
 	return sendRequest("POST", url, token, data)
 }
 
@@ -135,7 +129,6 @@ func deleteVirtualServer(host, token, virtualServerName string) ([]byte, error) 
 func assignVIPToVirtualServer(host, token, virtualServerName string, data AssignVIPData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/vserver/vip-list?mkey=%s", host, url.QueryEscape(virtualServerName))
 
-	// log.Printf("Assigning VIP: %s to Virtual Server: %s\n", data.VipName, virtualServerName)
 	return sendRequest("POST", url, token, data)
 }
 
@@ -144,14 +137,12 @@ func assignVIPToVirtualServer(host, token, virtualServerName string, data Assign
 func cloneSignatureProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/signature?mkey=%s&clone_mkey=%s", host, url.QueryEscape(originalKey), url.QueryEscape(cloneKey))
 
-	// log.Printf("Cloning Signature Protection: %s to %s\n", originalKey, cloneKey)
 	return sendRequest("POST", url, token, nil)
 }
 
 func deleteSignatureProtection(host, token, signatureName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/signature?mkey=%s", host, url.QueryEscape(signatureName))
 
-	// log.Printf("Deleting Signature Protection: %s\n", signatureName)
 	return sendRequest("DELETE", url, token, nil)
 }
 
@@ -160,14 +151,12 @@ func deleteSignatureProtection(host, token, signatureName string) ([]byte, error
 func cloneInlineProtection(host, token, originalKey, cloneKey string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s&clone_mkey=%s", host, url.QueryEscape(originalKey), url.QueryEscape(cloneKey))
 
-	// log.Printf("Cloning Inline Protection: %s to %s\n", originalKey, cloneKey)
 	return sendRequest("POST", url, token, nil)
 }
 
 func deleteInlineProtection(host, token, profileName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s", host, url.QueryEscape(profileName))
 
-	// log.Printf("Deleting Protection Profile: %s\n", profileName)
 	return sendRequest("DELETE", url, token, nil)
 }
 
@@ -176,14 +165,12 @@ func deleteInlineProtection(host, token, profileName string) ([]byte, error) {
 func createNewXForwardedForRule(host, token string, data XForwardedForData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/x-forwarded-for", host)
 
-	// log.Printf("Creating new X-Forwarded-For Rule: %s\n", data.Name)
 	return sendRequest("POST", url, token, data)
 }
 
 func deleteXForwardedForRule(host, token, ruleName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/x-forwarded-for?mkey=%s", host, url.QueryEscape(ruleName))
 
-	// log.Printf("Deleting X-Forwarded-For Rule: %s\n", ruleName)
 	return sendRequest("DELETE", url, token, nil)
 }
 
@@ -192,7 +179,6 @@ func deleteXForwardedForRule(host, token, ruleName string) ([]byte, error) {
 func configureProtectionProfile(host, token, mkey string, data ProtectionProfileData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/waf/web-protection-profile.inline-protection?mkey=%s", host, url.QueryEscape(mkey))
 
-	// log.Printf("Configuring Protection Profile: %s\n", mkey)
 	return sendRequest("PUT", url, token, data)
 }
 
@@ -201,14 +187,12 @@ func configureProtectionProfile(host, token, mkey string, data ProtectionProfile
 func createNewPolicy(host, token string, data PolicyData) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/policy", host)
 
-	// log.Printf("Creating new Policy: %s\n", data.Name)
 	return sendRequest("POST", url, token, data)
 }
 
 func deletePolicy(host, token, policyName string) ([]byte, error) {
 	url := fmt.Sprintf("https://%s/api/v2.0/cmdb/server-policy/policy?mkey=%s", host, url.QueryEscape(policyName))
 
-	// log.Printf("Deleting Policy: %s\n", policyName)
 	return sendRequest("DELETE", url, token, nil)
 }
 
@@ -226,7 +210,6 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 
 	jsonData, err := json.Marshal(reqData)
 	if err != nil {
-		// log.Printf("Error marshalling request data: %v\n", err)
 		return nil, err
 	}
 
@@ -242,7 +225,6 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 	}
 
 	if err != nil {
-		// log.Printf("Error creating HTTP request: %v\n", err)
 		return nil, err
 	}
 
@@ -261,36 +243,17 @@ func sendRequest(method, url, token string, data interface{}) ([]byte, error) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		// log.Printf("Error sending HTTP request: %v\n", err)
 		return nil, err
 	}
 
 	defer resp.Body.Close()
 
-	// DEBUG
-	// log.Printf("-------------------------------------------------\n")
-	// log.Printf("sendRequest Starting\n")
-	// log.Printf("URL: %s\n", url)
-	// log.Printf("Method: %s\n", method)
-	// Print headers
-	//for name, values := range req.Header {
-	// Loop over all values for the name.
-	//for _, value := range values {
-	// log.Printf("Header: %s: %s\n", name, value)
-	//}
-	//}
-	// log.Printf("JSON data: %s\n", jsonData)
-
 	time.Sleep(time.Duration(1000) * time.Millisecond)
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		// log.Printf("Error reading response body: %v\n", err)
 		return nil, err
 	}
-
-	// log.Printf("Response received: %s\n", string(body))
-	// log.Printf("-------------------------------------------------\n")
 
 	return body, nil
 }
@@ -301,33 +264,21 @@ func checkOperationStatus(result []byte) bool {
 	var res map[string]interface{}
 	json.Unmarshal(result, &res)
 
-	// Print JSON Result
-	//jsonData, err := json.Marshal(res)
-	//if err != nil {
-	//	log.Println(res)
-	//} else {
-	// log.Printf("Result JSON: %s\n", jsonData)
-	//}
-
 	// Check if the result map is empty
 	if len(res) == 0 {
-		// log.Printf("Operation failed: received empty result\n") // Print a message indicating that the operation failed
 		return false
 	}
 
 	// Check if the "data" field is null
 	if data, ok := res["data"]; ok && data == nil {
-		// log.Printf("Operation failed: data field is null\n") // Print a message indicating that the operation failed
 		return false
 	}
 
 	if _, ok := res["results"].(map[string]interface{})["errcode"]; ok {
 		// The result contains an error code, so the operation failed
-		// log.Printf("Operation failed: received an error code\n") // Print a message indicating that the operation failed
 		return false
 	}
 	// The operation succeeded
-	// log.Printf("Operation succeeded\n") // Print a message indicating that the operation succeeded
 	return true
 }
 
@@ -339,7 +290,6 @@ func calculateToken() string {
 func onboardNewApplicationPolicy(c echo.Context) error {
 	host := FWB_MGT_IP
 	token := calculateToken()
-	// log.Printf("Token: %s\n", token)
 
 	vipData := VirtualIPData{
 		Name:      VipName,
@@ -398,7 +348,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 
 	// Step 1: Create new Virtual IP
 	result, err := createNewVirtualIP(host, token, vipData)
-	log.Printf("Create new Virtual IP: %s\n", result)
 	if err != nil {
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualIP",
@@ -425,7 +374,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	// Step 2: Create new Server Pool
 	result, err = createNewServerPool(host, token, poolData)
 	if err != nil {
-		log.Printf("Error creating server pool: %v\n", err)
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewServerPool",
 			"status":      "failure",
@@ -433,7 +381,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 			"message":     fmt.Sprintf("Error creating Server Pool: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
-		// log.Printf("Failed to create Server Pool\n")
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewServerPool",
 			"status":      "failure",
@@ -460,7 +407,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 				"message":     fmt.Sprintf("Error creating Member Pool: %v", err),
 			})
 		} else if !checkOperationStatus(result) {
-			// log.Printf("Failed to create Member Pool\n")
 			statuses = append(statuses, map[string]string{
 				"taskId":      "createNewMemberPool",
 				"status":      "failure",
@@ -480,7 +426,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 	// Step 4: Create new Virtual Server
 	result, err = createNewVirtualServer(host, token, vsData)
 	if err != nil {
-		// log.Printf("Error creating virtual server: %v\n", err)
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualServer",
 			"status":      "failure",
@@ -488,7 +433,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 			"message":     fmt.Sprintf("Error creating Virtual Server: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
-		// log.Printf("Failed to create Virtual Server\n")
 		statuses = append(statuses, map[string]string{
 			"taskId":      "createNewVirtualServer",
 			"status":      "failure",
@@ -654,7 +598,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 		})
 	}
 
-	// log.Printf("End of onboardNewApplicationPolicy\n")
 	// Return a JSON response with the statuses of all steps
 	return c.JSON(http.StatusOK, statuses)
 }
@@ -662,7 +605,6 @@ func onboardNewApplicationPolicy(c echo.Context) error {
 func deleteApplicationPolicy(c echo.Context) error {
 	host := FWB_MGT_IP
 	token := calculateToken()
-	//// log.Printf("Token: %s\n", token)
 
 	// Initialize a slice to store the statuses
 	statuses := []map[string]string{}
@@ -774,7 +716,6 @@ func deleteApplicationPolicy(c echo.Context) error {
 	// Step 5: DeleteVirtualServer
 	result, err = deleteVirtualServer(host, token, VirtualServerName)
 	if err != nil {
-		// log.Printf("Error creating virtual server: %v\n", err)
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteVirtualServer",
 			"status":      "failure",
@@ -782,7 +723,6 @@ func deleteApplicationPolicy(c echo.Context) error {
 			"message":     fmt.Sprintf("Error deleting Virtual Server: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
-		// log.Printf("Failed to delete Virtual Server\n")
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteVirtualServer",
 			"status":      "failure",
@@ -801,7 +741,6 @@ func deleteApplicationPolicy(c echo.Context) error {
 	// Step : Delete Server Pool
 	result, err = deleteServerPool(host, token, PoolName)
 	if err != nil {
-		// log.Printf("Error deleting server pool: %v\n", err)
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteServerPool",
 			"status":      "failure",
@@ -809,7 +748,6 @@ func deleteApplicationPolicy(c echo.Context) error {
 			"message":     fmt.Sprintf("Error deleting Server Pool: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
-		// log.Printf("Failed to delete Server Pool\n")
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteServerPool",
 			"status":      "failure",
@@ -828,7 +766,6 @@ func deleteApplicationPolicy(c echo.Context) error {
 	// Step 7: Delete Virtual IP
 	result, err = deleteVirtualIP(host, token, VipName)
 	if err != nil {
-		// log.Printf("Error deleting virtual IP: %v\n", err)
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteVirtualIP",
 			"status":      "failure",
@@ -836,7 +773,6 @@ func deleteApplicationPolicy(c echo.Context) error {
 			"message":     fmt.Sprintf("Error deleting virtual IP: %v", err),
 		})
 	} else if !checkOperationStatus(result) {
-		// log.Printf("Failed to delete Virtual IP\n")
 		statuses = append(statuses, map[string]string{
 			"taskId":      "deleteVirtualIP",
 			"status":      "failure",

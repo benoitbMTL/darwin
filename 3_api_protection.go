@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 
@@ -57,7 +57,7 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 	}
 	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 
 	// Debug Body Response
 	// fmt.Println("Response Body:", string(body))
@@ -110,7 +110,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	}
 	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 
 	// Debug Body Response
 	// fmt.Println("Response Body:", string(body))
