@@ -434,20 +434,23 @@ function performPetstorePOSTNewPet() {
                 body: JSON.stringify(data),
             })
                 .then(response => {
+                    console.log('Response received:', response); // Debug: Log the response object
                     var contentType = response.headers.get("content-type");
+                    console.log('Content-Type:', contentType); // Debug: Log the content type
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else {
+                        console.error("Unsupported content type:", contentType); // Debug: Log error for unsupported content type
                         throw new Error("Unsupported content type: " + contentType);
                     }
                 })
-                .then(result => {
-                    console.log('New Pet Added Successfully:', result);
+                .then(jsonResponse => {
+                    console.log('Parsed JSON response:', jsonResponse); // Debug: Log the parsed JSON response
                     // Display URL
                     document.getElementById('api-post').innerText = `${PETSTORE_URL}/petstore-pet-post`;
                 })
                 .catch((error) => {
-                    console.error('Error:', error);
+                    console.error('Error during fetch operation:', error); // Debug: Log any errors that occur
                 });
         });
 }
