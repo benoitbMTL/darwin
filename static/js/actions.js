@@ -341,7 +341,7 @@ function performPetstoreGETfindByStatus() {
     //console.log("Selected option:", selectedOption);
     //console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
-    // Fetch the config first
+    // Fetch the config
     fetch('/config')
         .then(response => response.json())
         .then(config => {
@@ -394,7 +394,7 @@ function performPetstoreGETfindByStatus() {
 }
 
 function performPetstorePOSTNewPet() {
-    // Load the configuration similarly to performPetstoreGETfindByStatus
+    // Fetch the config
     fetch('/config')
         .then(response => response.json())
         .then(config => {
@@ -426,7 +426,7 @@ function performPetstorePOSTNewPet() {
             };
 
             // Send the POST request to the specified endpoint
-            fetch(PETSTORE_URL + '/petstore-pet-post', {
+            fetch('/petstore-pet-post', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -451,10 +451,6 @@ function performPetstorePOSTNewPet() {
                 });
         });
 }
-
-
-
-
 
 function performPetstoreDELETEPet() {
 
