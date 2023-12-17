@@ -394,42 +394,61 @@ function performPetstoreGETfindByStatus() {
 }
 
 function performPetstorePOSTNewPet() {
-    // get the selected value from the dropdown
-    var select = document.getElementById("new-pet");
-    var selectedStatus = select.options[select.selectedIndex].value;
-
-    // create the data to be sent
-    var data = {
-        id: 10,
-        name: "FortiPet",
-        category: {
-            id: 1,
-            name: "FortiDog"
-        },
-        photoUrls: ["fortipet.png"],
-        tags: [
-            {
-                id: 0,
-                name: "fast"
-            }
-        ],
-        status: selectedStatus // use the selected value from the dropdown
-    };
-
-    // send the POST request
-    fetch('https://petstore.fortiweb.fabriclab.ca/api/v3/pet', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
+    // Load the configuration similarly to performPetstoreGETfindByStatus
+    fetch('/config')
         .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
+        .then(config => {
+            // Extract the PETSTORE_URL from the config
+            var PETSTORE_URL = config.PETSTORE_URL;
+            console.log("Configuration Loaded. PETSTORE_URL:", PETSTORE_URL);
+
+            // Get the selected value for the new pet
+            var select = document.getElementById("new-pet");
+            var selectedStatus = select.options[select.selectedIndex].value;
+            console.log("Selected Status for New Pet:", selectedStatus);
+
+            // Create the data object for the new pet
+            var data = {
+                id: 10,
+                name: "FortiPet",
+                category: {
+                    id: 1,
+                    name: "FortiDog"
+                },
+                photoUrls: ["fortipet.png"],
+                tags: [
+                    {
+                        id: 0,
+                        name: "cute"
+                    }
+                ],
+                status: selectedStatus // Use the selected status
+            };
+
+            // Send the POST request to the specified endpoint
+            fetch(PETSTORE_URL + '/petstore-pet-post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => {
+                    var contentType = response.headers.get("content-type");
+                    if (contentType.includes("application/json")) {
+                        return response.json();
+                    } else {
+                        throw new Error("Unsupported content type: " + contentType);
+                    }
+                })
+                .then(result => {
+                    console.log('New Pet Added Successfully:', result);
+                    // Display URL
+                    document.getElementById('api-post').innerText = `${PETSTORE_URL}/petstore-pet-post`;
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         });
 }
 
