@@ -345,7 +345,7 @@ function performPetstoreGETfindByStatus() {
     fetch('/config')
         .then(response => response.json())
         .then(config => {
-            // Now you have the PETSTORE_URL in config.PETSTORE_URL
+            // Extract the PETSTORE_URL from the config
             var PETSTORE_URL = config.PETSTORE_URL;
             //console.log("PETSTORE_URL:", PETSTORE_URL);
 
@@ -394,18 +394,18 @@ function performPetstoreGETfindByStatus() {
 }
 
 function performPetstorePOSTNewPet() {
+    var selectedOption = document.getElementById('status').value;
+
+    //console.log("Selected option:", selectedOption);
+    //console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
+
     // Fetch the config
     fetch('/config')
         .then(response => response.json())
         .then(config => {
             // Extract the PETSTORE_URL from the config
             var PETSTORE_URL = config.PETSTORE_URL;
-            console.log("Configuration Loaded. PETSTORE_URL:", PETSTORE_URL);
-
-            // Get the selected value for the new pet
-            var select = document.getElementById("new-pet");
-            var selectedStatus = select.options[select.selectedIndex].value;
-            console.log("Selected Status for New Pet:", selectedStatus);
+            //console.log("PETSTORE_URL:", PETSTORE_URL);
 
             // Create the data object for the new pet
             var data = {
