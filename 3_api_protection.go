@@ -1,13 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"strings"
-	"bytes"
 
 	"github.com/labstack/echo/v4"
 )
@@ -85,16 +85,25 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 }
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
-	newPet := c.FormValue("new-pet")
-	fmt.Println("newPet:", newPet) // Debug status
+	// Read the request body
+	body, err := io.ReadAll(c.Request().Body)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
 
-	apiURL := fmt.Sprintf("%s", PETSTORE_URL)
-	fmt.Println("API URL:", apiURL) // Debug API URL
+	// Assuming PetstorePet is the struct that represents your JSON data
+	var newPet PetstorePet
+	err = json.Unmarshal(body, &newPet)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
 
-    // Raw JSON string for testing purpose
-    jsonData := `{"id":999,"name":"FortiPet","category":{"id":1,"name":"Dogs"},"photoUrls":["fortipet.png"],"tags":[{"id":0,"name":"so cute"}],"status":"available"}`
+	apiURL := PETSTORE_URL
 
-    req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer([]byte(jsonData)))
+	fmt.Println("API URL:", apiURL)      // Debug API URL
+	fmt.Println("New Pet Data:", newPet) // Debug new JSON Pet Data
+
+	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer([]byte(jsonData)))
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 

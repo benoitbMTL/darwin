@@ -394,10 +394,10 @@ function performPetstoreGETfindByStatus() {
 }
 
 function performPetstorePOSTNewPet() {
-    var selectedOption = document.getElementById('new-pet').value;
+    var selectedOptionIndex = document.getElementById('new-pet').selectedIndex;
+    var selectedOption = postNewPetList[selectedOptionIndex].value;
 
     console.log("Selected option:", selectedOption);
-    console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
     // Fetch the config
     fetch('/config')

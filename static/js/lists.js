@@ -113,12 +113,12 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     ];
 
-    var userSelectElement = document.getElementById("new-pet");
+    var newPetSelectElement = document.getElementById("new-pet");
     postNewPetList.forEach(function (option) {
         var opt = document.createElement("option");
         opt.value = option.value;
         opt.textContent = option.text;
-        userSelectElement.appendChild(opt);
+        newPetSelectElement.appendChild(opt);
     });
 
 
