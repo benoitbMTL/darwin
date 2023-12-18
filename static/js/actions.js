@@ -652,3 +652,4 @@ function resetPingForm() {
     pingResult.style.display = 'none';
 }
 
+console.log("actions.js loaded");

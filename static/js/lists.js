@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         opt.textContent = option.text;
         statusSelectElement.appendChild(opt);
     });
-    
+
     // API POST newPet
     var postNewPetList = [
         {
@@ -129,5 +129,8 @@ document.addEventListener("DOMContentLoaded", function () {
         opt.textContent = option.text;
         userSelectElement.appendChild(opt);
     });
+
+    console.log("lists.js loaded");
+    console.log("postNewPetList:", postNewPetList);
 
 });
