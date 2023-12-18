@@ -339,8 +339,8 @@ function performPetstoreGETfindByStatus() {
     resetPetstoreResult();
     var selectedOption = document.getElementById('status').value;
 
-    // console.log("Selected option:", selectedOption);
-    //console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
+    console.log("Selected option:", selectedOption);
+    console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
     // Fetch the config
     fetch('/config')
@@ -348,7 +348,7 @@ function performPetstoreGETfindByStatus() {
         .then(config => {
             // Extract the PETSTORE_URL from the config
             var PETSTORE_URL = config.PETSTORE_URL;
-            //console.log("PETSTORE_URL:", PETSTORE_URL);
+            console.log("PETSTORE_URL:", PETSTORE_URL);
 
             // Then perform the pet-get request
             fetch('/petstore-pet-get', {
@@ -361,7 +361,7 @@ function performPetstoreGETfindByStatus() {
                 .then(response => {
                     // console.log('Response received:', response); // Debug: Log the response object
                     var contentType = response.headers.get("content-type");
-                    // console.log('Content-Type:', contentType); // Debug: Log the content type
+                    console.log('Content-Type:', contentType); // Debug: Log the content type
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else if (contentType.includes("text/plain")) {
