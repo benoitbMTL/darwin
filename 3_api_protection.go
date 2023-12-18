@@ -225,7 +225,56 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
     }
 }
 
-
 func handlePetstoreAPIRequestDelete(c echo.Context) error {
-	return nil
+	petID := c.FormValue("pet-id") // Receive pet ID as a string
+	// fmt.Println("Pet ID:", petID) // Debug pet ID
+
+	apiURL := fmt.Sprintf("%s/%s", PETSTORE_URL, petID)
+	// fmt.Println("API URL:", apiURL) // Debug API URL
+
+	req, _ := http.NewRequest("DELETE", apiURL, nil)
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json")
+
+	// Create a custom http.Client
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		// fmt.Println("HTTP Request Error:", err) // Debug HTTP request error
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
+	defer resp.Body.Close()
+
+	body, _ := io.ReadAll(resp.Body)
+
+	// Debug Body Response
+	// fmt.Println("Response Body:", string(body))
+
+	contentType := resp.Header.Get("Content-Type")
+	if strings.Contains(contentType, "application/json") {
+		var pet PetstorePet
+		err = json.Unmarshal(body, &pet)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+		}
+		// Return a JSON
+		return c.JSON(http.StatusOK, pet)
+	} else if strings.Contains(contentType, "text/plain") {
+		// Return a TEXT
+		return c.String(http.StatusOK, string(body))
+	} else if strings.Contains(contentType, "text/html") {
+		// Return HTML
+		return c.HTML(http.StatusOK, string(body))
+	} else {
+		// Return an Error
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "unsupported content type"})
+	}
 }
+
