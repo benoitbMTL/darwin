@@ -117,9 +117,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // API PUT Pet
     var putPetList = [
-        { value: "aa", text: "aa" },
-        { value: "bb", text: "bb" },
-        { value: "aa", text: "cc" },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "sold" },
+            text: "Add new pet FortiPet"
+        },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
+            text: "New Pet with Command Injection"
+        },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "<script>alert(123)</script>" },
+            text: "New Pet with Cross-Site-Scripting"
+        },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
+            text: "New Pet with Zero-Day"
+        },
     ];
 
     var userSelectElement = document.getElementById("modify-pet");

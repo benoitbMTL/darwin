@@ -338,7 +338,7 @@ function resetPetstoreResult() {
 function performPetstoreGETfindByStatus() {
     var selectedOption = document.getElementById('status').value;
 
-    console.log("Selected option:", selectedOption);
+    // console.log("Selected option:", selectedOption);
     //console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
     // Fetch the config
@@ -358,9 +358,9 @@ function performPetstoreGETfindByStatus() {
                 body: 'status=' + encodeURIComponent(selectedOption)
             })
                 .then(response => {
-                    console.log('Response received:', response); // Debug: Log the response object
+                    // console.log('Response received:', response); // Debug: Log the response object
                     var contentType = response.headers.get("content-type");
-                    console.log('Content-Type:', contentType); // Debug: Log the content type
+                    // console.log('Content-Type:', contentType); // Debug: Log the content type
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else if (contentType.includes("text/plain")) {
@@ -400,7 +400,7 @@ function performPetstorePOSTNewPet() {
 
     try {
         var selectedOptionObject = JSON.parse(selectedOptionValue);
-        console.log("Selected option object:", selectedOptionObject);
+        // console.log("Selected option object:", selectedOptionObject);
     } catch (e) {
         console.error("Error parsing selected option value:", e);
         return; // Exit the function if parsing fails
@@ -422,9 +422,9 @@ function performPetstorePOSTNewPet() {
                 body: JSON.stringify(selectedOptionObject),
             })
                 .then(response => {
-                    console.log('Response received:', response);
+                    // console.log('Response received:', response);
                     var contentType = response.headers.get("content-type");
-                    console.log('Content-Type:', contentType);
+                    // console.log('Content-Type:', contentType);
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else if (contentType.includes("text/plain")) {
@@ -457,6 +457,70 @@ function performPetstorePOSTNewPet() {
                 });
         });
 }
+
+function performPetstorePUTPet() {
+    var selectedOptionValue = document.getElementById('modify-pet').value;
+
+    try {
+        var selectedOptionObject = JSON.parse(selectedOptionValue);
+        // console.log("Selected option object:", selectedOptionObject);
+    } catch (e) {
+        console.error("Error parsing selected option value:", e);
+        return; // Exit the function if parsing fails
+    }
+
+    // Fetch the config
+    fetch('/config')
+        .then(response => response.json())
+        .then(config => {
+            // Extract the PETSTORE_URL from the config
+            var PETSTORE_URL = config.PETSTORE_URL;
+
+            // Send the POST request to the specified endpoint
+            fetch('/petstore-pet-put', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(selectedOptionObject),
+            })
+                .then(response => {
+                    // console.log('Response received:', response);
+                    var contentType = response.headers.get("content-type");
+                    // console.log('Content-Type:', contentType);
+                    if (contentType.includes("application/json")) {
+                        return response.json();
+                    } else if (contentType.includes("text/plain")) {
+                        return response.text();
+                    } else if (contentType.includes("text/html")) {
+                        return response.text(); // treat HTML as text
+                    } else {
+                        throw new Error("Unsupported content type: " + contentType);
+                    }
+                })
+                .then(result => {
+                    var petstoreResultText = document.getElementById('petstore-result-text');
+                    var petstoreResultHtml = document.getElementById('petstore-result-html');
+
+                    if (typeof result === 'object') {
+                        petstoreResultHtml.style.display = 'none';
+                        petstoreResultText.style.display = 'block';
+                        petstoreResultText.innerText = JSON.stringify(result, null, 2); // JSON
+                    } else {
+                        petstoreResultText.style.display = 'none';
+                        petstoreResultHtml.style.display = 'block';
+                        petstoreResultHtml.srcdoc = result; // treat both HTML and plain text as HTML
+                    }
+
+                    // Display URL
+                    document.getElementById('api-put').innerText = `${PETSTORE_URL}`;
+                })
+                .catch((error) => {
+                    console.error('Error during fetch operation:', error);
+                });
+        });
+}
+
 
 function performPetstoreDELETEPet() {
 
