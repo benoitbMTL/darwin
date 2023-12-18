@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var newPetSelectElement = document.getElementById("new-pet");
     postNewPetList.forEach(function (option) {
         var opt = document.createElement("option");
-        opt.value = option.value;
+        opt.value = JSON.stringify(option.value);
         opt.textContent = option.text;
         newPetSelectElement.appendChild(opt);
     });

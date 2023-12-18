@@ -1,5 +1,3 @@
-console.log("userList:", userList);
-
 ///////////////////////////////////////////////////////////////////////////////////
 // Function to adjust the height of the iframe based on its content              //
 ///////////////////////////////////////////////////////////////////////////////////
@@ -396,15 +394,14 @@ function performPetstoreGETfindByStatus() {
 }
 
 function performPetstorePOSTNewPet() {
-    var selectedOptionIndex = document.getElementById('new-pet').selectedIndex;
+    var selectedOptionValue = document.getElementById('new-pet').value;
 
-    console.log("Selected option index:", selectedOptionIndex);
-    console.log("postNewPetList:", postNewPetList);
-
-
-    var selectedOption = postNewPetList[selectedOptionIndex].value;
-
-    console.log("Selected option:", selectedOption);
+    try {
+        var selectedOptionObject = JSON.parse(selectedOptionValue);
+        console.log("Selected option object:", selectedOptionObject);
+    } catch (e) {
+        console.error("Error parsing selected option value:", e);
+    }
 
     // Fetch the config
     fetch('/config')
