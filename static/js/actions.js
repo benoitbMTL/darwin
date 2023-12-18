@@ -397,6 +397,8 @@ function performPetstorePOSTNewPet() {
     var selectedOptionIndex = document.getElementById('new-pet').selectedIndex;
 
     console.log("Selected option index:", selectedOptionIndex);
+    console.log("postNewPetList:", postNewPetList);
+
 
     var selectedOption = postNewPetList[selectedOptionIndex].value;
 
