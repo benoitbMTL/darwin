@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var postNewPetList = [
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "available" },
-            text: "Add new pet FortiPet"
+            text: "Add new pet FortiPet (id:999)"
         },
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
@@ -119,19 +119,19 @@ document.addEventListener("DOMContentLoaded", function () {
     var putPetList = [
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "sold" },
-            text: "Add new pet FortiPet"
+            text: "Modify FortiPet (id:999)"
         },
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
-            text: "New Pet with Command Injection"
+            text: "Modify FortiPet with Command Injection"
         },
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "<script>alert(123)</script>" },
-            text: "New Pet with Cross-Site-Scripting"
+            text: "Modify FortiPet with Cross-Site-Scripting"
         },
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
-            text: "New Pet with Zero-Day"
+            text: "Modify FortiPet with Zero-Day"
         },
     ];
 

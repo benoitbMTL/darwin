@@ -460,10 +460,10 @@ function performPetstorePOSTNewPet() {
 
 function performPetstorePUTPet() {
     var selectedOptionValue = document.getElementById('modify-pet').value;
-
+    console.log("Selected option object RAW:", selectedOptionValue);
     try {
         var selectedOptionObject = JSON.parse(selectedOptionValue);
-        // console.log("Selected option object:", selectedOptionObject);
+        console.log("Selected option object JSON:", selectedOptionObject);
     } catch (e) {
         console.error("Error parsing selected option value:", e);
         return; // Exit the function if parsing fails
