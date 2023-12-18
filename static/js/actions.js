@@ -1,3 +1,5 @@
+console.log("actions.js loaded");
+
 ///////////////////////////////////////////////////////////////////////////////////
 // Function to adjust the height of the iframe based on its content              //
 ///////////////////////////////////////////////////////////////////////////////////
@@ -651,5 +653,3 @@ function resetPingForm() {
     pingResult.innerText = '';
     pingResult.style.display = 'none';
 }
-
-console.log("actions.js loaded");
