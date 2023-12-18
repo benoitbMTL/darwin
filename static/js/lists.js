@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var postNewPetList = [
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "available" },
-            text: "Add new pet FortiPet (id:999)"
+            text: "Add new pet FortiPet [id:999]"
         },
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var putPetList = [
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "sold" },
-            text: "Modify FortiPet (id:999)"
+            text: "Modify FortiPet [id:999]"
         },
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
@@ -138,8 +138,10 @@ document.addEventListener("DOMContentLoaded", function () {
     var userSelectElement = document.getElementById("modify-pet");
     putPetList.forEach(function (option) {
         var opt = document.createElement("option");
-        opt.value = option.value;
+        opt.value = JSON.stringify(option.value);
         opt.textContent = option.text;
         userSelectElement.appendChild(opt);
     });
+
+
 });
