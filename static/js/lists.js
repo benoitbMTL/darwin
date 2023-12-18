@@ -115,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
         newPetSelectElement.appendChild(opt);
     });
 
-
     // API PUT Pet
     var putPetList = [
         { value: "aa", text: "aa" },
