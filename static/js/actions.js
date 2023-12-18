@@ -420,9 +420,9 @@ function performPetstorePOSTNewPet() {
                 body: selectedOptionValue,
             })
                 .then(response => {
-                    //console.log('Response received:', response); // Debug: Log the response object
+                    console.log('Response received:', response); // Debug: Log the response object
                     var contentType = response.headers.get("content-type");
-                    //console.log('Content-Type:', contentType); // Debug: Log the content type
+                    console.log('Content-Type:', contentType); // Debug: Log the content type
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else {
@@ -431,7 +431,7 @@ function performPetstorePOSTNewPet() {
                     }
                 })
                 .then(jsonResponse => {
-                    //console.log('Parsed JSON response:', jsonResponse); // Debug: Log the parsed JSON response
+                    console.log('Parsed JSON response:', jsonResponse); // Debug: Log the parsed JSON response
                     // Display URL
                     document.getElementById('api-post').innerText = `${PETSTORE_URL}`;
                 })
