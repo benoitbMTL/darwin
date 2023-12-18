@@ -455,7 +455,7 @@ function performPetstorePOSTNewPet() {
                 .then(jsonResponse => {
                     console.log('Parsed JSON response:', jsonResponse); // Debug: Log the parsed JSON response
                     // Display URL
-                    document.getElementById('api-post').innerText = `${PETSTORE_URL}/petstore-pet-post`;
+                    document.getElementById('api-post').innerText = `${PETSTORE_URL}`;
                 })
                 .catch((error) => {
                     console.error('Error during fetch operation:', error); // Debug: Log any errors that occur
