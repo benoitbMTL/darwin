@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         { value: "findByStatus?status=ABCDEFGHIJKL", text: "Very Long Status" },
         { value: "findByStatus?status=A", text: "Very Short Status" },
         { value: "findByStatus?status=;cmd.exe", text: "Status with Command Injection" },
+        { value: "findByStatus?status=xx& var1=l var2=s;$var1$var2", text: "Status with Zero-Day" },
         { value: "findByStatus?status=sold&status=pending", text: "Duplicate Status" },
     ];
 
@@ -133,6 +134,21 @@ document.addEventListener("DOMContentLoaded", function () {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
             text: "Modify FortiPet with Zero-Day"
         },
+    ];
+
+    var userSelectElement = document.getElementById("modify-pet");
+    putPetList.forEach(function (option) {
+        var opt = document.createElement("option");
+        opt.value = JSON.stringify(option.value);
+        opt.textContent = option.text;
+        userSelectElement.appendChild(opt);
+    });
+
+    // API DELETE Pet
+    var deletePetList = [
+        { value: 999, text: "Delete FortiPet [id:999]" },
+        { value: "/bin/ls|", text: "Delete FortiPet with Command Injection" },
+        { value: "xx& var1=l var2=s;$var1$var2", text: "Delete FortiPet with Zero-Day" },
     ];
 
     var userSelectElement = document.getElementById("modify-pet");

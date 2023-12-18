@@ -336,6 +336,7 @@ function resetPetstoreResult() {
 
 
 function performPetstoreGETfindByStatus() {
+    resetPetstoreResult();
     var selectedOption = document.getElementById('status').value;
 
     // console.log("Selected option:", selectedOption);
@@ -396,6 +397,7 @@ function performPetstoreGETfindByStatus() {
 }
 
 function performPetstorePOSTNewPet() {
+    resetPetstoreResult();
     var selectedOptionValue = document.getElementById('new-pet').value;
 
     try {
@@ -459,11 +461,12 @@ function performPetstorePOSTNewPet() {
 }
 
 function performPetstorePUTPet() {
+    resetPetstoreResult();
     var selectedOptionValue = document.getElementById('modify-pet').value;
-    console.log("Selected option object RAW:", selectedOptionValue);
+    // console.log("Selected option object RAW:", selectedOptionValue);
     try {
         var selectedOptionObject = JSON.parse(selectedOptionValue);
-        console.log("Selected option object JSON:", selectedOptionObject);
+        // console.log("Selected option object JSON:", selectedOptionObject);
     } catch (e) {
         console.error("Error parsing selected option value:", e);
         return; // Exit the function if parsing fails
@@ -523,7 +526,7 @@ function performPetstorePUTPet() {
 
 
 function performPetstoreDELETEPet() {
-
+    resetPetstoreResult();
     var petId = document.getElementById('pet-id').value;
     petId = parseInt(petId, 10); // Try to convert the value to an integer.
 
