@@ -1,4 +1,5 @@
 console.log("actions.js loaded");
+console.log("postNewPetList:", postNewPetList);
 
 ///////////////////////////////////////////////////////////////////////////////////
 // Function to adjust the height of the iframe based on its content              //
