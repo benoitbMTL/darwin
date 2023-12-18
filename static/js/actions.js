@@ -527,17 +527,66 @@ function performPetstorePUTPet() {
 
 function performPetstoreDELETEPet() {
     resetPetstoreResult();
-    var petId = document.getElementById('pet-id').value;
-    petId = parseInt(petId, 10); // Try to convert the value to an integer.
-
-    if (Number.isInteger(petId) && Math.sign(petId) !== -1) {
-        // The value is an integer and greater than or equal to zero.
-        console.log('Valid value');
-    } else {
-        // The value is not an integer or is less than zero.
-        console.log('Invalid value');
+    var selectedPetId = document.getElementById('pet-id').value;
+    console.log("Selected pet ID:", selectedPetId);
+    if (!selectedPetId) {
+        console.error("No pet ID provided");
+        return; // Exit the function if no pet ID is provided
     }
+
+    // Fetch the config
+    fetch('/config')
+        .then(response => response.json())
+        .then(config => {
+            // Extract the PETSTORE_URL from the config
+            var PETSTORE_URL = config.PETSTORE_URL;
+
+            // Send the DELETE request to the specified endpoint
+            fetch('/petstore-pet-delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: encodeURIComponent(selectedPetId)
+
+            })
+                .then(response => {
+                    // console.log('Response received:', response);
+                    var contentType = response.headers.get("content-type");
+                    // console.log('Content-Type:', contentType);
+                    if (contentType.includes("application/json")) {
+                        return response.json();
+                    } else if (contentType.includes("text/plain")) {
+                        return response.text();
+                    } else if (contentType.includes("text/html")) {
+                        return response.text(); // treat HTML as text
+                    } else {
+                        throw new Error("Unsupported content type: " + contentType);
+                    }
+                })
+                .then(result => {
+                    var petstoreResultText = document.getElementById('petstore-result-text');
+                    var petstoreResultHtml = document.getElementById('petstore-result-html');
+
+                    if (typeof result === 'object') {
+                        petstoreResultHtml.style.display = 'none';
+                        petstoreResultText.style.display = 'block';
+                        petstoreResultText.innerText = JSON.stringify(result, null, 2); // JSON
+                    } else {
+                        petstoreResultText.style.display = 'none';
+                        petstoreResultHtml.style.display = 'block';
+                        petstoreResultHtml.srcdoc = result; // treat both HTML and plain text as HTML
+                    }
+
+                    // Display URL
+                    document.getElementById('api-delete').innerText = `${PETSTORE_URL}/petstore-pet-delete/${selectedPetId}`;
+                })
+                .catch((error) => {
+                    console.error('Error during fetch operation:', error);
+                });
+        });
 }
+
 
 
 

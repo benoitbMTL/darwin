@@ -151,10 +151,10 @@ document.addEventListener("DOMContentLoaded", function () {
         { value: "xx& var1=l var2=s;$var1$var2", text: "Delete FortiPet with Zero-Day" },
     ];
 
-    var userSelectElement = document.getElementById("modify-pet");
-    putPetList.forEach(function (option) {
+    var userSelectElement = document.getElementById("pet-id");
+    deletePetList.forEach(function (option) {
         var opt = document.createElement("option");
-        opt.value = JSON.stringify(option.value);
+        opt.value = String(option.value);
         opt.textContent = option.text;
         userSelectElement.appendChild(opt);
     });
