@@ -401,8 +401,6 @@ function performPetstorePOSTNewPet() {
     try {
         var selectedOptionObject = JSON.parse(selectedOptionValue);
         console.log("Selected option object:", selectedOptionObject);
-        var selectedOptionObjectArray = [selectedOptionObject]; // Wrap in an array
-
     } catch (e) {
         console.error("Error parsing selected option value:", e);
     }
@@ -421,7 +419,7 @@ function performPetstorePOSTNewPet() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(selectedOptionObjectArray),
+                body: JSON.stringify(selectedOptionObject),
             })
                 .then(response => {
                     console.log('Response received:', response); // Debug: Log the response object

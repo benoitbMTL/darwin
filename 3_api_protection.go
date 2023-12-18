@@ -11,7 +11,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type PetstorePet []struct {
+type PetstorePet struct {
 	ID        int      `json:"id,omitempty"`
 	Category  Category `json:"category,omitempty"`
 	Name      string   `json:"name,omitempty"`
@@ -29,6 +29,8 @@ type Tags struct {
 	ID   int    `json:"id,omitempty"`
 	Name string `json:"name,omitempty"`
 }
+
+type PetstorePetArray []PetstorePet
 
 func handlePetstoreAPIRequestGet(c echo.Context) error {
 	status := c.FormValue("status")
@@ -64,7 +66,7 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 
 	contentType := resp.Header.Get("Content-Type")
 	if strings.Contains(contentType, "application/json") {
-		var pets PetstorePet
+		var pets PetstorePetArray
 		err = json.Unmarshal(body, &pets)
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
