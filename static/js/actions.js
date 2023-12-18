@@ -358,7 +358,9 @@ function performPetstoreGETfindByStatus() {
                 body: 'status=' + encodeURIComponent(selectedOption)
             })
                 .then(response => {
+                    console.log('Response received:', response); // Debug: Log the response object
                     var contentType = response.headers.get("content-type");
+                    console.log('Content-Type:', contentType); // Debug: Log the content type
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else if (contentType.includes("text/plain")) {
