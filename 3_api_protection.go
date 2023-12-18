@@ -227,10 +227,11 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
 
 func handlePetstoreAPIRequestDelete(c echo.Context) error {
 	petID := c.FormValue("pet-id") // Receive pet ID as a string
-	// fmt.Println("Pet ID:", petID) // Debug pet ID
+	fmt.Println("Pet ID:", petID) // Debug pet ID
 
 	apiURL := fmt.Sprintf("%s/%s", PETSTORE_URL, petID)
-	// fmt.Println("API URL:", apiURL) // Debug API URL
+	fmt.Println("PETSTORE_URL:", PETSTORE_URL) // Debug PETSTORE_URL
+    fmt.Println("API URL:", apiURL) // Debug API URL
 
 	req, _ := http.NewRequest("DELETE", apiURL, nil)
 	req.Header.Add("Accept", "application/json")
