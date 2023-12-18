@@ -3,7 +3,7 @@ package main
 import (
 	"crypto/tls"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
@@ -110,7 +110,8 @@ func handleCommandInjectionAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
-	output, err := ioutil.ReadAll(resp.Body)
+	output, err := io.ReadAll(resp.Body)
+
 	if err != nil {
 		log.Println(err) // Log the error
 		return c.String(http.StatusInternalServerError, err.Error())
@@ -204,7 +205,7 @@ func handleSQLInjectionAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
-	output, err := ioutil.ReadAll(resp.Body)
+	output, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
@@ -302,7 +303,7 @@ func handleCrossSiteScriptingAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
-	output, err := ioutil.ReadAll(resp.Body)
+	output, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
@@ -441,7 +442,7 @@ func handleCookieSecurityAction(c echo.Context) error {
 	resp, _ = client.Do(req)
 	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 
 	return c.JSON(http.StatusOK, &CookieActionResponse{
 		InitialCookie:  initialCookieHTML,
@@ -509,7 +510,7 @@ func handleCrendentialStuffingAction(c echo.Context) error {
 
 	defer resp.Body.Close()
 
-	output, err := ioutil.ReadAll(resp.Body)
+	output, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}

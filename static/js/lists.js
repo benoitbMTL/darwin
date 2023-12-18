@@ -17,8 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
         userSelectElement.appendChild(opt);
     });
 
-
-
     // CREDENTIAL STUFFING
     var stolenCredentials = [
         { value: "pklangdon4@msn.com", text: "pklangdon4@msn.com" },
@@ -40,8 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
         opt.textContent = option.text;
         stolenSelectElement.appendChild(opt);
     });
-
-
 
     // COUNTRY LIST
     var countryList = [
@@ -71,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
         countrySelectElement.appendChild(opt);
     });
 
-
     // API GET findByStatus
     var findByStatusList = [
         { value: "findByStatus?status=available", text: "Status Available" },
@@ -91,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
         opt.textContent = option.text;
         statusSelectElement.appendChild(opt);
     });
-
 
     // API POST newPet
     var postNewPetList = [
