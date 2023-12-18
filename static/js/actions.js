@@ -419,7 +419,7 @@ function performPetstorePOSTNewPet() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: selectedOptionValue,
+                body: JSON.stringify(selectedOptionObject),
             })
                 .then(response => {
                     console.log('Response received:', response); // Debug: Log the response object
