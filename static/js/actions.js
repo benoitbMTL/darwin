@@ -393,29 +393,6 @@ function performPetstoreGETfindByStatus() {
         });
 }
 
-
-
-var postNewPetList = [
-    {
-        value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "available" },
-        text: "Add new pet FortiPet"
-    },
-    {
-        value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
-        text: "New Pet with Command Injection"
-    },
-    {
-        value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "<script>alert(123)</script>" },
-        text: "New Pet with Cross-Site-Scripting"
-    },
-    {
-        value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
-        text: "New Pet with Zero-Day"
-    },
-];
-
-
-
 function performPetstorePOSTNewPet() {
     var selectedOptionIndex = document.getElementById('new-pet').selectedIndex;
 
@@ -442,9 +419,9 @@ function performPetstorePOSTNewPet() {
                 body: JSON.stringify(selectedOption),
             })
                 .then(response => {
-                    console.log('Response received:', response); // Debug: Log the response object
+                    //console.log('Response received:', response); // Debug: Log the response object
                     var contentType = response.headers.get("content-type");
-                    console.log('Content-Type:', contentType); // Debug: Log the content type
+                    //console.log('Content-Type:', contentType); // Debug: Log the content type
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else {
@@ -453,7 +430,7 @@ function performPetstorePOSTNewPet() {
                     }
                 })
                 .then(jsonResponse => {
-                    console.log('Parsed JSON response:', jsonResponse); // Debug: Log the parsed JSON response
+                    //console.log('Parsed JSON response:', jsonResponse); // Debug: Log the parsed JSON response
                     // Display URL
                     document.getElementById('api-post').innerText = `${PETSTORE_URL}`;
                 })
