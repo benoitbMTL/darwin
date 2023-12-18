@@ -403,6 +403,7 @@ function performPetstorePOSTNewPet() {
         console.log("Selected option object:", selectedOptionObject);
     } catch (e) {
         console.error("Error parsing selected option value:", e);
+        return; // Exit the function if parsing fails
     }
 
     // Fetch the config
@@ -411,7 +412,6 @@ function performPetstorePOSTNewPet() {
         .then(config => {
             // Extract the PETSTORE_URL from the config
             var PETSTORE_URL = config.PETSTORE_URL;
-            //console.log("PETSTORE_URL:", PETSTORE_URL);
 
             // Send the POST request to the specified endpoint
             fetch('/petstore-pet-post', {
@@ -422,23 +422,38 @@ function performPetstorePOSTNewPet() {
                 body: JSON.stringify(selectedOptionObject),
             })
                 .then(response => {
-                    console.log('Response received:', response); // Debug: Log the response object
+                    console.log('Response received:', response);
                     var contentType = response.headers.get("content-type");
-                    console.log('Content-Type:', contentType); // Debug: Log the content type
+                    console.log('Content-Type:', contentType);
                     if (contentType.includes("application/json")) {
                         return response.json();
+                    } else if (contentType.includes("text/plain")) {
+                        return response.text();
+                    } else if (contentType.includes("text/html")) {
+                        return response.text(); // treat HTML as text
                     } else {
-                        console.error("Unsupported content type:", contentType); // Debug: Log error for unsupported content type
                         throw new Error("Unsupported content type: " + contentType);
                     }
                 })
-                .then(jsonResponse => {
-                    console.log('Parsed JSON response:', jsonResponse); // Debug: Log the parsed JSON response
+                .then(result => {
+                    var petstoreResultText = document.getElementById('petstore-result-text');
+                    var petstoreResultHtml = document.getElementById('petstore-result-html');
+
+                    if (typeof result === 'object') {
+                        petstoreResultHtml.style.display = 'none';
+                        petstoreResultText.style.display = 'block';
+                        petstoreResultText.innerText = JSON.stringify(result, null, 2); // JSON
+                    } else {
+                        petstoreResultText.style.display = 'none';
+                        petstoreResultHtml.style.display = 'block';
+                        petstoreResultHtml.srcdoc = result; // treat both HTML and plain text as HTML
+                    }
+
                     // Display URL
                     document.getElementById('api-post').innerText = `${PETSTORE_URL}`;
                 })
                 .catch((error) => {
-                    console.error('Error during fetch operation:', error); // Debug: Log any errors that occur
+                    console.error('Error during fetch operation:', error);
                 });
         });
 }
