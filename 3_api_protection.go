@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -86,13 +87,26 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 func handlePetstoreAPIRequestPost(c echo.Context) error {
 	apiURL := PETSTORE_URL
 
-    req, err := http.NewRequest("POST", apiURL, c.Request().Body)
-    if err != nil {
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
+	// Read the request body for debugging
+	PetData, err := io.ReadAll(c.Request().Body)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
 
-    req.Header.Add("Accept", "application/json")
-    req.Header.Add("Content-Type", "application/json")
+	// Print debug
+	fmt.Println("Request URL:", apiURL)
+	fmt.Println("Request Body:", string(PetData))
+
+	// Since the original body is now consumed, create a new io.Reader from the read bytes
+	reqBody := bytes.NewReader(PetData)
+
+	req, err := http.NewRequest("POST", apiURL, reqBody)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json")
 
 	// Create a custom http.Client
 	client := &http.Client{
