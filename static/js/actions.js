@@ -336,11 +336,8 @@ function resetPetstoreResult() {
 
 
 function performPetstoreGETfindByStatus() {
-    resetPetstoreResult();
     var selectedOption = document.getElementById('status').value;
-    var selectedOptionTEXT = document.getElementById('status').text;
 
-    console.log("selectedOptionTEXT:", selectedOptionTEXT);
     console.log("Selected option:", selectedOption);
     console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
