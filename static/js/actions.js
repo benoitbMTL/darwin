@@ -548,8 +548,7 @@ function performPetstoreDELETEPet() {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: encodeURIComponent(selectedPetId)
-
+                body: 'petId=' + encodeURIComponent(selectedPetId)
             })
                 .then(response => {
                     // console.log('Response received:', response);
