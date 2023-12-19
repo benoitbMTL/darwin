@@ -524,7 +524,6 @@ function performPetstorePUTPet() {
         });
 }
 
-
 function performPetstoreDELETEPet() {
     resetPetstoreResult();
     var selectedPetId = document.getElementById('pet-id').value;
@@ -586,9 +585,6 @@ function performPetstoreDELETEPet() {
                 });
         });
 }
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // REST API CREATE POLICY                                                        //
