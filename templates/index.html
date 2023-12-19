@@ -328,9 +328,22 @@
             </div>
 
             <!-- Generate API Traffic -->
-            <div class="tile">
+            <div class="mb-4 tile">
                 <p class="mb-2">Generate API Traffic.</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="generateAPITraffic()">
+                        <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            style="display: none;"></span>
+                        Run
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm"
+                        onclick="resetAPITraffic()">Reset</button>
+                </div>
+                <div id="api-traffic-container">
+                    <iframe id="api-traffic-result" class="action-result border"
+                        style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
             </div>
+
 
         </div>
 

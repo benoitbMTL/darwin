@@ -35,6 +35,7 @@ func registerActions(e *echo.Echo) {
 	e.POST("/petstore-pet-post", handlePetstoreAPIRequestPost)
 	e.POST("/petstore-pet-put", handlePetstoreAPIRequestPut)
 	e.POST("/petstore-pet-delete", handlePetstoreAPIRequestDelete)
+	e.GET("/api-traffic", handleAPITrafficGenerator)
 
 	// REST API
 	e.POST("/create-policy", onboardNewApplicationPolicy)

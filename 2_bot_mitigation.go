@@ -2,7 +2,7 @@ package main
 
 import (
 	"crypto/tls"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 
@@ -42,7 +42,7 @@ func handleViewPageSourceAction(c echo.Context) error {
 	}
 	defer resp.Body.Close()
 
-	output, err := ioutil.ReadAll(resp.Body)
+	output, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
@@ -82,7 +82,7 @@ func handleBotDeceptionAction(c echo.Context) error {
 	}
 	defer resp.Body.Close()
 
-	output, err := ioutil.ReadAll(resp.Body)
+	output, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}

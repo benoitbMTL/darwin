@@ -334,12 +334,11 @@ function resetPetstoreResult() {
     apiDeleteSpan.innerText = '';
 }
 
-
 function performPetstoreGETfindByStatus() {
     resetPetstoreResult();
     var selectedOption = document.getElementById('status').value;
 
-    console.log("Selected option:", selectedOption);
+    // console.log("Selected option:", selectedOption);
     // console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
 
     // Fetch the config
@@ -527,8 +526,8 @@ function performPetstorePUTPet() {
 function performPetstoreDELETEPet() {
     resetPetstoreResult();
     var selectedPetId = document.getElementById('pet-id').value;
-    console.log("Selected pet ID:", selectedPetId);
-    console.log("Type of selected pet ID:", typeof selectedPetId);
+    // console.log("Selected pet ID:", selectedPetId);
+    // console.log("Type of selected pet ID:", typeof selectedPetId);
 
     if (!selectedPetId) {
         console.error("No pet ID provided");
@@ -586,6 +585,34 @@ function performPetstoreDELETEPet() {
                 });
         });
 }
+
+function generateAPITraffic() {
+    fetch('/api-traffic', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(response => response.text())
+        .then(textContent => {
+            // Create a text node with the received content
+            var textNode = document.createTextNode(textContent);
+
+            // Get the iframe element
+            var iframeResult = document.getElementById('api-traffic-result');
+
+            // Open and write to the iframe document
+            iframeResult.contentDocument.open();
+            iframeResult.contentDocument.write("");
+            iframeResult.contentDocument.appendChild(textNode);
+            iframeResult.contentDocument.close();
+
+            // Update the display style
+            iframeResult.style.display = 'block';
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // REST API CREATE POLICY                                                        //
