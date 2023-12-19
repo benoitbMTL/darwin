@@ -587,37 +587,41 @@ function performPetstoreDELETEPet() {
 }
 
 function generateAPITraffic() {
-    var spinner = document.getElementById('api-traffic-spinner');
+    console.log("Starting API Traffic Generation..."); // Debug start
+
+    var spinner = document.getElementById('api-spinner'); // Corrected ID for spinner
+    console.log("Displaying spinner..."); // Debug spinner display
     spinner.style.display = 'inline-block';
-    
+
     fetch('/api-traffic', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     })
-        .then(response => response.text())
+        .then(response => {
+            console.log("Received response from server..."); // Debug response
+            return response.text();
+        })
         .then(textContent => {
-            // Create a text node with the received content
-            var textNode = document.createTextNode(textContent);
+            console.log("Processing text content..."); // Debug processing
 
-            // Get the iframe element
             var iframeResult = document.getElementById('api-traffic-result');
-
-            // Open and write to the iframe document
             iframeResult.contentDocument.open();
-            iframeResult.contentDocument.write("");
-            iframeResult.contentDocument.appendChild(textNode);
+            iframeResult.contentDocument.write(textContent); // Directly write textContent
             iframeResult.contentDocument.close();
 
-            // Update the display style
+            console.log("Content written to iframe, hiding spinner..."); // Debug final step
             iframeResult.style.display = 'block';
             spinner.style.display = 'none'; // Hide the spinner
-
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            spinner.style.display = 'none'; // Hide spinner on error
+        });
 
-    }
+    console.log("API traffic generation request sent."); // Debug request sent
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////
