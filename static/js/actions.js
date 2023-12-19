@@ -528,6 +528,8 @@ function performPetstoreDELETEPet() {
     resetPetstoreResult();
     var selectedPetId = document.getElementById('pet-id').value;
     console.log("Selected pet ID:", selectedPetId);
+    console.log("Type of selected pet ID:", typeof selectedPetId);
+
     if (!selectedPetId) {
         console.error("No pet ID provided");
         return; // Exit the function if no pet ID is provided
