@@ -435,7 +435,7 @@ func sendPutRequest(petStoreURL string, userAgent string, pet PetstorePet, xForw
 
 func handleAPITrafficGenerator(c echo.Context) error {
 	log.Println("Starting API Traffic Generation...")
-	requestCount := 10
+	requestCount := 100
 	petNames := []string{"FortiPuma", "FortiFish", "FortiSpider", "FortiTiger", "FortiLion", "FortiShark", "FortiSnake", "FortiMonkey", "FortiFox", "FortiRam", "FortiEagle", "FortiBee", "FortiCat", "FortiDog", "FortiAnt", "FortiWasp", "FortiPanter", "FortiGator", "FortiOwl", "FortiWildcats"}
 	petTypes := []string{"Puma", "Fish", "Spider", "Tiger", "Lion", "Shark", "Snake", "Monkey", "Fox", "Ram", "Eagle", "Bee", "Cat", "Dog", "Ant", "Wasp", "Panter", "Gator", "Owl", "Wildcats"}
 	statuses := []string{"available", "pending", "sold"}
