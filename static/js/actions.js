@@ -579,7 +579,7 @@ function performPetstoreDELETEPet() {
                     }
 
                     // Display URL
-                    document.getElementById('api-delete').innerText = `${PETSTORE_URL}/petstore-pet-delete/${selectedPetId}`;
+                    document.getElementById('api-delete').innerText = `${PETSTORE_URL}/${selectedPetId}`;
                 })
                 .catch((error) => {
                     console.error('Error during fetch operation:', error);
