@@ -262,6 +262,8 @@ func handlePetstoreAPIRequestDelete(c echo.Context) error {
 	fmt.Println("Response Body:", string(body))
 
 	contentType := resp.Header.Get("Content-Type")
+   	fmt.Println("contentType:", contentType)
+
 	if strings.Contains(contentType, "application/json") {
 		// Check for error in JSON response
 		var jsonResponse map[string]interface{}
