@@ -588,7 +588,7 @@ function performPetstoreDELETEPet() {
 
 function generateAPITraffic() {
     fetch('/api-traffic', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
