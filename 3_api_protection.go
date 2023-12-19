@@ -253,30 +253,34 @@ func handlePetstoreAPIRequestDelete(c echo.Context) error {
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Error reading response body: " + err.Error()})
-	}
+    body, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Error reading response body: " + err.Error()})
+    }
 
-	// Debug Body Response
-	fmt.Println("Response Body:", string(body))
+    // Debug Body Response
+    fmt.Println("Response Body:", string(body))
 
-	contentType := resp.Header.Get("Content-Type")
-   	fmt.Println("contentType:", contentType)
+    contentType := resp.Header.Get("Content-Type")
+    fmt.Println("contentType:", contentType)
 
-	if strings.Contains(contentType, "application/json") {
-		// Check for error in JSON response
-		var jsonResponse map[string]interface{}
-		if err := json.Unmarshal(body, &jsonResponse); err != nil {
-			return c.JSON(http.StatusBadRequest, map[string]string{"error": "Error unmarshalling JSON: " + err.Error()})
-		}
-		if code, exists := jsonResponse["code"]; exists && code.(float64) >= 400 {
-			return c.JSON(http.StatusBadRequest, jsonResponse)
-		}
-		return c.JSON(http.StatusOK, jsonResponse)
-	} else if strings.Contains(contentType, "text/plain") || strings.Contains(contentType, "text/html") {
-		return c.String(http.StatusOK, string(body))
-	} else {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Unsupported content type: " + contentType})
-	}
+    if strings.Contains(contentType, "application/json") {
+        // Attempt to unmarshal as JSON
+        var jsonResponse map[string]interface{}
+        err := json.Unmarshal(body, &jsonResponse)
+        if err != nil {
+            // If unmarshalling fails, treat as plain text
+            return c.String(http.StatusOK, string(body))
+        }
+
+        // Check for error code in JSON response
+        if code, exists := jsonResponse["code"]; exists && code.(float64) >= 400 {
+            return c.JSON(http.StatusBadRequest, jsonResponse)
+        }
+        return c.JSON(http.StatusOK, jsonResponse)
+    } else if strings.Contains(contentType, "text/plain") || strings.Contains(contentType, "text/html") {
+        return c.String(http.StatusOK, string(body))
+    } else {
+        return c.JSON(http.StatusBadRequest, map[string]string{"error": "Unsupported content type: " + contentType})
+    }
 }
