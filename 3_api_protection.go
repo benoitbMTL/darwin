@@ -34,10 +34,10 @@ type PetstorePetArray []PetstorePet
 
 func handlePetstoreAPIRequestGet(c echo.Context) error {
 	status := c.FormValue("status")
-	//fmt.Println("Status:", status) // Debug status
+	fmt.Println("Status:", status) // Debug status
 
 	apiURL := fmt.Sprintf("%s/%s", PETSTORE_URL, status)
-	//fmt.Println("API URL:", apiURL) // Debug API URL
+	fmt.Println("API URL:", apiURL) // Debug API URL
 
 	req, _ := http.NewRequest("GET", apiURL, nil)
 	req.Header.Add("Accept", "application/json")
@@ -226,7 +226,7 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
 }
 
 func handlePetstoreAPIRequestDelete(c echo.Context) error {
-	petID := c.FormValue("pet-id") // Receive pet ID as a string
+	petID := c.Request().Body // Receive pet ID as a string
 	fmt.Println("Pet ID:", petID) // Debug pet ID
 
 	apiURL := fmt.Sprintf("%s/%s", PETSTORE_URL, petID)
