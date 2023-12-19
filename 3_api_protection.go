@@ -424,7 +424,7 @@ func sendPutRequest(petStoreURL string, userAgent string, pet PetstorePet, xForw
 	return nil
 }
 
-func handleAPITrafficGenerator() string {
+func handleAPITrafficGenerator(c echo.Context) error {
 	requestCount := 10
 	petNames := []string{"FortiPuma", "FortiFish", "FortiSpider", "FortiTiger", "FortiLion", "FortiShark", "FortiSnake", "FortiMonkey", "FortiFox", "FortiRam", "FortiEagle", "FortiBee", "FortiCat", "FortiDog", "FortiAnt", "FortiWasp", "FortiPanter", "FortiGator", "FortiOwl", "FortiWildcats"}
 	petTypes := []string{"Puma", "Fish", "Spider", "Tiger", "Lion", "Shark", "Snake", "Monkey", "Fox", "Ram", "Eagle", "Bee", "Cat", "Dog", "Ant", "Wasp", "Panter", "Gator", "Owl", "Wildcats"}
@@ -487,6 +487,7 @@ func handleAPITrafficGenerator() string {
 		}
 	}
 
-    // Return the completion message
-    return fmt.Sprintf("API traffic generation is complete. We have sent %d random requests of types POST, PUT, GET, and DELETE.", requestCount)
+	// Return the completion message
+	message := fmt.Sprintf("API traffic generation is complete. We have sent %d random requests of types POST, PUT, GET, and DELETE.", requestCount)
+	return c.String(http.StatusOK, message)
 }
