@@ -587,6 +587,9 @@ function performPetstoreDELETEPet() {
 }
 
 function generateAPITraffic() {
+    var spinner = document.getElementById('api-traffic-spinner');
+    spinner.style.display = 'inline-block';
+    
     fetch('/api-traffic', {
         method: 'POST',
         headers: {
@@ -609,9 +612,12 @@ function generateAPITraffic() {
 
             // Update the display style
             iframeResult.style.display = 'block';
+            spinner.style.display = 'none'; // Hide the spinner
+
         })
         .catch(error => console.error('Error:', error));
-}
+
+    }
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -619,191 +625,191 @@ function generateAPITraffic() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function performOnboardNewApplicationPolicy() {
-    var spinner = document.getElementById('create-spinner');
-    spinner.style.display = 'inline-block';
+        var spinner = document.getElementById('create-spinner');
+        spinner.style.display = 'inline-block';
 
-    fetch('/create-policy', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Iterate over the array of statuses and update the task status for each one
-            data.forEach(status => {
-                updateTaskStatus(status.taskId, status.status, status.description);
-            });
-            // Hide the spinner when all tasks are done
-            spinner.style.display = 'none';
+        fetch('/create-policy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
         })
-        .catch(error => {
-            console.error('Error:', error);
-            // Hide the spinner in case of an error
-            spinner.style.display = 'none';
-        });
-}
-
-function performDeleteApplicationPolicy() {
-    var spinner = document.getElementById('delete-spinner');
-    spinner.style.display = 'inline-block';
-
-    fetch('/delete-policy', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Iterate over the array of statuses and update the task status for each one
-            data.forEach(status => {
-                updateTaskStatus(status.taskId, status.status, status.description);
+            .then(response => response.json())
+            .then(data => {
+                // Iterate over the array of statuses and update the task status for each one
+                data.forEach(status => {
+                    updateTaskStatus(status.taskId, status.status, status.description);
+                });
+                // Hide the spinner when all tasks are done
+                spinner.style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Hide the spinner in case of an error
+                spinner.style.display = 'none';
             });
-            // Hide the spinner when all tasks are done
-            spinner.style.display = 'none';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Hide the spinner in case of an error
-            spinner.style.display = 'none';
-        });
-}
-
-function updateTaskStatus(taskId, status, description) {
-    var taskElement = document.getElementById(taskId);
-    var badgeElement = taskElement.querySelector('.badge');
-    var descriptionElement = taskElement.querySelector('.task-description');
-
-    if (status === 'success') {
-        badgeElement.textContent = 'Done';
-        badgeElement.classList.remove('bg-primary');
-        badgeElement.classList.add('bg-success');
-        descriptionElement.textContent = description;
-    } else {
-        badgeElement.textContent = 'Failed';
-        badgeElement.classList.remove('bg-primary');
-        badgeElement.classList.add('bg-danger');
-        descriptionElement.textContent = description;
     }
-}
 
-function resetOnboardNewApplicationPolicy() {
-    var tasks = [
-        { id: 'createNewVirtualIP', description: 'Create new Virtual IP' },
-        { id: 'createNewServerPool', description: 'Create new Server Pool' },
-        { id: 'createNewMemberPool', description: 'Create new Member Pool' },
-        { id: 'createNewVirtualServer', description: 'Create new Virtual Server' },
-        { id: 'assignVIPToVirtualServer', description: 'Assign Virtual IP to Virtual Server' },
-        { id: 'cloneSignatureProtection', description: 'Clone Signature Protection' },
-        { id: 'cloneInlineProtection', description: 'Clone Inline Protection' },
-        { id: 'createNewXForwardedForRule', description: 'Create new X-Forwarded-For Rule' },
-        { id: 'configureProtectionProfile', description: 'Configure Protection Profile' },
-        { id: 'createNewPolicy', description: 'Create new Policy' }
-    ];
-    tasks.forEach(task => {
-        var taskElement = document.getElementById(task.id);
+    function performDeleteApplicationPolicy() {
+        var spinner = document.getElementById('delete-spinner');
+        spinner.style.display = 'inline-block';
+
+        fetch('/delete-policy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Iterate over the array of statuses and update the task status for each one
+                data.forEach(status => {
+                    updateTaskStatus(status.taskId, status.status, status.description);
+                });
+                // Hide the spinner when all tasks are done
+                spinner.style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Hide the spinner in case of an error
+                spinner.style.display = 'none';
+            });
+    }
+
+    function updateTaskStatus(taskId, status, description) {
+        var taskElement = document.getElementById(taskId);
         var badgeElement = taskElement.querySelector('.badge');
         var descriptionElement = taskElement.querySelector('.task-description');
 
-        // Reset the badge to 'Incomplete'
-        badgeElement.textContent = 'Incomplete';
-        badgeElement.classList.remove('bg-success', 'bg-danger');
-        badgeElement.classList.add('bg-secondary');
+        if (status === 'success') {
+            badgeElement.textContent = 'Done';
+            badgeElement.classList.remove('bg-primary');
+            badgeElement.classList.add('bg-success');
+            descriptionElement.textContent = description;
+        } else {
+            badgeElement.textContent = 'Failed';
+            badgeElement.classList.remove('bg-primary');
+            badgeElement.classList.add('bg-danger');
+            descriptionElement.textContent = description;
+        }
+    }
 
-        // Reset the task description
-        descriptionElement.textContent = task.description;
-    });
-}
+    function resetOnboardNewApplicationPolicy() {
+        var tasks = [
+            { id: 'createNewVirtualIP', description: 'Create new Virtual IP' },
+            { id: 'createNewServerPool', description: 'Create new Server Pool' },
+            { id: 'createNewMemberPool', description: 'Create new Member Pool' },
+            { id: 'createNewVirtualServer', description: 'Create new Virtual Server' },
+            { id: 'assignVIPToVirtualServer', description: 'Assign Virtual IP to Virtual Server' },
+            { id: 'cloneSignatureProtection', description: 'Clone Signature Protection' },
+            { id: 'cloneInlineProtection', description: 'Clone Inline Protection' },
+            { id: 'createNewXForwardedForRule', description: 'Create new X-Forwarded-For Rule' },
+            { id: 'configureProtectionProfile', description: 'Configure Protection Profile' },
+            { id: 'createNewPolicy', description: 'Create new Policy' }
+        ];
+        tasks.forEach(task => {
+            var taskElement = document.getElementById(task.id);
+            var badgeElement = taskElement.querySelector('.badge');
+            var descriptionElement = taskElement.querySelector('.task-description');
 
-function resetDeleteApplicationPolicy() {
-    var tasks = [
-        { id: 'deletePolicy', description: 'Delete Policy' },
-        { id: 'deleteInlineProtection', description: 'Delete Inline Protection Profile' },
-        { id: 'deleteXForwardedForRule', description: 'Delete X-Forwarded-For Rule' },
-        { id: 'deleteSignatureProtection', description: 'Delete Signature Protection' },
-        { id: 'deleteVirtualServer', description: 'Delete Virtual Server' },
-        { id: 'deleteServerPool', description: 'Delete Server Pool' },
-        { id: 'deleteVirtualIP', description: 'Delete Virtual IP' }
-    ];
-    tasks.forEach(task => {
-        var taskElement = document.getElementById(task.id);
-        var badgeElement = taskElement.querySelector('.badge');
-        var descriptionElement = taskElement.querySelector('.task-description');
+            // Reset the badge to 'Incomplete'
+            badgeElement.textContent = 'Incomplete';
+            badgeElement.classList.remove('bg-success', 'bg-danger');
+            badgeElement.classList.add('bg-secondary');
 
-        // Reset the badge to 'Incomplete'
-        badgeElement.textContent = 'Incomplete';
-        badgeElement.classList.remove('bg-success', 'bg-danger');
-        badgeElement.classList.add('bg-secondary');
-
-        // Reset the task description
-        descriptionElement.textContent = task.description;
-    });
-}
-
-///////////////////////////////////////////////////////////////////////////////////
-// HEALTH CHECK                                                                  //
-///////////////////////////////////////////////////////////////////////////////////
-
-function performHealthCheck() {
-    document.getElementById('health-check-spinner').style.display = 'inline-block';
-
-    fetch('/health-check')
-        .then(response => response.text())
-        .then(result => {
-            var healthCheckResult = document.getElementById('health-check-result');
-            healthCheckResult.innerHTML = result;
-            healthCheckResult.style.display = 'block';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        })
-        .finally(() => {
-            document.getElementById('health-check-spinner').style.display = 'none';
+            // Reset the task description
+            descriptionElement.textContent = task.description;
         });
-}
+    }
 
-function resetHealthCheck() {
-    var healthCheckResult = document.getElementById('health-check-result');
-    healthCheckResult.innerHTML = '';
-    healthCheckResult.style.display = 'none';
-}
+    function resetDeleteApplicationPolicy() {
+        var tasks = [
+            { id: 'deletePolicy', description: 'Delete Policy' },
+            { id: 'deleteInlineProtection', description: 'Delete Inline Protection Profile' },
+            { id: 'deleteXForwardedForRule', description: 'Delete X-Forwarded-For Rule' },
+            { id: 'deleteSignatureProtection', description: 'Delete Signature Protection' },
+            { id: 'deleteVirtualServer', description: 'Delete Virtual Server' },
+            { id: 'deleteServerPool', description: 'Delete Server Pool' },
+            { id: 'deleteVirtualIP', description: 'Delete Virtual IP' }
+        ];
+        tasks.forEach(task => {
+            var taskElement = document.getElementById(task.id);
+            var badgeElement = taskElement.querySelector('.badge');
+            var descriptionElement = taskElement.querySelector('.task-description');
 
-///////////////////////////////////////////////////////////////////////////////////
-// PING                                                                          //
-///////////////////////////////////////////////////////////////////////////////////
+            // Reset the badge to 'Incomplete'
+            badgeElement.textContent = 'Incomplete';
+            badgeElement.classList.remove('bg-success', 'bg-danger');
+            badgeElement.classList.add('bg-secondary');
 
-function performPing(event) {
-    event.preventDefault();
-
-    document.getElementById('spinner').style.display = 'inline-block';
-
-    var ipFqdn = document.getElementById('ip-fqdn').value;
-
-    fetch('/ping', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'ip-fqdn=' + encodeURIComponent(ipFqdn)
-    })
-        .then(response => response.text())
-        .then(result => {
-            var pingResult = document.getElementById('ping-result');
-            pingResult.innerText = result;
-            pingResult.style.display = 'block';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        })
-        .finally(() => {
-            document.getElementById('spinner').style.display = 'none';
+            // Reset the task description
+            descriptionElement.textContent = task.description;
         });
-}
+    }
 
-function resetPingForm() {
-    document.getElementById('ip-fqdn').value = '';
-    var pingResult = document.getElementById('ping-result');
-    pingResult.innerText = '';
-    pingResult.style.display = 'none';
-}
+    ///////////////////////////////////////////////////////////////////////////////////
+    // HEALTH CHECK                                                                  //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    function performHealthCheck() {
+        document.getElementById('health-check-spinner').style.display = 'inline-block';
+
+        fetch('/health-check')
+            .then(response => response.text())
+            .then(result => {
+                var healthCheckResult = document.getElementById('health-check-result');
+                healthCheckResult.innerHTML = result;
+                healthCheckResult.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                document.getElementById('health-check-spinner').style.display = 'none';
+            });
+    }
+
+    function resetHealthCheck() {
+        var healthCheckResult = document.getElementById('health-check-result');
+        healthCheckResult.innerHTML = '';
+        healthCheckResult.style.display = 'none';
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    // PING                                                                          //
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    function performPing(event) {
+        event.preventDefault();
+
+        document.getElementById('spinner').style.display = 'inline-block';
+
+        var ipFqdn = document.getElementById('ip-fqdn').value;
+
+        fetch('/ping', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'ip-fqdn=' + encodeURIComponent(ipFqdn)
+        })
+            .then(response => response.text())
+            .then(result => {
+                var pingResult = document.getElementById('ping-result');
+                pingResult.innerText = result;
+                pingResult.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                document.getElementById('spinner').style.display = 'none';
+            });
+    }
+
+    function resetPingForm() {
+        document.getElementById('ip-fqdn').value = '';
+        var pingResult = document.getElementById('ping-result');
+        pingResult.innerText = '';
+        pingResult.style.display = 'none';
+    }
