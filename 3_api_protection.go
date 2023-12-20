@@ -491,7 +491,7 @@ func sendGetRequest(petStoreURL, randomStatus, userAgent, xForwardedFor string) 
 
 func sendDeleteRequest(petStoreURL, randomID, userAgent, xForwardedFor string) error {
 	// Construct the URL
-	fullURL := fmt.Sprintf("%s/%s", petStoreURL, randomID)
+	fullURL := fmt.Sprintf("%s/%d", petStoreURL, randomID)
 
 	// Create the request
 	req, err := http.NewRequest("DELETE", fullURL, nil)
