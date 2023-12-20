@@ -472,7 +472,14 @@ func sendGetRequest(petStoreURL, randomStatus, userAgent, xForwardedFor string) 
 	req.Header.Set("X-Forwarded-For", xForwardedFor)
 
 	// Send the request
-	client := &http.Client{}
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
+	
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
@@ -506,7 +513,14 @@ func sendDeleteRequest(petStoreURL string, randomID int, userAgent string, xForw
 	req.Header.Set("X-Forwarded-For", xForwardedFor)
 
 	// Send the request
-	client := &http.Client{}
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
+	
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
