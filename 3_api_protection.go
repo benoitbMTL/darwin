@@ -106,6 +106,12 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 func handlePetstoreAPIRequestPost(c echo.Context) error {
 	apiURL := PETSTORE_URL
 
+    // Add debugging code here to read and print the incoming request body
+    incomingBody, _ := io.ReadAll(c.Request().Body)
+    fmt.Println("Incoming Request Body:", string(incomingBody))
+    // Reset the request body so it can be read again in the NewRequest call
+    c.Request().Body = io.NopCloser(bytes.NewBuffer(incomingBody))
+
 	// Create a new POST request using the body from the incoming request
 	req, err := http.NewRequest("POST", apiURL, c.Request().Body)
 	if err != nil {
