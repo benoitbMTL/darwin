@@ -364,7 +364,7 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 	}
 	log.Printf("Pet data marshalled to JSON: %s\n", string(jsonData))
 
-	req, err := http.NewRequest("POST", petStoreURL+"/pet", bytes.NewBuffer(jsonData))
+	req, err := http.NewRequest("POST", petStoreURL, bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Error creating HTTP request: %v\n", err)
 		return err
@@ -376,7 +376,7 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 	req.Header.Set("X-Forwarded-For", xForwardedFor)
 
 	// Print equivalent curl command
-    fmt.Printf("curl -X PUT %s/pet -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"User-Agent: %s\" -H \"X-Forwarded-For: %s\" -d '%s'\n", petStoreURL, userAgent, xForwardedFor, jsonData)
+    fmt.Printf("curl -X PUT %s -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"User-Agent: %s\" -H \"X-Forwarded-For: %s\" -d '%s'\n", petStoreURL, userAgent, xForwardedFor, jsonData)
 
 	client := &http.Client{
 		Transport: &http.Transport{
@@ -419,7 +419,7 @@ func sendPutRequest(petStoreURL string, userAgent string, pet PetstorePet, xForw
 		return err
 	}
 
-	req, err := http.NewRequest("PUT", petStoreURL+"/pet", bytes.NewBuffer(jsonData))
+	req, err := http.NewRequest("PUT", petStoreURL, bytes.NewBuffer(jsonData))
 	if err != nil {
 		return err
 	}
