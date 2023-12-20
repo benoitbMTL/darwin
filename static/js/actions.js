@@ -587,10 +587,10 @@ function performPetstoreDELETEPet() {
 }
 
 function generateAPITraffic() {
-    console.log("Starting API Traffic Generation..."); // Debug start
+    console.log("Starting API Traffic Generation...");
 
-    var spinner = document.getElementById('api-spinner'); // Corrected ID for spinner
-    console.log("Displaying spinner..."); // Debug spinner display
+    var spinner = document.getElementById('api-spinner');
+    console.log("Displaying spinner...");
     spinner.style.display = 'inline-block';
 
     fetch('/api-traffic', {
@@ -600,29 +600,25 @@ function generateAPITraffic() {
         }
     })
         .then(response => {
-            console.log("Received response from server..."); // Debug response
+            console.log("Received response from server...");
             return response.text();
         })
         .then(textContent => {
-            console.log("Processing text content..."); // Debug processing
+            console.log("Processing text content...");
 
-            var iframeResult = document.getElementById('api-traffic-result');
-            iframeResult.contentDocument.open();
-            iframeResult.contentDocument.write(textContent); // Directly write textContent
-            iframeResult.contentDocument.close();
-
-            console.log("Content written to iframe, hiding spinner..."); // Debug final step
-            iframeResult.style.display = 'block';
-            spinner.style.display = 'none'; // Hide the spinner
+            var resultElement = document.getElementById('api-traffic-result');
+            resultElement.textContent = textContent; // Set text content directly
+            console.log("Content written to pre element, hiding spinner...");
+            resultElement.style.display = 'block';
+            spinner.style.display = 'none';
         })
         .catch(error => {
             console.error('Error:', error);
-            spinner.style.display = 'none'; // Hide spinner on error
+            spinner.style.display = 'none';
         });
 
-    console.log("API traffic generation request sent."); // Debug request sent
+    console.log("API traffic generation request sent.");
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 // REST API CREATE POLICY                                                        //
