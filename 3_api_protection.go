@@ -357,20 +357,18 @@ func generateRandomValue(values []string) string {
 }
 
 func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xForwardedFor string) error {
-	log.Println("Starting sendPostRequest...")
 	jsonData, err := json.Marshal(pet)
 	if err != nil {
 		log.Printf("Error marshalling pet data: %v\n", err)
 		return err
 	}
-    log.Printf("Pet data marshalled to JSON: %s\n", string(jsonData))
+	log.Printf("Pet data marshalled to JSON: %s\n", string(jsonData))
 
 	req, err := http.NewRequest("POST", petStoreURL+"/pet", bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Error creating HTTP request: %v\n", err)
 		return err
 	}
-	log.Println("HTTP request created.")
 
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
@@ -391,10 +389,24 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 		return err
 	}
 	defer resp.Body.Close()
-	log.Println("Request sent, response received.")
+
+	// Read the response body
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Print various response fields
+	fmt.Printf("Status: %s\n", resp.Status)
+	fmt.Printf("StatusCode: %d\n", resp.StatusCode)
+	fmt.Printf("Header: %v\n", resp.Header)
+	fmt.Printf("Body: %s\n", body)
+	fmt.Printf("ContentLength: %d\n", resp.ContentLength)
+	fmt.Printf("TransferEncoding: %v\n", resp.TransferEncoding)
+	fmt.Printf("Close: %v\n", resp.Close)
+	fmt.Printf("Uncompressed: %v\n", resp.Uncompressed)
 
 	// Handle the response as needed
-	log.Println("sendPostRequest completed successfully.")
 	return nil
 }
 
@@ -434,14 +446,12 @@ func sendPutRequest(petStoreURL string, userAgent string, pet PetstorePet, xForw
 }
 
 func handleAPITrafficGenerator(c echo.Context) error {
-	log.Println("Starting API Traffic Generation...")
 	requestCount := 5
 	petNames := []string{"FortiPuma", "FortiFish", "FortiSpider", "FortiTiger", "FortiLion", "FortiShark", "FortiSnake", "FortiMonkey", "FortiFox", "FortiRam", "FortiEagle", "FortiBee", "FortiCat", "FortiDog", "FortiAnt", "FortiWasp", "FortiPanter", "FortiGator", "FortiOwl", "FortiWildcats"}
 	petTypes := []string{"Puma", "Fish", "Spider", "Tiger", "Lion", "Shark", "Snake", "Monkey", "Fox", "Ram", "Eagle", "Bee", "Cat", "Dog", "Ant", "Wasp", "Panter", "Gator", "Owl", "Wildcats"}
 	statuses := []string{"available", "pending", "sold"}
 
 	for i := 0; i < requestCount; i++ {
-		log.Printf("Generating request %d...", i+1)
 		randomName := generateRandomValue(petNames)
 		randomPet := generateRandomValue(petTypes)
 		randomStatus := generateRandomValue(statuses)
@@ -499,7 +509,6 @@ func handleAPITrafficGenerator(c echo.Context) error {
 	}
 
 	// Return the completion message
-	log.Println("API Traffic Generation Completed")
 	message := fmt.Sprintf("API traffic generation is complete. We have sent %d random requests of types POST, PUT, GET, and DELETE.", requestCount)
 	return c.String(http.StatusOK, message)
 }
