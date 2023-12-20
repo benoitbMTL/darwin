@@ -375,6 +375,9 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 	req.Header.Set("User-Agent", userAgent)
 	req.Header.Set("X-Forwarded-For", xForwardedFor)
 
+	// Print equivalent curl command
+    fmt.Printf("curl -X PUT %s/pet -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"User-Agent: %s\" -H \"X-Forwarded-For: %s\" -d '%s'\n", petStoreURL, userAgent, xForwardedFor, jsonData)
+
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
@@ -411,7 +414,6 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 }
 
 func sendPutRequest(petStoreURL string, userAgent string, pet PetstorePet, xForwardedFor string) error {
-	log.Println("Starting sendPutRequest...")
 	jsonData, err := json.Marshal(pet)
 	if err != nil {
 		return err
