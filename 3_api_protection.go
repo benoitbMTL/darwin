@@ -394,11 +394,11 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 	defer resp.Body.Close()
 
 	// Read and log the response body (optional)
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	log.Printf("Response Body: %s\n", body)
+	// body, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	return err
+	// }
+	// log.Printf("Response Body: %s\n", body)
 
 	// Print various response fields
 	// fmt.Printf("Status: %s\n", resp.Status)
@@ -445,11 +445,11 @@ func sendPutRequest(petStoreURL string, userAgent string, pet PetstorePet, xForw
 	defer resp.Body.Close()
 
 	// Read and log the response body (optional)
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	log.Printf("Response Body: %s\n", body)
+	// body, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	return err
+	// }
+	// log.Printf("Response Body: %s\n", body)
 
 	// Handle the response as needed
 	return nil
@@ -487,11 +487,11 @@ func sendGetRequest(petStoreURL, randomStatus, userAgent, xForwardedFor string) 
 	defer resp.Body.Close()
 
 	// Read and log the response body (optional)
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	log.Printf("Response Body: %s\n", body)
+	// body, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	return err
+	// }
+	// log.Printf("Response Body: %s\n", body)
 
 	return nil
 }
@@ -528,18 +528,18 @@ func sendDeleteRequest(petStoreURL string, randomID int, userAgent string, xForw
 	defer resp.Body.Close()
 
 	// Read and log the response body (optional)
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	log.Printf("Response Body: %s\n", body)
+	// body, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	return err
+	// }
+	// log.Printf("Response Body: %s\n", body)
 
 	return nil
 }
 
 
 func handleAPITrafficGenerator(c echo.Context) error {
-	requestCount := 5
+	requestCount := 1800
 	petNames := []string{"FortiPuma", "FortiFish", "FortiSpider", "FortiTiger", "FortiLion", "FortiShark", "FortiSnake", "FortiMonkey", "FortiFox", "FortiRam", "FortiEagle", "FortiBee", "FortiCat", "FortiDog", "FortiAnt", "FortiWasp", "FortiPanter", "FortiGator", "FortiOwl", "FortiWildcats"}
 	petTypes := []string{"Puma", "Fish", "Spider", "Tiger", "Lion", "Shark", "Snake", "Monkey", "Fox", "Ram", "Eagle", "Bee", "Cat", "Dog", "Ant", "Wasp", "Panter", "Gator", "Owl", "Wildcats"}
 	statuses := []string{"available", "pending", "sold"}
