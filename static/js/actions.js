@@ -620,6 +620,20 @@ function generateAPITraffic() {
     console.log("API traffic generation request sent.");
 }
 
+function resetAPITraffic() {
+    // Clear the content of the api-traffic-result element
+    var resultElement = document.getElementById('api-traffic-result');
+    resultElement.textContent = '';
+    resultElement.style.display = 'none'; // Hide the element
+
+    // Hide the spinner, if it's visible
+    var spinner = document.getElementById('api-spinner');
+    spinner.style.display = 'none';
+
+    console.log("API Traffic has been reset."); // Debug message
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////
 // REST API CREATE POLICY                                                        //
 ///////////////////////////////////////////////////////////////////////////////////
