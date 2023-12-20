@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"net/url"
 
 	"github.com/labstack/echo/v4"
 )
@@ -362,8 +363,7 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 		log.Printf("Error marshalling pet data: %v\n", err)
 		return err
 	}
-	log.Printf("Pet data marshalled to JSON: %s\n", string(jsonData))
-
+	
 	req, err := http.NewRequest("POST", petStoreURL, bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Error creating HTTP request: %v\n", err)
@@ -376,7 +376,7 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 	req.Header.Set("X-Forwarded-For", xForwardedFor)
 
 	// Print equivalent curl command
-    fmt.Printf("curl -X PUT %s -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"User-Agent: %s\" -H \"X-Forwarded-For: %s\" -d '%s'\n", petStoreURL, userAgent, xForwardedFor, jsonData)
+	// fmt.Printf("curl -X PUT %s -H \"Accept: application/json\" -H \"Content-Type: application/json\" -H \"User-Agent: %s\" -H \"X-Forwarded-For: %s\" -d '%s'\n", petStoreURL, userAgent, xForwardedFor, jsonData)
 
 	client := &http.Client{
 		Transport: &http.Transport{
@@ -393,21 +393,22 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 	}
 	defer resp.Body.Close()
 
-	// Read the response body
+	// Read and log the response body (optional)
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+	log.Printf("Response Body: %s\n", body)
 
 	// Print various response fields
-	fmt.Printf("Status: %s\n", resp.Status)
-	fmt.Printf("StatusCode: %d\n", resp.StatusCode)
-	fmt.Printf("Header: %v\n", resp.Header)
-	fmt.Printf("Body: %s\n", body)
-	fmt.Printf("ContentLength: %d\n", resp.ContentLength)
-	fmt.Printf("TransferEncoding: %v\n", resp.TransferEncoding)
-	fmt.Printf("Close: %v\n", resp.Close)
-	fmt.Printf("Uncompressed: %v\n", resp.Uncompressed)
+	// fmt.Printf("Status: %s\n", resp.Status)
+	// fmt.Printf("StatusCode: %d\n", resp.StatusCode)
+	// fmt.Printf("Header: %v\n", resp.Header)
+	// fmt.Printf("Body: %s\n", body)
+	// fmt.Printf("ContentLength: %d\n", resp.ContentLength)
+	// fmt.Printf("TransferEncoding: %v\n", resp.TransferEncoding)
+	// fmt.Printf("Close: %v\n", resp.Close)
+	// fmt.Printf("Uncompressed: %v\n", resp.Uncompressed)
 
 	// Handle the response as needed
 	return nil
@@ -443,9 +444,85 @@ func sendPutRequest(petStoreURL string, userAgent string, pet PetstorePet, xForw
 	}
 	defer resp.Body.Close()
 
+	// Read and log the response body (optional)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	log.Printf("Response Body: %s\n", body)
+
 	// Handle the response as needed
 	return nil
 }
+
+func sendGetRequest(petStoreURL, randomStatus, userAgent, xForwardedFor string) error {
+	// Construct the URL with query parameters
+	fullURL := fmt.Sprintf("%s/findByStatus?status=%s", petStoreURL, url.QueryEscape(randomStatus))
+
+	// Create the request
+	req, err := http.NewRequest("GET", fullURL, nil)
+	if err != nil {
+		return err
+	}
+
+	// Set headers
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("X-Forwarded-For", xForwardedFor)
+
+	// Send the request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Read and log the response body (optional)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	log.Printf("Response Body: %s\n", body)
+
+	return nil
+}
+
+func sendDeleteRequest(petStoreURL, randomID, userAgent, xForwardedFor string) error {
+	// Construct the URL
+	fullURL := fmt.Sprintf("%s/%s", petStoreURL, randomID)
+
+	// Create the request
+	req, err := http.NewRequest("DELETE", fullURL, nil)
+	if err != nil {
+		return err
+	}
+
+	// Set headers
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("X-Forwarded-For", xForwardedFor)
+
+	// Send the request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	// Read and log the response body (optional)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	log.Printf("Response Body: %s\n", body)
+
+	return nil
+}
+
 
 func handleAPITrafficGenerator(c echo.Context) error {
 	requestCount := 5
@@ -505,6 +582,18 @@ func handleAPITrafficGenerator(c echo.Context) error {
 
 		// Send PUT request
 		err = sendPutRequest(petStoreURL, userAgent, petModified, randomIP)
+		if err != nil {
+			log.Fatalf("Error sending PUT request: %v", err)
+		}
+
+		// Send GET request
+		err = sendGetRequest(petStoreURL, randomStatus, userAgent, randomIP)
+		if err != nil {
+			log.Fatalf("Error sending PUT request: %v", err)
+		}
+
+		// Send DELETE request
+		err = sendDeleteRequest(petStoreURL, randomID, userAgent, randomIP)
 		if err != nil {
 			log.Fatalf("Error sending PUT request: %v", err)
 		}
