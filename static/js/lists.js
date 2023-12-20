@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
             text: "Add new pet FortiPet [id:999]"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "/bin/ls" },
             text: "New Pet with Command Injection"
         },
         {
@@ -105,6 +105,10 @@ document.addEventListener("DOMContentLoaded", function () {
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
             text: "New Pet with Zero-Day"
+        },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" },
+            text: "New Pet with Malware"
         },
     ];
 
@@ -133,6 +137,10 @@ document.addEventListener("DOMContentLoaded", function () {
         {
             value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
             text: "Modify FortiPet with Zero-Day"
+        },
+        {
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" },
+            text: "Modify FortiPet with Malware"
         },
     ];
 
