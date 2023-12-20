@@ -587,10 +587,10 @@ function performPetstoreDELETEPet() {
 }
 
 function generateAPITraffic() {
-    console.log("Starting API Traffic Generation...");
+    // console.log("Starting API Traffic Generation...");
 
     var spinner = document.getElementById('api-spinner');
-    console.log("Displaying spinner...");
+    // console.log("Displaying spinner...");
     spinner.style.display = 'inline-block';
 
     fetch('/api-traffic', {
@@ -600,15 +600,15 @@ function generateAPITraffic() {
         }
     })
         .then(response => {
-            console.log("Received response from server...");
+            // console.log("Received response from server...");
             return response.text();
         })
         .then(textContent => {
-            console.log("Processing text content...");
+            // console.log("Processing text content...");
 
             var resultElement = document.getElementById('api-traffic-result');
             resultElement.textContent = textContent; // Set text content directly
-            console.log("Content written to pre element, hiding spinner...");
+            // console.log("Content written to pre element, hiding spinner...");
             resultElement.style.display = 'block';
             spinner.style.display = 'none';
         })
@@ -617,7 +617,7 @@ function generateAPITraffic() {
             spinner.style.display = 'none';
         });
 
-    console.log("API traffic generation request sent.");
+    // console.log("API traffic generation request sent.");
 }
 
 function resetAPITraffic() {
@@ -630,7 +630,7 @@ function resetAPITraffic() {
     var spinner = document.getElementById('api-spinner');
     spinner.style.display = 'none';
 
-    console.log("API Traffic has been reset."); // Debug message
+    // console.log("API Traffic has been reset."); // Debug message
 }
 
 
