@@ -259,23 +259,6 @@
         <!-- CATEGORY API Protection -->
         <div id="api-protection" class="category" style="display:none;">
 
-            <!-- Generate API Traffic -->
-            <div class="mb-4 tile">
-                <p class="mb-2">Generate API Traffic.</p>
-                <div class="d-flex align-items-center mb-3">
-                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="generateAPITraffic()">
-                        <span id="api-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            style="display: none;"></span>
-                        Run
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetAPITraffic()">Reset</button>
-                </div>
-                <div id="api-traffic-container">
-                    <iframe id="api-traffic-result" class="action-result border" style="width: 100%; display: none;"
-                        onload="resizeIframe(this)"></iframe>
-                </div>
-            </div>
-
             <!-- API Requests -->
             <div class="tile">
                 <div class="d-flex mb-2 align-items-center justify-content-between">
@@ -283,6 +266,7 @@
                     <div d-flex><button type="button" class="btn btn-secondary btn-sm me-2"
                             onclick="resetPetstoreResult()">Reset</button></div>
                 </div>
+
                 <!-- API GET -->
                 <div class="mb-3 d-flex align-items-center">
                     <button type="button" class="btn btn-primary btn-sm me-3"
@@ -332,16 +316,28 @@
                 </div>
 
                 <!-- Div to display the server response -->
-
                 <div id="petstore-result-container">
                     <iframe id="petstore-result-html" class="action-result border"
                         style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
                     <pre id="petstore-result-text" class="action-result border"
                         style="width: 100%; display: none;"></pre>
-
                 </div>
+            </div>
 
-
+            <!-- Generate API Traffic -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Generate API Traffic.</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="generateAPITraffic()">
+                        <span id="api-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            style="display: none;"></span>
+                        Run
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetAPITraffic()">Reset</button>
+                </div>
+                <div id="api-traffic-container">
+                    <pre id="api-traffic-result" class="action-result border" style="width: 100%; display: none;"></pre>
+                </div>
             </div>
 
         </div>
