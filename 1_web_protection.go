@@ -439,7 +439,11 @@ func handleCookieSecurityAction(c echo.Context) error {
 	req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Upgrade-Insecure-Requests", "1")
 
-	resp, _ = client.Do(req)
+	resp, err = client.Do(req)
+	if err != nil {
+		// Handle the error, for example, return or log it
+		return err
+	}	
 	defer resp.Body.Close()
 
 	body, _ := io.ReadAll(resp.Body)
