@@ -156,7 +156,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var deletePetList = [
         { value: 999, text: "Delete FortiPet [id:999]" },
         { value: "?=more%20/etc/passwd", text: "Delete FortiPet with Command Injection" },
-        { value: "xx&+var1=l+var2=s;$var1$var2", text: "Delete FortiPet with Zero-Day" },
+        { value: "ls;more%20/etc/passwd", text: "Delete FortiPet with Command Injection" },
+        { value: "cmd.exe", text: "Delete FortiPet with Command Injection" },
+        { value: "xx& var1=l var2=s;$var1$var2", text: "Delete FortiPet with Zero-Day" },
     ];
 
     var userSelectElement = document.getElementById("pet-id");
