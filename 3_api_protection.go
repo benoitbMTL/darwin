@@ -43,6 +43,23 @@ type PetstorePet struct {
 type PetstorePetArray []PetstorePet
 
 ///////////////////////////////////////////////////////////////////////////////////
+// GENERATE CURL COMMAND                                                         //
+///////////////////////////////////////////////////////////////////////////////////
+
+func generateCurlCommand(req *http.Request, body []byte) string {
+	curl := fmt.Sprintf("curl -X %s '%s'", req.Method, req.URL)
+	for key, values := range req.Header {
+		for _, value := range values {
+			curl += fmt.Sprintf(" -H '%s: %s'", key, value)
+		}
+	}
+	if len(body) > 0 {
+		curl += fmt.Sprintf(" -d '%s'", string(body))
+	}
+	return curl
+}
+
+///////////////////////////////////////////////////////////////////////////////////
 // GET                                                                           //
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -104,34 +121,34 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
-    apiURL := PETSTORE_URL
+	apiURL := PETSTORE_URL
 
-    // Read the request body
-    body, err := io.ReadAll(c.Request().Body)
-    if err != nil {
-        // Handle error if reading the request body fails
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
-    defer c.Request().Body.Close()
+	// Read the request body
+	body, err := io.ReadAll(c.Request().Body)
+	if err != nil {
+		// Handle error if reading the request body fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	defer c.Request().Body.Close()
 
-    // fmt.Println("Received Data:", string(body))
+	// fmt.Println("Received Data:", string(body))
 
-    // Attempt to unmarshal the data
-    var data PetstorePet
-    err = json.Unmarshal(body, &data)
-    if err != nil {
-        fmt.Println("Error Unmarshalling Data:", err)
-        return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-    }
+	// Attempt to unmarshal the data
+	var data PetstorePet
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		fmt.Println("Error Unmarshalling Data:", err)
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
 
-    // fmt.Println("Unmarshalled Data: %+v\n", data)
+	// fmt.Println("Unmarshalled Data: %+v\n", data)
 
-    // Create a new POST request using the received body
-    req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(body))
-    if err != nil {
-        // Handle error if new request creation fails
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
+	// Create a new POST request using the received body
+	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(body))
+	if err != nil {
+		// Handle error if new request creation fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
 
 	// Set headers for the request
 	req.Header.Add("Accept", "application/json")
@@ -198,34 +215,34 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handlePetstoreAPIRequestPut(c echo.Context) error {
-    apiURL := PETSTORE_URL
+	apiURL := PETSTORE_URL
 
-    // Read the request body
-    body, err := io.ReadAll(c.Request().Body)
-    if err != nil {
-        // Handle error if reading the request body fails
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
-    defer c.Request().Body.Close()
+	// Read the request body
+	body, err := io.ReadAll(c.Request().Body)
+	if err != nil {
+		// Handle error if reading the request body fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	defer c.Request().Body.Close()
 
-    // fmt.Println("Received Data:", string(body))
+	// fmt.Println("Received Data:", string(body))
 
-    // Attempt to unmarshal the data
-    var data PetstorePet
-    err = json.Unmarshal(body, &data)
-    if err != nil {
-        fmt.Println("Error Unmarshalling Data:", err)
-        return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-    }
+	// Attempt to unmarshal the data
+	var data PetstorePet
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		fmt.Println("Error Unmarshalling Data:", err)
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
 
-    // fmt.Println("Unmarshalled Data: %+v\n", data)
+	// fmt.Println("Unmarshalled Data: %+v\n", data)
 
-    // Create a new PUT request using the received body
-    req, err := http.NewRequest("PUT", apiURL, bytes.NewBuffer(body))
-    if err != nil {
-        // Handle error if new request creation fails
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
+	// Create a new PUT request using the received body
+	req, err := http.NewRequest("PUT", apiURL, bytes.NewBuffer(body))
+	if err != nil {
+		// Handle error if new request creation fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
 
 	// Set headers for the request
 	req.Header.Add("Accept", "application/json")
@@ -241,6 +258,15 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
 				InsecureSkipVerify: true, // Skip TLS certificate verification
 			},
 		},
+	}
+
+	// Generate curl command string
+	curlCommand := generateCurlCommand(req, body)
+
+	// Construct the response object with the curl command
+	response := map[string]interface{}{
+		"data":        nil, // This will hold the actual response data
+		"curlCommand": curlCommand,
 	}
 
 	// Send the request
@@ -265,26 +291,24 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
 	// Print the response body for debugging
 	// fmt.Println("Response Body:", string(body))
 
-	contentType := resp.Header.Get("Content-Type")
-	if strings.Contains(contentType, "application/json") {
-		var pets PetstorePet
-		err = json.Unmarshal(body, &pets)
-		if err != nil {
-			// Handle error if JSON unmarshalling fails
-			return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-		}
-		// Return a JSON response
-		return c.JSON(http.StatusOK, pets)
-	} else if strings.Contains(contentType, "text/plain") {
-		// Return a plain text response
-		return c.String(http.StatusOK, string(body))
-	} else if strings.Contains(contentType, "text/html") {
-		// Return an HTML response
-		return c.HTML(http.StatusOK, string(body))
-	} else {
-		// Handle unsupported content types
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "unsupported content type"})
-	}
+    // Unmarshal and set the actual response data based on the content type
+    contentType := resp.Header.Get("Content-Type")
+    if strings.Contains(contentType, "application/json") {
+        var pets PetstorePet
+        if err := json.Unmarshal(body, &pets); err != nil {
+            return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+        }
+        response["data"] = pets
+    } else if strings.Contains(contentType, "text/plain") {
+        response["data"] = string(body)
+    } else if strings.Contains(contentType, "text/html") {
+        response["data"] = string(body)
+    } else {
+        return c.JSON(http.StatusBadRequest, map[string]string{"error": "unsupported content type"})
+    }
+
+    // Return the response with the curl command
+    return c.JSON(http.StatusOK, response)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

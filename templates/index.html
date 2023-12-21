@@ -316,7 +316,12 @@
                 </div>
 
                 <!-- Div to display the server response -->
+                <div id="petstore-curl-container">
+                    <div id="petstore-curl-title" class="additional-text mt-4 mb-4"></div>
+                    <pre id="petstore-curl-text" class="action-result border" style="width: 100%; display: none;"></pre>
+                </div>
                 <div id="petstore-result-container">
+                    <div id="petstore-result-title" class="additional-text mt-4 mb-4"></div>
                     <iframe id="petstore-result-html" class="action-result border"
                         style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
                     <pre id="petstore-result-text" class="action-result border"
@@ -507,7 +512,8 @@
                 </div>
 
                 <!-- APPLICATIONS -->
-                <br><h5>Applications</h5><br>
+                <br>
+                <h5>Applications</h5><br>
                 <form id="configuration-form">
 
                     <div class="row mb-3">
@@ -549,7 +555,8 @@
                     </div>
 
                     <!-- REST API -->
-                    <br><h5>REST API</h5><br>
+                    <br>
+                    <h5>REST API</h5><br>
                     <div class="row mb-3">
                         <label for="username-api" class="form-label col-3 text-start">Username API</label>
                         <div class="col-9">
@@ -582,7 +589,8 @@
                     </div>
 
                     <!-- MACHINE LEARNING -->
-                    <br><h5>Machine Learning</h5><br>
+                    <br>
+                    <h5>Machine Learning</h5><br>
                     <div class="row mb-3">
                         <label for="policy" class="form-label col-3 text-start">Policy Name</label>
                         <div class="col-9">
@@ -591,7 +599,8 @@
                     </div>
 
                     <!-- GLOBAL -->
-                    <br><h5>Global</h5><br>
+                    <br>
+                    <h5>Global</h5><br>
                     <div class="row mb-3">
                         <label for="user-agent" class="form-label col-3 text-start">User Agent</label>
                         <div class="col-9">

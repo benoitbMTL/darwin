@@ -262,7 +262,7 @@ function viewPageSource() {
     })
         .then(response => response.text())
         .then(result => {
-            document.getElementById('bot-deception-additional-text').innerText = "We can see a hidden link on the login page (display:none)";
+            document.getElementById('bot-deception-additional-text').innerText = "We can see a hidden link on the login page (display:none).";
             document.getElementById('bot-deception-result').style.display = 'none';
             var textResult = document.getElementById('bot-deception-text-result');
             textResult.innerText = result;
@@ -280,7 +280,7 @@ function performBotDeception() {
     })
         .then(response => response.text())
         .then(htmlContent => {
-            document.getElementById('bot-deception-additional-text').innerText = "We simulate a malicious bot by following the hidden link";
+            document.getElementById('bot-deception-additional-text').innerText = "We simulate a malicious bot by following the hidden link.";
             var iframeResult = document.getElementById('bot-deception-result');
             iframeResult.srcdoc = htmlContent;
             iframeResult.style.display = 'block';
@@ -338,16 +338,11 @@ function performPetstoreGETfindByStatus() {
     resetPetstoreResult();
     var selectedOption = document.getElementById('status').value;
 
-    // console.log("Selected option:", selectedOption);
-    // console.log("Selected option Encoded:", encodeURIComponent(selectedOption));
-
     // Fetch the config
     fetch('/config')
         .then(response => response.json())
         .then(config => {
-            // Extract the PETSTORE_URL from the config
             var PETSTORE_URL = config.PETSTORE_URL;
-            // console.log("PETSTORE_URL:", PETSTORE_URL);
 
             // Then perform the pet-get request
             fetch('/petstore-pet-get', {
@@ -358,36 +353,38 @@ function performPetstoreGETfindByStatus() {
                 body: 'status=' + encodeURIComponent(selectedOption)
             })
                 .then(response => {
-                    // console.log('Response received:', response); // Debug: Log the response object
                     var contentType = response.headers.get("content-type");
-                    // console.log('Content-Type:', contentType); // Debug: Log the content type
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else if (contentType.includes("text/plain")) {
                         return response.text();
                     } else if (contentType.includes("text/html")) {
-                        return response.text();  // treat HTML as text
+                        return response.text();
                     } else {
                         throw new Error("Unsupported content type: " + contentType);
                     }
                 })
                 .then(result => {
+                    // Display the Curl command
+                    var petstoreCurlText = document.getElementById('petstore-curl-text');
+                    petstoreCurlText.style.display = 'block';
+                    petstoreCurlText.innerText = result.curlCommand;
+                    document.getElementById('petstore-curl-title').innerText = "Curl";
+
+                    // Display the Response Body
                     var petstoreResultText = document.getElementById('petstore-result-text');
                     var petstoreResultHtml = document.getElementById('petstore-result-html');
+                    document.getElementById('petstore-result-title').innerText = "Response Body";
 
-                    if (typeof result === 'object') {
+                    if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result, null, 2);  // JSON
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2);  // JSON
                     } else {
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result;  // treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data;  // treat both HTML and plain text as HTML
                     }
-
-                    // Display URL
-                    document.getElementById('api-get').innerText = `${PETSTORE_URL}/${selectedOption}`;
-
                 })
                 .catch((error) => {
                     console.error('Error:', error);
