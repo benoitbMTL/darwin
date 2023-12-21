@@ -114,7 +114,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
     }
     defer c.Request().Body.Close()
 
-    fmt.Println("Received Data:", string(body))
+    // fmt.Println("Received Data:", string(body))
 
     // Attempt to unmarshal the data
     var data PetstorePet
@@ -124,7 +124,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
     }
 
-    fmt.Printf("Unmarshalled Data: %+v\n", data)
+    // fmt.Println("Unmarshalled Data: %+v\n", data)
 
     // Create a new POST request using the received body
     req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(body))
@@ -208,7 +208,7 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
     }
     defer c.Request().Body.Close()
 
-    fmt.Println("Received Data:", string(body))
+    // fmt.Println("Received Data:", string(body))
 
     // Attempt to unmarshal the data
     var data PetstorePet
@@ -218,7 +218,7 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
     }
 
-    fmt.Printf("Unmarshalled Data: %+v\n", data)
+    // fmt.Println("Unmarshalled Data: %+v\n", data)
 
     // Create a new PUT request using the received body
     req, err := http.NewRequest("PUT", apiURL, bytes.NewBuffer(body))
