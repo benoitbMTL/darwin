@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             text: "New Pet with Zero-Day"
         },
         {
-            value: "eyAiaWQiOiA5OTksICJuYW1lIjogIkZvcnRpUGV0IiwgImNhdGVnb3J5IjogeyAiaWQiOiAxLCAibmFtZSI6ICJEb2dzIiB9LCAicGhvdG9VcmxzIjogWyJmb3J0aXBldC5wbmciXSwgInRhZ3MiOiBbeyAiaWQiOiAwLCAibmFtZSI6ICJzbyBjdXRlIiB9XSwgInN0YXR1cyI6ICJYNU8hUCVAQVBbNFxQWlg1NChQXik3Q0MpN30kRUlDQVItU1RBTkRBUkQtQU5USVZJUlVTLVRFU1QtRklMRSEkSCtIKiIgfQ==",
+            value: "eyAiaWQiOiA5OTksICJuYW1lIjogIkZvcnRpUGV0IiwgImNhdGVnb3J5IjogeyAiaWQiOiAxLCAibmFtZSI6ICJEb2dzIiB9LCAicGhvdG9VcmxzIjogWyJmb3J0aXBldC5wbmciXSwgInRhZ3MiOiBbeyAiaWQiOiAwLCAibmFtZSI6ICJzbyBjdXRlIiB9XSwgInN0YXR1cyI6ICJYNU8hUCVAQVBbNFxcUFpYNTQoUF4pN0NDKTd9JEVJQ0FSLVNUQU5EQVJELUFOVElWSVJVUy1URVNULUZJTEUhJEgrSCoiIH0=",
             text: "New Pet with Malware"
         },
     ];
