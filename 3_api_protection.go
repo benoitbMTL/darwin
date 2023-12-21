@@ -105,47 +105,47 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
-    apiURL := PETSTORE_URL
+	apiURL := PETSTORE_URL
 
-    // Read the request body
-    body, err := ioutil.ReadAll(c.Request().Body)
-    if err != nil {
-        // Handle error if reading the request body fails
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
-    defer c.Request().Body.Close()
+	// Read the request body
+	body, err := io.ReadAll(c.Request().Body)
+	if err != nil {
+		// Handle error if reading the request body fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	defer c.Request().Body.Close()
 
-    // Remove the double quotes if present
-    trimmedBody := strings.Trim(string(body), "\"")
+	// Remove the double quotes if present
+	trimmedBody := strings.Trim(string(body), "\"")
 
-    fmt.Println("Trimmed Data:", trimmedBody)
+	fmt.Println("Trimmed Data:", trimmedBody)
 
-    // Check if the trimmed body is Base64 encoded
-    decodedBody, decodeErr := base64.StdEncoding.DecodeString(trimmedBody)
-    if decodeErr == nil {
-        // It's Base64, so use the decoded body
-        body = decodedBody
-        fmt.Println("Decoded Base64 Data:", string(body))
-    } else {
-        fmt.Println("Received Regular JSON Data:", trimmedBody)
-    }
+	// Check if the trimmed body is Base64 encoded
+	decodedBody, decodeErr := base64.StdEncoding.DecodeString(trimmedBody)
+	if decodeErr == nil {
+		// It's Base64, so use the decoded body
+		body = decodedBody
+		fmt.Println("Decoded Base64 Data:", string(body))
+	} else {
+		fmt.Println("Received Regular JSON Data:", trimmedBody)
+	}
 
-    // Attempt to unmarshal the data
-    var data PetstorePet
-    err = json.Unmarshal(body, &data)
-    if err != nil {
-        fmt.Println("Error Unmarshalling Data:", err)
-        return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-    }
+	// Attempt to unmarshal the data
+	var data PetstorePet
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		fmt.Println("Error Unmarshalling Data:", err)
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
 
-    fmt.Printf("Unmarshalled Data: %+v\n", data)
+	fmt.Printf("Unmarshalled Data: %+v\n", data)
 
-    // Create a new POST request using the (possibly decoded) body
-    req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(body))
-    if err != nil {
-        // Handle error if new request creation fails
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
+	// Create a new POST request using the (possibly decoded) body
+	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(body))
+	if err != nil {
+		// Handle error if new request creation fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
 
 	// Set headers for the request
 	req.Header.Add("Accept", "application/json")
@@ -214,8 +214,41 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 func handlePetstoreAPIRequestPut(c echo.Context) error {
 	apiURL := PETSTORE_URL
 
+	// Read the request body
+	body, err := io.ReadAll(c.Request().Body)
+	if err != nil {
+		// Handle error if reading the request body fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	defer c.Request().Body.Close()
+
+	// Remove the double quotes if present
+	trimmedBody := strings.Trim(string(body), "\"")
+
+	fmt.Println("Trimmed Data:", trimmedBody)
+
+	// Check if the trimmed body is Base64 encoded
+	decodedBody, decodeErr := base64.StdEncoding.DecodeString(trimmedBody)
+	if decodeErr == nil {
+		// It's Base64, so use the decoded body
+		body = decodedBody
+		fmt.Println("Decoded Base64 Data:", string(body))
+	} else {
+		fmt.Println("Received Regular JSON Data:", trimmedBody)
+	}
+
+	// Attempt to unmarshal the data
+	var data PetstorePet
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		fmt.Println("Error Unmarshalling Data:", err)
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
+
+	fmt.Printf("Unmarshalled Data: %+v\n", data)
+
 	// Create a new PUT request using the body from the incoming request
-	req, err := http.NewRequest("PUT", apiURL, c.Request().Body)
+	req, err := http.NewRequest("PUT", apiURL, bytes.NewBuffer(body))
 	if err != nil {
 		// Handle error if new request creation fails
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
