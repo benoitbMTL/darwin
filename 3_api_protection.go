@@ -308,6 +308,7 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
     }
 
     // Return the response with the curl command
+    fmt.Printf("Response Object: %+v\n", response)
     return c.JSON(http.StatusOK, response)
 }
 
