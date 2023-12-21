@@ -551,7 +551,8 @@ func handleNiktoWebScanAction(c echo.Context) error {
 		// Return the output of the command
 		return c.String(http.StatusOK, strings.Join(outputLines, "\n"))
 	} else {
-		ip, _ := ipCountryMap[country]
+		//ip, _ := ipCountryMap[country]
+		ip := ipCountryMap[country]
 
 		// Prepare the command
 		cmd := exec.Command("nikto", "-host", DVWA_HOST, "-timeout", "2", "-useragent", "Nikto"+cr+nl+"X-Forwarded-For: "+ip)
