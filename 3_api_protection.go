@@ -47,7 +47,7 @@ type PetstorePetArray []PetstorePet
 ///////////////////////////////////////////////////////////////////////////////////
 
 func generateCurlCommand(req *http.Request, body []byte) string {
-	curl := fmt.Sprintf("curl -X %s '%s'", req.Method, req.URL)
+	curl := fmt.Sprintf("curl -k -X %s '%s'", req.Method, req.URL)
 	for key, values := range req.Header {
 		for _, value := range values {
 			curl += fmt.Sprintf(" -H '%s: %s'", key, value)
