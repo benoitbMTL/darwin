@@ -13,7 +13,7 @@ var (
 	// FortiWeb Tool Configuration
 	DVWA_URL      = "https://dvwa.corp.fabriclab.ca"
 	DVWA_HOST     = "dvwa.corp.fabriclab.ca"
-	JUICESHOP_URL = "https://juiceshop.corp.fabriclab.ca"
+	JUICESHOP_URL = "https://shop.corp.fabriclab.ca"
 	FWB_URL       = "https://fwb.corp.fabriclab.ca/fwb/"
 	SPEEDTEST_URL = "https://speedtest.corp.fabriclab.ca"
 	PETSTORE_URL  = "https://petstore.corp.fabriclab.ca/api/v3/pet"
