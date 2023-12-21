@@ -234,9 +234,41 @@
         <!-- CATEGORY BOT MITIGATION -->
         <div id="bot-mitigation" class="category" style="display:none;">
 
+            <!-- Biometrics Based Detection -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Biometrics Based Detection</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performBotBiometric()">Run</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetBotBiometric()">Reset</button>
+                </div>
+                <div id="bot-biometric-additional-text" class="additional-text mt-4 mb-4"></div>
+                <div id="bot-biometric-container">
+                    <iframe id="bot-biometric-result" class="action-result border"
+                        style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
+                    <pre id="bot-biometric-text-result" class="action-result border"
+                        style="width: 100%; display: none;"></pre>
+                </div>
+            </div>
+
+            <!-- Threshold Based Detection -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Threshold Based Detection</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performBotThreshold()">Run</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetBotThreshold()">Reset</button>
+                </div>
+                <div id="bot-threshold-additional-text" class="additional-text mt-4 mb-4"></div>
+                <div id="bot-threshold-container">
+                    <iframe id="bot-threshold-result" class="action-result border"
+                        style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
+                    <pre id="bot-threshold-text-result" class="action-result border"
+                        style="width: 100%; display: none;"></pre>
+                </div>
+            </div>
+
             <!-- Bot Deception -->
             <div class="mb-4 tile">
-                <p class="mb-2">Perform a Bot Deception.</p>
+                <p class="mb-2">Bot Deception</p>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2" onclick="viewPageSource()">1. View
                         Page
@@ -251,7 +283,37 @@
                         style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
                     <pre id="bot-deception-text-result" class="action-result border"
                         style="width: 100%; display: none;"></pre>
+                </div>
+            </div>
 
+            <!-- Known BOTS -->
+            <div class="mb-4 tile">
+                <p class="mb-2">Known Bots</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performKnownBots()">Run</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetKnownBots()">Reset</button>
+                </div>
+                <div id="known-bots-additional-text" class="additional-text mt-4 mb-4"></div>
+                <div id="known-bots-container">
+                    <iframe id="known-bots-result" class="action-result border"
+                        style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
+                    <pre id="known-bots-text-result" class="action-result border"
+                        style="width: 100%; display: none;"></pre>
+                </div>
+            </div>
+
+            <!-- ML Based Bot Detection -->
+            <div class="mb-4 tile">
+                <p class="mb-2">ML Based Bot Detection</p>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-primary btn-sm me-2" onclick="performMLBot()">Run</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="resetMLBot()">Reset</button>
+                </div>
+                <div id="ml-bot-additional-text" class="additional-text mt-4 mb-4"></div>
+                <div id="ml-bot-container">
+                    <iframe id="ml-bot-result" class="action-result border"
+                        style="width: 100%; min-height: 35px; display: none;" onload="resizeIframe(this)"></iframe>
+                    <pre id="ml-bot-text-result" class="action-result border" style="width: 100%; display: none;"></pre>
                 </div>
             </div>
         </div>
@@ -318,7 +380,8 @@
                 <!-- Div to display the server response -->
                 <div id="petstore-curl-container">
                     <div id="petstore-curl-title" class="additional-text mt-4 mb-4"></div>
-                    <pre id="petstore-curl-text" class="action-result border" style="width: 100%; display: none; white-space: pre-wrap;"></pre>
+                    <pre id="petstore-curl-text" class="action-result border"
+                        style="width: 100%; display: none; white-space: pre-wrap;"></pre>
                 </div>
                 <div id="petstore-result-container">
                     <div id="petstore-result-title" class="additional-text mt-4 mb-4"></div>
@@ -383,13 +446,16 @@
                                 onclick="resetOnboardNewApplicationPolicy()">Reset</button>
                         </div>
                         <div id="createTasks">
-                            <p id="createNewVirtualIP"><span class="task-description">Create new Virtual IP</span>
+                            <p id="createNewVirtualIP"><span class="task-description">Create new Virtual
+                                    IP</span>
                                 <span class="badge bg-secondary rounded-pill">Incomplete</span>
                             </p>
-                            <p id="createNewServerPool"><span class="task-description">Create new Server Pool</span>
+                            <p id="createNewServerPool"><span class="task-description">Create new Server
+                                    Pool</span>
                                 <span class="badge bg-secondary rounded-pill">Incomplete</span>
                             </p>
-                            <p id="createNewMemberPool"><span class="task-description">Create new Member Pool</span>
+                            <p id="createNewMemberPool"><span class="task-description">Create new Member
+                                    Pool</span>
                                 <span class="badge bg-secondary rounded-pill">Incomplete</span>
                             </p>
 
@@ -411,12 +477,15 @@
                             </p>
                             <p id="createNewXForwardedForRule"><span class="task-description">Create new
                                     X-Forwarded-For
-                                    Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="configureProtectionProfile"><span class="task-description">Configure Protection
+                                    Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+                            <p id="configureProtectionProfile"><span class="task-description">Configure
+                                    Protection
                                     Profile</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
                             </p>
-                            <p id="createNewPolicy"><span class="task-description">Create new Policy</span> <span
-                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="createNewPolicy"><span class="task-description">Create new Policy</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
                         </div>
                     </div>
 
@@ -436,22 +505,28 @@
                         <div id="deleteTasks">
                             <p id="deletePolicy"><span class="task-description">Delete Policy</span> <span
                                     class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="deleteInlineProtection"><span class="task-description">Delete Inline Protection
+                            <p id="deleteInlineProtection"><span class="task-description">Delete Inline
+                                    Protection
                                     Profile</span>
                                 <span class="badge bg-secondary rounded-pill">Incomplete</span>
                             </p>
-                            <p id="deleteXForwardedForRule"><span class="task-description">Delete X-Forwarded-For
-                                    Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="deleteXForwardedForRule"><span class="task-description">Delete
+                                    X-Forwarded-For
+                                    Rule</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
                             <p id="deleteSignatureProtection"><span class="task-description">Delete Signature
                                     Protection</span> <span class="badge bg-secondary rounded-pill">Incomplete</span>
                             </p>
-                            <p id="deleteVirtualServer"><span class="task-description">Delete Virtual Server</span>
+                            <p id="deleteVirtualServer"><span class="task-description">Delete Virtual
+                                    Server</span>
                                 <span class="badge bg-secondary rounded-pill">Incomplete</span>
                             </p>
-                            <p id="deleteServerPool"><span class="task-description">Delete Server Pool</span> <span
-                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
-                            <p id="deleteVirtualIP"><span class="task-description">Delete Virtual IP</span> <span
-                                    class="badge bg-secondary rounded-pill">Incomplete</span></p>
+                            <p id="deleteServerPool"><span class="task-description">Delete Server Pool</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
+                            <p id="deleteVirtualIP"><span class="task-description">Delete Virtual IP</span>
+                                <span class="badge bg-secondary rounded-pill">Incomplete</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -506,7 +581,8 @@
                         <span id="confirmation-message" style="color: red;"></span>
                         <button type="button" class="btn btn-success btn-sm me-2 ms-2"
                             onclick="saveConfiguration()">Save</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="resetConfiguration()">Reset to
+                        <button type="button" class="btn btn-danger btn-sm" onclick="resetConfiguration()">Reset
+                            to
                             Default</button>
                     </div>
                 </div>
@@ -582,7 +658,8 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="fwb-mgt-ip" class="form-label col-3 text-start">FortiWeb Management IP</label>
+                        <label for="fwb-mgt-ip" class="form-label col-3 text-start">FortiWeb Management
+                            IP</label>
                         <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
                         </div>
