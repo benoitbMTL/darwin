@@ -189,6 +189,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": "unsupported content type"})
     }
 
+    fmt.Printf("Response Object: %+v\n", response)
     return c.JSON(http.StatusOK, response)
 }
 
@@ -307,7 +308,7 @@ func handlePetstoreAPIRequestDelete(c echo.Context) error {
     req.Header.Add("Content-Type", "application/json")
 
     // Generate curl command string
-    curlCommand := generateCurlCommand(req, nil) // No body for DELETE request
+    curlCommand := generateCurlCommand(req, nil)
 
     client := &http.Client{
         Transport: &http.Transport{
@@ -328,27 +329,11 @@ func handlePetstoreAPIRequestDelete(c echo.Context) error {
 
     // Construct the response object with the curl command
     response := map[string]interface{}{
-        "data":       nil,
+        "data":       string(body), // Assuming response is always text (update as needed)
         "curlCommand": curlCommand,
     }
 
-    contentType := resp.Header.Get("Content-Type")
-    if strings.Contains(contentType, "application/json") {
-        var jsonResponse map[string]interface{}
-        if err := json.Unmarshal(body, &jsonResponse); err != nil {
-            return c.String(http.StatusOK, string(body)) // Treat as plain text if unmarshalling fails
-        }
-
-        response["data"] = jsonResponse
-        if code, exists := jsonResponse["code"]; exists && code.(float64) >= 400 {
-            return c.JSON(http.StatusBadRequest, jsonResponse)
-        }
-    } else if strings.Contains(contentType, "text/plain") || strings.Contains(contentType, "text/html") {
-        response["data"] = string(body)
-    } else {
-        return c.JSON(http.StatusBadRequest, map[string]string{"error": "Unsupported content type: " + contentType})
-    }
-
+    fmt.Printf("Response Object: %+v\n", response)
     return c.JSON(http.StatusOK, response)
 }
 

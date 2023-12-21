@@ -376,6 +376,7 @@ function performPetstoreGETfindByStatus() {
                     var petstoreResultText = document.getElementById('petstore-result-text');
                     var petstoreResultHtml = document.getElementById('petstore-result-html');
                     document.getElementById('petstore-result-title').innerText = "Response Body";
+                    document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
                     if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
@@ -445,6 +446,7 @@ function performPetstorePOSTNewPet() {
                     var petstoreResultText = document.getElementById('petstore-result-text');
                     var petstoreResultHtml = document.getElementById('petstore-result-html');
                     document.getElementById('petstore-result-title').innerText = "Response Body";
+                    document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
                     if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
@@ -518,6 +520,7 @@ function performPetstorePUTPet() {
                     var petstoreResultText = document.getElementById('petstore-result-text');
                     var petstoreResultHtml = document.getElementById('petstore-result-html');
                     document.getElementById('petstore-result-title').innerText = "Response Body";
+                    document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
                     if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
@@ -590,6 +593,7 @@ function performPetstoreDELETEPet() {
                     var petstoreResultText = document.getElementById('petstore-result-text');
                     var petstoreResultHtml = document.getElementById('petstore-result-html');
                     document.getElementById('petstore-result-title').innerText = "Response Body";
+                    document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
                     if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
