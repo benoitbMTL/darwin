@@ -370,6 +370,7 @@ function performPetstoreGETfindByStatus() {
                     petstoreCurlText.style.display = 'block';
                     petstoreCurlText.innerText = result.curlCommand;
                     document.getElementById('petstore-curl-title').innerText = "Curl";
+                    document.getElementById('petstore-curl-title').style.fontWeight = "bold";
 
                     // Display the Response Body
                     var petstoreResultText = document.getElementById('petstore-result-text');
@@ -379,15 +380,18 @@ function performPetstoreGETfindByStatus() {
                     if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2);  // JSON
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2); // JSON
                     } else {
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data;  // treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data; // Treat both HTML and plain text as HTML
                     }
+
+                    // Display URL
+                    document.getElementById('api-get').innerText = `${PETSTORE_URL}`;
                 })
                 .catch((error) => {
-                    console.error('Error:', error);
+                    console.error('Error during fetch operation:', error);
                 });
         });
 }
@@ -398,7 +402,6 @@ function performPetstorePOSTNewPet() {
 
     try {
         var selectedOptionObject = JSON.parse(selectedOptionValue);
-        // console.log("Selected option object:", selectedOptionObject);
     } catch (e) {
         console.error("Error parsing selected option value:", e);
         return; // Exit the function if parsing fails
@@ -408,7 +411,6 @@ function performPetstorePOSTNewPet() {
     fetch('/config')
         .then(response => response.json())
         .then(config => {
-            // Extract the PETSTORE_URL from the config
             var PETSTORE_URL = config.PETSTORE_URL;
 
             // Send the POST request to the specified endpoint
@@ -420,31 +422,38 @@ function performPetstorePOSTNewPet() {
                 body: JSON.stringify(selectedOptionObject),
             })
                 .then(response => {
-                    // console.log('Response received:', response);
                     var contentType = response.headers.get("content-type");
-                    // console.log('Content-Type:', contentType);
                     if (contentType.includes("application/json")) {
                         return response.json();
                     } else if (contentType.includes("text/plain")) {
                         return response.text();
                     } else if (contentType.includes("text/html")) {
-                        return response.text(); // treat HTML as text
+                        return response.text(); // Treat HTML as text
                     } else {
                         throw new Error("Unsupported content type: " + contentType);
                     }
                 })
                 .then(result => {
+                    // Display the Curl command
+                    var petstoreCurlText = document.getElementById('petstore-curl-text');
+                    petstoreCurlText.style.display = 'block';
+                    petstoreCurlText.innerText = result.curlCommand;
+                    document.getElementById('petstore-curl-title').innerText = "Curl";
+                    document.getElementById('petstore-curl-title').style.fontWeight = "bold";
+
+                    // Display the Response Body
                     var petstoreResultText = document.getElementById('petstore-result-text');
                     var petstoreResultHtml = document.getElementById('petstore-result-html');
+                    document.getElementById('petstore-result-title').innerText = "Response Body";
 
-                    if (typeof result === 'object') {
+                    if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result, null, 2); // JSON
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2); // JSON
                     } else {
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result; // treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data; // Treat both HTML and plain text as HTML
                     }
 
                     // Display URL
@@ -498,17 +507,26 @@ function performPetstorePUTPet() {
                     }
                 })
                 .then(result => {
+                    // Display the Curl command
+                    var petstoreCurlText = document.getElementById('petstore-curl-text');
+                    petstoreCurlText.style.display = 'block';
+                    petstoreCurlText.innerText = result.curlCommand;
+                    document.getElementById('petstore-curl-title').innerText = "Curl";
+                    document.getElementById('petstore-curl-title').style.fontWeight = "bold";
+
+                    // Display the Response Body
                     var petstoreResultText = document.getElementById('petstore-result-text');
                     var petstoreResultHtml = document.getElementById('petstore-result-html');
+                    document.getElementById('petstore-result-title').innerText = "Response Body";
 
-                    if (typeof result === 'object') {
+                    if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result, null, 2); // JSON
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2); // JSON
                     } else {
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result; // treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data; // Treat both HTML and plain text as HTML
                     }
 
                     // Display URL
@@ -561,21 +579,30 @@ function performPetstoreDELETEPet() {
                     }
                 })
                 .then(result => {
+                    // Display the Curl command
+                    var petstoreCurlText = document.getElementById('petstore-curl-text');
+                    petstoreCurlText.style.display = 'block';
+                    petstoreCurlText.innerText = result.curlCommand;
+                    document.getElementById('petstore-curl-title').innerText = "Curl";
+                    document.getElementById('petstore-curl-title').style.fontWeight = "bold";
+
+                    // Display the Response Body
                     var petstoreResultText = document.getElementById('petstore-result-text');
                     var petstoreResultHtml = document.getElementById('petstore-result-html');
+                    document.getElementById('petstore-result-title').innerText = "Response Body";
 
-                    if (typeof result === 'object') {
+                    if (typeof result.data === 'object') {
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result, null, 2); // JSON
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2); // JSON
                     } else {
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result; // treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data; // Treat both HTML and plain text as HTML
                     }
 
                     // Display URL
-                    document.getElementById('api-delete').innerText = `${PETSTORE_URL}/${selectedPetId}`;
+                    document.getElementById('api-delete').innerText = `${PETSTORE_URL}`;
                 })
                 .catch((error) => {
                     console.error('Error during fetch operation:', error);
