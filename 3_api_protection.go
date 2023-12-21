@@ -115,34 +115,31 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	}
 	defer c.Request().Body.Close()
 
-	trimmedBody := strings.Trim(string(body), "\"")
+    // Remove the double quotes if present
+    trimmedBody := strings.Trim(string(body), "\"")
 
     fmt.Println("Trimmed Data:", trimmedBody)
 
-	// Store the body for reuse
-	originalBody := body
+    // Check if the trimmed body is Base64 encoded
+    decodedBody, decodeErr := base64.StdEncoding.DecodeString(trimmedBody)
+    if decodeErr == nil {
+        // It's Base64, so use the decoded body
+        body = decodedBody
+        fmt.Println("Decoded Base64 Data:", string(body))
+    } else {
+        fmt.Println("Received Regular JSON Data:", trimmedBody)
+    }
 
-	fmt.Println("Received Data:", string(body))
+    // Attempt to unmarshal the data
+    var data PetstorePet
+    err = json.Unmarshal(body, &data)
+    if err != nil {
+        fmt.Println("Error Unmarshalling Data:", err)
+        return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+    }
 
-	// Check if the body is Base64 encoded
-	decodedBody, decodeErr := base64.StdEncoding.DecodeString(string(body))
-	if decodeErr == nil {
-		// It's Base64, so use the decoded body
-		body = decodedBody
-		fmt.Println("Decoded Base64 Data:", string(body))
-	} else {
-		fmt.Println("Received Regular JSON Data:", string(body))
-	}
+    fmt.Printf("Unmarshalled Data: %+v\n", data)
 
-	// Attempt to unmarshal the data
-	var data PetstorePet
-	err = json.Unmarshal(body, &data)
-	if err != nil {
-		fmt.Println("Error Unmarshalling Data:", err)
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	}
-
-	fmt.Printf("Unmarshalled Data: %+v\n", data)
 
 	// Create a new POST request using the original body
 	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(originalBody))
