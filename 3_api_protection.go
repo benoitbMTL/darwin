@@ -115,6 +115,10 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	}
 	defer c.Request().Body.Close()
 
+	trimmedBody := strings.Trim(string(body), "\"")
+
+    fmt.Println("Trimmed Data:", trimmedBody)
+
 	// Store the body for reuse
 	originalBody := body
 
