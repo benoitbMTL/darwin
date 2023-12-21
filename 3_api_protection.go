@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"crypto/tls"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,11 +11,10 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
-	"net/url"
-	"encoding/base64"
-	
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -105,49 +105,51 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
-    apiURL := PETSTORE_URL
+	apiURL := PETSTORE_URL
 
-    // Read the request body
-    body, err := io.ReadAll(c.Request().Body)
-    if err != nil {
-        // Handle error if reading the request body fails
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
-    defer c.Request().Body.Close()
+	// Read the request body
+	body, err := io.ReadAll(c.Request().Body)
+	if err != nil {
+		// Handle error if reading the request body fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	defer c.Request().Body.Close()
 
-    // Store the body for reuse
-    originalBody := body
+	// Store the body for reuse
+	originalBody := body
 
-    // Check if the body is Base64 encoded
-    decodedBody, decodeErr := base64.StdEncoding.DecodeString(string(body))
-    if decodeErr == nil {
-        // It's Base64, so use the decoded body
-        body = decodedBody
-        fmt.Println("Decoded Base64 Data:", string(body))
-    } else {
-        fmt.Println("Received Regular JSON Data:", string(body))
-    }
+	fmt.Println("Received Data:", string(body))
 
-    // Attempt to unmarshal the data
-    var data PetstorePet
-    err = json.Unmarshal(body, &data)
-    if err != nil {
-        fmt.Println("Error Unmarshalling Data:", err)
-        return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-    }
+	// Check if the body is Base64 encoded
+	decodedBody, decodeErr := base64.StdEncoding.DecodeString(string(body))
+	if decodeErr == nil {
+		// It's Base64, so use the decoded body
+		body = decodedBody
+		fmt.Println("Decoded Base64 Data:", string(body))
+	} else {
+		fmt.Println("Received Regular JSON Data:", string(body))
+	}
 
-    fmt.Printf("Unmarshalled Data: %+v\n", data)
+	// Attempt to unmarshal the data
+	var data PetstorePet
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		fmt.Println("Error Unmarshalling Data:", err)
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
 
-    // Create a new POST request using the original body
-    req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(originalBody))
-    if err != nil {
-        // Handle error if new request creation fails
-        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-    }
+	fmt.Printf("Unmarshalled Data: %+v\n", data)
 
-    // Set headers for the request
-    req.Header.Add("Accept", "application/json")
-    req.Header.Add("Content-Type", "application/json")
+	// Create a new POST request using the original body
+	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(originalBody))
+	if err != nil {
+		// Handle error if new request creation fails
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	// Set headers for the request
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json")
 
 	// Print the request URL for debugging
 	// fmt.Println("Request URL:", apiURL)
@@ -395,7 +397,7 @@ func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xFor
 		log.Printf("Error marshalling pet data: %v\n", err)
 		return err
 	}
-	
+
 	req, err := http.NewRequest("POST", petStoreURL, bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Error creating HTTP request: %v\n", err)
@@ -511,7 +513,7 @@ func sendGetRequest(petStoreURL, randomStatus, userAgent, xForwardedFor string) 
 			},
 		},
 	}
-	
+
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
@@ -552,7 +554,7 @@ func sendDeleteRequest(petStoreURL string, randomID int, userAgent string, xForw
 			},
 		},
 	}
-	
+
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
@@ -568,7 +570,6 @@ func sendDeleteRequest(petStoreURL string, randomID int, userAgent string, xForw
 
 	return nil
 }
-
 
 func handleAPITrafficGenerator(c echo.Context) error {
 	requestCount := 1800
