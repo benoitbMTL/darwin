@@ -401,22 +401,24 @@ function performPetstoreGETfindByStatus() {
                     document.getElementById('petstore-result-title').innerText = "Response Body";
                     document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
-                    if (typeof result.data === 'object' || typeof result.data === 'string') {
-                        // For JSON objects or plain text
+                    if (typeof result.data === 'object') {
+                        // JSON data
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        if (typeof result.data === 'object') {
-                            // JSON data
-                            petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                    } else if (typeof result.data === 'string') {
+                        // Check if the string is HTML
+                        if (result.data.indexOf('<') > -1 && result.data.indexOf('>') > -1) {
+                            // HTML data
+                            petstoreResultText.style.display = 'none';
+                            petstoreResultHtml.style.display = 'block';
+                            petstoreResultHtml.srcdoc = result.data;
                         } else {
                             // Plain text data
+                            petstoreResultHtml.style.display = 'none';
+                            petstoreResultText.style.display = 'block';
                             petstoreResultText.innerText = result.data;
                         }
-                    } else {
-                        // For HTML data
-                        petstoreResultText.style.display = 'none';
-                        petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data;
                     }
                 })
                 .catch((error) => {
@@ -493,22 +495,24 @@ function performPetstorePOSTNewPet() {
                     document.getElementById('petstore-result-title').innerText = "Response Body";
                     document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
-                    if (typeof result.data === 'object' || typeof result.data === 'string') {
-                        // For JSON objects or plain text
+                    if (typeof result.data === 'object') {
+                        // JSON data
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        if (typeof result.data === 'object') {
-                            // JSON data
-                            petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                    } else if (typeof result.data === 'string') {
+                        // Check if the string is HTML
+                        if (result.data.indexOf('<') > -1 && result.data.indexOf('>') > -1) {
+                            // HTML data
+                            petstoreResultText.style.display = 'none';
+                            petstoreResultHtml.style.display = 'block';
+                            petstoreResultHtml.srcdoc = result.data;
                         } else {
                             // Plain text data
+                            petstoreResultHtml.style.display = 'none';
+                            petstoreResultText.style.display = 'block';
                             petstoreResultText.innerText = result.data;
                         }
-                    } else {
-                        // For HTML data
-                        petstoreResultText.style.display = 'none';
-                        petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data;
                     }
                 })
                 .catch((error) => {
@@ -589,22 +593,24 @@ function performPetstorePUTPet() {
                     document.getElementById('petstore-result-title').innerText = "Response Body";
                     document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
-                    if (typeof result.data === 'object' || typeof result.data === 'string') {
-                        // For JSON objects or plain text
+                    if (typeof result.data === 'object') {
+                        // JSON data
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        if (typeof result.data === 'object') {
-                            // JSON data
-                            petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                    } else if (typeof result.data === 'string') {
+                        // Check if the string is HTML
+                        if (result.data.indexOf('<') > -1 && result.data.indexOf('>') > -1) {
+                            // HTML data
+                            petstoreResultText.style.display = 'none';
+                            petstoreResultHtml.style.display = 'block';
+                            petstoreResultHtml.srcdoc = result.data;
                         } else {
                             // Plain text data
+                            petstoreResultHtml.style.display = 'none';
+                            petstoreResultText.style.display = 'block';
                             petstoreResultText.innerText = result.data;
                         }
-                    } else {
-                        // For HTML data
-                        petstoreResultText.style.display = 'none';
-                        petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data;
                     }
                 })
                 .catch((error) => {
