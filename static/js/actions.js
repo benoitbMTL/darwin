@@ -309,7 +309,7 @@ function resetBotDeception() {
 ///////////////////////////////////////////////////////////////////////////////////
 
 function resetPetstoreResult() {
-    // Reset the result display area
+    // Reset the result display area for response body
     var petstoreResultText = document.getElementById('petstore-result-text');
     var petstoreResultHtml = document.getElementById('petstore-result-html');
 
@@ -318,11 +318,7 @@ function resetPetstoreResult() {
     petstoreResultText.style.display = 'none';
     petstoreResultHtml.style.display = 'none';
 
-    // Reset the status dropdown list
-    // var statusElement = document.getElementById('status');
-    // statusElement.selectedIndex = 0;  // Set to the first option
-
-    // Reset the API spans
+    // Reset the API URL spans
     var apiGetSpan = document.getElementById('api-get');
     var apiPostSpan = document.getElementById('api-post');
     var apiPutSpan = document.getElementById('api-put');
@@ -332,7 +328,20 @@ function resetPetstoreResult() {
     apiPostSpan.innerText = '';
     apiPutSpan.innerText = '';
     apiDeleteSpan.innerText = '';
+
+    // Reset the CURL command display area
+    var petstoreCurlText = document.getElementById('petstore-curl-text');
+    var petstoreCurlTitle = document.getElementById('petstore-curl-title');
+
+    petstoreCurlText.innerText = '';
+    petstoreCurlTitle.innerText = '';
+    petstoreCurlText.style.display = 'none';
+    petstoreCurlTitle.style.display = 'none';
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+// PETSTORE GET                                                                  //
+///////////////////////////////////////////////////////////////////////////////////
 
 function performPetstoreGETfindByStatus() {
     resetPetstoreResult();
@@ -342,8 +351,6 @@ function performPetstoreGETfindByStatus() {
     fetch('/config')
         .then(response => response.json())
         .then(config => {
-            var PETSTORE_URL = config.PETSTORE_URL;
-
             // Then perform the pet-get request
             fetch('/petstore-pet-get', {
                 method: 'POST',
@@ -365,6 +372,9 @@ function performPetstoreGETfindByStatus() {
                     }
                 })
                 .then(result => {
+                    // Display URL from the response
+                    document.getElementById('api-get').innerText = result.url;
+                    
                     // Display the Curl command
                     var petstoreCurlText = document.getElementById('petstore-curl-text');
                     petstoreCurlText.style.display = 'block';
@@ -378,24 +388,33 @@ function performPetstoreGETfindByStatus() {
                     document.getElementById('petstore-result-title').innerText = "Response Body";
                     document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
-                    if (typeof result.data === 'object') {
+                    if (typeof result.data === 'object' || typeof result.data === 'string') {
+                        // For JSON objects or plain text
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2); // JSON
+                        if (typeof result.data === 'object') {
+                            // JSON data
+                            petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                        } else {
+                            // Plain text data
+                            petstoreResultText.innerText = result.data;
+                        }
                     } else {
+                        // For HTML data
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data; // Treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data;
                     }
-
-                    // Display URL
-                    document.getElementById('api-get').innerText = `${PETSTORE_URL}`;
                 })
                 .catch((error) => {
                     console.error('Error during fetch operation:', error);
                 });
         });
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+// PETSTORE POST                                                                 //
+///////////////////////////////////////////////////////////////////////////////////
 
 function performPetstorePOSTNewPet() {
     resetPetstoreResult();
@@ -435,6 +454,9 @@ function performPetstorePOSTNewPet() {
                     }
                 })
                 .then(result => {
+                    // Display URL from the response
+                    document.getElementById('api-post').innerText = result.url;
+
                     // Display the Curl command
                     var petstoreCurlText = document.getElementById('petstore-curl-text');
                     petstoreCurlText.style.display = 'block';
@@ -448,24 +470,33 @@ function performPetstorePOSTNewPet() {
                     document.getElementById('petstore-result-title').innerText = "Response Body";
                     document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
-                    if (typeof result.data === 'object') {
+                    if (typeof result.data === 'object' || typeof result.data === 'string') {
+                        // For JSON objects or plain text
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2); // JSON
+                        if (typeof result.data === 'object') {
+                            // JSON data
+                            petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                        } else {
+                            // Plain text data
+                            petstoreResultText.innerText = result.data;
+                        }
                     } else {
+                        // For HTML data
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data; // Treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data;
                     }
-
-                    // Display URL
-                    document.getElementById('api-post').innerText = `${PETSTORE_URL}`;
                 })
                 .catch((error) => {
                     console.error('Error during fetch operation:', error);
                 });
         });
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+// PETSTORE PUT                                                                  //
+///////////////////////////////////////////////////////////////////////////////////
 
 function performPetstorePUTPet() {
     resetPetstoreResult();
@@ -509,6 +540,9 @@ function performPetstorePUTPet() {
                     }
                 })
                 .then(result => {
+                    // Display URL from the response
+                    document.getElementById('api-put').innerText = result.url;
+
                     // Display the Curl command
                     var petstoreCurlText = document.getElementById('petstore-curl-text');
                     petstoreCurlText.style.display = 'block';
@@ -522,24 +556,33 @@ function performPetstorePUTPet() {
                     document.getElementById('petstore-result-title').innerText = "Response Body";
                     document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
-                    if (typeof result.data === 'object') {
+                    if (typeof result.data === 'object' || typeof result.data === 'string') {
+                        // For JSON objects or plain text
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2); // JSON
+                        if (typeof result.data === 'object') {
+                            // JSON data
+                            petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                        } else {
+                            // Plain text data
+                            petstoreResultText.innerText = result.data;
+                        }
                     } else {
+                        // For HTML data
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data; // Treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data;
                     }
-
-                    // Display URL
-                    document.getElementById('api-put').innerText = `${PETSTORE_URL}`;
                 })
                 .catch((error) => {
                     console.error('Error during fetch operation:', error);
                 });
         });
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+// PETSTORE DELETE                                                               //
+///////////////////////////////////////////////////////////////////////////////////
 
 function performPetstoreDELETEPet() {
     resetPetstoreResult();
@@ -582,6 +625,9 @@ function performPetstoreDELETEPet() {
                     }
                 })
                 .then(result => {
+                    // Display URL from the response
+                    document.getElementById('api-delete').innerText = result.url;
+
                     // Display the Curl command
                     var petstoreCurlText = document.getElementById('petstore-curl-text');
                     petstoreCurlText.style.display = 'block';
@@ -595,24 +641,33 @@ function performPetstoreDELETEPet() {
                     document.getElementById('petstore-result-title').innerText = "Response Body";
                     document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
-                    if (typeof result.data === 'object') {
+                    if (typeof result.data === 'object' || typeof result.data === 'string') {
+                        // For JSON objects or plain text
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2); // JSON
+                        if (typeof result.data === 'object') {
+                            // JSON data
+                            petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                        } else {
+                            // Plain text data
+                            petstoreResultText.innerText = result.data;
+                        }
                     } else {
+                        // For HTML data
                         petstoreResultText.style.display = 'none';
                         petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data; // Treat both HTML and plain text as HTML
+                        petstoreResultHtml.srcdoc = result.data;
                     }
-
-                    // Display URL
-                    document.getElementById('api-delete').innerText = `${PETSTORE_URL}`;
                 })
                 .catch((error) => {
                     console.error('Error during fetch operation:', error);
                 });
         });
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+// API TRAFFIC GENERATOR                                                         //
+///////////////////////////////////////////////////////////////////////////////////
 
 function generateAPITraffic() {
     // console.log("Starting API Traffic Generation...");

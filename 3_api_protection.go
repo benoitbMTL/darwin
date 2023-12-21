@@ -72,7 +72,7 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
     req.Header.Add("Content-Type", "application/json")
 
     // Generate curl command string
-    curlCommand := generateCurlCommand(req, nil) // No body for GET request
+    curlCommand := generateCurlCommand(req, nil)
 
     client := &http.Client{
         Transport: &http.Transport{
@@ -88,9 +88,10 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 
     body, _ := io.ReadAll(resp.Body)
 
-    // Construct the response object with the curl command
+    // Construct the response object with the curl command and the URL
     response := map[string]interface{}{
-        "data":       nil,
+        "data":        nil,
+        "url":         req.URL.String(),
         "curlCommand": curlCommand,
     }
 
@@ -170,7 +171,8 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 
     // Construct the response object with the curl command
     response := map[string]interface{}{
-        "data":       nil,
+        "data":        nil,
+        "url":         req.URL.String(),
         "curlCommand": curlCommand,
     }
 
@@ -247,10 +249,11 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
 	curlCommand := generateCurlCommand(req, body)
 
 	// Construct the response object with the curl command
-	response := map[string]interface{}{
-		"data":        nil, // This will hold the actual response data
-		"curlCommand": curlCommand,
-	}
+    response := map[string]interface{}{
+        "data":        nil,
+        "url":         req.URL.String(),
+        "curlCommand": curlCommand,
+    }
 
 	// Send the request
 	resp, err := client.Do(req)
@@ -329,7 +332,8 @@ func handlePetstoreAPIRequestDelete(c echo.Context) error {
 
     // Construct the response object with the curl command
     response := map[string]interface{}{
-        "data":       string(body), // Assuming response is always text (update as needed)
+        "data":        nil,
+        "url":         req.URL.String(),
         "curlCommand": curlCommand,
     }
 
