@@ -110,8 +110,9 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": "unsupported content type"})
     }
 
+    // Return the response with the curl command
     fmt.Printf("Response Object: %+v\n", response)
-    return c.JSON(http.StatusOK, response)
+	return c.JSON(http.StatusOK, response)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -191,8 +192,9 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": "unsupported content type"})
     }
 
+    // Return the response with the curl command
     fmt.Printf("Response Object: %+v\n", response)
-    return c.JSON(http.StatusOK, response)
+	return c.JSON(http.StatusOK, response)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -330,16 +332,33 @@ func handlePetstoreAPIRequestDelete(c echo.Context) error {
         return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Error reading response body: " + err.Error()})
     }
 
-    // Construct the response object with the curl command
+    // Construct the response object with the curl command and the response body
     response := map[string]interface{}{
-        "data":        nil,
-        "url":         req.URL.String(),
+        "data":       nil,
+        "url":        req.URL.String(),
         "curlCommand": curlCommand,
     }
 
+    contentType := resp.Header.Get("Content-Type")
+    if strings.Contains(contentType, "application/json") {
+        var jsonResponse map[string]interface{}
+        if err := json.Unmarshal(body, &jsonResponse); err != nil {
+            // Treat as plain text if unmarshalling fails
+            response["data"] = string(body)
+        } else {
+            response["data"] = jsonResponse
+        }
+    } else if strings.Contains(contentType, "text/plain") || strings.Contains(contentType, "text/html") {
+        response["data"] = string(body)
+    } else {
+        return c.JSON(http.StatusBadRequest, map[string]string{"error": "unsupported content type"})
+    }
+
+    // Return the response with the curl command
     fmt.Printf("Response Object: %+v\n", response)
-    return c.JSON(http.StatusOK, response)
+	return c.JSON(http.StatusOK, response)
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 // GENERATE RANDOM API TRAFFIC                                                   //
