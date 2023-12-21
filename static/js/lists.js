@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             text: "New Pet with Zero-Day"
         },
         {
-            value: "eyAiaWQiOiA5OTksICJuYW1lIjogIkZvcnRpUGV0IiwgImNhdGVnb3J5IjogeyAiaWQiOiAxLCAibmFtZSI6ICJEb2dzIiB9LCAicGhvdG9VcmxzIjogWyJmb3J0aXBldC5wbmciXSwgInRhZ3MiOiBbeyAiaWQiOiAwLCAibmFtZSI6ICJzbyBjdXRlIiB9XSwgInN0YXR1cyI6ICJYNU8hUCVAQVBbNFxQWlg1NChQXik3Q0MpN30kRUlDQVItU1RBTkRBUkQtQU5USVZJUlVTLVRFU1QtRklMRSEkSCtIKiIgfQo=",
+            value: "eyAiaWQiOiA5OTksICJuYW1lIjogIkZvcnRpUGV0IiwgImNhdGVnb3J5IjogeyAiaWQiOiAxLCAibmFtZSI6ICJEb2dzIiB9LCAicGhvdG9VcmxzIjogWyJmb3J0aXBldC5wbmciXSwgInRhZ3MiOiBbeyAiaWQiOiAwLCAibmFtZSI6ICJzbyBjdXRlIiB9XSwgInN0YXR1cyI6ICJYNU8hUCVAQVBbNFxQWlg1NChQXik3Q0MpN30kRUlDQVItU1RBTkRBUkQtQU5USVZJUlVTLVRFU1QtRklMRSEkSCtIKiIgfQ==",
             text: "New Pet with Malware"
         },
     ];
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
             text: "Modify FortiPet with Zero-Day"
         },
         {
-            value: "eyAiaWQiOiA5OTksICJuYW1lIjogIkZvcnRpUGV0IiwgImNhdGVnb3J5IjogeyAiaWQiOiAxLCAibmFtZSI6ICJEb2dzIiB9LCAicGhvdG9VcmxzIjogWyJmb3J0aXBldC5wbmciXSwgInRhZ3MiOiBbeyAiaWQiOiAwLCAibmFtZSI6ICJzbyBjdXRlIiB9XSwgInN0YXR1cyI6ICJYNU8hUCVAQVBbNFxQWlg1NChQXik3Q0MpN30kRUlDQVItU1RBTkRBUkQtQU5USVZJUlVTLVRFU1QtRklMRSEkSCtIKiIgfQo=",
+            value: "eyAiaWQiOiA5OTksICJuYW1lIjogIkZvcnRpUGV0IiwgImNhdGVnb3J5IjogeyAiaWQiOiAxLCAibmFtZSI6ICJEb2dzIiB9LCAicGhvdG9VcmxzIjogWyJmb3J0aXBldC5wbmciXSwgInRhZ3MiOiBbeyAiaWQiOiAwLCAibmFtZSI6ICJzbyBjdXRlIiB9XSwgInN0YXR1cyI6ICJYNU8hUCVAQVBbNFxQWlg1NChQXik3Q0MpN30kRUlDQVItU1RBTkRBUkQtQU5USVZJUlVTLVRFU1QtRklMRSEkSCtIKiIgfQ==",
             text: "Modify FortiPet with Malware"
         },
     ];
