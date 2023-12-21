@@ -312,14 +312,14 @@ function resetPetstoreResult() {
     // Reset the result display area for response body
     var petstoreResultText = document.getElementById('petstore-result-text');
     var petstoreResultHtml = document.getElementById('petstore-result-html');
-    var petstoreResultTitle = document.getElementById('petstore-result-title'); 
+    var petstoreResultTitle = document.getElementById('petstore-result-title');
 
     petstoreResultText.innerText = '';
     petstoreResultHtml.srcdoc = '';
-    petstoreResultTitle.innerText = ''; 
+    petstoreResultTitle.innerText = '';
     petstoreResultText.style.display = 'none';
     petstoreResultHtml.style.display = 'none';
-    petstoreResultTitle.style.display = 'none'; 
+    petstoreResultTitle.style.display = 'none';
 
     // Reset the API URL spans
     var apiGetSpan = document.getElementById('api-get');
@@ -484,7 +484,7 @@ function performPetstorePOSTNewPet() {
                     // Display the Response Body Title
                     var petstoreResultTitle = document.getElementById('petstore-result-title');
                     petstoreResultTitle.innerText = "Response Body";
-                    petstoreResultTitle.style.display = 'block'; 
+                    petstoreResultTitle.style.display = 'block';
                     petstoreResultTitle.style.fontWeight = "bold";
 
                     // Display the Response Body
@@ -684,22 +684,24 @@ function performPetstoreDELETEPet() {
                     document.getElementById('petstore-result-title').innerText = "Response Body";
                     document.getElementById('petstore-result-title').style.fontWeight = "bold";
 
-                    if (typeof result.data === 'object' || typeof result.data === 'string') {
-                        // For JSON objects or plain text
+                    if (typeof result.data === 'object') {
+                        // JSON data
                         petstoreResultHtml.style.display = 'none';
                         petstoreResultText.style.display = 'block';
-                        if (typeof result.data === 'object') {
-                            // JSON data
-                            petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                        petstoreResultText.innerText = JSON.stringify(result.data, null, 2);
+                    } else if (typeof result.data === 'string') {
+                        // Check if the string is HTML
+                        if (result.data.indexOf('<') > -1 && result.data.indexOf('>') > -1) {
+                            // HTML data
+                            petstoreResultText.style.display = 'none';
+                            petstoreResultHtml.style.display = 'block';
+                            petstoreResultHtml.srcdoc = result.data;
                         } else {
                             // Plain text data
+                            petstoreResultHtml.style.display = 'none';
+                            petstoreResultText.style.display = 'block';
                             petstoreResultText.innerText = result.data;
                         }
-                    } else {
-                        // For HTML data
-                        petstoreResultText.style.display = 'none';
-                        petstoreResultHtml.style.display = 'block';
-                        petstoreResultHtml.srcdoc = result.data;
                     }
                 })
                 .catch((error) => {

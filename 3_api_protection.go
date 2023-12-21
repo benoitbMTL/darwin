@@ -111,7 +111,7 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
     }
 
     // Return the response with the curl command
-    fmt.Printf("Response Object: %+v\n", response)
+    // fmt.Printf("Response Object: %+v\n", response)
 	return c.JSON(http.StatusOK, response)
 }
 
@@ -193,7 +193,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
     }
 
     // Return the response with the curl command
-    fmt.Printf("Response Object: %+v\n", response)
+    // fmt.Printf("Response Object: %+v\n", response)
 	return c.JSON(http.StatusOK, response)
 }
 
@@ -296,7 +296,7 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
     }
 
     // Return the response with the curl command
-    fmt.Printf("Response Object: %+v\n", response)
+    // fmt.Printf("Response Object: %+v\n", response)
     return c.JSON(http.StatusOK, response)
 }
 
@@ -355,7 +355,7 @@ func handlePetstoreAPIRequestDelete(c echo.Context) error {
     }
 
     // Return the response with the curl command
-    fmt.Printf("Response Object: %+v\n", response)
+    // fmt.Printf("Response Object: %+v\n", response)
 	return c.JSON(http.StatusOK, response)
 }
 
