@@ -13,7 +13,8 @@ import (
 	"strings"
 	"time"
 	"net/url"
-
+	"encoding/base64"
+	
 	"github.com/labstack/echo/v4"
 )
 
@@ -106,11 +107,34 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 func handlePetstoreAPIRequestPost(c echo.Context) error {
 	apiURL := PETSTORE_URL
 
-    // Add debugging code here to read and print the incoming request body
-    incomingBody, _ := io.ReadAll(c.Request().Body)
-    fmt.Println("Incoming Request Body:", string(incomingBody))
-    // Reset the request body so it can be read again in the NewRequest call
-    c.Request().Body = io.NopCloser(bytes.NewBuffer(incomingBody))
+    // Read the request body from c.Request().Body
+    body, err := io.ReadAll(c.Request().Body)
+    if err != nil {
+        // Handle error if reading the request body fails
+        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
+    defer c.Request().Body.Close()
+
+	// Check if the body is Base64 encoded
+	_, err = base64.StdEncoding.DecodeString(string(body))
+	if err == nil {
+		// It's Base64, so decode it
+		decodedData, err := base64.StdEncoding.DecodeString(string(body))
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+		}
+		body = decodedData
+	}
+
+	// Unmarshal JSON (whether originally JSON or decoded from Base64)
+	var data map[string]interface{}
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	}
+
+	// Debug print the JSON
+	fmt.Printf("Received JSON: %+v\n", data)
 
 	// Create a new POST request using the body from the incoming request
 	req, err := http.NewRequest("POST", apiURL, c.Request().Body)
@@ -148,7 +172,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	// fmt.Println("HTTP Response Code:", resp.StatusCode)
 
 	// Read the response body
-	body, err := io.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
 	if err != nil {
 		// Handle error if reading the response body fails
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
