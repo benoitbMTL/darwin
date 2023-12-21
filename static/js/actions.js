@@ -249,6 +249,40 @@ function resetWebScan() {
     scanResult.style.display = 'none';
 }
 
+
+
+///////////////////////////////////////////////////////////////////////////////////
+// BOT THRESHOLDS                                                                //
+///////////////////////////////////////////////////////////////////////////////////
+
+function performBotThreshold() {
+    fetch('/bot-threshold', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        .then(response => response.text())
+        .then(htmlContent => {
+            document.getElementById('bot-threshold-additional-text').innerText = "Crawler Detection: detects tools that browse your web site for indexing purposes. Monitors the frequency of 403 and 404 response codes.";
+            var iframeResult = document.getElementById('bot-threshold-result');
+            iframeResult.srcdoc = htmlContent;
+            iframeResult.style.display = 'block';
+            document.getElementById('bot-threshold-text-result').style.display = 'none';
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function resetBotThreshold() {
+    // Clear the additional text
+    document.getElementById('bot-threshold-additional-text').innerText = '';
+
+    // Reset the iframe
+    var iframe = document.getElementById('bot-threshold-result');
+    iframe.srcdoc = '';
+    iframe.style.display = 'none';
+}
+
 ///////////////////////////////////////////////////////////////////////////////////
 // BOT DECEPTION                                                                 //
 ///////////////////////////////////////////////////////////////////////////////////

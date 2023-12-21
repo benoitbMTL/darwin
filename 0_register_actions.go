@@ -27,8 +27,12 @@ func registerActions(e *echo.Echo) {
 	e.POST("/web-scan", handleNiktoWebScanAction)
 
 	// BOT DECEPTION
+	//e.GET("/bot-biometric", handleBotBiometricAction)
+	e.GET("/bot-threshold", handleBotThresholdAction)
 	e.GET("/view-page-source", handleViewPageSourceAction)
 	e.GET("/bot-deception", handleBotDeceptionAction)
+	//e.GET("/bot-known", handleBotKnownAction)
+	//e.GET("/bot-ml", handleBotMLAction)
 
 	// PETSTORE API PROTECTION
 	e.POST("/petstore-pet-get", handlePetstoreAPIRequestGet)
