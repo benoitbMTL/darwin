@@ -312,11 +312,14 @@ function resetPetstoreResult() {
     // Reset the result display area for response body
     var petstoreResultText = document.getElementById('petstore-result-text');
     var petstoreResultHtml = document.getElementById('petstore-result-html');
+    var petstoreResultTitle = document.getElementById('petstore-result-title'); 
 
     petstoreResultText.innerText = '';
     petstoreResultHtml.srcdoc = '';
+    petstoreResultTitle.innerText = ''; 
     petstoreResultText.style.display = 'none';
     petstoreResultHtml.style.display = 'none';
+    petstoreResultTitle.style.display = 'none'; 
 
     // Reset the API URL spans
     var apiGetSpan = document.getElementById('api-get');
@@ -459,14 +462,18 @@ function performPetstorePOSTNewPet() {
                 })
                 .then(result => {
                     // Display URL from the response
-                    document.getElementById('api-post').innerText = result.url;
+                    document.getElementById('api-get').innerText = result.url;
 
                     // Display the Curl command
                     var petstoreCurlText = document.getElementById('petstore-curl-text');
-                    petstoreCurlText.style.display = 'block';
+                    var petstoreCurlTitle = document.getElementById('petstore-curl-title');
+
+                    petstoreCurlTitle.innerText = "Curl";  // Set the title text
+                    petstoreCurlTitle.style.display = 'block'; // Ensure the title is visible
+                    petstoreCurlTitle.style.fontWeight = "bold";
+
+                    petstoreCurlText.style.display = 'block'; // Ensure the CURL text is visible
                     petstoreCurlText.innerText = result.curlCommand;
-                    document.getElementById('petstore-curl-title').innerText = "Curl";
-                    document.getElementById('petstore-curl-title').style.fontWeight = "bold";
 
                     // Display the Response Body
                     var petstoreResultText = document.getElementById('petstore-result-text');
@@ -545,14 +552,18 @@ function performPetstorePUTPet() {
                 })
                 .then(result => {
                     // Display URL from the response
-                    document.getElementById('api-put').innerText = result.url;
+                    document.getElementById('api-get').innerText = result.url;
 
                     // Display the Curl command
                     var petstoreCurlText = document.getElementById('petstore-curl-text');
-                    petstoreCurlText.style.display = 'block';
+                    var petstoreCurlTitle = document.getElementById('petstore-curl-title');
+
+                    petstoreCurlTitle.innerText = "Curl";  // Set the title text
+                    petstoreCurlTitle.style.display = 'block'; // Ensure the title is visible
+                    petstoreCurlTitle.style.fontWeight = "bold";
+
+                    petstoreCurlText.style.display = 'block'; // Ensure the CURL text is visible
                     petstoreCurlText.innerText = result.curlCommand;
-                    document.getElementById('petstore-curl-title').innerText = "Curl";
-                    document.getElementById('petstore-curl-title').style.fontWeight = "bold";
 
                     // Display the Response Body
                     var petstoreResultText = document.getElementById('petstore-result-text');
