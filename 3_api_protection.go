@@ -145,7 +145,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 	fmt.Printf("Unmarshalled Data: %+v\n", data)
 
 	// Create a new POST request using the original body
-	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(originalBody))
+	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(body))
 	if err != nil {
 		// Handle error if new request creation fails
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
