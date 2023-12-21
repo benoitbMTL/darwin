@@ -15,7 +15,7 @@ import (
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handleHealthCheckAction(c echo.Context) error {
-	urls := []string{DVWA_URL, JUICESHOP_URL, PETSTORE_URL, FWB_URL, SPEEDTEST_URL, "https://www.fortinet.com"}
+	urls := []string{DVWA_URL, JUICESHOP_URL, PETSTORE_URL, FWB_URL, SPEEDTEST_URL, "https://service.fortiguard.net"}
 
 	// Define a custom HTTP client with a redirect policy that returns an error
 	client := &http.Client{
