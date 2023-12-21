@@ -283,7 +283,7 @@ func handlePetstoreAPIRequestPut(c echo.Context) error {
 	// fmt.Println("HTTP Response Code:", resp.StatusCode)
 
 	// Read the response body
-	body, err := io.ReadAll(resp.Body)
+	body, err = io.ReadAll(resp.Body)
 	if err != nil {
 		// Handle error if reading the response body fails
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
