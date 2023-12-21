@@ -468,7 +468,7 @@ function performPetstorePOSTNewPet() {
                 })
                 .then(result => {
                     // Display URL from the response
-                    document.getElementById('api-get').innerText = result.url;
+                    document.getElementById('api-post').innerText = result.url;
 
                     // Display the Curl Title
                     var petstoreCurlTitle = document.getElementById('petstore-curl-title');
@@ -564,7 +564,7 @@ function performPetstorePUTPet() {
                 })
                 .then(result => {
                     // Display URL from the response
-                    document.getElementById('api-get').innerText = result.url;
+                    document.getElementById('api-put').innerText = result.url;
 
                     // Display the Curl Title
                     var petstoreCurlTitle = document.getElementById('petstore-curl-title');
@@ -659,7 +659,7 @@ function performPetstoreDELETEPet() {
                 })
                 .then(result => {
                     // Display URL from the response
-                    document.getElementById('api-get').innerText = result.url;
+                    document.getElementById('api-delete').innerText = result.url;
 
                     // Display the Curl Title
                     var petstoreCurlTitle = document.getElementById('petstore-curl-title');
