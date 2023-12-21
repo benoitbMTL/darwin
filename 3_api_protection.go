@@ -105,15 +105,19 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
-	apiURL := PETSTORE_URL
+    apiURL := PETSTORE_URL
 
-	// Read the request body
-	body, err := io.ReadAll(c.Request().Body)
-	if err != nil {
-		// Handle error if reading the request body fails
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-	}
-	defer c.Request().Body.Close()
+    // Read the request body
+    body, err := ioutil.ReadAll(c.Request().Body)
+    if err != nil {
+        // Handle error if reading the request body fails
+        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
+    defer c.Request().Body.Close()
+
+    // Keep a copy of the original body for later use
+    originalBody := make([]byte, len(body))
+    copy(originalBody, body)
 
     // Remove the double quotes if present
     trimmedBody := strings.Trim(string(body), "\"")
@@ -140,13 +144,12 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 
     fmt.Printf("Unmarshalled Data: %+v\n", data)
 
-
-	// Create a new POST request using the original body
-	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(originalBody))
-	if err != nil {
-		// Handle error if new request creation fails
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-	}
+    // Create a new POST request using the original body
+    req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(originalBody))
+    if err != nil {
+        // Handle error if new request creation fails
+        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
 
 	// Set headers for the request
 	req.Header.Add("Accept", "application/json")
