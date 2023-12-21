@@ -49,7 +49,7 @@ func handleBotThresholdAction(c echo.Context) error {
 	// Loop to send 150 GET requests with random paths
 	for i := 0; i < 150; i++ {
 		randomPath := randomPath(5, 10) // Generate a random path
-		url := JUICESHOP_URL + "/" + randomPath
+		url := DVWA_URL + "/" + randomPath
 
 		req, err := http.NewRequest("GET", url, nil)
 		if err != nil {
