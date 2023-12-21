@@ -105,16 +105,18 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 ///////////////////////////////////////////////////////////////////////////////////
 
 func handlePetstoreAPIRequestPost(c echo.Context) error {
-	apiURL := PETSTORE_URL
-    var data PetstorePet
+    apiURL := PETSTORE_URL
 
-    // Read the request body from c.Request().Body
+    // Read the request body
     body, err := io.ReadAll(c.Request().Body)
     if err != nil {
         // Handle error if reading the request body fails
         return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
     }
     defer c.Request().Body.Close()
+
+    // Store the body for reuse
+    originalBody := body
 
     // Check if the body is Base64 encoded
     decodedBody, decodeErr := base64.StdEncoding.DecodeString(string(body))
@@ -127,6 +129,7 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
     }
 
     // Attempt to unmarshal the data
+    var data PetstorePet
     err = json.Unmarshal(body, &data)
     if err != nil {
         fmt.Println("Error Unmarshalling Data:", err)
@@ -135,16 +138,16 @@ func handlePetstoreAPIRequestPost(c echo.Context) error {
 
     fmt.Printf("Unmarshalled Data: %+v\n", data)
 
-	// Create a new POST request using the body from the incoming request
-	req, err := http.NewRequest("POST", apiURL, c.Request().Body)
-	if err != nil {
-		// Handle error if new request creation fails
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
-	}
+    // Create a new POST request using the original body
+    req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(originalBody))
+    if err != nil {
+        // Handle error if new request creation fails
+        return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+    }
 
-	// Set headers for the request
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
+    // Set headers for the request
+    req.Header.Add("Accept", "application/json")
+    req.Header.Add("Content-Type", "application/json")
 
 	// Print the request URL for debugging
 	// fmt.Println("Request URL:", apiURL)
