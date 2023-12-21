@@ -91,23 +91,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // API POST newPet
     var postNewPetList = [
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "available" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "available" },
             text: "Add new pet FortiPet [id:999]"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "/bin/ls" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "/bin/ls" },
             text: "New Pet with Command Injection"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "<script>alert(123)</script>" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "<script>alert(123)</script>" },
             text: "New Pet with Cross-Site-Scripting"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
             text: "New Pet with Zero-Day"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" },
             text: "New Pet with Malware"
         },
     ];
@@ -123,23 +123,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // API PUT Pet
     var putPetList = [
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "sold" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "sold" },
             text: "Modify FortiPet [id:999]"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "ls;;cmd.exe" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "ls;;cmd.exe" },
             text: "Modify FortiPet with Command Injection"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "<script>alert(123)</script>" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "<script>alert(123)</script>" },
             text: "Modify FortiPet with Cross-Site-Scripting"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "xx& var1=l var2=s;$var1$var2" },
             text: "Modify FortiPet with Zero-Day"
         },
         {
-            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "so cute" }], "status": "X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" },
+            value: { "id": 999, "name": "FortiPet", "category": { "id": 1, "name": "Dogs" }, "photoUrls": ["fortipet.png"], "tags": [{ "id": 0, "name": "cute" }], "status": "X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*" },
             text: "Modify FortiPet with Malware"
         },
     ];
