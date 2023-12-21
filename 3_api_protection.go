@@ -406,6 +406,25 @@ func generateRandomValue(values []string) string {
 	return values[random.Intn(len(values))]
 }
 
+func randomString(minLength, maxLength int) string {
+    var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@_-[]{}$!")
+    var startingLetters = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+    source := rand.NewSource(time.Now().UnixNano())
+    random := rand.New(source)
+    
+    length := random.Intn(maxLength-minLength+1) + minLength
+
+    var sb strings.Builder
+    sb.WriteRune(startingLetters[random.Intn(len(startingLetters))]) // Start with A-Z
+
+    for i := 1; i < length; i++ {
+        sb.WriteRune(letters[random.Intn(len(letters))])
+    }
+
+    return sb.String()
+}
+
 func sendPostRequest(petStoreURL string, userAgent string, pet PetstorePet, xForwardedFor string) error {
 	jsonData, err := json.Marshal(pet)
 	if err != nil {
@@ -590,15 +609,19 @@ func handleAPITrafficGenerator(c echo.Context) error {
 	requestCount := 1800
 	petNames := []string{"FortiPuma", "FortiFish", "FortiSpider", "FortiTiger", "FortiLion", "FortiShark", "FortiSnake", "FortiMonkey", "FortiFox", "FortiRam", "FortiEagle", "FortiBee", "FortiCat", "FortiDog", "FortiAnt", "FortiWasp", "FortiPanter", "FortiGator", "FortiOwl", "FortiWildcats"}
 	petTypes := []string{"Puma", "Fish", "Spider", "Tiger", "Lion", "Shark", "Snake", "Monkey", "Fox", "Ram", "Eagle", "Bee", "Cat", "Dog", "Ant", "Wasp", "Panter", "Gator", "Owl", "Wildcats"}
+	petTags := []string{"Friendly", "Playful", "Loyal", "Energetic", "Calm", "Trained", "Rescue", "Fluffy", "Affectionate", "Smart", "Active", "Gentle", "Senior", "Cute", "Good"}
 	statuses := []string{"available", "pending", "sold"}
 
 	for i := 0; i < requestCount; i++ {
 		randomName := generateRandomValue(petNames)
 		randomPet := generateRandomValue(petTypes)
+		randomTag := generateRandomValue(petTags)
 		randomStatus := generateRandomValue(statuses)
 		randomStatusNew := generateRandomValue(statuses)
 		randomIP := randomPublicIP()
 		randomID := rand.Intn(1001)
+		randomPhotoUrl1 := randomString(2, 10)
+		randomPhotoUrl2 := randomString(2, 10)
 		userAgent := USER_AGENT
 		petStoreURL := PETSTORE_URL
 
@@ -609,11 +632,11 @@ func handleAPITrafficGenerator(c echo.Context) error {
 				Name: randomPet,
 			},
 			Name:      randomName,
-			PhotoUrls: []string{randomPet + ".png"},
+			PhotoUrls: []string{randomPhotoUrl1 + ".png", randomPhotoUrl2 + ".png"},
 			Tags: []Tag{
 				{
 					ID:   randomID,
-					Name: randomName,
+					Name: randomTag,
 				},
 			},
 			Status: randomStatus,
@@ -626,11 +649,11 @@ func handleAPITrafficGenerator(c echo.Context) error {
 				Name: randomPet,
 			},
 			Name:      randomName,
-			PhotoUrls: []string{randomPet + ".png"},
+			PhotoUrls: []string{randomPhotoUrl1 + ".png", randomPhotoUrl2 + ".png"},
 			Tags: []Tag{
 				{
 					ID:   randomID,
-					Name: randomName,
+					Name: randomTag,
 				},
 			},
 			Status: randomStatusNew,
