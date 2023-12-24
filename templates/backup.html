@@ -44,37 +44,36 @@
                         class="fortiweb-icon mr-2">
                     <h1>FortiWeb Demo Tool</h1>
                 </div>
+
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="darkModeSwitch">
                     <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
                 </div>
             </div>
 
-            <!-- Button toolbar -->
-            <div class="btn-toolbar justify-content-between mb-3" role="toolbar"
-                aria-label="Toolbar with button groups">
-                <!-- First Button Group -->
-                <div class="btn-group" role="group" aria-label="Protection group">
-                    <button type="button" class="btn btn-primary active" role="button" aria-pressed="true"
+            <!-- Buttons -->
+            <div class="category-buttons d-flex justify-content-between">
+                <div class="d-flex">
+                    <button type="button" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"
                         onclick="showCategory('web-protection')">Web Protection</button>
-                    <button type="button" class="btn btn-primary" role="button" aria-pressed="false"
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
                         onclick="showCategory('bot-mitigation')">Bot Mitigation</button>
-                    <button type="button" class="btn btn-primary" role="button" aria-pressed="false"
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
                         onclick="showCategory('api-protection')">API Protection</button>
-                    <button type="button" class="btn btn-primary" role="button" aria-pressed="false"
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('dos-protection')">DOS Protection</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
+                        onclick="showCategory('machine-learning')">Machine Learning</button>
+                    <button type="button" class="btn btn-primary btn-sm" role="button" aria-pressed="false"
                         onclick="showCategory('rest-api')">REST API</button>
                 </div>
-
-                <!-- Second Button Group  -->
-                <div class="btn-group" role="group" aria-label="Miscellaneous group">
-                    <button type="button" class="btn btn-secondary" role="button" aria-pressed="false"
+                <div class="d-flex">
+                    <button type="button" class="btn btn-outline-success btn-sm me-2" role="button" aria-pressed="false"
                         onclick="showCategory('health-check')">Health Check</button>
-                    <button type="button" class="btn btn-secondary" role="button" aria-pressed="false"
+                    <button type="button" class="btn btn-outline-warning btn-sm" role="button" aria-pressed="false"
                         onclick="showCategory('Configuration')">Configuration</button>
                 </div>
             </div>
-
-
         </div>
     </div>
 
@@ -83,23 +82,18 @@
         <!-- CATEGORY WEB PROTECTION -->
         <div id="web-protection" class="category">
 
-            <!-- Nikto Web Vulnerability Scan -->
-            <div class="row">
+            <div class="row"> <!-- A new row for Nikto Web Scan -->
                 <div class="col-12">
+
+                    <!-- Nikto Web Scan -->
                     <div class="mb-4 tile">
-                        <h5 class="mb-3">Web Vulnerability Scanner</h5>
-                        <p class="mb-2">Select a Country and perform a Web Vulnerability Scan.</p>
+                        <p class="mb-2">Perform a Vulnerability Web Scan from the selected Country.</p>
                         <div class="d-flex align-items-center mb-3">
-                            <!-- Country List -->
                             <select id="country" class="form-select form-select-sm me-2" style="width: 250px;"></select>
-                            <button type="button" class="btn btn-primary btn-sm me-2" onclick="performFullWebScan()">
+                            <button type="button" class="btn btn-primary btn-sm me-2" onclick="performWebScan()">
                                 <span id="web-scan-spinner" class="spinner-border spinner-border-sm" role="status"
                                     aria-hidden="true" style="display: none;"></span>
-                                Full Web Scan</button>
-                            <button type="button" class="btn btn-primary btn-sm me-2" onclick="performLightWebScan()">
-                                <span id="web-scan-spinner" class="spinner-border spinner-border-sm" role="status"
-                                    aria-hidden="true" style="display: none;"></span>
-                                Light Web Scan</button>
+                                Web Scan</button>
                             <button type="button" class="btn btn-secondary btn-sm"
                                 onclick="resetWebScan()">Reset</button>
                         </div>
@@ -107,85 +101,83 @@
                             <div id="web-scan-result" class="action-result border p-3" style="display: none;"></div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            <!-- Generic Attacks -->
-            <div class="row">
-                <div class="col-12">
+
+            <div class="row"> <!-- Creating a row -->
+
+                <div class="col-md-3 mb-1 d-flex flex-column"> <!-- Column for the username tile -->
+                    <div class="tile flex-grow-1">
+
+                        <!-- Username List -->
+                        <select id="username" class="form-select form-select-sm mb-4" style="width: 175px;"></select>
+                        <p>Select a user from the list to generate an attack scenario.</p>
+                        <p>When you have selected a user, you can run one of the attacks on the right side of the
+                            screen.</p>
+                        <p>Once the attack is over, check the Attack Logs and make sure to show the "username" column.
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="col-md-9 d-flex flex-column">
+
+                    <!-- Command Injection -->
                     <div class="mb-4 tile">
-                        <h5 class="mb-3">Generic Attacks</h5>
-                        <p class="mb-2">Select a user from the list and generate an attack scenario.</p>
+                        <p class="mb-2">Perform a Command Injection Attack.</p>
                         <div class="d-flex align-items-center mb-3">
-
-                            <!-- Username List -->
-                            <select id="username" class="form-select form-select-sm me-2"
-                                style="width: 175px;"></select>
-
-                            <!-- Command Injection -->
                             <button type="button" class="btn btn-primary btn-sm me-2"
-                                onclick="performCommandInjection()">Command Injection</button>
-
-                            <!-- SQL Injection -->
-                            <button type="button" class="btn btn-primary btn-sm me-2"
-                                onclick="performSQLInjection()">SQL Injection</button>
-
-                            <!-- Cross-site Scripting -->
-                            <button type="button" class="btn btn-primary btn-sm me-2"
-                                onclick="performCrossSiteScripting()">Cross-site Scripting</button>
-
-                            <!-- Zero Day Command Injection -->
-                            <button type="button" class="btn btn-primary btn-sm me-2"
-                                onclick="performZeroDayCommandInjection()">Zero Day Command Injection</button>
-
-                            <!-- Zero Day Cross-site Scripting -->
-                            <button type="button" class="btn btn-primary btn-sm me-2"
-                                onclick="performZeroDayCrossSiteScripting()">Zero Day Cross-site Scripting</button>
-
-                            <!-- Reset -->
+                                onclick="performCommandInjection()">
+                                <span id="spinner" class="spinner-border spinner-border-sm" role="status"
+                                    aria-hidden="true" style="display: none;"></span>
+                                Command Injection
+                            </button>
                             <button type="button" class="btn btn-secondary btn-sm"
-                                onclick="resetGenericAttack()">Reset</button>
+                                onclick="resetCommandInjection()">Reset</button>
                         </div>
+                        <div id="command-injection-container">
+                            <iframe id="command-injection-result" class="action-result border"
+                                style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
+                        </div>
+                        <div id="command-injection-error-result" class="action-result border p-3 courier-text"
+                            style="display: none;"></div>
+                    </div>
 
-                        <!-- Result -->
-                        <div id="generic-attack-container">
-                            <iframe id="generic-attack-result" class="action-result border"
+                    <!-- SQL Injection -->
+                    <div class="mb-4 tile">
+                        <p class="mb-2">Perform a SQL Injection Attack.</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <button type="button" class="btn btn-primary btn-sm me-2"
+                                onclick="performSQLInjection()">SQL
+                                Injection</button>
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                onclick="resetSQLInjection()">Reset</button>
+                        </div>
+                        <div id="sql-injection-container">
+                            <iframe id="sql-injection-result" class="action-result border"
                                 style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Machine Learning Traffic -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="tile">
-                        <h5 class="mb-4">Machine Learning</h5>
-                        <p class="mb-2">Generate 3000 random HTTP POST requests to populate the bank application form.
-                        </p>
+                    <!-- Cross Site Scripting -->
+                    <div class="mb-4 tile">
+                        <p class="mb-2">Perform a Cross Site Scripting Attack.</p>
                         <div class="d-flex align-items-center mb-3">
                             <button type="button" class="btn btn-primary btn-sm me-2"
-                                onclick="performBankFormTraffic()">
-                                <span id="bank-form-traffic-spinner" class="spinner-border spinner-border-sm"
-                                    role="status" aria-hidden="true" style="display: none;"></span>
-                                Run</button>
+                                onclick="performCrossSiteScripting()">Cross Site Scripting</button>
                             <button type="button" class="btn btn-secondary btn-sm"
-                                onclick="resetWebScan()">Reset</button>
-                            <div id="bank-form-traffic-additional-text" class="additional-text mt-4 mb-4"></div>
+                                onclick="resetCrossSiteScripting()">Reset</button>
                         </div>
-                        <div id="bank-form-traffic-container">
-                            <div id="bank-form-traffic-result" class="action-result border p-3" style="display: none;">
-                            </div>
+                        <div id="cross-site-scripting-container">
+                            <iframe id="cross-site-scripting-result" class="action-result border"
+                                style="width: 100%; display: none;" onload="resizeIframe(this)"></iframe>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Cookie Security -->
-            <div class="row">
-                <div class="col-12">
+                    <!-- Cookie Security -->
                     <div class="mb-4 tile">
-                        <h5 class="mb-3">Cookie Security</h5>
                         <p class="mb-2">Perform a Cookie Based Attack.</p>
                         <div class="d-flex align-items-center mb-3">
                             <button type="button" class="btn btn-primary btn-sm me-2"
@@ -197,13 +189,11 @@
                         <div id="cookie-security-container">
                             <div id="initial-cookie-additional-text" class="additional-text mt-4 mb-4"></div>
                             <div id="step1" class="additional-text mt-4 mb-4">
-                                <div id="initial-cookie" class="action-result border p-3" style="display: none;">
-                                </div>
+                                <div id="initial-cookie" class="action-result border p-3" style="display: none;"></div>
                             </div>
                             <div id="modified-cookie-additional-text" class="additional-text mt-4 mb-4"></div>
                             <div id="step2" class="additional-text mt-4 mb-4">
-                                <div id="modified-cookie" class="action-result border p-3" style="display: none;">
-                                </div>
+                                <div id="modified-cookie" class="action-result border p-3" style="display: none;"></div>
                             </div>
                             <div id="web-page-iframe-additional-text" class="additional-text mt-4 mb-4"></div>
                             <div id="step3" class="additional-text mt-4 mb-4">
@@ -216,12 +206,12 @@
                 </div>
             </div>
 
-            <!-- Credential Stuffing Defense -->
-            <div class="row">
+            <div class="row"> <!-- A new row for Credential Stuffing Defense -->
                 <div class="col-12">
+
+                    <!-- Credential Stuffing Defense -->
                     <div class="mb-4 tile">
-                        <h5 class="mb-3">Credential Stuffing Defense</h5>
-                        <p class="mb-2">Perform an authentication witha stolen username / password.</p>
+                        <p class="mb-2">Perform a Credential Stuffing Attack.</p>
                         <div class="d-flex align-items-center mb-3">
                             <select id="stolen-credential" class="form-select form-select-sm me-2"
                                 style="width: 250px;"></select>
@@ -239,8 +229,6 @@
 
                 </div>
             </div>
-
-
         </div>
 
         <!-- CATEGORY BOT MITIGATION -->

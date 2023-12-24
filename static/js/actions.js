@@ -255,7 +255,7 @@ function resetWebScan() {
 // BOT THRESHOLDS                                                                //
 ///////////////////////////////////////////////////////////////////////////////////
 
-function performBotThreshold() {
+function performBotCrawler() {
     fetch('/bot-threshold', {
         method: 'GET',
         headers: {
