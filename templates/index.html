@@ -110,11 +110,11 @@
                 </div>
             </div>
 
-            <!-- Generic Attacks -->
+            <!-- Web Attacks -->
             <div class="row">
                 <div class="col-12">
                     <div class="mb-4 tile">
-                        <h5 class="mb-3">Generic Attacks</h5>
+                        <h5 class="mb-3">Web Attacks</h5>
                         <p class="mb-2">Select a user from the list and generate an attack scenario.</p>
                         <div class="d-flex align-items-center mb-3">
 
@@ -159,8 +159,8 @@
             <!-- Machine Learning Traffic -->
             <div class="row">
                 <div class="col-12">
-                    <div class="tile">
-                        <h5 class="mb-4">Machine Learning</h5>
+                    <div class="mb-4 tile">
+                        <h5 class="mb-3">Machine Learning</h5>
                         <p class="mb-2">Generate 3000 random HTTP POST requests to populate the bank application form.
                         </p>
                         <div class="d-flex align-items-center mb-3">
@@ -171,7 +171,7 @@
                                 Run</button>
                             <button type="button" class="btn btn-secondary btn-sm"
                                 onclick="resetWebScan()">Reset</button>
-                            <div id="bank-form-traffic-additional-text" class="additional-text mt-4 mb-4"></div>
+                            <div id="bank-form-traffic-additional-text" class="additional-text mb-4"></div>
                         </div>
                         <div id="bank-form-traffic-container">
                             <div id="bank-form-traffic-result" class="action-result border p-3" style="display: none;">
@@ -221,7 +221,7 @@
                 <div class="col-12">
                     <div class="mb-4 tile">
                         <h5 class="mb-3">Credential Stuffing Defense</h5>
-                        <p class="mb-2">Perform an authentication witha stolen username / password.</p>
+                        <p class="mb-2">Authentication with a stolen username / password.</p>
                         <div class="d-flex align-items-center mb-3">
                             <select id="stolen-credential" class="form-select form-select-sm me-2"
                                 style="width: 250px;"></select>
@@ -248,7 +248,7 @@
 
             <!-- Biometrics Based Detection -->
             <div class="mb-4 tile">
-                <p class="mb-2">Biometrics Based Detection</p>
+                <h5 class="mb-3">Biometrics Based Detection</h5>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2"
                         onclick="performBotBiometric()">Run</button>
@@ -265,7 +265,7 @@
 
             <!-- Threshold Based Detection -->
             <div class="mb-4 tile">
-                <p class="mb-2">Threshold Based Detection</p>
+                <h5 class="mb-3">Threshold Based Detection</h5>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2"
                         onclick="performBotCrawler()">Crawler</button>
@@ -282,7 +282,7 @@
 
             <!-- Bot Deception -->
             <div class="mb-4 tile">
-                <p class="mb-2">Bot Deception</p>
+                <h5 class="mb-3">Bot Deception</h5>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2" onclick="viewPageSource()">1. View
                         Page
@@ -302,7 +302,7 @@
 
             <!-- Known BOTS -->
             <div class="mb-4 tile">
-                <p class="mb-2">Known Bots</p>
+                <h5 class="mb-3">Known Bots</h5>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2" onclick="performKnownBots()">Run</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="resetKnownBots()">Reset</button>
@@ -316,9 +316,9 @@
                 </div>
             </div>
 
-            <!-- ML Based Bot Detection -->
+            <!-- Machine Learning Based Bot Detection -->
             <div class="mb-4 tile">
-                <p class="mb-2">ML Based Bot Detection</p>
+                <h5 class="mb-3">Machine Learning Based Bot Detection</h5>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2" onclick="performMLBot()">Run</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="resetMLBot()">Reset</button>
@@ -338,7 +338,7 @@
             <!-- API Requests -->
             <div class="tile">
                 <div class="d-flex mb-2 align-items-center justify-content-between">
-                    <div class="mb-2 d-flex">Send API Request to the Petstore Server.</div>
+                    <h5 class="mb-3">API Requests to the Petstore Server</h5>
                     <div d-flex><button type="button" class="btn btn-secondary btn-sm me-2"
                             onclick="resetPetstoreResult()">Reset</button></div>
                 </div>
@@ -408,7 +408,8 @@
 
             <!-- Generate API Traffic -->
             <div class="mb-4 tile">
-                <p class="mb-2">Generate API Traffic.</p>
+                <h5 class="mb-3">Machine Learning Based API Protection</h5>
+                <p class="mb-2">Generate API traffic.</p>
                 <div class="d-flex align-items-center mb-3">
                     <button type="button" class="btn btn-primary btn-sm me-2" onclick="generateAPITraffic()">
                         <span id="api-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -676,16 +677,6 @@
                             IP</label>
                         <div class="col-9">
                             <input type="text" class="form-control form-control-sm" id="fwb-mgt-ip">
-                        </div>
-                    </div>
-
-                    <!-- MACHINE LEARNING -->
-                    <br>
-                    <h5>Machine Learning</h5><br>
-                    <div class="row mb-3">
-                        <label for="policy" class="form-label col-3 text-start">Policy Name</label>
-                        <div class="col-9">
-                            <input type="text" class="form-control form-control-sm" id="policy">
                         </div>
                     </div>
 
