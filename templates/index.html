@@ -331,26 +331,6 @@
         <!-- CATEGORY API Protection -->
         <div id="api-protection" class="category" style="display:none;">
 
-            <!-- Generate API Traffic -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-4 tile">
-                        <h5 class="mb-3">Machine Learning Based API Protection</h5>
-                        <p class="mb-2">Generate API traffic.</p>
-                        <div class="d-flex mb-3">
-                            <button type="button" class="btn btn-primary btn-sm me-2" onclick="generateAPITraffic()">
-                                <span id="api-spinner" class="spinner-border spinner-border-sm" role="status"
-                                    aria-hidden="true" style="display: none;"></span>Run</button>
-                            <button type="button" class="btn btn-secondary btn-sm me-2"
-                                onclick="resetAPITraffic()">Reset</button>
-                        </div>
-                        <div id="api-traffic-container">
-                            <div id="api-traffic-result" class="action-result border p-3" style="display: none;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- API Requests -->
             <div class="row">
                 <div class="col-12">
@@ -423,6 +403,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Generate API Traffic -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-4 tile">
+                        <h5 class="mb-3">Machine Learning Based API Protection</h5>
+                        <p class="mb-2">Generate API traffic.</p>
+                        <div class="d-flex mb-3">
+                            <button type="button" class="btn btn-primary btn-sm me-2" onclick="generateAPITraffic()">
+                                <span id="api-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    style="display: none;"></span>Run</button>
+                            <button type="button" class="btn btn-secondary btn-sm me-2" onclick="resetAPITraffic()">Reset</button>
+                        </div>
+                        <div id="api-traffic-container">
+                            <div id="api-traffic-result" class="action-result border p-3" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- CATEGORY REST API -->
