@@ -33,8 +33,8 @@ func main() {
 	e.POST("/api/config", SaveConfigHandler)
 
 	// Start the server
-	log.Println("Starting server on port 8080")
-	err := e.Start(":8080")
+	log.Println("Starting server on port 9090")
+	err := e.Start(":9090")
 	if err != nil {
 		log.Fatalf("Server failed to start due to error: %v", err)
 	}
