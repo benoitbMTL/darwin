@@ -112,6 +112,7 @@ func handlePetstoreAPIRequestGet(c echo.Context) error {
 
     // Return the response with the curl command
     // fmt.Printf("Response Object: %+v\n", response)
+	fmt.Printf("Response data: %v\n", response["data"])
 	return c.JSON(http.StatusOK, response)
 }
 
